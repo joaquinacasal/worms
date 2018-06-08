@@ -10,3 +10,10 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 
 ## Instrucciones de uso
 1. Clonar el repositorio
+
+
+
+
+
+## Links útiles
+* Informe: https://docs.google.com/document/d/1z8gO7SBtF2PPZrYFyjVvekyE1n3bp_KuHaufdjVa_4s/edit?usp=sharing
