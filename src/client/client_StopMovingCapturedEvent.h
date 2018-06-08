@@ -1,0 +1,22 @@
+#ifndef __STOPMOVINGCAPTUREDEVENT__
+#define __STOPMOVINGCAPTUREDEVENT__
+
+#include "client_ICapturedEvent.h"
+#include "../common/common_SocketProtocol.h"
+
+class StopMovingCapturedEvent : public ICapturedEvent {
+private:
+    SocketProtocol& socket_protocol;
+
+    StopMovingCapturedEvent(const StopMovingCapturedEvent&) = delete;
+    StopMovingCapturedEvent& operator=(const StopMovingCapturedEvent&) = delete;
+public:
+    StopMovingCapturedEvent(SocketProtocol& _socket_protocol);
+
+    void send();
+
+    ~StopMovingCapturedEvent();
+};
+
+
+#endif //__STOPMOVINGCAPTUREDEVENT__
