@@ -154,6 +154,32 @@ public:
       std::cout << "EXITOSO\n";
 
     }
+
+    void testDescuentoDeVidaPorCaida( void )
+    {
+      std::string description = "Test de descuento de vida por caida";
+      std::cout << "\nIniciando test: '" << description << "' ... ";
+      TS_TRACE(description);
+      Stage st(ancho_stage, largo_stage);
+
+      size_t position_y = 35;
+      for (int i = 1; i < 30; i++){
+        st.add_worm(i, life, initial_position_x + i * 10, position_y);
+        Worm* actual_worm = st.get_worm(i);
+        for (size_t i = 0; i < 1000; i++){
+          st.step(actual_worm);
+          actual_worm->check_falling();
+        }
+        if (i <= 25){
+          TS_ASSERT_EQUALS( life - i, actual_worm->get_life_points());
+        } else {
+          TS_ASSERT_EQUALS( life - 25, actual_worm->get_life_points());
+        }
+        position_y += 10;
+      }
+      std::cout << "EXITOSO\n";
+
+    }
 };
 
 class BeamTest : public CxxTest::TestSuite

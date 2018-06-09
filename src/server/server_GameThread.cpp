@@ -101,11 +101,16 @@ void GameThread::tick_turn(){
   IEvent* temporal_event = NULL;
   Player* actual_player = turns_manager.get_selected_player();
   Worm* actual_worm = actual_player->get_selected_worm();
+  size_t initial_life = actual_worm->get_life_points();
 
   bool weapon_was_used = false;
 
   while (alive && (turn_chrono > 0 || actual_player->has_an_active_weapon())) {
     auto start = get_time::now();
+    // Chequeo las caidas y termino el turno si el actual recibe danio.
+    check_falling();
+    if (initial_life > actual_worm->get_life_points())
+      turn_chrono = 0;
     // Si ya termina el turno y siguen los ataques dejo de moverlo.
     if (turn_chrono == 0) actual_worm->stop_moving();
     // Si ya termino el turno no ejecuta ninguna acción
@@ -116,7 +121,6 @@ void GameThread::tick_turn(){
       } catch (...){
           std::cout << "Un cliente cerró la conexión\n";
           this->stop();
-          std::cout << "DEBUG: Ya termino de stopear el serverThread\n";
 
           delete temporal_event;
           break;
@@ -261,11 +265,19 @@ bool GameThread::was_connected() const {
   return has_been_connected;
 }
 
+void GameThread::check_falling(){
+  std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
+  for (Worm* worm : all_worms_alive){
+    worm->check_falling();
+  }
+}
+
 void GameThread::check_radiocontrolled_explosions(){
   Player* actual_player = turns_manager.get_selected_player();
   if (actual_player->is_radiocontrolled_active())
     actual_player->check_radiocontrolled_explosions();
 }
+
 
 GameThread::~GameThread(){
   delete stage;

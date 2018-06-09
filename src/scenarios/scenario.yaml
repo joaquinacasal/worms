@@ -11,6 +11,10 @@ worms:
     image: worm.png
     x: 100
     y: 100
+  - id: 3
+    image: worm.png
+    x: 140
+    y: 100
 beams:
   - angle: 0
     id: 1
@@ -24,3 +28,9 @@ beams:
     length: 8
     x: 292
     y: 333
+  - angle: 0
+    id: 3
+    image: grdl0.png
+    length: 8
+    x: 140
+    y: 90

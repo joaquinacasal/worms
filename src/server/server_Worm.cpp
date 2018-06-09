@@ -3,6 +3,7 @@
 Worm::Worm(size_t id, size_t life, b2Body* body): movement(body){
   this->id = id;
   this->life = life;
+  this->last_solid_height = movement.get_vertical_position();
 }
 
 size_t Worm::get_id(){
@@ -89,4 +90,24 @@ void Worm::correct_angle(){
 
 void Worm::apply_force(float x, float y){
   this->movement.apply_force(x, y);
+}
+
+bool Worm::is_colliding(){
+  return this->movement.is_colliding();
+}
+
+void Worm::check_falling(){
+  float vertical_vel = get_vertical_velocity();
+  float vertical_pos = get_vertical_position();
+  if (is_colliding() || vertical_vel >= 0) {
+    if (is_colliding()){
+      float difference = last_solid_height - vertical_pos;
+      if (difference > 20) {
+        size_t life_points = (difference - 20) / 10;
+        if (life_points > 25) life_points = 25;
+        subtract_life(life_points);
+      }
+    }
+    last_solid_height = vertical_pos;
+  }
 }

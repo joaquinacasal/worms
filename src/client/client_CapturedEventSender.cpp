@@ -13,12 +13,8 @@ void CapturedEventSender::run(){
     blocking_queue.pop(event);
     if (!event) continue;
     event->send();
-    if (!event->continue_sending()) {
-      printf("DEBUG: DEVOLVIO FALSO EL evento\n");
+    if (!event->continue_sending())
       connected = false;
-    } else {
-      printf("DEBUG: DEVOLVIO Verdadero EL evento\n");
-    }
     delete event;
   }
 }

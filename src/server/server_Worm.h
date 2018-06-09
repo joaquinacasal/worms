@@ -13,9 +13,15 @@ private:
   size_t life;
   Movement movement;
 
+  float last_solid_height;
+
   // No copiable.
   Worm(const Worm&) = delete;
   Worm& operator=(const Worm&) = delete;
+
+  // Método privado que devuelve un booleano indicando si está colisionando
+  // con algún objeto.
+  bool is_colliding();
 public:
   // Contructor, recibe el id, la vida inicial y el body de Box2D que lo
   // representa en el escenario.
@@ -87,6 +93,8 @@ public:
 
   // Aplica la fuerza recibida.
   void apply_force(float x, float y);
+
+  void check_falling();
 };
 
 

@@ -99,6 +99,12 @@ void Movement::correct_angle(){
 }
 
 void Movement::apply_force(float x, float y){
-  printf("DEBUG: Aplicando fuerza %f, %f\n", x, y);
   this->body->ApplyForce( b2Vec2(x, y), body->GetWorldCenter() );
+}
+
+bool Movement::is_colliding(){
+  for (b2ContactEdge* edge = body->GetContactList(); edge; edge = edge->next){
+    return true;
+  }
+  return false;
 }

@@ -93,7 +93,6 @@ void DrawableFactory::create_drawable(){
       create_radiocontrolled_drawable();
       break;
     case PROTOCOL_CLOSED_CON:
-      printf("\n\n\n\n\n\n\n\nDEBUG: RECIBE EL PROTOCOL CLOSED CON\n\n\n\n\n\n\n\n\n\n\n");
       this->stop();
       create_closed_connection_drawable();
       break;

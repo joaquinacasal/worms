@@ -45,6 +45,7 @@ private:
     void send_weapon_information_to_clients();
     void notif_clients();
 
+    void check_falling();
     void check_radiocontrolled_explosions();
 public:
     // Recibe el puerto donde escuchará y el nombre del archivo
