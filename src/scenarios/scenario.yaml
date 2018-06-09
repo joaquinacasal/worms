@@ -1,12 +1,16 @@
 scenario:
   background: background.png
-  heigth: 40
-  width: 71
+  heigth: 1000
+  width: 1000
 worms:
   - id: 1
     image: worm.png
     x: 450
     y: 129
+  - id: 2
+    image: worm.png
+    x: 100
+    y: 100
 beams:
   - angle: 0
     id: 1

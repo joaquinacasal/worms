@@ -18,6 +18,8 @@ void GameThread::create_stage(string map_file, int number_players){
   // Verifico que la cantidad de gusanos sea menor o igual a la cantidad de jugadores
   if (worms_DTO.size() < number_players) {
     throw std::runtime_error("Número de jugadores es mayor a la cantidad de gusanos.\n");
+  } else if (number_players == 0) {
+    throw std::runtime_error("Debe jugar al menos un jugador.\n");
   }
 
   stage = new Stage((size_t)scenario_DTO.get_width(), (size_t)scenario_DTO.get_height());
@@ -69,24 +71,6 @@ void GameThread::create_stage(string map_file, int number_players){
       stage->add_beam(beam.get_id(), beam.get_length(), beam.get_x(), \
                                         beam.get_y(), beam.get_angle());
   }
-
-
-/*
-  // TODO: Acá debería leer el archivo y crear el stage en base a eso.
-  // Además debería crear los equipos.
-  stage = new Stage(1000,100);
-  stage->add_beam(1, 60, 100, 50, 0);
-  stage->add_worm(1, 100, 100, 100);
-  stage->add_worm(2, 100, 200, 10);
-  Armory* armory1 = new Armory(*stage);
-  Armory* armory2 = new Armory(*stage);
-  Player* p1 = new Player(armory1);
-  Player* p2 = new Player(armory2);
-  p1->add_worm(stage->get_worm(1));
-  p2->add_worm(stage->get_worm(2));
-  turns_manager.add_player(p1);
-  turns_manager.add_player(p2);
-*/
 }
 
 
