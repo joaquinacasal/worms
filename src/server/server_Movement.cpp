@@ -85,3 +85,11 @@ void Movement::teletransport(int x, int y){
 bool Movement::is_facing_right(){
   return last_movement == RIGHT;
 }
+
+void Movement::make_movable(){
+  this->body->SetType(b2_dynamicBody);
+}
+
+void Movement::make_immovable(){
+  this->body->SetType(b2_staticBody);
+}

@@ -181,6 +181,8 @@ void Stage::explode(float x, float y, float radius, float epicentre_damage){
     // Resto el epicentre_damage, si es igual al radio resto 0.
     affected_worms[i]->subtract_life( \
       (size_t)((radius - distance) / radius * epicentre_damage) );
+    affected_worms[i]->make_movable();
+    // TODO: Hacer que las explosiones los hagan volar.
   }
 }
 

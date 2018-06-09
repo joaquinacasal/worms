@@ -221,6 +221,11 @@ void GameThread::add_all_clients(){
 }
 
 void GameThread::changeTurn(){
+  // Seteo todos los gusanos en no movibles.
+  std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
+  for (Worm* worm : all_worms_alive){
+    worm->make_immovable();
+  }
   if (server_thread->is_alive()) server_thread->changeTurn();
   // Vacío la cola.
   IEvent* temporal_event = NULL;
@@ -228,6 +233,8 @@ void GameThread::changeTurn(){
     delete temporal_event;
   }
   turn_chrono = TURN_LENGTH;
+  Worm* actual_worm = turns_manager.get_selected_player()->get_selected_worm();
+  actual_worm->make_movable();
 }
 
 bool GameThread::is_alive() const {

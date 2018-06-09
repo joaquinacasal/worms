@@ -75,6 +75,12 @@ public:
   // Devuelve true si el gusano está mirando hacia la derecha, false en caso
   // contrario.
   bool is_facing_right();
+
+  // Hace que el gusano pueda moverse
+  void make_movable();
+
+  // Hace que el gusano no pueda moverse
+  void make_immovable();
 };
 
 

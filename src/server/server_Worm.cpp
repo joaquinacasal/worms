@@ -74,3 +74,11 @@ void Worm::teletransport(int x, int y){
 bool Worm::is_facing_right(){
   return this->movement.is_facing_right();
 }
+
+void Worm::make_movable(){
+  this->movement.make_movable();
+}
+
+void Worm::make_immovable(){
+  this->movement.make_immovable();
+}

@@ -73,6 +73,12 @@ public:
   // contrario.
   bool is_facing_right();
 
+  // Hace que el cuerpo pueda moverse
+  void make_movable();
+
+  // Hace que el cuerpo no pueda moverse
+  void make_immovable();
+
 };
 
 
