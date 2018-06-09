@@ -81,6 +81,9 @@ public:
 
   // Corrige el ángulo del cuerpo, seteandolo a 0.
   void correct_angle();
+
+  // Aplica la fuerza recibida.
+  void apply_force(float x, float y);
 };
 
 

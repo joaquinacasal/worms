@@ -86,3 +86,7 @@ void Worm::make_immovable(){
 void Worm::correct_angle(){
   this->movement.correct_angle();
 }
+
+void Worm::apply_force(float x, float y){
+  this->movement.apply_force(x, y);
+}

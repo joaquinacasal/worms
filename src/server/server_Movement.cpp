@@ -97,3 +97,8 @@ void Movement::make_immovable(){
 void Movement::correct_angle(){
   this->body->SetTransform(this->body->GetPosition(), 0);
 }
+
+void Movement::apply_force(float x, float y){
+  printf("DEBUG: Aplicando fuerza %f, %f\n", x, y);
+  this->body->ApplyForce( b2Vec2(x, y), body->GetWorldCenter() );
+}
