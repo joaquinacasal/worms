@@ -78,6 +78,9 @@ public:
   // y eliminar dicha munición.
   void check_radiocontrolled_explosions();
 
+  // Devuelve un booleano indicando si el jugador tiene un arma activa.
+  bool has_an_active_weapon();
+
   // Destructor.
   ~Player();
 };

@@ -102,10 +102,12 @@ void GameThread::tick_turn(){
   Player* actual_player = turns_manager.get_selected_player();
   Worm* actual_worm = actual_player->get_selected_worm();
 
-  while (alive && (turn_chrono > 0 || actual_player->is_dynamite_active())) {
+  bool weapon_was_used = false;
+
+  while (alive && (turn_chrono > 0 || actual_player->has_an_active_weapon())) {
     auto start = get_time::now();
     // Si ya termina el turno y siguen los ataques dejo de moverlo.
-    if (turn_chrono <= 0) actual_worm->stop_moving();
+    if (turn_chrono == 0) actual_worm->stop_moving();
     // Si ya termino el turno no ejecuta ninguna acción
     if (turn_chrono > 0 && this->safe_queue.pop(temporal_event)){
       try {
@@ -123,14 +125,27 @@ void GameThread::tick_turn(){
     stage->step(actual_worm);
 
     //Chequeo las explosiones del teledirigido.
-    check_radiocontrolled_explosions();
+    if (actual_player->is_radiocontrolled_active())
+      check_radiocontrolled_explosions();
     notif_clients();
     std::this_thread::sleep_for(std::chrono::milliseconds(16));
     auto end = get_time::now();
     turn_chrono -= std::chrono::duration_cast<ms>(end - start).count();
+    if (turn_chrono < 0) turn_chrono = 0;
     if (actual_player->is_dynamite_active()){
       actual_player->discount_dynamite_time(
         std::chrono::duration_cast<ms>(end - start).count());
+    }
+
+    if (!weapon_was_used) {
+      // Si nunca se usó el arma, me fijo si se activó.
+      if (actual_player->has_an_active_weapon())
+        weapon_was_used = true;
+    } else {
+      // Si alguna vez fue usada un arma, entonces cuando
+      // se desactive termina el turno.
+      if (!actual_player->has_an_active_weapon())
+      turn_chrono = 0;
     }
   }
   if (is_alive()) actual_worm->stop_moving();

@@ -15,7 +15,7 @@
 #include "scenario_parser/WormDTO.h"
 #include "scenario_parser/BeamDTO.h"
 
-#define TURN_LENGTH 10000
+#define TURN_LENGTH 60000
 #define INITIAL_LIFE_POINTS 100
 
 class ServerThread;

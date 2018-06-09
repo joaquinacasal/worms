@@ -34,6 +34,7 @@ size_t Player::get_teletransportation_munitions(){
 }
 
 bool Player::use_dynamite(){
+  if (has_an_active_weapon()) return false;
   return this->armory->use_dynamite(get_selected_worm(), get_selected_worm()->\
                                                         is_facing_right());
 }
@@ -43,6 +44,7 @@ size_t Player::get_dynamite_munitions(){
 }
 
 void Player::discount_dynamite_time(float t){
+  if (!is_dynamite_active()) return;
   this->armory->discount_dynamite_time(t);
 }
 
@@ -59,10 +61,12 @@ float Player::get_dynamite_vertical_position(){
 }
 
 float Player::get_dynamite_time_to_explosion(){
+  if (!is_dynamite_active()) return -1;
   return this->armory->get_dynamite_time_to_explosion();
 }
 
 bool Player::use_radiocontrolled(float x){
+  if (has_an_active_weapon()) return false;
   return this->armory->use_radiocontrolled(x);
 }
 
@@ -75,7 +79,12 @@ std::vector<std::pair<float, float>> Player::get_radiocontrolled_positions(){
 }
 
 void Player::check_radiocontrolled_explosions(){
+  if (!is_radiocontrolled_active()) return;
   this->armory->check_radiocontrolled_explosions();
+}
+
+bool Player::has_an_active_weapon(){
+  return is_radiocontrolled_active() || is_dynamite_active();
 }
 
 Player::~Player(){
