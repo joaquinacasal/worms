@@ -93,3 +93,7 @@ void Movement::make_movable(){
 void Movement::make_immovable(){
   this->body->SetType(b2_staticBody);
 }
+
+void Movement::correct_angle(){
+  this->body->SetTransform(this->body->GetPosition(), 0);
+}

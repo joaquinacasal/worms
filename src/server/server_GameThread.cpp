@@ -225,6 +225,7 @@ void GameThread::changeTurn(){
   std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
   for (Worm* worm : all_worms_alive){
     worm->make_immovable();
+    worm->correct_angle();
   }
   if (server_thread->is_alive()) server_thread->changeTurn();
   // Vacío la cola.
