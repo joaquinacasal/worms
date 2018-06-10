@@ -1,5 +1,5 @@
 #include "server_Stage.h"
-#define timeStep 1.0f/60.0f   //the length of time passed to simulate (seconds)
+#define timeStep 1.0f/50.0f   //the length of time passed to simulate (seconds)
 #define velocityIterations 8.0f   //how strongly to correct velocity
 #define positionIterations 3.0f   //how strongly to correct position
 

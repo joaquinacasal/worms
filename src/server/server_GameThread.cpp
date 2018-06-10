@@ -132,13 +132,8 @@ void GameThread::tick_turn(){
     if (actual_player->is_radiocontrolled_active())
       check_radiocontrolled_explosions();
     notif_clients();
-    std::this_thread::sleep_for(std::chrono::milliseconds(16));
-    auto end = get_time::now();
-    turn_chrono -= std::chrono::duration_cast<ms>(end - start).count();
-    if (turn_chrono < 0) turn_chrono = 0;
     if (actual_player->is_dynamite_active()){
-      actual_player->discount_dynamite_time(
-        std::chrono::duration_cast<ms>(end - start).count());
+      actual_player->discount_dynamite_time(TICK_TIME);
     }
 
     if (!weapon_was_used) {
@@ -149,8 +144,15 @@ void GameThread::tick_turn(){
       // Si alguna vez fue usada un arma, entonces cuando
       // se desactive termina el turno.
       if (!actual_player->has_an_active_weapon())
-      turn_chrono = 0;
+        turn_chrono = 0;
     }
+
+    auto end = get_time::now();
+    turn_chrono -= TICK_TIME;
+    std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - \
+                (int)std::chrono::duration_cast<ms>(end - start).count()));
+    if (turn_chrono < 0) turn_chrono = 0;
+
   }
   if (is_alive()) actual_worm->stop_moving();
   // Agrego unos segundos para que los gusanos vuelen y se puedan preparar
@@ -160,9 +162,10 @@ void GameThread::tick_turn(){
     auto start = get_time::now();
     stage->step(actual_worm);
     notif_clients();
-    std::this_thread::sleep_for(std::chrono::milliseconds(16));
     auto end = get_time::now();
-    ms_between_turns -= std::chrono::duration_cast<ms>(end - start).count();
+    ms_between_turns -= TICK_TIME;
+    std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - \
+                (int)std::chrono::duration_cast<ms>(end - start).count()));
   }
 }
 
