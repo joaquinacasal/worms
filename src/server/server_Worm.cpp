@@ -84,6 +84,10 @@ void Worm::make_immovable(){
   this->movement.make_immovable();
 }
 
+bool Worm::is_movable(){
+  return this->movement.is_movable();
+}
+
 void Worm::correct_angle(){
   this->movement.correct_angle();
 }

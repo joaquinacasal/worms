@@ -94,6 +94,10 @@ void Movement::make_immovable(){
   this->body->SetType(b2_staticBody);
 }
 
+bool Movement::is_movable(){
+  return this->body->GetType() == b2_dynamicBody;
+}
+
 void Movement::correct_angle(){
   this->body->SetTransform(this->body->GetPosition(), 0);
 }

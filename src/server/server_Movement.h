@@ -79,6 +79,9 @@ public:
   // Hace que el cuerpo no pueda moverse
   void make_immovable();
 
+  // Devuelve un booleano indicando si puede moverse o no.
+  bool is_movable();
+
   // Corrige el ángulo del cuerpo, seteandolo a 0.
   void correct_angle();
 

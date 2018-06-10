@@ -66,15 +66,10 @@ int main(int argc, char* argv[]){
           break;
       }
   }
-  printf("DEGUG: esperando el join de drawable_factory\n");
   drawable_factory.join();
-  printf("DEGUG: por hacer el stop del console_drawer\n");
   console_drawer.stop();
-  printf("DEGUG: esperando el join de console_drawer\n");
   console_drawer.join();
   captured_event_sender.stop();
-  printf("DEGUG: esperando el join de captured_event_sender\n");
   captured_event_sender.join();
-  printf("DEGUG: por hacer el return\n");
   return 0;
 }

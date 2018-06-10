@@ -88,6 +88,9 @@ public:
   // Hace que el gusano no pueda moverse
   void make_immovable();
 
+  // Devuelve un booleano indicando si puede moverse o no.
+  bool is_movable();
+
   // Corrige el ángulo del gusano, seteandolo a 0.
   void correct_angle();
 

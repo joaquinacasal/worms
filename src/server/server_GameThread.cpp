@@ -153,6 +153,17 @@ void GameThread::tick_turn(){
     }
   }
   if (is_alive()) actual_worm->stop_moving();
+  // Agrego unos segundos para que los gusanos vuelen y se puedan preparar
+  // para hacer el cambio de turno.
+  int ms_between_turns = MS_BETWEEN_TURNS;
+  while (ms_between_turns > 0) {
+    auto start = get_time::now();
+    stage->step(actual_worm);
+    notif_clients();
+    std::this_thread::sleep_for(std::chrono::milliseconds(16));
+    auto end = get_time::now();
+    ms_between_turns -= std::chrono::duration_cast<ms>(end - start).count();
+  }
 }
 
 void GameThread::notif_clients(){
@@ -168,6 +179,8 @@ void GameThread::send_turn_time_information(){
 void GameThread::send_worms_information_to_clients(){
   std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
   for (size_t i = 0; i < all_worms_alive.size(); i++){
+    // Solo envío la información de los movibles.
+    if (!all_worms_alive[i]->is_movable()) continue;
     size_t id = all_worms_alive[i]->get_id();
     size_t life_points = all_worms_alive[i]->get_life_points();
     int x = all_worms_alive[i]->get_horizontal_position() * 1000;
@@ -219,11 +232,8 @@ void GameThread::send_weapon_information_to_clients(){
 void GameThread::stop(){
     alive = false;
     if (server_thread->is_alive()){
-      printf("DEGUG: Por enviar la closed_con_notif\n");
       server_thread->send_closed_connection_notif();
-      printf("DEGUG: Por hacer el stop\n");
       server_thread->stop();
-      printf("DEGUG: Por hacer el join\n");
       server_thread->join();
     }
 }

@@ -17,6 +17,7 @@
 
 #define TURN_LENGTH 60000
 #define INITIAL_LIFE_POINTS 100
+#define MS_BETWEEN_TURNS 5000
 
 class ServerThread;
 

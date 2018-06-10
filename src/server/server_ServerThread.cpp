@@ -45,13 +45,11 @@ void ServerThread::stop(){
     if (game_thread.was_connected()){
       notifier.stop();
       notifier.join();
-      printf("DEGUG: Termino de joinear el notifier\n");
     }
     for (size_t i = 0; i < clients.size(); ++i) {
         if (clients[i]->is_alive()) {
           clients[i]->stop();
           clients[i]->join();
-          printf("DEGUG: Termino de joinear el cliente\n");
         }
         delete clients[i];
     }

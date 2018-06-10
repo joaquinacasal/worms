@@ -183,7 +183,7 @@ void Stage::explode(float x, float y, float radius, float epicentre_damage){
 
     affected_worms[i]->subtract_life( (size_t)force );
     affected_worms[i]->make_movable();
-    // TODO: Hacer que las explosiones los hagan volar.
+
     bool fly_to_the_left = (affected_worms[i]->get_horizontal_position() < x);
     if (fly_to_the_left) affected_worms[i]->apply_force(-force * EXPLOSION_FORCE, force * EXPLOSION_FORCE);
     else affected_worms[i]->apply_force(force * EXPLOSION_FORCE, force * EXPLOSION_FORCE);
