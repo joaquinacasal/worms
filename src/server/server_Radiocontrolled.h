@@ -2,6 +2,7 @@
 #define __RADIOCONTROLLED_H__
 
 #include <stdlib.h>
+#include <vector>
 #include "Box2D/Box2D.h"
 #include "server_Stage.h"
 
