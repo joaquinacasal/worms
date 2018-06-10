@@ -103,7 +103,7 @@ bool Worm::is_colliding(){
 void Worm::check_falling(){
   float vertical_vel = get_vertical_velocity();
   float vertical_pos = get_vertical_position();
-  if (is_colliding() || vertical_vel >= 0) {
+  if (is_colliding() || (vertical_vel >= -0.1 && vertical_vel <= 0.1)) {
     if (is_colliding()){
       float difference = last_solid_height - vertical_pos;
       if (difference > 20) {
