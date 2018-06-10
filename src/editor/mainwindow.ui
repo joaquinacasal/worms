@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1177</width>
+    <height>680</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1177</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: grey;</string>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Fi&amp;le</string>
+    </property>
+    <addaction name="actionOpen_scenario"/>
+    <addaction name="actionSave_scenario"/>
+    <addaction name="actionSave_scenario_as"/>
+   </widget>
+   <widget class="QMenu" name="menuBackground">
+    <property name="title">
+     <string>Sce&amp;nario</string>
+    </property>
+    <addaction name="actionLoad_background"/>
+    <addaction name="actionChange_size"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuBackground"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionLoad_background">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/icons/background-icon.png</normaloff>:/resources/images/icons/background-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Load background</string>
+   </property>
+   <property name="font">
+    <font/>
+   </property>
+  </action>
+  <action name="actionOpen_scenario">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/icons/open.png</normaloff>:/resources/images/icons/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open scenario...</string>
+   </property>
+  </action>
+  <action name="actionSave_scenario">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/icons/save.png</normaloff>:/resources/images/icons/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save scenario</string>
+   </property>
+  </action>
+  <action name="actionSave_scenario_as">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/icons/save_as.png</normaloff>:/resources/images/icons/save_as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sa&amp;ve scenario as...</string>
+   </property>
+  </action>
+  <action name="actionChange_size">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/icons/resize.png</normaloff>:/resources/images/icons/resize.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Change size</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
