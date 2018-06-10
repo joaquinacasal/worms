@@ -10,16 +10,19 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 
 ## Instrucciones de uso
 1. Clonar el repositorio
-2. Pararse en la carpeta build
-3. Abrir la terminal e ingresar los comandos
-  `$ cmake.. && make`
-4. Ingresar a la carpeta build/src.
-5. En una consola abrir el servidor con el comando
+2. Instalar cxxtest con el comando `sudo apt install cxxtest`
+3. Ingresar a worms/src/tests, y ejecutar el comando `cxxtestgen --error-printer -o tests.cpp MyTestSuite.h`
+4. Volver a la carpeta worms/. Crear la carpeta build. Ingresar a dicha carpeta.
+5. Abrir la terminal e ingresar los comandos
+  `$ cmake.. && make && ./src/tests/tests`
+   Si todo fue instalado correctamente, debe correr los tests y mostrar el mensaje OK al final.
+6. Ingresar a la carpeta build/src.
+7. En una consola abrir el servidor con el comando
   `$ ./server_executable [port] [number-of-players]`
 
   * NOTA1: Para le entrega agregar que el server reciba el scenario_path para levantarlo. Ahora está hardcodeado el path a ../scenarios/scenario.yaml, donde debe haber un escenario con ese nombre para que funcione.
   * NOTA2: Actualmente los escenarios estan en el directorio worms/src/scenarios. Copiar y pegar esa carpeta en build/src para que funcione  directamente.
-6. En otras consolas ingresar los clientes con el comando
+8. En otras consolas ingresar los clientes con el comando
   `$ ./client_executable [port]`
 
 
