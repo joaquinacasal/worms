@@ -14,7 +14,8 @@ using std::vector;
 
 class GameThread;
 
-/* Clase que representa al servidor del sistema de versionado.
+/* Clase que representa al servidor del juego. Permite aceptar nuevos clientes
+ * y enviarles diferentes notificaciones.
  * Es un objeto activo, ya que se ejecuta en paralelo al hilo principal,
  * para que este pueda recibir una señal de cierre del servidor.
  */
@@ -41,23 +42,52 @@ public:
      */
     void run() override;
 
-    /* Envía una señal al servidor para que deje de ejecutarse */
+    /* Envía una señal al lservidor para que deje de ejecutarse */
     void stop();
 
+    // Le da start al a todos los clientes y los habilita para recibir eventos.
     void start_clients();
 
+    // Devuelve una lista de todos los clientes conectados.
     vector<ClientHandler*>* get_all_connected_clients();
+
+    // Envía la información de un gusano (id, puntos de vida, posición, angulo}
+    // y para qué lado está mirando) a todos los clientes.
     void send_worm_information_to_clients(size_t id, size_t life_points, int x,\
                                 int y, int angle, bool is_facing_right);
 
+    // Envía la información pertinente del escenario (ancho y largo) a todos
+    // los clientes.
     void send_stage_information_to_clients(int width, int height);
+
+    // Envía el tiempo restante hasta finalizar el turno en ms a todos los
+    // clientes.
     void send_turn_time_information_to_clients(int turn_chrono);
-    void send_beam_information_to_clients(int x, int y, int length, int width, int angle);
-    void send_dynamite_information_to_clients(int x, int y, int time_to_explosion);
+
+    // Envía la información de una viga (posición, ancho, alto y ángulo) a
+    // todos los clientes.
+    void send_beam_information_to_clients(int x, int y, int length, int width,\
+                                                            int angle);
+
+    // Envía la información de la dinamita activa (posición y tiempo hasta
+    // la explosión) a todos los clientes.
+    void send_dynamite_information_to_clients(int x, int y, \
+                                                    int time_to_explosion);
+
+    // Envía la información (posición) de una munición del teledirigido
+    // a todos los clientes.
     void send_radiocontrolled_information_to_clients(int x, int y);
+
+    // Envía una notificiación para cerrar la conexión a todos los clientes.
     void send_closed_connection_notif();
 
+
+    // Devuelve un booleano indicando si el hilo sigue vivo.
     bool is_alive();
+
+    // Cambia el turno, cambiando el jugador actual, y el gusano actual. Además
+    // se notifica a los jugadores involucrados del comienzo/finalización de
+    // su turno.
     void changeTurn();
 
     ~ServerThread() override;

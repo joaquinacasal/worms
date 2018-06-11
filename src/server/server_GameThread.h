@@ -23,9 +23,11 @@
 class ServerThread;
 
 /* Clase que hereda de Thread que representa a un juego en su totalidad.
- * Crea la ronda de jugadores con sus gusanos y lee el mapa para construir el
- * escenario. Crea el ServerThread para aceptar a los jugadores.
- * Internamente ejecuta los steps del escenario.
+ * Lee el mapa recibido por parámetro, y reparte los gusanos entre la cantidad
+ * de jugadores indicada.
+ * Crea el ServerThread para aceptar a los jugadores.
+ * Internamente ejecuta los steps del escenario y maneja los turnos.
+ * Por último, notifica a los clientes sobre la actualidad del juego.
  */
 class GameThread : public Thread {
 private:
@@ -37,28 +39,56 @@ private:
     SafeQueue<IEvent*> safe_queue;
     int turn_chrono = TURN_LENGTH;
 
+    // No copiable.
     GameThread(const GameThread &other) = delete;
     GameThread& operator=(const GameThread &other) = delete;
+
+    // Crea el escenario leyendo el mapa recibido por parámetro, en formato
+    // YAML. Además, recibe la cantidad de jugadores para asignar los
+    // gusanos y poder compensar con 25 puntos de vida a los jugadores que
+    // tienen menos.
     void create_stage(string map_file, int number_players);
+
+    // Le agrega al cliente recibido la cola protegida del game thread, para
+    // que puedan encolar los eventos recibidos.
     void addClient(ClientHandler* client_handler);
+
+    // Le envía la información pertinente del escenario a los clientes.
     void send_stage_information_to_clients();
+
+    // Le envía la cantidad de milisegundos que faltan para finalizar el turno.
     void send_turn_time_information();
+
+    // Le envía a los clientes la información pertinente de los gusanos
+    // que sufrieron alguna modificación durante el tick.
     void send_worms_information_to_clients();
+
+    // Le envía la información relacionada a las armas activas a los clientes.
     void send_weapon_information_to_clients();
+
+    // Notifica a los clientes sobre toda la información pertinente del tick.
     void notif_clients();
 
+    // Verifica si los gusanos cayeron de una distancia elevada, y en ese caso
+    // se les descuenta la vida correspondiente.
     void check_falling();
+
+    // Verifica si alguno los teledirigidos activos colisionó contra un objeto
+    // y en ese caso dispara la explosión de esa munición.
     void check_radiocontrolled_explosions();
+
+    // Ejecuta un turno del juego.
+    void tick_turn();
 public:
     // Recibe el puerto donde escuchará y el nombre del archivo
     // donde leerá las características del mapa.
     GameThread(const char* port, string map_file, int number_players);
     GameThread(GameThread&& other) = default;
 
+    // Le da start al server thread.
     void start_connection();
 
     void run() override;
-    void tick_turn();
 
     void stop();
     /* Indica si el hilo ya terminó su ejecución */
@@ -66,10 +96,16 @@ public:
     /* Indica si el hilo alguna vez inicio su ejecución */
     bool was_connected() const;
 
+    // Agrega a todos los clientes activos, agregandoles una cola protegida
+    // para que en ella encolen los eventos recibidos.
     void add_all_clients();
 
+    // Cambia el turno, cambiando el jugador actual, y el gusano actual. Además
+    // se notifica a los jugadores involucrados del comienzo/finalización de
+    // su turno.
     void changeTurn();
 
+    // Destructor.
     ~GameThread() override;
 };
 

@@ -11,9 +11,9 @@ class Thread {
 private:
     std::thread thread;
 
+    // No copiable.
     Thread(const Thread&) = delete;
     Thread& operator=(const Thread&) = delete;
-
 public:
     Thread() = default;
     Thread(Thread&& other) = default;

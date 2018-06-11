@@ -16,6 +16,7 @@ private:
   size_t selected_index;
   Armory* armory;
 
+  // No copiable.
   Player(const Player&) = delete;
   Player& operator=(const Player&) = delete;
 public:

@@ -23,7 +23,6 @@ void GameThread::create_stage(string map_file, int number_players){
   }
 
   stage = new Stage((size_t)scenario_DTO.get_width(), (size_t)scenario_DTO.get_height());
-  printf("Ancho: %d, Largo: %d\n", scenario_DTO.get_width(), scenario_DTO.get_height());
   // Creo los worms y los jugadores.
   int number_players_with_more_worms =  (worms_DTO.size() % number_players);
   if (number_players_with_more_worms == 0) number_players_with_more_worms = number_players;

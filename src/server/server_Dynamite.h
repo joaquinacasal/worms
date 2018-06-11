@@ -23,7 +23,7 @@ class Dynamite {
     float counting;
     Stage& stage;
 
-    //
+    // No copiable
     Dynamite(const Dynamite&) = delete;
     Dynamite& operator=(const Dynamite&) = delete;
   public:

@@ -12,6 +12,7 @@ class Teletransportation {
   private:
     size_t munitions = 5;
 
+    // No copiable.
     Teletransportation(const Teletransportation&) = delete;
     Teletransportation& operator=(const Teletransportation&) = delete;
   public:

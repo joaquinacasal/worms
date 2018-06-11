@@ -15,10 +15,20 @@
 #include "server_TurnTimeNotification.h"
 #include "server_WormNotification.h"
 
+/* Clase que hereda de Thread. Se encarga de recibir toda la información
+ * necesaria para crear las notificaciones, crear objetos del tipo INotification
+ * y encolarlos en una cola bloqueante. Además, al ser un thread aparte, durante
+ * su ejecución saca objetos INotification de la cola (se queda esperando en
+ * caso que no tenga ninguno para sacar) y los ejecuta (llama a su método run).
+ * Internamente esos objetos envían la información al cliente correcto.
+ * Es no copiable.
+ */
 class NotifierThread : public Thread {
   private:
     BlockingQueue<INotification*> blocking_queue;
     bool continue_sending;
+
+    // No copiable.
     NotifierThread(const NotifierThread &other) = delete;
     NotifierThread& operator=(const NotifierThread &other) = delete;
   public:
