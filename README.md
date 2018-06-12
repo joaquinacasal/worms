@@ -29,14 +29,14 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 
 
 #### Teclas para jugar
-* a-> mover a la izquierda.
-* d-> mover a la derecha.
-* s-> dejar de moverse.
-* w-> saltar hacia adelante.
-* r-> saltar hacia atrás.
-* 7-> activa dinamita
-* 8-> activa teledirigido (además hay que ingresar una coordenada x, luego la y)
-* 9-> activa teletransportación (además hay que ingresar una coordenada x, luego la y)
+* key_left-> mover a la izquierda.
+* key_right-> mover a la derecha.
+* key_down-> dejar de moverse.
+* key_up-> saltar hacia adelante.
+* space_bar-> saltar hacia atrás.
+* d-> activa dinamita
+* r-> activa teledirigido (además hay que ingresar una coordenada x, luego la y)
+* t-> activa teletransportación (además hay que ingresar una coordenada x, luego la y)
 * q-> cerrar el juego (tanto cliente como servidor)
 
 ## Links útiles
