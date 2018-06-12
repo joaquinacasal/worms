@@ -16,8 +16,11 @@ int main(int argc, char* argv[]){
   SafeQueue<IDrawable*> safe_queue;
   BlockingQueue<ICapturedEvent*> blocking_queue;
 
-  ConsoleDrawer console_drawer(safe_queue);
-  console_drawer.start();
+  //ConsoleDrawer console_drawer(safe_queue);
+  //console_drawer.start();
+  //SdlWindow window(safe_queue, 1920, 1080);
+  SdlWindow window(safe_queue, 800, 500);
+  window.start();
   DrawableFactory drawable_factory(sp, safe_queue);
   drawable_factory.start();
 
@@ -25,7 +28,6 @@ int main(int argc, char* argv[]){
   captured_event_sender.start();
   CapturedEventFactory captured_event_factory(sp, blocking_queue);
 
-  SdlWindow window(800, 600); //TODO: Maximized
   window.fill();
   InputState state = WAITING_COMMAND;
   int x, y;
@@ -100,8 +102,10 @@ int main(int argc, char* argv[]){
       window.render();
   }
   drawable_factory.join();
-  console_drawer.stop();
-  console_drawer.join();
+  //console_drawer.stop();
+  //console_drawer.join();
+  window.stop();
+  window.join();
   captured_event_sender.stop();
   captured_event_sender.join();
   return 0;

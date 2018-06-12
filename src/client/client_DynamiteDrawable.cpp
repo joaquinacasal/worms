@@ -11,6 +11,9 @@ void DynamiteDrawable::be_drawn_by_console(ConsoleDrawer* console_drawer){
   console_drawer->draw(this);
 }
 
+void DynamiteDrawable::be_drawn(SdlWindow* window){
+  window->draw(this);
+}
 
 double DynamiteDrawable::get_x(){
     return x;
