@@ -24,10 +24,14 @@ add_executable(worms_client
 				client_StartTurnDrawable.cpp
 				client_TurnTimeDrawable.cpp
 				client_WormDrawable.cpp
+				client_SdlWindow.cpp
+				client_SdlException.cpp
+				client_Area.cpp
+				client_SdlTexture.cpp
 				client_Main.cpp
 				../common/common_SocketProtocol.cpp
 				../common/common_Socket.cpp
 				../common/common_Thread.cpp
 				../common/common_Lock.cpp)
 
-target_link_libraries(worms_client pthread)
+target_link_libraries(worms_client pthread SDL2 SDL2_image)
