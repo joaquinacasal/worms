@@ -144,7 +144,6 @@ double DrawableFactory::meters_to_pixels(double meters){
 }
 
 double DrawableFactory::adapt_y_coordinate(double y){
-  std::cout << "Altura del escenario guardada: " << scenario_heigth << std::endl;
   return y * -1 + scenario_heigth;
 }
 

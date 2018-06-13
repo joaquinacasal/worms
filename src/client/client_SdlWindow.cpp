@@ -45,7 +45,7 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 }
 
 
-void SdlWindow::draw(StartTurnDrawable* drawable) {    
+void SdlWindow::draw(StartTurnDrawable* drawable) {
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
@@ -56,21 +56,27 @@ void SdlWindow::draw(TurnTimeDrawable* drawable) {
 
 void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
-    double x = drawable->get_x();
-    double y = drawable->get_y();
+    double x = drawable->get_x() - (WORM_SIZE / 2);
+    double y = drawable->get_y() - (WORM_SIZE);
+    printf("DEBUG: la posición en x,y es: (%f, %f)\n", x, y);
     if (textures.count(id)){
         SdlTexture* worm = textures.at(id);
         worm->set_position(x, y);
     } else {
-        SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, 40, 40); //TODO: tamaño no hardcodeaddo
+        SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, WORM_SIZE, WORM_SIZE);
         textures[id] = worm;
     }
 }
 
 void SdlWindow::draw(StageDrawable* drawable) {
+  SDL_SetWindowSize(this->window, drawable->get_width(), drawable->get_height());
 }
 
 void SdlWindow::draw(BeamDrawable* drawable) {
+  double x = drawable->get_x() - (drawable->get_length() / 2);
+  double y = drawable->get_y() - (drawable->get_width());
+  SdlTexture* beam = new SdlTexture("../assets/grdl0.png", *this, x, y, drawable->get_length(), drawable->get_width());
+  textures[x] = beam; // TODO: QUE HACEMOS CON EL ID? COMO SE GUARDA?
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
@@ -90,10 +96,12 @@ void SdlWindow::draw(IDrawable* drawable) {
 void SdlWindow::run(){
   IDrawable* drawable = NULL;
   while(connected) {
+    fill();
     if (safe_queue.pop(drawable)){
       draw(drawable);
       delete drawable;
     }
+    render();
     // TODO: acá también se hacen las animaciones.
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }

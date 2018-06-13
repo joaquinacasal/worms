@@ -21,6 +21,8 @@
 #include "client_TurnTimeDrawable.h"
 #include "client_WormDrawable.h"
 
+#define WORM_SIZE 40
+
 class SdlWindow;
 class SdlTexture;
 class Area;

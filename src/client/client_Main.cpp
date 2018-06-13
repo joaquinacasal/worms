@@ -34,10 +34,9 @@ int main(int argc, char* argv[]){
   while (true){
       if (!drawable_factory.is_connected()) break;
       SDL_Event event;
-      window.fill();
-      SDL_PollEvent(&event);
+      SDL_WaitEvent(&event);
       switch (event.type) {
-        case SDL_KEYDOWN: {
+        case SDL_KEYUP: {
           SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
           switch (keyEvent.keysym.sym) {
             case SDLK_RIGHT:
@@ -78,7 +77,7 @@ int main(int argc, char* argv[]){
               state = WAITING_TELE_CLICK;
               std::cout << "Letra T" << std::endl;
               break;
-            case SDLK_q: 
+            case SDLK_q:
               captured_event_factory.create_closed_connection_event();
               break;
           }
@@ -99,7 +98,6 @@ int main(int argc, char* argv[]){
           std::cout << "Y: " << y << std::endl;
           break;
       }
-      window.render();
   }
   drawable_factory.join();
   //console_drawer.stop();
