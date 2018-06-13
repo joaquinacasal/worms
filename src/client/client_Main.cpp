@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
   //ConsoleDrawer console_drawer(safe_queue);
   //console_drawer.start();
   //SdlWindow window(safe_queue, 1920, 1080);
-  SdlWindow window(safe_queue, 800, 500);
+  SdlWindow window(safe_queue, 1000, 1000);
   window.start();
   DrawableFactory drawable_factory(sp, safe_queue);
   drawable_factory.start();
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
       if (!drawable_factory.is_connected()) break;
       SDL_Event event;
       window.fill();
-      SDL_WaitEvent(&event);
+      SDL_PollEvent(&event);
       switch (event.type) {
         case SDL_KEYDOWN: {
           SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
@@ -90,9 +90,9 @@ int main(int argc, char* argv[]){
           }
           SDL_GetMouseState(&x, &y);
           if (state == WAITING_RADIO_CLICK){
-            captured_event_factory.create_radiocontrolled_event(x, y);
+            captured_event_factory.create_radiocontrolled_event(x, y, drawable_factory.get_scenario_heigth());
           } else {
-            captured_event_factory.create_teletransportation_event(x, y);
+            captured_event_factory.create_teletransportation_event(x, y, drawable_factory.get_scenario_heigth());
           }
           state = WAITING_COMMAND;
           std::cout << "X: " << x << std::endl;

@@ -62,7 +62,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         SdlTexture* worm = textures.at(id);
         worm->set_position(x, y);
     } else {
-        SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, 40, 40); //TODO: tamaño
+        SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, 40, 40); //TODO: tamaño no hardcodeaddo
         textures[id] = worm;
     }
 }

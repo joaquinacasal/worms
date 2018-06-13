@@ -30,6 +30,14 @@ void DrawableFactory::create_worm_drawable(){
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
   int angle = socket_protocol.receive_numeric_value();
   bool is_facing_right = (bool)socket_protocol.receive_numeric_value();
+  std::cout << "X metros: " << x << std::endl;
+  std::cout << "Y metros: " << y << std::endl;
+  x = meters_to_pixels(x);
+  y = meters_to_pixels(y);
+  std::cout << "X pixels: " << x << std::endl;
+  std::cout << "Y pixels: " << y << std::endl;
+  y = adapt_y_coordinate(y);
+  std::cout << "Y corregida: " << y << std::endl;
   safe_queue.push(new WormDrawable(id, life_points, x, y, angle, is_facing_right));
 }
 
@@ -39,12 +47,22 @@ void DrawableFactory::create_beam_drawable(){
   size_t length = socket_protocol.receive_numeric_value();
   size_t width = socket_protocol.receive_numeric_value();
   size_t angle = socket_protocol.receive_numeric_value();
+  x = meters_to_pixels(x);
+  y = meters_to_pixels(y);
+  y = adapt_y_coordinate(y);
+  length = meters_to_pixels(length);
+  width = meters_to_pixels(width);
   safe_queue.push(new BeamDrawable(x, y, length, width, angle));
 }
 
 void DrawableFactory::create_stage_drawable(){
   size_t width = socket_protocol.receive_numeric_value();
   size_t height = socket_protocol.receive_numeric_value();
+  width = meters_to_pixels(width);
+  std::cout << "Altura metros: " << height << std::endl;
+  height = meters_to_pixels(height);
+  std::cout << "Altura pixels: " << height << std::endl;
+  scenario_heigth = height;
   safe_queue.push(new StageDrawable(width, height));
 }
 
@@ -52,12 +70,18 @@ void DrawableFactory::create_dynamite_drawable(){
   double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
   double time_to_explosion = (double)(socket_protocol.receive_numeric_value()) / 1000;
+  x = meters_to_pixels(x);
+  y = meters_to_pixels(y);
+  y = adapt_y_coordinate(y);
   safe_queue.push(new DynamiteDrawable(x, y, time_to_explosion));
 }
 
 void DrawableFactory::create_radiocontrolled_drawable(){
   double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
+  x = meters_to_pixels(x);
+  y = meters_to_pixels(y);
+  y = adapt_y_coordinate(y);
   safe_queue.push(new RadiocontrolledDrawable(x, y));
 }
 
@@ -113,4 +137,17 @@ bool DrawableFactory::is_connected(){
 void DrawableFactory::stop(){
   connected = false;
   socket_protocol.shutdown(SHUT_RDWR);
+}
+
+double DrawableFactory::meters_to_pixels(double meters){
+  return meters * METERS_TO_PIXELS_CONVERSION;
+}
+
+double DrawableFactory::adapt_y_coordinate(double y){
+  std::cout << "Altura del escenario guardada: " << scenario_heigth << std::endl;
+  return y * -1 + scenario_heigth;
+}
+
+double DrawableFactory::get_scenario_heigth(){
+  return scenario_heigth;
 }
