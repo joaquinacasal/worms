@@ -11,30 +11,34 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 ## Instrucciones de uso
 1. Clonar el repositorio
 2. Instalar cxxtest con el comando `sudo apt install cxxtest`
-3. Ingresar a worms/src/tests, y ejecutar el comando `cxxtestgen --error-printer -o tests.cpp MyTestSuite.h`
-4. Volver a la carpeta worms/. Crear la carpeta build. Ingresar a dicha carpeta.
-5. Abrir la terminal e ingresar los comandos
+3. Instalar SDL con el comando `sudo apt install libsdl2-dev && sudo apt install libsdl2-image-dev`
+4. Instalar yaml-cpp con los siguientes pasos:
+  * git clone https://github.com/jbeder/yaml-cpp.git
+  * 'mkdir build && cd build && cmake .. && make && make install
+5. Ingresar a worms/src/tests, y ejecutar el comando `cxxtestgen --error-printer -o tests.cpp MyTestSuite.h`
+6. Volver a la carpeta worms/. Crear la carpeta build. Ingresar a dicha carpeta.
+7. Abrir la terminal e ingresar los comandos
   `$ cmake.. && make && ./src/tests/tests`
    Si todo fue instalado correctamente, debe correr los tests y mostrar el mensaje OK al final.
-6. Ingresar a la carpeta build/src.
-7. En una consola abrir el servidor con el comando
+8. Ingresar a la carpeta build/src.
+9. En una consola abrir el servidor con el comando
   `$ ./server_executable [port] [number-of-players]`
 
   * NOTA1: Para le entrega agregar que el server reciba el scenario_path para levantarlo. Ahora está hardcodeado el path a ../scenarios/scenario.yaml, donde debe haber un escenario con ese nombre para que funcione.
   * NOTA2: Actualmente los escenarios estan en el directorio worms/src/scenarios. Copiar y pegar esa carpeta en build/src para que funcione  directamente.
-8. En otras consolas ingresar los clientes con el comando
+10. En otras consolas ingresar los clientes con el comando
   `$ ./client_executable [port]`
 
 
 #### Teclas para jugar
-* a-> mover a la izquierda.
-* d-> mover a la derecha.
-* s-> dejar de moverse.
-* w-> saltar hacia adelante.
-* r-> saltar hacia atrás.
-* 7-> activa dinamita
-* 8-> activa teledirigido (además hay que ingresar una coordenada x, luego la y)
-* 9-> activa teletransportación (además hay que ingresar una coordenada x, luego la y)
+* key_left-> mover a la izquierda.
+* key_right-> mover a la derecha.
+* key_down-> dejar de moverse.
+* key_up-> saltar hacia adelante.
+* space_bar-> saltar hacia atrás.
+* d-> activa dinamita
+* r-> activa teledirigido (además hay que ingresar una coordenada x, luego la y)
+* t-> activa teletransportación (además hay que ingresar una coordenada x, luego la y)
 * q-> cerrar el juego (tanto cliente como servidor)
 
 ## Links útiles
