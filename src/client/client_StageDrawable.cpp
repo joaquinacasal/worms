@@ -9,6 +9,9 @@ void StageDrawable::be_drawn_by_console(ConsoleDrawer* console_drawer){
   console_drawer->draw(this);
 }
 
+void StageDrawable::be_drawn(SdlWindow* window){
+  window->draw(this);
+}
 
 size_t StageDrawable::get_width(){
     return this->width;

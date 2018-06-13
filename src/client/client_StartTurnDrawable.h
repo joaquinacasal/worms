@@ -3,6 +3,8 @@
 
 #include "client_IDrawable.h"
 #include "client_ConsoleDrawer.h"
+#include "client_SdlWindow.h"
+class SdlWindow;
 class ConsoleDrawer;
 
 class StartTurnDrawable : public IDrawable {
@@ -13,6 +15,7 @@ public:
     StartTurnDrawable();
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
+    void be_drawn(SdlWindow* window);
 };
 
 

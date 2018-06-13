@@ -3,6 +3,8 @@
 
 #include "client_IDrawable.h"
 #include "client_ConsoleDrawer.h"
+#include "client_SdlWindow.h"
+class SdlWindow;
 class ConsoleDrawer;
 
 class RadiocontrolledDrawable : public IDrawable {
@@ -16,6 +18,7 @@ public:
     RadiocontrolledDrawable(double x, double y);
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
+    void be_drawn(SdlWindow* window);
 
     double get_x();
     double get_y();

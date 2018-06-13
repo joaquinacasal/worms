@@ -16,8 +16,11 @@ int main(int argc, char* argv[]){
   SafeQueue<IDrawable*> safe_queue;
   BlockingQueue<ICapturedEvent*> blocking_queue;
 
-  ConsoleDrawer console_drawer(safe_queue);
-  console_drawer.start();
+  //ConsoleDrawer console_drawer(safe_queue);
+  //console_drawer.start();
+  //SdlWindow window(safe_queue, 1920, 1080);
+  SdlWindow window(safe_queue, 1000, 1000);
+  window.start();
   DrawableFactory drawable_factory(sp, safe_queue);
   drawable_factory.start();
 
@@ -25,7 +28,6 @@ int main(int argc, char* argv[]){
   captured_event_sender.start();
   CapturedEventFactory captured_event_factory(sp, blocking_queue);
 
-  SdlWindow window(800, 600); //TODO: Maximized
   window.fill();
   InputState state = WAITING_COMMAND;
   int x, y;
@@ -33,7 +35,7 @@ int main(int argc, char* argv[]){
       if (!drawable_factory.is_connected()) break;
       SDL_Event event;
       window.fill();
-      SDL_WaitEvent(&event);
+      SDL_PollEvent(&event);
       switch (event.type) {
         case SDL_KEYDOWN: {
           SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
@@ -88,9 +90,9 @@ int main(int argc, char* argv[]){
           }
           SDL_GetMouseState(&x, &y);
           if (state == WAITING_RADIO_CLICK){
-            captured_event_factory.create_radiocontrolled_event(x, y);
+            captured_event_factory.create_radiocontrolled_event(x, y, drawable_factory.get_scenario_heigth());
           } else {
-            captured_event_factory.create_teletransportation_event(x, y);
+            captured_event_factory.create_teletransportation_event(x, y, drawable_factory.get_scenario_heigth());
           }
           state = WAITING_COMMAND;
           std::cout << "X: " << x << std::endl;
@@ -100,8 +102,10 @@ int main(int argc, char* argv[]){
       window.render();
   }
   drawable_factory.join();
-  console_drawer.stop();
-  console_drawer.join();
+  //console_drawer.stop();
+  //console_drawer.join();
+  window.stop();
+  window.join();
   captured_event_sender.stop();
   captured_event_sender.join();
   return 0;

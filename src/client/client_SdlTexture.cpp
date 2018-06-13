@@ -4,9 +4,12 @@
 #include "client_SdlWindow.h"
 #include "client_SdlException.h"
 
-SdlTexture::SdlTexture(const std::string &filename, const SdlWindow& window)
+using std::string;
+
+SdlTexture::SdlTexture(const string& filename, const SdlWindow& window, int x, int y, int width, int heigth)
     : renderer(window.getRenderer()) {
     this->texture = loadTexture(filename);
+    position = { x, y, width, heigth };
 }
 
 SdlTexture::~SdlTexture() {
@@ -22,15 +25,10 @@ SDL_Texture* SdlTexture::loadTexture(const std::string &filename) {
     return texture;
 }
 
-int SdlTexture::render(const Area& src, const Area& dest) const {
-    SDL_Rect sdlSrc = {
-            src.getX(), src.getY(),
-            src.getWidth(), src.getHeight()
-    };
-    SDL_Rect sdlDest = {
-            dest.getX(), dest.getY(),
-            dest.getWidth(), dest.getHeight()
-    };
+int SdlTexture::render() const {
+    return SDL_RenderCopy(this->renderer, this->texture, NULL, &position);
+}
 
-    return SDL_RenderCopy(this->renderer, this->texture, &sdlSrc, &sdlDest);
+void SdlTexture::set_position(int x, int y){
+    position = { x, y, position.w, position.h };
 }

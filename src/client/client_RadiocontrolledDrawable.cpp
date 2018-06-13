@@ -9,6 +9,9 @@ void RadiocontrolledDrawable::be_drawn_by_console(ConsoleDrawer* console_drawer)
   console_drawer->draw(this);
 }
 
+void RadiocontrolledDrawable::be_drawn(SdlWindow* window){
+  window->draw(this);
+}
 
 double RadiocontrolledDrawable::get_x(){
     return x;

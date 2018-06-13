@@ -30,6 +30,7 @@
  #define PROTOCOL_STAGE_INFO 0x50
  #define PROTOCOL_DYMAMITE_INFO 0x60
  #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
+ #define METERS_TO_PIXELS_CONVERSION 1
 
  class IDrawable;
  class BeamDrawable;
@@ -47,6 +48,7 @@ private:
     SocketProtocol& socket_protocol;
     SafeQueue<IDrawable*>& safe_queue;
     bool connected;
+    double scenario_heigth;
 
     void create_start_turn_drawable();
     void create_end_turn_drawable();
@@ -59,6 +61,8 @@ private:
     void create_closed_connection_drawable();
 
     void create_drawable();
+    double adapt_y_coordinate(double y);
+    double meters_to_pixels(double meters);
 
     DrawableFactory(const DrawableFactory&) = delete;
     DrawableFactory& operator=(const DrawableFactory&) = delete;
@@ -74,6 +78,8 @@ public:
     void stop();
 
     bool is_connected();
+
+    double get_scenario_heigth();
 
     ~DrawableFactory() override = default;
 };
