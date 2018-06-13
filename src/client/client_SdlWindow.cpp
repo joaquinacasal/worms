@@ -57,7 +57,7 @@ void SdlWindow::draw(TurnTimeDrawable* drawable) {
 void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
     double x = drawable->get_x() - (WORM_SIZE / 2);
-    double y = drawable->get_y() - (WORM_SIZE);
+    double y = drawable->get_y() - (WORM_SIZE / 2);
     printf("DEBUG: la posición en x,y es: (%f, %f)\n", x, y);
     if (textures.count(id)){
         SdlTexture* worm = textures.at(id);
@@ -74,12 +74,16 @@ void SdlWindow::draw(StageDrawable* drawable) {
 
 void SdlWindow::draw(BeamDrawable* drawable) {
   double x = drawable->get_x() - (drawable->get_length() / 2);
-  double y = drawable->get_y() - (drawable->get_width());
+  double y = drawable->get_y() - (drawable->get_width() / 2);
   SdlTexture* beam = new SdlTexture("../assets/grdl0.png", *this, x, y, drawable->get_length(), drawable->get_width());
   textures[x] = beam; // TODO: QUE HACEMOS CON EL ID? COMO SE GUARDA?
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
+  double x = drawable->get_x() - DYNAMITE_SIZE / 2;
+  double y = drawable->get_y() - DYNAMITE_SIZE / 2;
+  SdlTexture* dynamite = new SdlTexture("../assets/dynamite.png", *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
+  textures['d'] = dynamite; // TODO: QUE HACEMOS CON EL ID? COMO SE GUARDA?
 }
 
 void SdlWindow::draw(RadiocontrolledDrawable* drawable){
