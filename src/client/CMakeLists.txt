@@ -36,4 +36,4 @@ add_executable(worms_client
 				../common/common_Thread.cpp
 				../common/common_Lock.cpp)
 
-target_link_libraries(worms_client pthread SDL2 SDL2_image)
+target_link_libraries(worms_client pthread SDL2 SDL2_image SDL2_ttf)

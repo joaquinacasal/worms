@@ -11,7 +11,7 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 ## Instrucciones de uso
 1. Clonar el repositorio
 2. Instalar cxxtest con el comando `sudo apt install cxxtest`
-3. Instalar SDL con el comando `sudo apt install libsdl2-dev && sudo apt install libsdl2-image-dev`
+3. Instalar SDL con el comando `sudo apt install libsdl2-dev && sudo apt install libsdl2-image-dev && sudo apt install libsdl2-ttf-dev`
 4. Instalar yaml-cpp con los siguientes pasos:
   * git clone https://github.com/jbeder/yaml-cpp.git
   * 'mkdir build && cd build && cmake .. && make && make install

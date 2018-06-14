@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_ttf.h>
 #include "../common/common_Thread.h"
 #include "../common/common_SafeQueue.h"
 #include "client_Area.h"
@@ -56,6 +57,11 @@ private:
     SDL_Renderer* renderer;
     map<int, SdlTexture*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
+    SDL_Surface* turn_chrono_surface;
+    SDL_Texture* turn_chrono_texture;
+    SDL_Color White;
+    TTF_Font* Sans;
+    SDL_Rect turn_chrono_rect;
     std::vector<SdlTexture*> static_textures;
     void draw(IDrawable* drawable);
 
