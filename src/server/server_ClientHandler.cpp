@@ -53,6 +53,11 @@ void ClientHandler::send_dynamite_info(int x, int y, int time_to_explosion){
   this->protocol.send_dynamite_info(x, y, time_to_explosion);
 }
 
+void ClientHandler::send_dynamite_explosion_notif(){
+  if (!is_alive()) return;
+  this->protocol.send_dynamite_explosion_notif();
+}
+
 void ClientHandler::send_radiocontrolled_info(int x, int y){
   if (!is_alive()) return;
   this->protocol.send_radiocontrolled_info(x, y);

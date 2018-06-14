@@ -37,6 +37,10 @@ void ConsoleDrawer::draw(DynamiteDrawable* drawable) {
   std::cout << "Dinamita en la posición (" << drawable->get_x() << ", " << drawable->get_y() << "), explota en: " << std::fixed << std::setprecision(2) << drawable->get_time_to_explosion() << ".\n";
 }
 
+void ConsoleDrawer::draw(DynamiteExplosionDrawable* drawable) {
+  std::cout << "Boom\n";
+}
+
 void ConsoleDrawer::draw(RadiocontrolledDrawable* drawable){
   std::cout << "Teledirigido en (" << std::fixed << std::setprecision(2) << drawable->get_x() << ", " << std::fixed << std::setprecision(2) << drawable->get_y() << ").\n";
 }

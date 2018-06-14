@@ -29,6 +29,7 @@
  #define PROTOCOL_WORM_INFO 0x40
  #define PROTOCOL_STAGE_INFO 0x50
  #define PROTOCOL_DYMAMITE_INFO 0x60
+ #define PROTOCOL_DYMAMITE_EXPLOSION 0x61
  #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
  #define METERS_TO_PIXELS_CONVERSION 10
 
@@ -57,6 +58,7 @@ private:
     void create_stage_drawable();
     void create_beam_drawable();
     void create_dynamite_drawable();
+    void create_dynamite_explosion_drawable();
     void create_radiocontrolled_drawable();
     void create_closed_connection_drawable();
 

@@ -63,6 +63,9 @@ public:
     // la explosión).
     void send_dynamite_info(int x, int y, int time_to_explosion);
 
+    // Envía una notificación avisando que la dinamita explotó.
+    void send_dynamite_explosion_notif();
+
     // Envía la información (posición) de una munición del teledirigido.
     void send_radiocontrolled_info(int x, int y);
 
