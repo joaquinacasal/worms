@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
   //ConsoleDrawer console_drawer(safe_queue);
   //console_drawer.start();
   //SdlWindow window(safe_queue, 1920, 1080);
-  SdlWindow window(safe_queue, 1000, 1000);
+  SdlWindow window(safe_queue, 50, 50);
   window.start();
   DrawableFactory drawable_factory(sp, safe_queue);
   drawable_factory.start();

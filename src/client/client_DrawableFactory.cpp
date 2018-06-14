@@ -71,7 +71,6 @@ void DrawableFactory::create_dynamite_drawable(){
 }
 
 void DrawableFactory::create_dynamite_explosion_drawable(){
-  printf("DEBUG: se encoló el explosion\n");
   safe_queue.push(new DynamiteExplosionDrawable());
 }
 

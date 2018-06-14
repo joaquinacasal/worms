@@ -89,7 +89,6 @@ void SdlWindow::draw(DynamiteDrawable* drawable) {
 }
 
 void SdlWindow::draw(DynamiteExplosionDrawable* drawable) {
-  printf("DEBUG: llegó el explosion\n");
   delete textures[-1];
   textures.erase(-1);
 }
