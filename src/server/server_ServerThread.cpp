@@ -112,6 +112,13 @@ void ServerThread::send_radiocontrolled_information_to_clients(size_t id, int x,
   }
 }
 
+void ServerThread::send_radiocontrolled_explosion_to_clients(size_t id){
+  if (!keep_running) return;
+  for (size_t i = 0; i < clients.size(); ++i){
+    notifier.send_radiocontrolled_explosion_info(clients[i], id);
+  }
+}
+
 void ServerThread::send_closed_connection_notif(){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){

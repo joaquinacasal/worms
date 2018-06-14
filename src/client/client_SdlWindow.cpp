@@ -88,19 +88,19 @@ void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
   SdlTexture* dynamite = new SdlTexture("../assets/dynamite.png", *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
-  weapons_textures[-1] = dynamite;
+  weapons_textures[DYNAMITE_ID] = dynamite;
 }
 
 void SdlWindow::draw(DynamiteExplosionDrawable* drawable) {
-  delete weapons_textures[-1];
-  weapons_textures.erase(-1);
+  delete weapons_textures[DYNAMITE_ID];
+  weapons_textures.erase(DYNAMITE_ID);
 }
 
 
 void SdlWindow::draw(RadiocontrolledDrawable* drawable){
   size_t id = drawable->get_id();
-  double x = drawable->get_x() - (WORM_SIZE / 2);
-  double y = drawable->get_y() - (WORM_SIZE / 2);
+  double x = drawable->get_x() - (RADIOCONTROLLED_SIZE / 2);
+  double y = drawable->get_y() - (RADIOCONTROLLED_SIZE / 2);
   if (weapons_textures.count(id)){
       SdlTexture* radiocontrolled = weapons_textures.at(id);
       radiocontrolled->set_position(x, y);
@@ -108,6 +108,11 @@ void SdlWindow::draw(RadiocontrolledDrawable* drawable){
       SdlTexture* radiocontrolled = new SdlTexture("../assets/radiocontrolled.png", *this, x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
       weapons_textures[id] = radiocontrolled;
   }
+}
+
+void SdlWindow::draw(RadiocontrolledExplosionDrawable* drawable) {
+  delete weapons_textures[drawable->get_id()];
+  weapons_textures.erase(drawable->get_id());
 }
 
 void SdlWindow::draw(ClosedConnectionDrawable* drawable) {

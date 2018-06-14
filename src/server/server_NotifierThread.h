@@ -11,6 +11,7 @@
 #include "server_EndTurnNotification.h"
 #include "server_INotification.h"
 #include "server_RadiocontrolledNotification.h"
+#include "server_RadiocontrolledExplosionNotification.h"
 #include "server_StageNotification.h"
 #include "server_StartTurnNotification.h"
 #include "server_TurnTimeNotification.h"
@@ -47,6 +48,7 @@ class NotifierThread : public Thread {
     void send_dynamite_info(ClientHandler* client, int x, int y, int time_to_explosion);
     void send_dynamite_explosion_info(ClientHandler* client);
     void send_radiocontrolled_info(ClientHandler* client, size_t id, int x, int y);
+    void send_radiocontrolled_explosion_info(ClientHandler* client, size_t id);
     void send_turn_time_info(ClientHandler* client, int turn_chrono);
     void send_start_turn_notif(ClientHandler* client);
     void send_end_turn_notif(ClientHandler* client);

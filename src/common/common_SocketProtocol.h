@@ -32,6 +32,7 @@
 #define PROTOCOL_DYMAMITE_INFO 0x60
 #define PROTOCOL_DYMAMITE_EXPLOSION 0x61
 #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
+#define PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO 0x71
 
 
 
@@ -102,6 +103,7 @@ public:
     void send_dynamite_info(int x, int y, int time_to_explosion);
     void send_dynamite_explosion_notif();
     void send_radiocontrolled_info(size_t id, int x, int y);
+    void send_radiocontrolled_explosion_info(size_t id);
     void send_start_turn_notif();
     void send_end_turn_notif();
     void send_turn_time_info(int turn_chrono);

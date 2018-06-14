@@ -1,4 +1,4 @@
-#ifndef __MYTESTSUITE_H
+   #ifndef __MYTESTSUITE_H
 #define __MYTESTSUITE_H
 
 #include <cxxtest/TestSuite.h>
@@ -638,9 +638,10 @@ public:
         TS_ASSERT_DELTA( positions[i].second, largo_stage - 10, 1);
       }
 
+      std::vector<size_t> explosions;
       for (size_t i = 0; i < 300; i++){
         st.step(worm);
-        player->check_radiocontrolled_explosions();
+        explosions = player->check_radiocontrolled_explosions();
         if (!player->is_radiocontrolled_active()){
           break;
         }

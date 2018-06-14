@@ -82,6 +82,9 @@ public:
     // a todos los clientes.
     void send_radiocontrolled_information_to_clients(size_t id, int x, int y);
 
+    // Envía la notificación de explosión del teledirigido con id recibido.
+    void send_radiocontrolled_explosion_to_clients(size_t id);
+
     // Envía una notificiación para cerrar la conexión a todos los clientes.
     void send_closed_connection_notif();
 

@@ -302,8 +302,12 @@ void GameThread::check_falling(){
 
 void GameThread::check_radiocontrolled_explosions(){
   Player* actual_player = turns_manager.get_selected_player();
-  if (actual_player->is_radiocontrolled_active())
-    actual_player->check_radiocontrolled_explosions();
+  if (actual_player->is_radiocontrolled_active()){
+    std::vector<size_t> explosions = actual_player->check_radiocontrolled_explosions();
+    for (size_t i = 0; i < explosions.size(); i++){
+      this->server_thread->send_radiocontrolled_explosion_to_clients(explosions[i]);
+    }
+  }
 }
 
 

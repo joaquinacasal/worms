@@ -17,6 +17,7 @@
 #include "client_DynamiteExplosionDrawable.h"
 #include "client_EndTurnDrawable.h"
 #include "client_RadiocontrolledDrawable.h"
+#include "client_RadiocontrolledExplosionDrawable.h"
 #include "client_StageDrawable.h"
 #include "client_StartTurnDrawable.h"
 #include "client_TurnTimeDrawable.h"
@@ -25,6 +26,7 @@
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
 #define RADIOCONTROLLED_SIZE 40
+#define DYNAMITE_ID -1
 
 class SdlWindow;
 class SdlTexture;
@@ -36,6 +38,7 @@ class DynamiteDrawable;
 class DynamiteExplosionDrawable;
 class EndTurnDrawable;
 class RadiocontrolledDrawable;
+class RadiocontrolledExplosionDrawable;
 class StageDrawable;
 class StartTurnDrawable;
 class TurnTimeDrawable;
@@ -70,6 +73,7 @@ public:
     void draw(DynamiteDrawable* drawable);
     void draw(DynamiteExplosionDrawable* drawable);
     void draw(RadiocontrolledDrawable* drawable);
+    void draw(RadiocontrolledExplosionDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
     void run() override;
     void stop();

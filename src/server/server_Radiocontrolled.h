@@ -55,8 +55,9 @@ class Radiocontrolled {
 
     // Revisa, para cada munición activa, si está colisionando con algún
     // objeto y en caso que sea verdadero se encarga de hacerlo explotar
-    // y eliminar dicha munición.
-    void check_explosions();
+    // y eliminar dicha munición. Devuelve un vector con los ids de las
+    // municiones que explotaron.
+    std::vector<size_t> check_explosions();
 };
 
 #endif //__RADIOCONTROLLED_H__

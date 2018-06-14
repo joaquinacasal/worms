@@ -13,6 +13,7 @@
 #include "client_DynamiteDrawable.h"
 #include "client_EndTurnDrawable.h"
 #include "client_RadiocontrolledDrawable.h"
+#include "client_RadiocontrolledExplosionDrawable.h"
 #include "client_StageDrawable.h"
 #include "client_StartTurnDrawable.h"
 #include "client_TurnTimeDrawable.h"
@@ -31,6 +32,7 @@
  #define PROTOCOL_DYMAMITE_INFO 0x60
  #define PROTOCOL_DYMAMITE_EXPLOSION 0x61
  #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
+ #define PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO 0x71
  #define METERS_TO_PIXELS_CONVERSION 10
 
  class IDrawable;
@@ -39,6 +41,7 @@
  class DynamiteDrawable;
  class EndTurnDrawable;
  class RadiocontrolledDrawable;
+ class RadiocontrolledExplosionDrawable;
  class StageDrawable;
  class StartTurnDrawable;
  class TurnTimeDrawable;
@@ -60,6 +63,7 @@ private:
     void create_dynamite_drawable();
     void create_dynamite_explosion_drawable();
     void create_radiocontrolled_drawable();
+    void create_radiocontrolled_explosion_drawable();
     void create_closed_connection_drawable();
 
     void create_drawable();

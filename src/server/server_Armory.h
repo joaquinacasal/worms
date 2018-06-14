@@ -75,8 +75,8 @@ class Armory {
 
 
     // Verifica si algun proyectil está colisionando, y en caso que sea verdadero lo hace
-    // explotar.
-    void check_radiocontrolled_explosions();
+    // explotar. Devuelve un vector con los ids de las municiones que explotaron.
+    std::vector<size_t> check_radiocontrolled_explosions();
 
     // Destructor.
     ~Armory();

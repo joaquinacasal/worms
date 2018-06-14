@@ -63,6 +63,11 @@ void ClientHandler::send_radiocontrolled_info(size_t id, int x, int y){
   this->protocol.send_radiocontrolled_info(id, x, y);
 }
 
+void ClientHandler::send_radiocontrolled_explosion_info(size_t id){
+  if (!is_alive()) return;
+  this->protocol.send_radiocontrolled_explosion_info(id);
+}
+
 void ClientHandler::send_turn_time_info(int turn_chrono){
   this->protocol.send_turn_time_info(turn_chrono);
 }

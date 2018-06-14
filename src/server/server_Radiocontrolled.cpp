@@ -33,11 +33,13 @@ bool Radiocontrolled::is_active(){
   return active;
 }
 
-void Radiocontrolled::check_explosions(){
-  if (!active) return;
+std::vector<size_t> Radiocontrolled::check_explosions(){
+  std::vector<size_t> explosions;
+  if (!active) return explosions;
   for (size_t i = 0; i < FLYING_BOMBS; i++){
     if (munitions.count(i) == 0) continue;
     if (is_colliding(munitions[i])){
+      explosions.push_back(i);
       stage.explode(munitions[i]->GetPosition().x,\
                     munitions[i]->GetPosition().y,\
                     RADIUS_RADIOCONTROLLED,\
@@ -47,6 +49,7 @@ void Radiocontrolled::check_explosions(){
     }
   }
   if (munitions.size() == 0) active = false;
+  return explosions;
 }
 
 bool Radiocontrolled::is_colliding(b2Body* munition){

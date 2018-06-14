@@ -21,6 +21,7 @@ add_executable(worms_client
 				client_DynamiteExplosionDrawable.cpp
 				client_EndTurnDrawable.cpp
 				client_RadiocontrolledDrawable.cpp
+				client_RadiocontrolledExplosionDrawable.cpp
 				client_StageDrawable.cpp
 				client_StartTurnDrawable.cpp
 				client_TurnTimeDrawable.cpp
