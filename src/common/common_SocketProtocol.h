@@ -30,6 +30,7 @@
 #define PROTOCOL_BEAM_INFO 0x51
 
 #define PROTOCOL_DYMAMITE_INFO 0x60
+#define PROTOCOL_DYMAMITE_EXPLOSION 0x61
 #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
 
 
@@ -99,6 +100,7 @@ public:
     void send_beam_info(int x, int y, int length, int width, int angle);
     void send_stage_info(int width, int height);
     void send_dynamite_info(int x, int y, int time_to_explosion);
+    void send_dynamite_explosion_notif();
     void send_radiocontrolled_info(int x, int y);
     void send_start_turn_notif();
     void send_end_turn_notif();

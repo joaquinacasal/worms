@@ -130,9 +130,10 @@ void GameThread::tick_turn(){
     //Chequeo las explosiones del teledirigido.
     if (actual_player->is_radiocontrolled_active())
       check_radiocontrolled_explosions();
-    notif_clients();
     if (actual_player->is_dynamite_active()){
       actual_player->discount_dynamite_time(TICK_TIME);
+      if (!actual_player->is_dynamite_active())
+        this->server_thread->send_dynamite_explosion_to_clients();
     }
 
     if (!weapon_was_used) {
@@ -152,6 +153,7 @@ void GameThread::tick_turn(){
                 (int)std::chrono::duration_cast<ms>(end - start).count()));
     if (turn_chrono < 0) turn_chrono = 0;
 
+    notif_clients();
   }
   if (is_alive()) actual_worm->stop_moving();
   // Agrego unos segundos para que los gusanos vuelen y se puedan preparar

@@ -134,6 +134,10 @@ void SocketProtocol::send_dynamite_info(int x, int y, int time_to_explosion){
     send_numeric_value(time_to_explosion);
 }
 
+void SocketProtocol::send_dynamite_explosion_notif(){
+    send_command_or_code(PROTOCOL_DYMAMITE_EXPLOSION);
+}
+
 void SocketProtocol::send_radiocontrolled_info(int x, int y){
     send_command_or_code(PROTOCOL_RADIOCONTROLLED_INFO);
     send_numeric_value(x);

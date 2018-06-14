@@ -8,6 +8,7 @@ add_executable(worms_server
 				server_ClosedConnectionNotification.cpp
 				server_RadiocontrolledNotification.cpp
 				server_DynamiteNotification.cpp
+				server_DynamiteExplosionNotification.cpp
 				server_BeamNotification.cpp
 				server_StageNotification.cpp
 				server_WormNotification.cpp

@@ -18,6 +18,7 @@ add_executable(worms_client
 				client_BeamDrawable.cpp
 				client_ClosedConnectionDrawable.cpp
 				client_DynamiteDrawable.cpp
+				client_DynamiteExplosionDrawable.cpp
 				client_EndTurnDrawable.cpp
 				client_RadiocontrolledDrawable.cpp
 				client_StageDrawable.cpp

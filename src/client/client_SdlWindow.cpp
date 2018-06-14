@@ -38,6 +38,9 @@ void SdlWindow::render() {
     for (auto it = textures.begin(); it != textures.end(); ++it){
         it->second->render();
     }
+    for (size_t i = 0; i < static_textures.size(); ++i){
+        static_textures[i]->render();
+    }
     SDL_RenderPresent(this->renderer);
 }
 
@@ -59,7 +62,6 @@ void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
     double x = drawable->get_x() - (WORM_SIZE / 2);
     double y = drawable->get_y() - (WORM_SIZE / 2);
-    printf("DEBUG: la posición en x,y es: (%f, %f)\n", x, y);
     if (textures.count(id)){
         SdlTexture* worm = textures.at(id);
         worm->set_position(x, y);
@@ -78,15 +80,22 @@ void SdlWindow::draw(BeamDrawable* drawable) {
   double x = drawable->get_x() - (drawable->get_length() / 2);
   double y = drawable->get_y() - (drawable->get_width() / 2);
   SdlTexture* beam = new SdlTexture(string(ASSETS_FOLDER) + string(BEAM_ASSET), *this, x, y, drawable->get_length(), drawable->get_width());
-  textures[x] = beam; // TODO: QUE HACEMOS CON EL ID? COMO SE GUARDA?
+  static_textures.push_back(beam);
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
   SdlTexture* dynamite = new SdlTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET), *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
-  textures['d'] = dynamite; // TODO: QUE HACEMOS CON EL ID? COMO SE GUARDA?
+  textures[-1] = dynamite;
 }
+
+void SdlWindow::draw(DynamiteExplosionDrawable* drawable) {
+  printf("DEBUG: llegó el explosion\n");
+  delete textures[-1];
+  textures.erase(-1);
+}
+
 
 void SdlWindow::draw(RadiocontrolledDrawable* drawable){
 }
@@ -97,7 +106,6 @@ void SdlWindow::draw(ClosedConnectionDrawable* drawable) {
 void SdlWindow::draw(IDrawable* drawable) {
     drawable->be_drawn(this);
 }
-
 
 void SdlWindow::run(){
   IDrawable* drawable = NULL;

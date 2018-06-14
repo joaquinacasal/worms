@@ -42,6 +42,12 @@ void NotifierThread::send_dynamite_info(ClientHandler* client, int x, int y, int
     blocking_queue.push(new DynamiteNotification(client, x, y, time_to_explosion));
 }
 
+void NotifierThread::send_dynamite_explosion_info(ClientHandler* client){
+  if (continue_sending)
+    blocking_queue.push(new DynamiteExplosionNotification(client));
+}
+
+
 void NotifierThread::send_radiocontrolled_info(ClientHandler* client, int x, int y){
   if (continue_sending)
     blocking_queue.push(new RadiocontrolledNotification(client, x, y));

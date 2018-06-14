@@ -10,6 +10,7 @@
 #include "client_BeamDrawable.h"
 #include "client_ClosedConnectionDrawable.h"
 #include "client_DynamiteDrawable.h"
+#include "client_DynamiteExplosionDrawable.h"
 #include "client_EndTurnDrawable.h"
 #include "client_RadiocontrolledDrawable.h"
 #include "client_StageDrawable.h"
@@ -21,6 +22,7 @@ class IDrawable;
 class BeamDrawable;
 class ClosedConnectionDrawable;
 class DynamiteDrawable;
+class DynamiteExplosionDrawable;
 class EndTurnDrawable;
 class RadiocontrolledDrawable;
 class StageDrawable;
@@ -51,6 +53,7 @@ public:
     void draw(StageDrawable* drawable);
     void draw(BeamDrawable* drawable);
     void draw(DynamiteDrawable* drawable);
+    void draw(DynamiteExplosionDrawable* drawable);
     void draw(RadiocontrolledDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
 

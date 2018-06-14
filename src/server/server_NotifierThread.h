@@ -7,6 +7,7 @@
 #include "server_BeamNotification.h"
 #include "server_ClosedConnectionNotification.h"
 #include "server_DynamiteNotification.h"
+#include "server_DynamiteExplosionNotification.h"
 #include "server_EndTurnNotification.h"
 #include "server_INotification.h"
 #include "server_RadiocontrolledNotification.h"
@@ -44,6 +45,7 @@ class NotifierThread : public Thread {
     void send_stage_info(ClientHandler* client, size_t width, size_t height);
     void send_beam_info(ClientHandler* client, int x, int y, int length, int width, int angle);
     void send_dynamite_info(ClientHandler* client, int x, int y, int time_to_explosion);
+    void send_dynamite_explosion_info(ClientHandler* client);
     void send_radiocontrolled_info(ClientHandler* client, int x, int y);
     void send_turn_time_info(ClientHandler* client, int turn_chrono);
     void send_start_turn_notif(ClientHandler* client);

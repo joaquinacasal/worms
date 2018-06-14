@@ -15,7 +15,6 @@ void DrawableFactory::create_start_turn_drawable(){
 
 void DrawableFactory::create_end_turn_drawable(){
   safe_queue.push(new EndTurnDrawable());
-
 }
 
 void DrawableFactory::create_turn_time_drawable(){
@@ -30,14 +29,9 @@ void DrawableFactory::create_worm_drawable(){
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
   int angle = socket_protocol.receive_numeric_value();
   bool is_facing_right = (bool)socket_protocol.receive_numeric_value();
-  std::cout << "X metros: " << x << std::endl;
-  std::cout << "Y metros: " << y << std::endl;
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
-  std::cout << "X pixels: " << x << std::endl;
-  std::cout << "Y pixels: " << y << std::endl;
   y = adapt_y_coordinate(y);
-  std::cout << "Y corregida: " << y << std::endl;
   safe_queue.push(new WormDrawable(id, life_points, x, y, angle, is_facing_right));
 }
 
@@ -76,6 +70,11 @@ void DrawableFactory::create_dynamite_drawable(){
   safe_queue.push(new DynamiteDrawable(x, y, time_to_explosion));
 }
 
+void DrawableFactory::create_dynamite_explosion_drawable(){
+  printf("DEBUG: se encoló el explosion\n");
+  safe_queue.push(new DynamiteExplosionDrawable());
+}
+
 void DrawableFactory::create_radiocontrolled_drawable(){
   double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
@@ -112,6 +111,9 @@ void DrawableFactory::create_drawable(){
       break;
     case PROTOCOL_DYMAMITE_INFO:
       create_dynamite_drawable();
+      break;
+    case PROTOCOL_DYMAMITE_EXPLOSION:
+      create_dynamite_explosion_drawable();
       break;
     case PROTOCOL_RADIOCONTROLLED_INFO:
       create_radiocontrolled_drawable();
