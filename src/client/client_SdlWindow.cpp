@@ -6,6 +6,7 @@
 #include "client_SdlException.h"
 #include "client_SdlWindow.h"
 #include "client_SdlTexture.h"
+#include "config.h"
 
 using std::string;
 
@@ -63,7 +64,8 @@ void SdlWindow::draw(WormDrawable* drawable) {
         SdlTexture* worm = textures.at(id);
         worm->set_position(x, y);
     } else {
-        SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, WORM_SIZE, WORM_SIZE);
+        //SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, WORM_SIZE, WORM_SIZE);
+        SdlTexture* worm = new SdlTexture(string(ASSETS_FOLDER) + string(WORM_ASSET), *this, x, y, WORM_SIZE, WORM_SIZE);
         textures[id] = worm;
     }
 }
@@ -75,14 +77,14 @@ void SdlWindow::draw(StageDrawable* drawable) {
 void SdlWindow::draw(BeamDrawable* drawable) {
   double x = drawable->get_x() - (drawable->get_length() / 2);
   double y = drawable->get_y() - (drawable->get_width() / 2);
-  SdlTexture* beam = new SdlTexture("../assets/grdl0.png", *this, x, y, drawable->get_length(), drawable->get_width());
+  SdlTexture* beam = new SdlTexture(string(ASSETS_FOLDER) + string(BEAM_ASSET), *this, x, y, drawable->get_length(), drawable->get_width());
   textures[x] = beam; // TODO: QUE HACEMOS CON EL ID? COMO SE GUARDA?
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
-  SdlTexture* dynamite = new SdlTexture("../assets/dynamite.png", *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
+  SdlTexture* dynamite = new SdlTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET), *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
   textures['d'] = dynamite; // TODO: QUE HACEMOS CON EL ID? COMO SE GUARDA?
 }
 

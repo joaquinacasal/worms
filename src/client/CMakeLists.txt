@@ -35,3 +35,16 @@ add_executable(worms_client
 				../common/common_Lock.cpp)
 
 target_link_libraries(worms_client pthread SDL2 SDL2_image)
+
+if(NOT INSTALL_PATH)
+  set(INSTALL_PATH "/usr/local")
+endif(NOT INSTALL_PATH)
+
+configure_file(
+  "${PROJECT_SOURCE_DIR}/config.h.in"
+  "${PROJECT_SOURCE_DIR}/config.h"
+)
+
+install(TARGETS worms_client DESTINATION ${INSTALL_PATH}/worms/client/bin/)
+install(DIRECTORY "assets" DESTINATION ${INSTALL_PATH}/worms/client)
+install(DIRECTORY "backgrounds" DESTINATION ${INSTALL_PATH}/worms/client)

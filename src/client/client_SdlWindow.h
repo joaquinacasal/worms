@@ -9,7 +9,7 @@
 #include "../common/common_Thread.h"
 #include "../common/common_SafeQueue.h"
 #include "client_Area.h"
-#include "src/client/client_SdlTexture.h"
+#include "client_SdlTexture.h"
 #include "client_IDrawable.h"
 #include "client_BeamDrawable.h"
 #include "client_ClosedConnectionDrawable.h"
@@ -39,6 +39,10 @@ class TurnTimeDrawable;
 class WormDrawable;
 
 using std::map;
+
+#define WORM_ASSET "worm.png"
+#define BEAM_ASSET "grdl0.png"
+#define DYNAMITE_ASSET "dynamite.png"
 
 class SdlWindow : public Thread {
 private:
