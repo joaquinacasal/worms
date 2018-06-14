@@ -6,13 +6,14 @@
 class RadiocontrolledNotification : public INotification {
 private:
     ClientHandler* client;
+    size_t id;
     int x;
     int y;
 
     RadiocontrolledNotification(const RadiocontrolledNotification&) = delete;
     RadiocontrolledNotification& operator=(const RadiocontrolledNotification&) = delete;
 public:
-    RadiocontrolledNotification(ClientHandler* client, int x, int y);
+    RadiocontrolledNotification(ClientHandler* client, size_t id, int x, int y);
 
     void run();
 

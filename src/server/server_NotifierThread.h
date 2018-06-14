@@ -46,7 +46,7 @@ class NotifierThread : public Thread {
     void send_beam_info(ClientHandler* client, int x, int y, int length, int width, int angle);
     void send_dynamite_info(ClientHandler* client, int x, int y, int time_to_explosion);
     void send_dynamite_explosion_info(ClientHandler* client);
-    void send_radiocontrolled_info(ClientHandler* client, int x, int y);
+    void send_radiocontrolled_info(ClientHandler* client, size_t id, int x, int y);
     void send_turn_time_info(ClientHandler* client, int turn_chrono);
     void send_start_turn_notif(ClientHandler* client);
     void send_end_turn_notif(ClientHandler* client);

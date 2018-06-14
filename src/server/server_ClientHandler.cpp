@@ -58,9 +58,9 @@ void ClientHandler::send_dynamite_explosion_notif(){
   this->protocol.send_dynamite_explosion_notif();
 }
 
-void ClientHandler::send_radiocontrolled_info(int x, int y){
+void ClientHandler::send_radiocontrolled_info(size_t id, int x, int y){
   if (!is_alive()) return;
-  this->protocol.send_radiocontrolled_info(x, y);
+  this->protocol.send_radiocontrolled_info(id, x, y);
 }
 
 void ClientHandler::send_turn_time_info(int turn_chrono){

@@ -48,9 +48,9 @@ void NotifierThread::send_dynamite_explosion_info(ClientHandler* client){
 }
 
 
-void NotifierThread::send_radiocontrolled_info(ClientHandler* client, int x, int y){
+void NotifierThread::send_radiocontrolled_info(ClientHandler* client, size_t id, int x, int y){
   if (continue_sending)
-    blocking_queue.push(new RadiocontrolledNotification(client, x, y));
+    blocking_queue.push(new RadiocontrolledNotification(client, id, x, y));
 }
 
 void NotifierThread::send_turn_time_info(ClientHandler* client, int turn_chrono){

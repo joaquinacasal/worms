@@ -34,7 +34,10 @@ void SdlWindow::fill() {
 }
 
 void SdlWindow::render() {
-    for (auto it = textures.begin(); it != textures.end(); ++it){
+    for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
+        it->second->render();
+    }
+    for (auto it = weapons_textures.begin(); it != weapons_textures.end(); ++it){
         it->second->render();
     }
     for (size_t i = 0; i < static_textures.size(); ++i){
@@ -61,12 +64,12 @@ void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
     double x = drawable->get_x() - (WORM_SIZE / 2);
     double y = drawable->get_y() - (WORM_SIZE / 2);
-    if (textures.count(id)){
-        SdlTexture* worm = textures.at(id);
+    if (worms_textures.count(id)){
+        SdlTexture* worm = worms_textures.at(id);
         worm->set_position(x, y);
     } else {
         SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, WORM_SIZE, WORM_SIZE);
-        textures[id] = worm;
+        worms_textures[id] = worm;
     }
 }
 
@@ -85,16 +88,26 @@ void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
   SdlTexture* dynamite = new SdlTexture("../assets/dynamite.png", *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
-  textures[-1] = dynamite;
+  weapons_textures[-1] = dynamite;
 }
 
 void SdlWindow::draw(DynamiteExplosionDrawable* drawable) {
-  delete textures[-1];
-  textures.erase(-1);
+  delete weapons_textures[-1];
+  weapons_textures.erase(-1);
 }
 
 
 void SdlWindow::draw(RadiocontrolledDrawable* drawable){
+  size_t id = drawable->get_id();
+  double x = drawable->get_x() - (WORM_SIZE / 2);
+  double y = drawable->get_y() - (WORM_SIZE / 2);
+  if (weapons_textures.count(id)){
+      SdlTexture* radiocontrolled = weapons_textures.at(id);
+      radiocontrolled->set_position(x, y);
+  } else {
+      SdlTexture* radiocontrolled = new SdlTexture("../assets/radiocontrolled.png", *this, x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
+      weapons_textures[id] = radiocontrolled;
+  }
 }
 
 void SdlWindow::draw(ClosedConnectionDrawable* drawable) {

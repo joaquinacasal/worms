@@ -67,7 +67,7 @@ public:
     void send_dynamite_explosion_notif();
 
     // Envía la información (posición) de una munición del teledirigido.
-    void send_radiocontrolled_info(int x, int y);
+    void send_radiocontrolled_info(size_t id, int x, int y);
 
     // Envía el tiempo restante hasta finalizar el turno en ms.
     void send_turn_time_info(int turn_chrono);

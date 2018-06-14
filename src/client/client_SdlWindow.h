@@ -24,6 +24,7 @@
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
+#define RADIOCONTROLLED_SIZE 40
 
 class SdlWindow;
 class SdlTexture;
@@ -50,7 +51,8 @@ private:
     bool connected;
     SDL_Window* window;
     SDL_Renderer* renderer;
-    map<int, SdlTexture*> textures;
+    map<int, SdlTexture*> worms_textures;
+    map<int, SdlTexture*> weapons_textures;
     std::vector<SdlTexture*> static_textures;
     void draw(IDrawable* drawable);
 

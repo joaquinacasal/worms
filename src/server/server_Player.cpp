@@ -74,7 +74,7 @@ bool Player::is_radiocontrolled_active(){
   return this->armory->is_radiocontrolled_active();
 }
 
-std::vector<std::pair<float, float>> Player::get_radiocontrolled_positions(){
+std::map<size_t, std::pair<float, float>> Player::get_radiocontrolled_positions(){
   return this->armory->get_radiocontrolled_positions();
 }
 

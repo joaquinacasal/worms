@@ -101,7 +101,7 @@ public:
     void send_stage_info(int width, int height);
     void send_dynamite_info(int x, int y, int time_to_explosion);
     void send_dynamite_explosion_notif();
-    void send_radiocontrolled_info(int x, int y);
+    void send_radiocontrolled_info(size_t id, int x, int y);
     void send_start_turn_notif();
     void send_end_turn_notif();
     void send_turn_time_info(int turn_chrono);

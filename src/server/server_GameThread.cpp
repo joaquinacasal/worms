@@ -232,11 +232,12 @@ void GameThread::send_weapon_information_to_clients(){
     this->server_thread->send_dynamite_information_to_clients(x, y, time_to_explosion);
   }
   if (actual_player->is_radiocontrolled_active()){
-    std::vector<std::pair<float, float>> positions = actual_player->get_radiocontrolled_positions();
-    for (size_t i = 0; i < positions.size(); i++){
+    std::map<size_t, std::pair<float, float>> positions = actual_player->get_radiocontrolled_positions();
+    for (size_t i = 0; i < 6; i++){
+      if (positions.count(i) == 0) continue;
       double x = positions[i].first * 1000;
       double y = positions[i].second * 1000;
-      this->server_thread->send_radiocontrolled_information_to_clients(x, y);
+      this->server_thread->send_radiocontrolled_information_to_clients(i, x, y);
     }
   }
 }

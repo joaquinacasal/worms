@@ -55,7 +55,7 @@ bool Armory::is_radiocontrolled_active(){
   return this->radiocontrolled.is_active();
 }
 
-std::vector<std::pair<float, float>> Armory::get_radiocontrolled_positions(){
+std::map<size_t, std::pair<float, float>> Armory::get_radiocontrolled_positions(){
   return this->radiocontrolled.get_positions();
 }
 

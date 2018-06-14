@@ -80,7 +80,7 @@ public:
 
     // Envía la información (posición) de una munición del teledirigido
     // a todos los clientes.
-    void send_radiocontrolled_information_to_clients(int x, int y);
+    void send_radiocontrolled_information_to_clients(size_t id, int x, int y);
 
     // Envía una notificiación para cerrar la conexión a todos los clientes.
     void send_closed_connection_notif();

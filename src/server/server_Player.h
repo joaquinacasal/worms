@@ -72,7 +72,7 @@ public:
 
   // Devuelve un vector de pares X,Y indicando las posiciones de todos los
   // teledirigidos activos.
-  std::vector<std::pair<float, float>> get_radiocontrolled_positions();
+  std::map<size_t, std::pair<float, float>> get_radiocontrolled_positions();
 
   // Revisa, para cada munición activa del teledirigido, si está colisionando
   // con algún objeto y en caso que sea verdadero se encarga de hacerlo explotar
