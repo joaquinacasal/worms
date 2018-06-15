@@ -71,18 +71,25 @@ void DrawableFactory::create_dynamite_drawable(){
 }
 
 void DrawableFactory::create_dynamite_explosion_drawable(){
-  printf("DEBUG: se encoló el explosion\n");
   safe_queue.push(new DynamiteExplosionDrawable());
 }
 
 void DrawableFactory::create_radiocontrolled_drawable(){
+  size_t id = (size_t)(socket_protocol.receive_numeric_value());
   double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
   y = adapt_y_coordinate(y);
-  safe_queue.push(new RadiocontrolledDrawable(x, y));
+  safe_queue.push(new RadiocontrolledDrawable(id, x, y));
 }
+
+void DrawableFactory::create_radiocontrolled_explosion_drawable(){
+  printf("DEBUG: Creando la explosion del teledirigido.\n");
+  size_t id = (size_t)(socket_protocol.receive_numeric_value());
+  safe_queue.push(new RadiocontrolledExplosionDrawable(id));
+}
+
 
 void DrawableFactory::create_closed_connection_drawable(){
   safe_queue.push(new ClosedConnectionDrawable());
@@ -117,6 +124,9 @@ void DrawableFactory::create_drawable(){
       break;
     case PROTOCOL_RADIOCONTROLLED_INFO:
       create_radiocontrolled_drawable();
+      break;
+    case PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO:
+      create_radiocontrolled_explosion_drawable();
       break;
     case PROTOCOL_CLOSED_CON:
       this->stop();

@@ -3,13 +3,15 @@
 
 #include <stdlib.h>
 #include <vector>
+#include <map>
 #include "Box2D/Box2D.h"
 #include "server_Stage.h"
 
 #define RADIUS_RADIOCONTROLLED 20.0 // 2 m * 10 .
 #define EPICENTRE_DAMAGE_RADIOCONTROLLED 40.0
 #define FLYING_BOMBS 6
-
+#define DISTANCE_BETWEEN_BOMBS 30.0
+#define MARGIN 5
 
 /* Clase que representa el arma teledirigido del juego. Crea 6 proyectiles
  * en el aire, si es posible centrados en la coordenada indicada, si no
@@ -22,7 +24,7 @@
  */
 class Radiocontrolled {
   private:
-    std::vector<b2Body*> munitions;
+    std::map<size_t, b2Body*> munitions;
     bool active;
     Stage& stage;
 
@@ -49,12 +51,13 @@ class Radiocontrolled {
 
     // Devuelve un vector de pares X,Y indicando las posiciones de todos los
     // teledirigidos activos.
-    std::vector<std::pair<float, float>> get_positions();
+    std::map<size_t, std::pair<float, float>> get_positions();
 
     // Revisa, para cada munición activa, si está colisionando con algún
     // objeto y en caso que sea verdadero se encarga de hacerlo explotar
-    // y eliminar dicha munición.
-    void check_explosions();
+    // y eliminar dicha munición. Devuelve un vector con los ids de las
+    // municiones que explotaron.
+    std::vector<size_t> check_explosions();
 };
 
 #endif //__RADIOCONTROLLED_H__

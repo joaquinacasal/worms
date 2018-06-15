@@ -71,12 +71,12 @@ class Armory {
 
     // Devuelve un vector de pares (X,Y) con las posiciones actuales de todos los
     // proyectiles.
-    std::vector<std::pair<float, float>> get_radiocontrolled_positions();
+    std::map<size_t, std::pair<float, float>> get_radiocontrolled_positions();
 
 
     // Verifica si algun proyectil está colisionando, y en caso que sea verdadero lo hace
-    // explotar.
-    void check_radiocontrolled_explosions();
+    // explotar. Devuelve un vector con los ids de las municiones que explotaron.
+    std::vector<size_t> check_radiocontrolled_explosions();
 
     // Destructor.
     ~Armory();

@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_ttf.h>
 #include "../common/common_Thread.h"
 #include "../common/common_SafeQueue.h"
 #include "client_Area.h"
@@ -17,6 +18,7 @@
 #include "client_DynamiteExplosionDrawable.h"
 #include "client_EndTurnDrawable.h"
 #include "client_RadiocontrolledDrawable.h"
+#include "client_RadiocontrolledExplosionDrawable.h"
 #include "client_StageDrawable.h"
 #include "client_StartTurnDrawable.h"
 #include "client_TurnTimeDrawable.h"
@@ -24,6 +26,11 @@
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
+#define RADIOCONTROLLED_SIZE 40
+#define DYNAMITE_ID -1
+#define WORM_ASSET "worm.png"
+#define BEAM_ASSET "grdl0.png"
+#define DYNAMITE_ASSET "dynamite.png"
 
 class SdlWindow;
 class SdlTexture;
@@ -35,16 +42,13 @@ class DynamiteDrawable;
 class DynamiteExplosionDrawable;
 class EndTurnDrawable;
 class RadiocontrolledDrawable;
+class RadiocontrolledExplosionDrawable;
 class StageDrawable;
 class StartTurnDrawable;
 class TurnTimeDrawable;
 class WormDrawable;
 
 using std::map;
-
-#define WORM_ASSET "worm.png"
-#define BEAM_ASSET "grdl0.png"
-#define DYNAMITE_ASSET "dynamite.png"
 
 class SdlWindow : public Thread {
 private:
@@ -54,7 +58,13 @@ private:
     bool connected;
     SDL_Window* window;
     SDL_Renderer* renderer;
-    map<int, SdlTexture*> textures;
+    map<int, SdlTexture*> worms_textures;
+    map<int, SdlTexture*> weapons_textures;
+    SDL_Surface* turn_chrono_surface;
+    SDL_Texture* turn_chrono_texture;
+    SDL_Color White;
+    TTF_Font* Sans;
+    SDL_Rect turn_chrono_rect;
     std::vector<SdlTexture*> static_textures;
     void draw(IDrawable* drawable);
 
@@ -72,6 +82,7 @@ public:
     void draw(DynamiteDrawable* drawable);
     void draw(DynamiteExplosionDrawable* drawable);
     void draw(RadiocontrolledDrawable* drawable);
+    void draw(RadiocontrolledExplosionDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
     void run() override;
     void stop();

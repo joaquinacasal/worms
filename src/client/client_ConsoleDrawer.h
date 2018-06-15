@@ -25,6 +25,7 @@ class DynamiteDrawable;
 class DynamiteExplosionDrawable;
 class EndTurnDrawable;
 class RadiocontrolledDrawable;
+class RadiocontrolledExplosionDrawable;
 class StageDrawable;
 class StartTurnDrawable;
 class TurnTimeDrawable;
@@ -55,6 +56,7 @@ public:
     void draw(DynamiteDrawable* drawable);
     void draw(DynamiteExplosionDrawable* drawable);
     void draw(RadiocontrolledDrawable* drawable);
+    void draw(RadiocontrolledExplosionDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
 
     /* Lógica del cliente.

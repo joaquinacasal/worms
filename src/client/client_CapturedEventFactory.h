@@ -13,7 +13,7 @@
 #include "client_JumpBackwardCapturedEvent.h"
 #include "client_ClosedConnectionCapturedEvent.h"
 
- #define PIXELS_TO_METERS_CONVERSION 1
+ #define PIXELS_TO_METERS_CONVERSION 10
 
 class CapturedEventFactory {
 private:

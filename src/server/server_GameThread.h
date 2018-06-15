@@ -17,7 +17,7 @@
 
 #define TURN_LENGTH 60000
 #define INITIAL_LIFE_POINTS 100
-#define MS_BETWEEN_TURNS 5000
+#define MS_BETWEEN_TURNS 4000
 #define TICK_TIME 20
 
 class ServerThread;
@@ -79,6 +79,12 @@ private:
 
     // Ejecuta un turno del juego.
     void tick_turn();
+
+    // Deja pasar algunos ticks del juego para que se acomoden los cuerpos.
+    void deadTime();
+
+    // Setea todos los gusanos como estáticos.
+    void set_worms_as_immovable();
 public:
     // Recibe el puerto donde escuchará y el nombre del archivo
     // donde leerá las características del mapa.

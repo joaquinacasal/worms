@@ -6,14 +6,24 @@ Radiocontrolled::Radiocontrolled(Stage& a_stage) : stage(a_stage){
 
 bool Radiocontrolled::fire(float x){
   if (active) return false;
-  // Crea 6 municiones en el aire con una distancia de 50m entre ellas.
-  // Calculo la más pegada al borde (-125 m) para correrlo si choca con la pared.
+  // Crea 6 municiones en el aire con una distancia de 30m entre ellas.
+  // Calculo la más pegada al borde (-75 m) para correrlo si choca con la pared.
   // Los crea con una velocidad inicial (10, -1).
-  float x_min = x - 125;
-  if (x_min <= 5) x_min = 5;
+  float x_max = x + 75;
+  if (x_max > stage.get_width() - MARGIN) {
+    x_max = stage.get_width() - MARGIN;
+  }
+  float x_min = x_max - DISTANCE_BETWEEN_BOMBS * (FLYING_BOMBS - 1);
+  if (x_min <= MARGIN) x_min = MARGIN;
+
+  float distance =  DISTANCE_BETWEEN_BOMBS;
+  if ((x_max - x_min) / (FLYING_BOMBS - 1) < distance)
+    distance = (x_max - x_min) / (FLYING_BOMBS - 1);
+
+
   for (size_t i = 0; i < FLYING_BOMBS; i++){
-    munitions.push_back(stage.add_radiocontrolled(x_min));
-    x_min += 50;
+    munitions[i] = stage.add_radiocontrolled(x_min);
+    x_min += distance;
   }
   active = true;
   return true;
@@ -23,19 +33,23 @@ bool Radiocontrolled::is_active(){
   return active;
 }
 
-void Radiocontrolled::check_explosions(){
-  if (!active) return;
-  for (size_t i = 0; i < munitions.size(); i++){
+std::vector<size_t> Radiocontrolled::check_explosions(){
+  std::vector<size_t> explosions;
+  if (!active) return explosions;
+  for (size_t i = 0; i < FLYING_BOMBS; i++){
+    if (munitions.count(i) == 0) continue;
     if (is_colliding(munitions[i])){
+      explosions.push_back(i);
       stage.explode(munitions[i]->GetPosition().x,\
                     munitions[i]->GetPosition().y,\
                     RADIUS_RADIOCONTROLLED,\
                     EPICENTRE_DAMAGE_RADIOCONTROLLED);
       stage.remove_body(munitions[i]);
-      munitions.erase(munitions.begin() + i);
+      munitions.erase(i);
     }
   }
   if (munitions.size() == 0) active = false;
+  return explosions;
 }
 
 bool Radiocontrolled::is_colliding(b2Body* munition){
@@ -46,12 +60,13 @@ bool Radiocontrolled::is_colliding(b2Body* munition){
   return false;
 }
 
-std::vector<std::pair<float, float>> Radiocontrolled::get_positions(){
-  std::vector<std::pair<float, float>> positions;
-  for (size_t i = 0; i < munitions.size(); i++){
+std::map<size_t, std::pair<float, float>> Radiocontrolled::get_positions(){
+  std::map<size_t, std::pair<float, float>> positions;
+  for (size_t i = 0; i < FLYING_BOMBS; i++){
+    if (munitions.count(i) == 0) continue;
     std::pair<float, float> munition_position(munitions[i]->GetPosition().x,\
                   munitions[i]->GetPosition().y);
-    positions.push_back(munition_position);
+    positions[i] = munition_position;
   }
   return positions;
 }

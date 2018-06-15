@@ -1,4 +1,4 @@
-#ifndef __MYTESTSUITE_H
+   #ifndef __MYTESTSUITE_H
 #define __MYTESTSUITE_H
 
 #include <cxxtest/TestSuite.h>
@@ -632,16 +632,16 @@ public:
 
 
       // Chequeo posición inicial
-      std::vector<std::pair<float,float>> positions = player->get_radiocontrolled_positions();
+      std::map<size_t, std::pair<float,float>> positions = player->get_radiocontrolled_positions();
       for (size_t i = 0; i < 6; i++) {
-        TS_ASSERT_DELTA( positions[i].first, initial_position_x - 50 * (2.5 - i), 1);
+        TS_ASSERT_DELTA( positions[i].first, initial_position_x - 30 * (2.5 - i), 1);
         TS_ASSERT_DELTA( positions[i].second, largo_stage - 10, 1);
-
       }
 
+      std::vector<size_t> explosions;
       for (size_t i = 0; i < 300; i++){
         st.step(worm);
-        player->check_radiocontrolled_explosions();
+        explosions = player->check_radiocontrolled_explosions();
         if (!player->is_radiocontrolled_active()){
           break;
         }

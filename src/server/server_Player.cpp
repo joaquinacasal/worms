@@ -74,13 +74,15 @@ bool Player::is_radiocontrolled_active(){
   return this->armory->is_radiocontrolled_active();
 }
 
-std::vector<std::pair<float, float>> Player::get_radiocontrolled_positions(){
+std::map<size_t, std::pair<float, float>> Player::get_radiocontrolled_positions(){
   return this->armory->get_radiocontrolled_positions();
 }
 
-void Player::check_radiocontrolled_explosions(){
-  if (!is_radiocontrolled_active()) return;
-  this->armory->check_radiocontrolled_explosions();
+std::vector<size_t> Player::check_radiocontrolled_explosions(){
+  std::vector<size_t> explosions;
+  if (is_radiocontrolled_active())
+    explosions = this->armory->check_radiocontrolled_explosions();
+  return explosions;
 }
 
 bool Player::has_an_active_weapon(){

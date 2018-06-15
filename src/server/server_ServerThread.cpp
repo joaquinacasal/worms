@@ -105,10 +105,17 @@ void ServerThread::send_dynamite_explosion_to_clients(){
 }
 
 
-void ServerThread::send_radiocontrolled_information_to_clients(int x, int y){
+void ServerThread::send_radiocontrolled_information_to_clients(size_t id, int x, int y){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
-    notifier.send_radiocontrolled_info(clients[i], x, y);
+    notifier.send_radiocontrolled_info(clients[i], id, x, y);
+  }
+}
+
+void ServerThread::send_radiocontrolled_explosion_to_clients(size_t id){
+  if (!keep_running) return;
+  for (size_t i = 0; i < clients.size(); ++i){
+    notifier.send_radiocontrolled_explosion_info(clients[i], id);
   }
 }
 

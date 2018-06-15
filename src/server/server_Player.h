@@ -72,12 +72,13 @@ public:
 
   // Devuelve un vector de pares X,Y indicando las posiciones de todos los
   // teledirigidos activos.
-  std::vector<std::pair<float, float>> get_radiocontrolled_positions();
+  std::map<size_t, std::pair<float, float>> get_radiocontrolled_positions();
 
   // Revisa, para cada munición activa del teledirigido, si está colisionando
   // con algún objeto y en caso que sea verdadero se encarga de hacerlo explotar
-  // y eliminar dicha munición.
-  void check_radiocontrolled_explosions();
+  // y eliminar dicha munición. Devuelve un vector con el id de las municiones
+  // que explotaron.
+  std::vector<size_t> check_radiocontrolled_explosions();
 
   // Devuelve un booleano indicando si el jugador tiene un arma activa.
   bool has_an_active_weapon();

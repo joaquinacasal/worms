@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_ttf.h>
 #include "client_SdlException.h"
 #include "client_SdlWindow.h"
 #include "client_SdlTexture.h"
@@ -22,6 +23,18 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
+    if(TTF_Init() < 0)
+        std::cout << "Couldn't initialize TTF lib: " << TTF_GetError() << std::endl;
+
+    // Cronometro del turno.
+    White = {255, 255, 255, 0};
+    Sans = TTF_OpenFont("../assets/BebasNeueRegular.ttf", 24);
+
+    turn_chrono_surface = TTF_RenderText_Solid(Sans, "60.0", White);
+    turn_chrono_rect.x = 0;  //controls the rect's x coordinate
+    turn_chrono_rect.y = 0; // controls the rect's y coordinte
+    turn_chrono_rect.w = 100; // controls the width of the rect
+    turn_chrono_rect.h = 80; // controls the height of the rect
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -35,12 +48,20 @@ void SdlWindow::fill() {
 }
 
 void SdlWindow::render() {
-    for (auto it = textures.begin(); it != textures.end(); ++it){
+    for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
+        it->second->render();
+    }
+    for (auto it = weapons_textures.begin(); it != weapons_textures.end(); ++it){
         it->second->render();
     }
     for (size_t i = 0; i < static_textures.size(); ++i){
         static_textures[i]->render();
     }
+
+    // Render turn_chrono
+    turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
+    SDL_RenderCopy(this->renderer, turn_chrono_texture, NULL, &turn_chrono_rect);
+
     SDL_RenderPresent(this->renderer);
 }
 
@@ -56,19 +77,23 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
 }
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
+  printf("Turno: %f.\n", drawable->get_time_left());
+
+  std::string value = std::to_string((int)drawable->get_time_left());
+
+  turn_chrono_surface = TTF_RenderText_Solid(Sans, value.c_str(), White);
 }
 
 void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
     double x = drawable->get_x() - (WORM_SIZE / 2);
     double y = drawable->get_y() - (WORM_SIZE / 2);
-    if (textures.count(id)){
-        SdlTexture* worm = textures.at(id);
+    if (worms_textures.count(id)){
+        SdlTexture* worm = worms_textures.at(id);
         worm->set_position(x, y);
     } else {
-        //SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, WORM_SIZE, WORM_SIZE);
         SdlTexture* worm = new SdlTexture(string(ASSETS_FOLDER) + string(WORM_ASSET), *this, x, y, WORM_SIZE, WORM_SIZE);
-        textures[id] = worm;
+        worms_textures[id] = worm;
     }
 }
 
@@ -87,17 +112,31 @@ void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
   SdlTexture* dynamite = new SdlTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET), *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
-  textures[-1] = dynamite;
+  weapons_textures[DYNAMITE_ID] = dynamite;
 }
 
 void SdlWindow::draw(DynamiteExplosionDrawable* drawable) {
-  printf("DEBUG: llegó el explosion\n");
-  delete textures[-1];
-  textures.erase(-1);
+  delete weapons_textures[DYNAMITE_ID];
+  weapons_textures.erase(DYNAMITE_ID);
 }
 
 
 void SdlWindow::draw(RadiocontrolledDrawable* drawable){
+  size_t id = drawable->get_id();
+  double x = drawable->get_x() - (RADIOCONTROLLED_SIZE / 2);
+  double y = drawable->get_y() - (RADIOCONTROLLED_SIZE / 2);
+  if (weapons_textures.count(id)){
+      SdlTexture* radiocontrolled = weapons_textures.at(id);
+      radiocontrolled->set_position(x, y);
+  } else {
+      SdlTexture* radiocontrolled = new SdlTexture("../assets/radiocontrolled.png", *this, x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
+      weapons_textures[id] = radiocontrolled;
+  }
+}
+
+void SdlWindow::draw(RadiocontrolledExplosionDrawable* drawable) {
+  delete weapons_textures[drawable->get_id()];
+  weapons_textures.erase(drawable->get_id());
 }
 
 void SdlWindow::draw(ClosedConnectionDrawable* drawable) {

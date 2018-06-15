@@ -1,36 +1,24 @@
 scenario:
   background: background.png
-  heigth: 1000z
-  width: 1000
+  heigth: 300
+  width: 300
 worms:
   - id: 1
     image: worm.png
-    x: 450
-    y: 129
+    x: 10
+    y: 10
   - id: 2
     image: worm.png
     x: 100
-    y: 100
+    y: 15
   - id: 3
     image: worm.png
-    x: 140
-    y: 100
+    x: 150
+    y: 200
 beams:
   - angle: 0
     id: 1
     image: grdl0.png
     length: 8
-    x: 561
-    y: 398
-  - angle: 45
-    id: 1
-    image: grdl1.png
-    length: 8
-    x: 292
-    y: 333
-  - angle: 0
-    id: 3
-    image: grdl0.png
-    length: 8
-    x: 140
-    y: 90
+    x: 150
+    y: 180

@@ -45,6 +45,10 @@ void ConsoleDrawer::draw(RadiocontrolledDrawable* drawable){
   std::cout << "Teledirigido en (" << std::fixed << std::setprecision(2) << drawable->get_x() << ", " << std::fixed << std::setprecision(2) << drawable->get_y() << ").\n";
 }
 
+void ConsoleDrawer::draw(RadiocontrolledExplosionDrawable* drawable){
+  std::cout << "Boom de la bomba con id " << drawable->get_id() << '\n';
+}
+
 void ConsoleDrawer::draw(ClosedConnectionDrawable* drawable) {
   std::cout << "Se cerró la conección desde el servidor.\n";
 }

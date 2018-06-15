@@ -90,10 +90,31 @@ void GameThread::run() {
     add_all_clients();
     server_thread->start_clients();
     send_stage_information_to_clients();
+    deadTime();
+    set_worms_as_immovable();
+    turns_manager.get_selected_player()->get_selected_worm()->make_movable();
     while (alive) {
       tick_turn();
+      deadTime();
       changeTurn();
     }
+}
+
+void GameThread::deadTime(){
+  // Agrego unos segundos para que los gusanos vuelen y se puedan preparar
+  // para hacer el cambio de turno.
+  int ms_between_turns = MS_BETWEEN_TURNS;
+  Player* actual_player = turns_manager.get_selected_player();
+  Worm* actual_worm = actual_player->get_selected_worm();
+  while (ms_between_turns > 0) {
+    auto start = get_time::now();
+    stage->step(actual_worm);
+    notif_clients();
+    auto end = get_time::now();
+    ms_between_turns -= TICK_TIME;
+    std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - \
+                (int)std::chrono::duration_cast<ms>(end - start).count()));
+  }
 }
 
 void GameThread::tick_turn(){
@@ -156,18 +177,6 @@ void GameThread::tick_turn(){
     notif_clients();
   }
   if (is_alive()) actual_worm->stop_moving();
-  // Agrego unos segundos para que los gusanos vuelen y se puedan preparar
-  // para hacer el cambio de turno.
-  int ms_between_turns = MS_BETWEEN_TURNS;
-  while (ms_between_turns > 0) {
-    auto start = get_time::now();
-    stage->step(actual_worm);
-    notif_clients();
-    auto end = get_time::now();
-    ms_between_turns -= TICK_TIME;
-    std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - \
-                (int)std::chrono::duration_cast<ms>(end - start).count()));
-  }
 }
 
 void GameThread::notif_clients(){
@@ -223,11 +232,12 @@ void GameThread::send_weapon_information_to_clients(){
     this->server_thread->send_dynamite_information_to_clients(x, y, time_to_explosion);
   }
   if (actual_player->is_radiocontrolled_active()){
-    std::vector<std::pair<float, float>> positions = actual_player->get_radiocontrolled_positions();
-    for (size_t i = 0; i < positions.size(); i++){
+    std::map<size_t, std::pair<float, float>> positions = actual_player->get_radiocontrolled_positions();
+    for (size_t i = 0; i < 6; i++){
+      if (positions.count(i) == 0) continue;
       double x = positions[i].first * 1000;
       double y = positions[i].second * 1000;
-      this->server_thread->send_radiocontrolled_information_to_clients(x, y);
+      this->server_thread->send_radiocontrolled_information_to_clients(i, x, y);
     }
   }
 }
@@ -253,13 +263,17 @@ void GameThread::add_all_clients(){
   }
 }
 
-void GameThread::changeTurn(){
+void GameThread::set_worms_as_immovable(){
   // Seteo todos los gusanos en no movibles.
   std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
   for (Worm* worm : all_worms_alive){
     worm->make_immovable();
     worm->correct_angle();
   }
+}
+
+void GameThread::changeTurn(){
+  set_worms_as_immovable();
   if (server_thread->is_alive()) server_thread->changeTurn();
   // Vacío la cola.
   IEvent* temporal_event = NULL;
@@ -288,8 +302,12 @@ void GameThread::check_falling(){
 
 void GameThread::check_radiocontrolled_explosions(){
   Player* actual_player = turns_manager.get_selected_player();
-  if (actual_player->is_radiocontrolled_active())
-    actual_player->check_radiocontrolled_explosions();
+  if (actual_player->is_radiocontrolled_active()){
+    std::vector<size_t> explosions = actual_player->check_radiocontrolled_explosions();
+    for (size_t i = 0; i < explosions.size(); i++){
+      this->server_thread->send_radiocontrolled_explosion_to_clients(explosions[i]);
+    }
+  }
 }
 
 

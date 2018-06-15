@@ -138,10 +138,16 @@ void SocketProtocol::send_dynamite_explosion_notif(){
     send_command_or_code(PROTOCOL_DYMAMITE_EXPLOSION);
 }
 
-void SocketProtocol::send_radiocontrolled_info(int x, int y){
+void SocketProtocol::send_radiocontrolled_info(size_t id, int x, int y){
     send_command_or_code(PROTOCOL_RADIOCONTROLLED_INFO);
+    send_numeric_value((int)id);
     send_numeric_value(x);
     send_numeric_value(y);
+}
+
+void SocketProtocol::send_radiocontrolled_explosion_info(size_t id){
+    send_command_or_code(PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO);
+    send_numeric_value((int)id);
 }
 
 void SocketProtocol::send_start_turn_notif(){

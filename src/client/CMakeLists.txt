@@ -21,6 +21,7 @@ add_executable(worms_client
 				client_DynamiteExplosionDrawable.cpp
 				client_EndTurnDrawable.cpp
 				client_RadiocontrolledDrawable.cpp
+				client_RadiocontrolledExplosionDrawable.cpp
 				client_StageDrawable.cpp
 				client_StartTurnDrawable.cpp
 				client_TurnTimeDrawable.cpp
@@ -35,7 +36,7 @@ add_executable(worms_client
 				../common/common_Thread.cpp
 				../common/common_Lock.cpp)
 
-target_link_libraries(worms_client pthread SDL2 SDL2_image)
+target_link_libraries(worms_client pthread SDL2 SDL2_image SDL2_ttf)
 
 if(NOT INSTALL_PATH)
   set(INSTALL_PATH "/usr/local")
