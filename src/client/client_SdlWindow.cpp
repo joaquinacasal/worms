@@ -78,10 +78,7 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
 }
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
-  printf("Turno: %f.\n", drawable->get_time_left());
-
   std::string value = std::to_string((int)drawable->get_time_left());
-
   turn_chrono_surface = TTF_RenderText_Solid(Sans, value.c_str(), White);
 }
 
