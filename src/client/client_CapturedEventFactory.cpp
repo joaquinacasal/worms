@@ -32,8 +32,8 @@ void CapturedEventFactory::create_dynamite_event(){
 
 void CapturedEventFactory::create_radiocontrolled_event(int x, int y, double scenario_heigth){
   x = pixels_to_meters(x);
-  y = pixels_to_meters(y);
   y = adapt_y_coordinate(y, scenario_heigth);
+  y = pixels_to_meters(y);
   blocking_queue.push(new RadiocontrolledCapturedEvent(socket_protocol, x, y));
 }
 
