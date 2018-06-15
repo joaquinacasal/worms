@@ -14,7 +14,7 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 3. Instalar SDL con el comando `sudo apt install libsdl2-dev && sudo apt install libsdl2-image-dev && sudo apt install libsdl2-ttf-dev`
 4. Instalar QT5 con el comando `sudo apt install qt5-default`
 5. Ingresar a worms/src/tests, y ejecutar el comando `cxxtestgen --error-printer -o tests.cpp MyTestSuite.h`
-6. Volver a la carpeta worms/. Ejecutar el script compile.sh, indicando como parámetro el directorio en el que se quiere 
+6. Volver a la carpeta worms/. Ejecutar el script compile.sh, indicando como parámetro el directorio completo en el que se quiere instalar el programa.
 7. En una consola abrir el servidor con el comando
   `$ ./worms_server [port] [number-of-players] [scenario-filename]`
 8. En otras consolas ingresar los clientes con el comando
@@ -26,7 +26,7 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 * key_right-> mover a la derecha.
 * key_down-> dejar de moverse.
 * key_up-> saltar hacia adelante.
-* space_bar-> saltar hacia atrás.
+* Backspac-> saltar hacia atrás.
 * d-> activa dinamita
 * r-> activa teledirigido (además hay que ingresar una coordenada x, luego la y)
 * t-> activa teletransportación (además hay que ingresar una coordenada x, luego la y)
