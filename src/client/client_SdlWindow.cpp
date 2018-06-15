@@ -7,6 +7,7 @@
 #include "client_SdlException.h"
 #include "client_SdlWindow.h"
 #include "client_SdlTexture.h"
+#include "config.h"
 
 using std::string;
 
@@ -27,7 +28,8 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
 
     // Cronometro del turno.
     White = {255, 255, 255, 0};
-    Sans = TTF_OpenFont("../assets/BebasNeueRegular.ttf", 24);
+    string font = string(ASSETS_FOLDER) + string(FONT_ASSET);
+    Sans = TTF_OpenFont(font.c_str(), 24);
 
     turn_chrono_surface = TTF_RenderText_Solid(Sans, "60.0", White);
     turn_chrono_rect.x = 0;  //controls the rect's x coordinate
@@ -88,7 +90,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         SdlTexture* worm = worms_textures.at(id);
         worm->set_position(x, y);
     } else {
-        SdlTexture* worm = new SdlTexture("../assets/worm.png", *this, x, y, WORM_SIZE, WORM_SIZE);
+        SdlTexture* worm = new SdlTexture(string(ASSETS_FOLDER) + string(WORM_ASSET), *this, x, y, WORM_SIZE, WORM_SIZE);
         worms_textures[id] = worm;
     }
 }
@@ -100,14 +102,14 @@ void SdlWindow::draw(StageDrawable* drawable) {
 void SdlWindow::draw(BeamDrawable* drawable) {
   double x = drawable->get_x() - (drawable->get_length() / 2);
   double y = drawable->get_y() - (drawable->get_width() / 2);
-  SdlTexture* beam = new SdlTexture("../assets/grdl0.png", *this, x, y, drawable->get_length(), drawable->get_width());
+  SdlTexture* beam = new SdlTexture(string(ASSETS_FOLDER) + string(BEAM_ASSET), *this, x, y, drawable->get_length(), drawable->get_width());
   static_textures.push_back(beam);
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
-  SdlTexture* dynamite = new SdlTexture("../assets/dynamite.png", *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
+  SdlTexture* dynamite = new SdlTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET), *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
   weapons_textures[DYNAMITE_ID] = dynamite;
 }
 

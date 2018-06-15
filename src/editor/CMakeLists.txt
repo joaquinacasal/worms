@@ -8,7 +8,6 @@ find_package(Qt5Core)
 find_package(Qt5Gui)
 find_package(Qt5Widgets)
 
-include_directories(${PROJECT_SOURCE_DIR}/libs)
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(.)
 
@@ -29,7 +28,7 @@ qt5_add_resources(ICONS icons.qrc)
 
 add_executable(worms_editor ${SOURCES} ${UIS_HEADERS} ${ICONS})
 
-target_link_libraries(worms_editor Qt5::Widgets Qt5::Core Qt5::Gui ${PROJECT_SOURCE_DIR}/libs/libyaml-cpp.a)
+target_link_libraries(worms_editor Qt5::Widgets Qt5::Core Qt5::Gui yaml-cpp)
 
 if(NOT INSTALL_PATH)
   set(INSTALL_PATH "/usr/local")
@@ -40,7 +39,7 @@ configure_file(
   "${PROJECT_SOURCE_DIR}/config.h"
 )
 
-install(TARGETS worms_editor DESTINATION ${INSTALL_PATH}/bin/)
-install(FILES ${ICONS} DESTINATION ${INSTALL_PATH}/etc/worms/editor/)
-install(DIRECTORY "scenarios" DESTINATION ${INSTALL_PATH}/etc/worms/editor)
-install(DIRECTORY "resources" DESTINATION ${INSTALL_PATH}/etc/worms/editor)
+install(TARGETS worms_editor DESTINATION ${INSTALL_PATH}/worms/editor/bin/)
+install(DIRECTORY "scenarios" DESTINATION ${INSTALL_PATH}/worms/editor)
+install(DIRECTORY "resources" DESTINATION ${INSTALL_PATH}/worms/editor)
+install(FILES ${ICONS} DESTINATION ${INSTALL_PATH}/worms/editor/resources)

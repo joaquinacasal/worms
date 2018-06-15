@@ -7,7 +7,8 @@ message("Headers generados: ${PROJECT_SOURCE_DIR}")
 
 set( BOX2D_BUILD_STATIC ON )
 
-add_subdirectory(Box2D)
+add_subdirectory(Box2D EXCLUDE_FROM_ALL)
+add_subdirectory(yaml-cpp EXCLUDE_FROM_ALL)
 add_subdirectory(src/server/scenario_parser)
 add_subdirectory(src/server)
 add_subdirectory(src/client)

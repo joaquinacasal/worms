@@ -44,3 +44,15 @@ add_executable(worms_server
 				../common/common_SocketProtocol.cpp)
 
 target_link_libraries(worms_server Box2D pthread parser)
+
+if(NOT INSTALL_PATH)
+  set(INSTALL_PATH "/usr/local")
+endif(NOT INSTALL_PATH)
+
+configure_file(
+  "${PROJECT_SOURCE_DIR}/config.h.in"
+  "${PROJECT_SOURCE_DIR}/config.h"
+)
+
+install(TARGETS worms_server DESTINATION ${INSTALL_PATH}/worms/server/bin/)
+install(DIRECTORY "scenarios" DESTINATION ${INSTALL_PATH}/worms/server)

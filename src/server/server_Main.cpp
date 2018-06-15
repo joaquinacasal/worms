@@ -1,10 +1,12 @@
 #include "server_GameThread.h"
+#include "config.h"
 #include <iostream>
 
 int main(int argc, char* argv[]){
   std::cout << "Estoy en el servidor\n";
 
-  GameThread gt(argv[1], string("../scenarios/scenario.yaml"), atoi(argv[2]));
+  //GameThread gt(argv[1], string("../scenarios/scenario.yaml"), atoi(argv[2]));
+  GameThread gt(argv[1], string(SCENARIOS_FOLDER) + string(argv[3]), atoi(argv[2]));
   gt.start_connection();
   while (true){
       std::string input;
