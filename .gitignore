@@ -1,1 +1,4 @@
 build/
+src/client/config.h
+src/editor/config.h
+src/server/config.h

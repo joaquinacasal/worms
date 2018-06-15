@@ -28,7 +28,8 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
 
     // Cronometro del turno.
     White = {255, 255, 255, 0};
-    Sans = TTF_OpenFont("../assets/BebasNeueRegular.ttf", 24);
+    string font = string(ASSETS_FOLDER) + string(FONT_ASSET);
+    Sans = TTF_OpenFont(font.c_str(), 24);
 
     turn_chrono_surface = TTF_RenderText_Solid(Sans, "60.0", White);
     turn_chrono_rect.x = 0;  //controls the rect's x coordinate

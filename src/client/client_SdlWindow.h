@@ -31,6 +31,7 @@
 #define WORM_ASSET "worm.png"
 #define BEAM_ASSET "grdl0.png"
 #define DYNAMITE_ASSET "dynamite.png"
+#define FONT_ASSET "BebasNeueRegular.ttf"
 
 class SdlWindow;
 class SdlTexture;
