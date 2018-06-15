@@ -24,14 +24,15 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
     if(TTF_Init() < 0)
-        std::cout << "Couldn't initialize TTF lib: " << TTF_GetError() << std::endl;
+        throw SdlException("No se pudo inicializar la librería TTF", TTF_GetError());
 
     // Cronometro del turno.
     White = {255, 255, 255, 0};
     string font = string(ASSETS_FOLDER) + string(FONT_ASSET);
-    Sans = TTF_OpenFont(font.c_str(), 24);
+    Sans_big = TTF_OpenFont(font.c_str(), 24);
+    Sans_small = TTF_OpenFont(font.c_str(), 16);
 
-    turn_chrono_surface = TTF_RenderText_Solid(Sans, "60.0", White);
+    turn_chrono_surface = TTF_RenderText_Solid(Sans_big, "60.0", White);
     turn_chrono_rect.x = 0;  //controls the rect's x coordinate
     turn_chrono_rect.y = 0; // controls the rect's y coordinte
     turn_chrono_rect.w = 100; // controls the width of the rect
@@ -50,7 +51,12 @@ void SdlWindow::fill() {
 
 void SdlWindow::render() {
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        it->second->render();
+        it->second->worms_texture->render();
+
+        SDL_RenderCopy(this->renderer, \
+                        SDL_CreateTextureFromSurface(renderer, it->second->life_surface), \
+                        NULL, \
+                        &it->second->life_rect);
     }
     for (auto it = weapons_textures.begin(); it != weapons_textures.end(); ++it){
         it->second->render();
@@ -79,19 +85,35 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
   std::string value = std::to_string((int)drawable->get_time_left());
-  turn_chrono_surface = TTF_RenderText_Solid(Sans, value.c_str(), White);
+  turn_chrono_surface = TTF_RenderText_Solid(Sans_big, value.c_str(), White);
 }
 
 void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
     double x = drawable->get_x() - (WORM_SIZE / 2);
     double y = drawable->get_y() - (WORM_SIZE / 2);
+    std::string life_points(std::to_string(drawable->get_life_points()));
     if (worms_textures.count(id)){
-        SdlTexture* worm = worms_textures.at(id);
-        worm->set_position(x, y);
+        worm_representation* w_r = worms_textures.at(id);
+        w_r->worms_texture->set_position(x, y);
+        w_r->life_rect.x = x;
+        w_r->life_rect.y = y - 20;
+        delete w_r->life_surface;
+        w_r->life_surface = TTF_RenderText_Solid(Sans_small, life_points.c_str(), White);
     } else {
-        SdlTexture* worm = new SdlTexture(string(ASSETS_FOLDER) + string(WORM_ASSET), *this, x, y, WORM_SIZE, WORM_SIZE);
-        worms_textures[id] = worm;
+        SdlTexture* worms_texture = new SdlTexture(string(ASSETS_FOLDER) + string(WORM_ASSET), *this, x, y, WORM_SIZE, WORM_SIZE);
+
+        SDL_Rect life_rect;
+        life_rect.x = x;  //controls the rect's x coordinate
+        life_rect.y = y - 20;  //controls the rect's y coordinate
+        life_rect.w = 20; // controls the width of the rect
+        life_rect.h = 20; // controls the height of the rect
+
+        SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, life_points.c_str(), White);
+
+        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, life_surface });
+
+        worms_textures[id] = w_r;
     }
 }
 

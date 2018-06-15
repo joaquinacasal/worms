@@ -49,6 +49,12 @@ class StartTurnDrawable;
 class TurnTimeDrawable;
 class WormDrawable;
 
+struct worm_representation {
+  SdlTexture* worms_texture;
+  SDL_Rect life_rect;
+  SDL_Surface* life_surface;
+};
+
 using std::map;
 
 class SdlWindow : public Thread {
@@ -59,12 +65,13 @@ private:
     bool connected;
     SDL_Window* window;
     SDL_Renderer* renderer;
-    map<int, SdlTexture*> worms_textures;
+    map<int, worm_representation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     SDL_Surface* turn_chrono_surface;
     SDL_Texture* turn_chrono_texture;
     SDL_Color White;
-    TTF_Font* Sans;
+    TTF_Font* Sans_big;
+    TTF_Font* Sans_small;
     SDL_Rect turn_chrono_rect;
     std::vector<SdlTexture*> static_textures;
     void draw(IDrawable* drawable);
