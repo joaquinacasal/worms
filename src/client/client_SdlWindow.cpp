@@ -26,6 +26,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     if(TTF_Init() < 0)
         throw SdlException("No se pudo inicializar la librería TTF", TTF_GetError());
 
+    change_turn_message = {NULL, 0};
     // Cronometro del turno.
     White = {255, 255, 255, 0};
     string font = string(ASSETS_FOLDER) + string(FONT_ASSET);
@@ -70,6 +71,16 @@ void SdlWindow::render() {
     turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
     SDL_RenderCopy(this->renderer, turn_chrono_texture, NULL, &turn_chrono_rect);
 
+    // Render change_turn_message
+    if (change_turn_message.time_alive > 0) {
+        change_turn_message.message_texture->render();
+        change_turn_message.time_alive--;
+        if (change_turn_message.time_alive == 0){
+          delete change_turn_message.message_texture;
+          change_turn_message.message_texture = NULL;
+        }
+    }
+
     SDL_RenderPresent(this->renderer);
 }
 
@@ -79,9 +90,17 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {
+    if (change_turn_message.message_texture)
+        delete change_turn_message.message_texture;
+    change_turn_message.message_texture = new SdlTexture(string(ASSETS_FOLDER) + string(START_TURN_ASSET), *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
+    if (change_turn_message.message_texture)
+        delete change_turn_message.message_texture;
+    change_turn_message.message_texture = new SdlTexture(string(ASSETS_FOLDER) + string(FINISH_TURN_ASSET), *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {

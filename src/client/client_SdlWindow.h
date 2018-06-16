@@ -28,9 +28,13 @@
 #define DYNAMITE_SIZE 40
 #define RADIOCONTROLLED_SIZE 40
 #define DYNAMITE_ID -1
+#define CHANGE_TURN_MESSAGE_DURATION 600
+#define CHANGE_TURN_MESSAGE_SIZE 500
 #define WORM_ASSET "worm.png"
 #define BEAM_ASSET "grdl0.png"
 #define DYNAMITE_ASSET "dynamite.png"
+#define START_TURN_ASSET "startTurn.png"
+#define FINISH_TURN_ASSET "finishTurn.png"
 #define FONT_ASSET "BebasNeueRegular.ttf"
 
 class SdlWindow;
@@ -55,6 +59,11 @@ struct worm_representation {
   SDL_Surface* life_surface;
 };
 
+struct turn_message {
+  SdlTexture* message_texture;
+  int time_alive;
+};
+
 using std::map;
 
 class SdlWindow : public Thread {
@@ -67,12 +76,14 @@ private:
     SDL_Renderer* renderer;
     map<int, worm_representation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
+    turn_message change_turn_message;
     SDL_Surface* turn_chrono_surface;
     SDL_Texture* turn_chrono_texture;
     SDL_Color White;
     TTF_Font* Sans_big;
     TTF_Font* Sans_small;
     SDL_Rect turn_chrono_rect;
+
     std::vector<SdlTexture*> static_textures;
     void draw(IDrawable* drawable);
 
