@@ -66,6 +66,7 @@ void SdlWindow::render() {
     }
 
     // Render turn_chrono
+    SDL_DestroyTexture(turn_chrono_texture);
     turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
     SDL_RenderCopy(this->renderer, turn_chrono_texture, NULL, &turn_chrono_rect);
 
@@ -85,6 +86,7 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
   std::string value = std::to_string((int)drawable->get_time_left());
+  SDL_FreeSurface(turn_chrono_surface);
   turn_chrono_surface = TTF_RenderText_Solid(Sans_big, value.c_str(), White);
 }
 
