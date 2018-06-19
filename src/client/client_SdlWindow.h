@@ -75,10 +75,12 @@ private:
     bool connected;
     SDL_Window* window;
     SDL_Renderer* renderer;
+    
     map<int, worm_representation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
+    std::vector<SdlTexture*> static_textures;
+
     turn_message change_turn_message;
-    SDL_Surface* turn_chrono_surface;
     SDL_Texture* turn_chrono_texture;
     SDL_Color White;
     TTF_Font* Sans_big;
@@ -92,8 +94,6 @@ private:
     SDL_Texture* dynamite_texture;
     SDL_Texture* radioControlled_texture;
 
-
-    std::vector<SdlTexture*> static_textures;
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);
 

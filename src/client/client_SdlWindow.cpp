@@ -33,7 +33,10 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     Sans_big = TTF_OpenFont(font.c_str(), 24);
     Sans_small = TTF_OpenFont(font.c_str(), 16);
 
-    turn_chrono_surface = TTF_RenderText_Solid(Sans_big, "60.0", White);
+    SDL_Surface* turn_chrono_surface = TTF_RenderText_Solid(Sans_big, "60.0", White);
+    turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
+    SDL_FreeSurface(turn_chrono_surface);
+
     turn_chrono_rect.x = 0;  //controls the rect's x coordinate
     turn_chrono_rect.y = 0; // controls the rect's y coordinte
     turn_chrono_rect.w = 100; // controls the width of the rect
@@ -74,8 +77,6 @@ void SdlWindow::render() {
     }
 
     // Render turn_chrono
-    SDL_DestroyTexture(turn_chrono_texture);
-    turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
     SDL_RenderCopy(this->renderer, turn_chrono_texture, NULL, &turn_chrono_rect);
 
     // Render change_turn_message
@@ -112,8 +113,10 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
   std::string value = std::to_string((int)drawable->get_time_left());
+  SDL_Surface* turn_chrono_surface = TTF_RenderText_Solid(Sans_big, value.c_str(), White);
+  SDL_DestroyTexture(turn_chrono_texture);
+  turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
   SDL_FreeSurface(turn_chrono_surface);
-  turn_chrono_surface = TTF_RenderText_Solid(Sans_big, value.c_str(), White);
 }
 
 void SdlWindow::draw(WormDrawable* drawable) {
@@ -234,12 +237,27 @@ SdlWindow::~SdlWindow() {
       delete drawable;
     }
 
+    for (int i = 0; i < static_textures.size; i++){
+        delete static_textures[i];
+    }
+
+    for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
+        SDL_DestroyTexture(it->second->life_texture);
+        delete it->second->worms_texture;
+        delete it->second;
+    }
+
     SDL_DestroyTexture(worm_texture);
     SDL_DestroyTexture(beam_texture);
     SDL_DestroyTexture(start_turn_texture);
     SDL_DestroyTexture(end_turn_texture);
     SDL_DestroyTexture(dynamite_texture);
     SDL_DestroyTexture(radioControlled_texture);
+
+    delete change_turn_message.message_texture;
+    SDL_DestroyTexture(turn_chrono_texture);
+    TTF_CloseFont(Sans_big);
+    TTF_CloseFont(Sans_small);
 }
 
 SDL_Texture* SdlWindow::loadTexture(const std::string &filename) {
