@@ -49,6 +49,11 @@ void ConsoleDrawer::draw(RadiocontrolledExplosionDrawable* drawable){
   std::cout << "Boom de la bomba con id " << drawable->get_id() << '\n';
 }
 
+void ConsoleDrawer::draw(WormDeathDrawable* drawable){
+  std::cout << "Murio el gusano con id " << drawable->get_id() << '\n';
+}
+
+
 void ConsoleDrawer::draw(ClosedConnectionDrawable* drawable) {
   std::cout << "Se cerró la conección desde el servidor.\n";
 }

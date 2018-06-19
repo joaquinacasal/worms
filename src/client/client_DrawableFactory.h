@@ -18,6 +18,7 @@
 #include "client_StartTurnDrawable.h"
 #include "client_TurnTimeDrawable.h"
 #include "client_WormDrawable.h"
+#include "client_WormDeathDrawable.h"
 
 /* Clase que representa a una fábrica de objetos Drawable, recibe
  * por socket la información necesaria y los encola en la cola protegida.
@@ -28,6 +29,7 @@
  #define PROTOCOL_TURN_END 0x31
  #define PROTOCOL_TURN_TIME 0x32
  #define PROTOCOL_WORM_INFO 0x40
+ #define PROTOCOL_WORM_DEATH_NOTIF 0x41
  #define PROTOCOL_STAGE_INFO 0x50
  #define PROTOCOL_DYMAMITE_INFO 0x60
  #define PROTOCOL_DYMAMITE_EXPLOSION 0x61
@@ -46,6 +48,7 @@
  class StartTurnDrawable;
  class TurnTimeDrawable;
  class WormDrawable;
+ class WormDeathDrawable;
 
 class DrawableFactory : public Thread {
 private:
@@ -58,6 +61,7 @@ private:
     void create_end_turn_drawable();
     void create_turn_time_drawable();
     void create_worm_drawable();
+    void create_worm_death_drawable();
     void create_stage_drawable();
     void create_beam_drawable();
     void create_dynamite_drawable();

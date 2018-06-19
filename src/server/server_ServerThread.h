@@ -56,6 +56,9 @@ public:
     void send_worm_information_to_clients(size_t id, size_t life_points, int x,\
                                 int y, int angle, bool is_facing_right);
 
+    // Envía la notificación de que el gusano con id recibido murió.
+    void send_worm_death_notif_to_clients(size_t id);
+
     // Envía la información pertinente del escenario (ancho y largo) a todos
     // los clientes.
     void send_stage_information_to_clients(int width, int height);

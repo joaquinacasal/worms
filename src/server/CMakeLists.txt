@@ -13,6 +13,7 @@ add_executable(worms_server
 				server_BeamNotification.cpp
 				server_StageNotification.cpp
 				server_WormNotification.cpp
+				server_WormDeathNotification.cpp
 				server_TurnTimeNotification.cpp
 				server_Radiocontrolled.cpp
 				server_RadiocontrolledEvent.cpp

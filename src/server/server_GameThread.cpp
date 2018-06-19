@@ -151,11 +151,8 @@ void GameThread::tick_turn(){
     //Chequeo las explosiones del teledirigido.
     if (actual_player->is_radiocontrolled_active())
       check_radiocontrolled_explosions();
-    if (actual_player->is_dynamite_active()){
-      actual_player->discount_dynamite_time(TICK_TIME);
-      if (!actual_player->is_dynamite_active())
-        this->server_thread->send_dynamite_explosion_to_clients();
-    }
+    if (actual_player->is_dynamite_active())
+      check_dynamite_explosion();
 
     if (!weapon_was_used) {
       // Si nunca se usó el arma, me fijo si se activó.
@@ -298,9 +295,30 @@ void GameThread::check_falling(){
   for (Worm* worm : all_worms_alive){
     worm->check_falling();
   }
+  check_deaths(all_worms_alive);
+}
+
+void GameThread::check_deaths(std::vector<Worm*> initial_worms_alive){
+  std::vector<Worm*> actual_worms_alive = this->stage->get_all_alive_worms();
+  if (initial_worms_alive.size() == actual_worms_alive.size()) return;
+
+  for (Worm* i_worm : initial_worms_alive){
+    size_t id = i_worm->get_id();
+    bool still_alive = false;
+
+    for (Worm* actual_worm : actual_worms_alive){
+      if (id == actual_worm->get_id()) {
+        still_alive = true;
+        break;
+      }
+    }
+    if (!still_alive)
+      this->server_thread->send_worm_death_notif_to_clients(id);
+  }
 }
 
 void GameThread::check_radiocontrolled_explosions(){
+  std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
   Player* actual_player = turns_manager.get_selected_player();
   if (actual_player->is_radiocontrolled_active()){
     std::vector<size_t> explosions = actual_player->check_radiocontrolled_explosions();
@@ -308,6 +326,16 @@ void GameThread::check_radiocontrolled_explosions(){
       this->server_thread->send_radiocontrolled_explosion_to_clients(explosions[i]);
     }
   }
+  check_deaths(all_worms_alive);
+}
+
+void GameThread::check_dynamite_explosion(){
+  std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
+  Player* actual_player = turns_manager.get_selected_player();
+  actual_player->discount_dynamite_time(TICK_TIME);
+  if (!actual_player->is_dynamite_active())
+    this->server_thread->send_dynamite_explosion_to_clients();
+  check_deaths(all_worms_alive);
 }
 
 

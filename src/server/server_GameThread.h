@@ -85,6 +85,15 @@ private:
 
     // Setea todos los gusanos como estáticos.
     void set_worms_as_immovable();
+
+    // Chequea las muertes y envía las notificaciones correspondientes indicando
+    // qué gusanos murieron. Recibe un vector de Worm*, con todos los gusanos
+    // previos al evento que los pudo haber matado, y compara contra los que
+    // están vivos actualmente.
+    void check_deaths(std::vector<Worm*> initial_worms_alive);
+
+    // Chequea la explosión de la dinamita y los gusanos afectados.
+    void check_dynamite_explosion();
 public:
     // Recibe el puerto donde escuchará y el nombre del archivo
     // donde leerá las características del mapa.

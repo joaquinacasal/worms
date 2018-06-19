@@ -35,6 +35,12 @@ void DrawableFactory::create_worm_drawable(){
   safe_queue.push(new WormDrawable(id, life_points, x, y, angle, is_facing_right));
 }
 
+void DrawableFactory::create_worm_death_drawable(){
+  size_t id = socket_protocol.receive_numeric_value();
+  safe_queue.push(new WormDeathDrawable(id));
+}
+
+
 void DrawableFactory::create_beam_drawable(){
   double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
@@ -108,6 +114,9 @@ void DrawableFactory::create_drawable(){
       break;
     case PROTOCOL_WORM_INFO:
       create_worm_drawable();
+      break;
+    case PROTOCOL_WORM_DEATH_NOTIF:
+      create_worm_death_drawable();
       break;
     case PROTOCOL_STAGE_INFO:
       create_stage_drawable();

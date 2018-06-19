@@ -25,6 +25,7 @@
 #define PROTOCOL_TURN_TIME 0x32
 
 #define PROTOCOL_WORM_INFO 0x40
+#define PROTOCOL_WORM_DEATH_NOTIF 0x41
 
 #define PROTOCOL_STAGE_INFO 0x50
 #define PROTOCOL_BEAM_INFO 0x51
@@ -98,6 +99,7 @@ public:
     void send_turn_end();
     void send_worm_info(size_t id, size_t life_points, int x, int y, \
                         int angle, bool is_facing_right);
+    void send_worm_death_notif(size_t id);
     void send_beam_info(int x, int y, int length, int width, int angle);
     void send_stage_info(int width, int height);
     void send_dynamite_info(int x, int y, int time_to_explosion);

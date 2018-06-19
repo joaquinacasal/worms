@@ -26,6 +26,7 @@ add_executable(worms_client
 				client_StartTurnDrawable.cpp
 				client_TurnTimeDrawable.cpp
 				client_WormDrawable.cpp
+				client_WormDeathDrawable.cpp
 				client_SdlWindow.cpp
 				client_SdlException.cpp
 				client_Area.cpp

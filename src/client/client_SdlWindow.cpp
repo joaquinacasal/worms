@@ -49,6 +49,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     end_turn_texture = loadTexture(string(ASSETS_FOLDER) + string(FINISH_TURN_ASSET));
     dynamite_texture = loadTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET));
     radioControlled_texture = loadTexture(string(ASSETS_FOLDER) + string(RADIOCONTROLLED_ASSET));
+    grave_texture = loadTexture(string(ASSETS_FOLDER) + string(GRAVE_ASSET));
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -176,6 +177,21 @@ void SdlWindow::draw(WormDrawable* drawable) {
     }
 }
 
+void SdlWindow::draw(WormDeathDrawable* drawable) {
+  size_t id = drawable->get_id();
+  if (worms_textures.count(id) == 0) return;
+  worm_representation* w_r = worms_textures.at(id);
+
+  SDL_DestroyTexture(w_r->life_texture);
+  SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, "0", White);
+  w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
+  SDL_FreeSurface(life_surface);
+  w_r->life_points = 0;
+
+  delete w_r->worms_texture;
+  w_r->worms_texture = new SdlTexture(grave_texture, *this,w_r->life_rect.x, w_r->life_rect.y, WORM_SIZE, WORM_SIZE);
+}
+
 void SdlWindow::draw(StageDrawable* drawable) {
   SDL_SetWindowSize(this->window, drawable->get_width(), drawable->get_height());
 }
@@ -280,6 +296,7 @@ SdlWindow::~SdlWindow() {
     SDL_DestroyTexture(end_turn_texture);
     SDL_DestroyTexture(dynamite_texture);
     SDL_DestroyTexture(radioControlled_texture);
+    SDL_DestroyTexture(grave_texture);
 
     delete change_turn_message.message_texture;
     SDL_DestroyTexture(turn_chrono_texture);

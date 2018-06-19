@@ -17,6 +17,7 @@
 #include "client_StartTurnDrawable.h"
 #include "client_TurnTimeDrawable.h"
 #include "client_WormDrawable.h"
+#include "client_WormDeathDrawable.h"
 
 class IDrawable;
 class BeamDrawable;
@@ -30,6 +31,7 @@ class StageDrawable;
 class StartTurnDrawable;
 class TurnTimeDrawable;
 class WormDrawable;
+class WormDeathDrawable;
 
 /* Clase que representa al dibujador por consola. Saca los Drawables de una
  * protegida y los imprime por consola.
@@ -57,6 +59,7 @@ public:
     void draw(DynamiteExplosionDrawable* drawable);
     void draw(RadiocontrolledDrawable* drawable);
     void draw(RadiocontrolledExplosionDrawable* drawable);
+    void draw(WormDeathDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
 
     /* Lógica del cliente.

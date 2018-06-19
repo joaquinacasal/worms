@@ -23,6 +23,7 @@
 #include "client_StartTurnDrawable.h"
 #include "client_TurnTimeDrawable.h"
 #include "client_WormDrawable.h"
+#include "client_WormDeathDrawable.h"
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
@@ -37,6 +38,7 @@
 #define RADIOCONTROLLED_ASSET "radiocontrolled.png"
 #define START_TURN_ASSET "startTurn.png"
 #define FINISH_TURN_ASSET "finishTurn.png"
+#define GRAVE_ASSET "grave.png"
 #define FONT_ASSET "BebasNeueRegular.ttf"
 
 class SdlWindow;
@@ -54,6 +56,7 @@ class StageDrawable;
 class StartTurnDrawable;
 class TurnTimeDrawable;
 class WormDrawable;
+class WormDeathDrawable;
 
 struct worm_representation {
   SdlTexture* worms_texture;
@@ -97,6 +100,7 @@ private:
     SDL_Texture* end_turn_texture;
     SDL_Texture* dynamite_texture;
     SDL_Texture* radioControlled_texture;
+    SDL_Texture* grave_texture;
 
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);
@@ -110,6 +114,7 @@ public:
     void draw(EndTurnDrawable* drawable);
     void draw(TurnTimeDrawable* drawable);
     void draw(WormDrawable* drawable);
+    void draw(WormDeathDrawable* drawable);
     void draw(StageDrawable* drawable);
     void draw(BeamDrawable* drawable);
     void draw(DynamiteDrawable* drawable);

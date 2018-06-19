@@ -111,6 +111,12 @@ void SocketProtocol::send_worm_info(size_t id, size_t life_points, int x,\
     else send_numeric_value(0);
 }
 
+void SocketProtocol::send_worm_death_notif(size_t id){
+  send_command_or_code(PROTOCOL_WORM_DEATH_NOTIF);
+  send_numeric_value((int)id);
+}
+
+
 void SocketProtocol::send_beam_info(int x, int y, int length, int width, int angle){
     send_command_or_code(PROTOCOL_BEAM_INFO);
     send_numeric_value(x);
