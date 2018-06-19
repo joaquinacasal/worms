@@ -55,7 +55,7 @@ void SdlWindow::render() {
         it->second->worms_texture->render();
 
         SDL_RenderCopy(this->renderer, \
-                        SDL_CreateTextureFromSurface(renderer, it->second->life_surface), \
+                        it->second->life_texture, \
                         NULL, \
                         &it->second->life_rect);
     }
@@ -119,8 +119,10 @@ void SdlWindow::draw(WormDrawable* drawable) {
         w_r->worms_texture->set_position(x, y);
         w_r->life_rect.x = x;
         w_r->life_rect.y = y - 20;
-        delete w_r->life_surface;
-        w_r->life_surface = TTF_RenderText_Solid(Sans_small, life_points.c_str(), White);
+        SDL_DestroyTexture(w_r->life_texture);
+        SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, life_points.c_str(), White);
+        w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
+        SDL_FreeSurface(life_surface);
     } else {
         SdlTexture* worms_texture = new SdlTexture(string(ASSETS_FOLDER) + string(WORM_ASSET), *this, x, y, WORM_SIZE, WORM_SIZE);
 
@@ -132,9 +134,9 @@ void SdlWindow::draw(WormDrawable* drawable) {
 
         SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, life_points.c_str(), White);
 
-        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, life_surface });
-
+        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface) });
         worms_textures[id] = w_r;
+        SDL_FreeSurface(life_surface);
     }
 }
 

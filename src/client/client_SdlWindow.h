@@ -56,7 +56,7 @@ class WormDrawable;
 struct worm_representation {
   SdlTexture* worms_texture;
   SDL_Rect life_rect;
-  SDL_Surface* life_surface;
+  SDL_Texture* life_texture;
 };
 
 struct turn_message {
