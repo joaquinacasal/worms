@@ -18,3 +18,6 @@ int SdlTexture::render() const {
 void SdlTexture::set_position(int x, int y){
     position = { x, y, position.w, position.h };
 }
+
+SdlTexture::~SdlTexture() {
+}

@@ -30,7 +30,8 @@
 #define DYNAMITE_ID -1
 #define CHANGE_TURN_MESSAGE_DURATION 600
 #define CHANGE_TURN_MESSAGE_SIZE 500
-#define WORM_ASSET "worm.png"
+#define WORM_R_ASSET "worm_r.png"
+#define WORM_L_ASSET "worm_l.png"
 #define BEAM_ASSET "grdl0.png"
 #define DYNAMITE_ASSET "dynamite.png"
 #define RADIOCONTROLLED_ASSET "radiocontrolled.png"
@@ -58,6 +59,8 @@ struct worm_representation {
   SdlTexture* worms_texture;
   SDL_Rect life_rect;
   SDL_Texture* life_texture;
+  bool is_facing_right;
+  size_t life_points;
 };
 
 struct turn_message {
@@ -75,7 +78,7 @@ private:
     bool connected;
     SDL_Window* window;
     SDL_Renderer* renderer;
-    
+
     map<int, worm_representation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     std::vector<SdlTexture*> static_textures;
@@ -87,7 +90,8 @@ private:
     TTF_Font* Sans_small;
     SDL_Rect turn_chrono_rect;
 
-    SDL_Texture* worm_texture;
+    SDL_Texture* worm_l_texture;
+    SDL_Texture* worm_r_texture;
     SDL_Texture* beam_texture;
     SDL_Texture* start_turn_texture;
     SDL_Texture* end_turn_texture;

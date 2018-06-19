@@ -16,7 +16,7 @@ public:
     SdlTexture(SDL_Texture* texture, const SdlWindow& window, int x, int y, int width, int heigth);
     int render() const;
     void set_position(int x, int y);
-    ~SdlTexture() = default;
+    ~SdlTexture();
 private:
     SDL_Renderer* renderer;
     SDL_Texture* texture;
