@@ -6,23 +6,9 @@
 
 using std::string;
 
-SdlTexture::SdlTexture(const string& filename, const SdlWindow& window, int x, int y, int width, int heigth)
-    : renderer(window.getRenderer()) {
-    this->texture = loadTexture(filename);
+SdlTexture::SdlTexture(SDL_Texture* texture, const SdlWindow& window, int x, int y, int width, int heigth)
+    : renderer(window.getRenderer()), texture(texture) {
     position = { x, y, width, heigth };
-}
-
-SdlTexture::~SdlTexture() {
-    SDL_DestroyTexture(this->texture);
-}
-
-SDL_Texture* SdlTexture::loadTexture(const std::string &filename) {
-    SDL_Texture* texture = IMG_LoadTexture(this->renderer,
-                                           filename.c_str());
-    if (!texture) {
-        throw SdlException("Error al cargar la textura", SDL_GetError());
-    }
-    return texture;
 }
 
 int SdlTexture::render() const {

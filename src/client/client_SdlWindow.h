@@ -33,6 +33,7 @@
 #define WORM_ASSET "worm.png"
 #define BEAM_ASSET "grdl0.png"
 #define DYNAMITE_ASSET "dynamite.png"
+#define RADIOCONTROLLED_ASSET "radiocontrolled.png"
 #define START_TURN_ASSET "startTurn.png"
 #define FINISH_TURN_ASSET "finishTurn.png"
 #define FONT_ASSET "BebasNeueRegular.ttf"
@@ -56,7 +57,7 @@ class WormDrawable;
 struct worm_representation {
   SdlTexture* worms_texture;
   SDL_Rect life_rect;
-  SDL_Surface* life_surface;
+  SDL_Texture* life_texture;
 };
 
 struct turn_message {
@@ -74,18 +75,27 @@ private:
     bool connected;
     SDL_Window* window;
     SDL_Renderer* renderer;
+    
     map<int, worm_representation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
+    std::vector<SdlTexture*> static_textures;
+
     turn_message change_turn_message;
-    SDL_Surface* turn_chrono_surface;
     SDL_Texture* turn_chrono_texture;
     SDL_Color White;
     TTF_Font* Sans_big;
     TTF_Font* Sans_small;
     SDL_Rect turn_chrono_rect;
 
-    std::vector<SdlTexture*> static_textures;
+    SDL_Texture* worm_texture;
+    SDL_Texture* beam_texture;
+    SDL_Texture* start_turn_texture;
+    SDL_Texture* end_turn_texture;
+    SDL_Texture* dynamite_texture;
+    SDL_Texture* radioControlled_texture;
+
     void draw(IDrawable* drawable);
+    SDL_Texture* loadTexture(const std::string &filename);
 
     SdlWindow(const ConsoleDrawer&) = delete;
     SdlWindow& operator=(const ConsoleDrawer&) = delete;
