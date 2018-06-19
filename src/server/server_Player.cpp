@@ -22,7 +22,12 @@ bool Player::has_worms_alive(){
 }
 
 void Player::select_next_worm(){
-  if (++selected_index == worms.size()) selected_index = 0;
+  if (!has_worms_alive()) return;
+  while (true) {
+    if (++selected_index == worms.size()) selected_index = 0;
+    if (worms[selected_index]->is_alive())
+      return;
+  }
 }
 
 bool Player::teletransport_actual_worm(int x, int y){
