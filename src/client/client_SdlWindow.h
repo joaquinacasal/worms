@@ -33,6 +33,7 @@
 #define WORM_ASSET "worm.png"
 #define BEAM_ASSET "grdl0.png"
 #define DYNAMITE_ASSET "dynamite.png"
+#define RADIOCONTROLLED_ASSET "radiocontrolled.png"
 #define START_TURN_ASSET "startTurn.png"
 #define FINISH_TURN_ASSET "finishTurn.png"
 #define FONT_ASSET "BebasNeueRegular.ttf"
@@ -84,8 +85,17 @@ private:
     TTF_Font* Sans_small;
     SDL_Rect turn_chrono_rect;
 
+    SDL_Texture* worm_texture;
+    SDL_Texture* beam_texture;
+    SDL_Texture* start_turn_texture;
+    SDL_Texture* end_turn_texture;
+    SDL_Texture* dynamite_texture;
+    SDL_Texture* radioControlled_texture;
+
+
     std::vector<SdlTexture*> static_textures;
     void draw(IDrawable* drawable);
+    SDL_Texture* loadTexture(const std::string &filename);
 
     SdlWindow(const ConsoleDrawer&) = delete;
     SdlWindow& operator=(const ConsoleDrawer&) = delete;

@@ -13,12 +13,11 @@ class Area;
 
 class SdlTexture {
 public:
-    SdlTexture(const string& filename, const SdlWindow& window, int x, int y, int width, int heigth);
+    SdlTexture(SDL_Texture* texture, const SdlWindow& window, int x, int y, int width, int heigth);
     int render() const;
     void set_position(int x, int y);
-    ~SdlTexture();
+    ~SdlTexture() = default;
 private:
-    SDL_Texture* loadTexture(const std::string& filename);
     SDL_Renderer* renderer;
     SDL_Texture* texture;
     SDL_Rect position;

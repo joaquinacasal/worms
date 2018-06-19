@@ -38,6 +38,13 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     turn_chrono_rect.y = 0; // controls the rect's y coordinte
     turn_chrono_rect.w = 100; // controls the width of the rect
     turn_chrono_rect.h = 80; // controls the height of the rect
+
+    worm_texture = loadTexture(string(ASSETS_FOLDER) + string(WORM_ASSET));
+    beam_texture = loadTexture(string(ASSETS_FOLDER) + string(BEAM_ASSET));
+    start_turn_texture = loadTexture(string(ASSETS_FOLDER) + string(START_TURN_ASSET));
+    end_turn_texture = loadTexture(string(ASSETS_FOLDER) + string(FINISH_TURN_ASSET));
+    dynamite_texture = loadTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET));
+    radioControlled_texture = loadTexture(string(ASSETS_FOLDER) + string(RADIOCONTROLLED_ASSET));
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -92,14 +99,14 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 void SdlWindow::draw(StartTurnDrawable* drawable) {
     if (change_turn_message.message_texture)
         delete change_turn_message.message_texture;
-    change_turn_message.message_texture = new SdlTexture(string(ASSETS_FOLDER) + string(START_TURN_ASSET), *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.message_texture = new SdlTexture(start_turn_texture, *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
     if (change_turn_message.message_texture)
         delete change_turn_message.message_texture;
-    change_turn_message.message_texture = new SdlTexture(string(ASSETS_FOLDER) + string(FINISH_TURN_ASSET), *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.message_texture = new SdlTexture(end_turn_texture, *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
@@ -124,7 +131,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
         SDL_FreeSurface(life_surface);
     } else {
-        SdlTexture* worms_texture = new SdlTexture(string(ASSETS_FOLDER) + string(WORM_ASSET), *this, x, y, WORM_SIZE, WORM_SIZE);
+        SdlTexture* worms_texture = new SdlTexture(worm_texture, *this, x, y, WORM_SIZE, WORM_SIZE);
 
         SDL_Rect life_rect;
         life_rect.x = x;  //controls the rect's x coordinate
@@ -147,14 +154,14 @@ void SdlWindow::draw(StageDrawable* drawable) {
 void SdlWindow::draw(BeamDrawable* drawable) {
   double x = drawable->get_x() - (drawable->get_length() / 2);
   double y = drawable->get_y() - (drawable->get_width() / 2);
-  SdlTexture* beam = new SdlTexture(string(ASSETS_FOLDER) + string(BEAM_ASSET), *this, x, y, drawable->get_length(), drawable->get_width());
+  SdlTexture* beam = new SdlTexture(beam_texture, *this, x, y, drawable->get_length(), drawable->get_width());
   static_textures.push_back(beam);
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
-  SdlTexture* dynamite = new SdlTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET), *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
+  SdlTexture* dynamite = new SdlTexture(dynamite_texture, *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
   weapons_textures[DYNAMITE_ID] = dynamite;
 }
 
@@ -172,7 +179,7 @@ void SdlWindow::draw(RadiocontrolledDrawable* drawable){
       SdlTexture* radiocontrolled = weapons_textures.at(id);
       radiocontrolled->set_position(x, y);
   } else {
-      SdlTexture* radiocontrolled = new SdlTexture("../assets/radiocontrolled.png", *this, x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
+      SdlTexture* radiocontrolled = new SdlTexture(radioControlled_texture, *this, x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
       weapons_textures[id] = radiocontrolled;
   }
 }
@@ -226,4 +233,20 @@ SdlWindow::~SdlWindow() {
     while(safe_queue.pop(drawable)) {
       delete drawable;
     }
+
+    SDL_DestroyTexture(worm_texture);
+    SDL_DestroyTexture(beam_texture);
+    SDL_DestroyTexture(start_turn_texture);
+    SDL_DestroyTexture(end_turn_texture);
+    SDL_DestroyTexture(dynamite_texture);
+    SDL_DestroyTexture(radioControlled_texture);
+}
+
+SDL_Texture* SdlWindow::loadTexture(const std::string &filename) {
+    SDL_Texture* texture = IMG_LoadTexture(this->renderer,
+                                           filename.c_str());
+    if (!texture) {
+        throw SdlException("Error al cargar la textura", SDL_GetError());
+    }
+    return texture;
 }
