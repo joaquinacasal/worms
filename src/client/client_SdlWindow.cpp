@@ -237,7 +237,7 @@ SdlWindow::~SdlWindow() {
       delete drawable;
     }
 
-    for (int i = 0; i < static_textures.size; i++){
+    for (int i = 0; i < static_textures.size(); i++){
         delete static_textures[i];
     }
 
