@@ -99,7 +99,7 @@ void SocketProtocol::send_turn_end(){
 }
 
 void SocketProtocol::send_worm_info(size_t id, size_t life_points, int x,\
-              int y, int angle, bool is_facing_right){
+              int y, int angle, bool is_facing_right, int team){
 
     send_command_or_code(PROTOCOL_WORM_INFO);
     send_numeric_value((int)id);
@@ -109,11 +109,13 @@ void SocketProtocol::send_worm_info(size_t id, size_t life_points, int x,\
     send_numeric_value(angle);
     if (is_facing_right) send_numeric_value(1);
     else send_numeric_value(0);
+    send_numeric_value(team);
 }
 
-void SocketProtocol::send_worm_death_notif(size_t id){
+void SocketProtocol::send_worm_death_notif(size_t id, int team){
   send_command_or_code(PROTOCOL_WORM_DEATH_NOTIF);
   send_numeric_value((int)id);
+  send_numeric_value(team);
 }
 
 

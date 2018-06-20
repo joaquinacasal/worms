@@ -36,6 +36,12 @@ public:
   // Devuelve el numero total de jugadores.
   size_t get_number_players();
 
+  // Devuelve un vector de todos los jugadores del juego.
+  std::vector<Player*> get_players();
+
+  // Devuelve el equipo al que pertenece el gusano recibido.
+  int get_team_of_worm(Worm* worm);
+
   // Destructor.
   ~TurnsManager();
 };
