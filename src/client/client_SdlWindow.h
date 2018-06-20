@@ -9,7 +9,6 @@
 #include <SDL2/SDL_ttf.h>
 #include "../common/common_Thread.h"
 #include "../common/common_SafeQueue.h"
-#include "client_Area.h"
 #include "client_SdlTexture.h"
 #include "client_IDrawable.h"
 #include "client_BeamDrawable.h"

@@ -8,6 +8,7 @@ public:
 	int getY() const;
 	int getWidth() const;
 	int getHeight() const;
+	void setPosition(int x, int y);
 private:
 	int x, y;
 	int width, height;

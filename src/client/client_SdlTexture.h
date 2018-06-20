@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SDL2/SDL_image.h>
+#include "client_Area.h"
 
 using std::string;
 
@@ -13,14 +14,15 @@ class Area;
 
 class SdlTexture {
 public:
-    SdlTexture(SDL_Texture* texture, const SdlWindow& window, int x, int y, int width, int heigth);
+    SdlTexture(SDL_Texture* texture, const SdlWindow& window, Area position);
     int render() const;
+    int render(int angle) const;
     void set_position(int x, int y);
-    ~SdlTexture();
+    ~SdlTexture() = default;
 private:
     SDL_Renderer* renderer;
     SDL_Texture* texture;
-    SDL_Rect position;
+    Area position;
 };
 
 #endif

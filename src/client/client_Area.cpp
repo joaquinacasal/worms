@@ -7,12 +7,20 @@ Area::Area(int x, int y, int width, int height) :
 int Area::getX() const {
 	return this->x;
 }
+
 int Area::getY() const {
 	return this->y;
 }
+
 int Area::getWidth() const {
 	return this->width;
 }
+
 int Area::getHeight() const {
 	return this->height;
+}
+
+void Area::setPosition(int x, int y) {
+	this->x = x;
+	this->y = y;
 }
