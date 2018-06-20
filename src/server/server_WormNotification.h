@@ -12,12 +12,13 @@ private:
     int y;
     int angle;
     bool is_facing_right;
+    int team;
 
     WormNotification(const WormNotification&) = delete;
     WormNotification& operator=(const WormNotification&) = delete;
 public:
     WormNotification(ClientHandler* client, size_t id, size_t life_points,\
-                      int x, int y, int angle, bool is_facing_right);
+                      int x, int y, int angle, bool is_facing_right, int team);
 
     void run();
 

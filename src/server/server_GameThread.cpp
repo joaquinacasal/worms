@@ -187,20 +187,25 @@ void GameThread::send_turn_time_information(){
 }
 
 void GameThread::send_worms_information_to_clients(){
-  std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
-  for (size_t i = 0; i < all_worms_alive.size(); i++){
-    // Solo envío la información de los movibles.
-    if (!all_worms_alive[i]->is_movable()) continue;
-    size_t id = all_worms_alive[i]->get_id();
-    size_t life_points = all_worms_alive[i]->get_life_points();
-    int x = all_worms_alive[i]->get_horizontal_position() * 1000;
-    int y = all_worms_alive[i]->get_vertical_position() * 1000;
-    int angle = (int)all_worms_alive[i]->get_angle();
-    bool is_facing_right = all_worms_alive[i]->is_facing_right();
+  std::vector<Player*> players = turns_manager.get_players();
+  for (int i = 0; i < players.size(); i++){
+    std::vector<Worm*> worms = players[i]->get_worms();
+    for (Worm* worm : worms) {
+      // Solo envío la información de los movibles.
+      if (!worm->is_movable() || !worm->is_alive()) continue;
+      size_t id = worm->get_id();
+      size_t life_points = worm->get_life_points();
+      int x = worm->get_horizontal_position() * 1000;
+      int y = worm->get_vertical_position() * 1000;
+      int angle = (int)worm->get_angle();
+      bool is_facing_right = worm->is_facing_right();
 
-    this->server_thread->send_worm_information_to_clients(id, life_points, x, \
-                                          y, angle, is_facing_right);
+      this->server_thread->send_worm_information_to_clients(id, life_points, x, \
+                                            y, angle, is_facing_right, i);
+
+    }
   }
+
 }
 
 void GameThread::send_stage_information_to_clients(){

@@ -33,6 +33,10 @@ size_t TurnsManager::get_number_players(){
   return players.size();
 }
 
+std::vector<Player*> TurnsManager::get_players(){
+  return players;
+}
+
 TurnsManager::~TurnsManager(){
   for (size_t i = 0; i < players.size(); i++){
     delete players[i];

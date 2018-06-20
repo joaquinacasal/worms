@@ -100,7 +100,7 @@ public:
     void send_turn_start();
     void send_turn_end();
     void send_worm_info(size_t id, size_t life_points, int x, int y, \
-                        int angle, bool is_facing_right);
+                        int angle, bool is_facing_right, int team);
     void send_worm_death_notif(size_t id);
     void send_beam_info(int x, int y, int length, int width, int angle);
     void send_stage_info(int width, int height, std::string background);

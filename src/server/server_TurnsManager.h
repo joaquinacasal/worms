@@ -36,6 +36,9 @@ public:
   // Devuelve el numero total de jugadores.
   size_t get_number_players();
 
+  // Devuelve un vector de todos los jugadores del juego.
+  std::vector<Player*> get_players();
+
   // Destructor.
   ~TurnsManager();
 };

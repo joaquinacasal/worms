@@ -35,6 +35,9 @@ public:
   // Devuelve un booleano indicando si tiene algún gusano vivo.
   bool has_worms_alive();
 
+  // Devuelve un vector con todos los worms del jugador.
+  std::vector<Worm*> get_worms();
+
   // Teletransporta el gusano seleccionado a la coordenada (X,Y) indicada.
   bool teletransport_actual_worm(int x, int y);
 

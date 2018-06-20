@@ -33,9 +33,9 @@ void ClientHandler::run() {
 }
 
 void ClientHandler::send_worm_info(size_t id, size_t life_points, int x, int y,\
-                            int angle, bool is_facing_right){
+                            int angle, bool is_facing_right, int team){
   if (!is_alive()) return;
-  this->protocol.send_worm_info(id, life_points, x, y, angle, is_facing_right);
+  this->protocol.send_worm_info(id, life_points, x, y, angle, is_facing_right, team);
 }
 
 void ClientHandler::send_worm_death_notif(size_t id){

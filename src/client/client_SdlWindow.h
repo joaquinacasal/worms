@@ -86,9 +86,22 @@ private:
     map<int, SdlTexture*> weapons_textures;
     std::vector<SdlTexture*> static_textures;
 
+    SDL_Color White;
+    SDL_Color Red;
+    SDL_Color Green;
+    SDL_Color Blue;
+    SDL_Color Black;
+    SDL_Color Yellow;
+    SDL_Color Purple;
+    SDL_Color Light_Blue;
+    SDL_Color Brown;
+    SDL_Color Orange;
+    SDL_Color Pink;
+
+    std::vector<SDL_Color> colors;
+
     turn_message change_turn_message;
     SDL_Texture* turn_chrono_texture;
-    SDL_Color White;
     TTF_Font* Sans_big;
     TTF_Font* Sans_small;
     SDL_Rect turn_chrono_rect;

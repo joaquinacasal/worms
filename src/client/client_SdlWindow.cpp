@@ -26,12 +26,24 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     if(TTF_Init() < 0)
         throw SdlException("No se pudo inicializar la librería TTF", TTF_GetError());
 
-    change_turn_message = {NULL, 0};
-    // Cronometro del turno.
+    // Colors
     White = {255, 255, 255, 0};
+    colors.push_back(Red = {255, 0, 0, 0});
+    colors.push_back(Green = {0, 255, 0, 0});
+    colors.push_back(Blue = {0, 0, 255, 0});
+    colors.push_back(Black = {0, 0, 0, 0});
+    colors.push_back(Yellow = {255, 255, 0, 0});
+    colors.push_back(Purple = {255, 0, 255, 0});
+    colors.push_back(Light_Blue = {0, 255, 255, 0});
+    colors.push_back(Brown = {102, 51, 0, 0});
+    colors.push_back(Orange = {255, 102, 0, 0});
+    colors.push_back(Pink = {255, 153, 255, 0});
+
+    // Cronometro del turno.
+    change_turn_message = {NULL, 0};
     string font = string(ASSETS_FOLDER) + string(FONT_ASSET);
     Sans_big = TTF_OpenFont(font.c_str(), 24);
-    Sans_small = TTF_OpenFont(font.c_str(), 16);
+    Sans_small = TTF_OpenFont(font.c_str(), 18);
 
     SDL_Surface* turn_chrono_surface = TTF_RenderText_Solid(Sans_big, "60.0", White);
     turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
@@ -132,6 +144,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
     size_t new_life_points_q = drawable->get_life_points();
     std::string new_life_points_s(std::to_string(new_life_points_q));
     bool new_facing_right = drawable->get_is_facing_right();
+    int team = drawable->get_team();
     if (worms_textures.count(id)){
         worm_representation* w_r = worms_textures.at(id);
         w_r->worms_texture->set_position(new_x, new_y);
@@ -141,7 +154,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         // Actualizo la vida si cambió
         if (w_r->life_points != new_life_points_q){
           SDL_DestroyTexture(w_r->life_texture);
-          SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), White);
+          SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), colors[team % 10]);
           w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
           SDL_FreeSurface(life_surface);
           w_r->life_points = new_life_points_q;
@@ -173,7 +186,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         life_rect.w = 20; // controls the width of the rect
         life_rect.h = 20; // controls the height of the rect
 
-        SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), White);
+        SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), colors[team % 10]);
 
         worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface), new_facing_right, new_life_points_q });
         worms_textures[id] = w_r;

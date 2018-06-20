@@ -51,13 +51,13 @@ public:
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando).
     void send_worm_info(size_t id, size_t life_points, int x, int y, \
-                                int angle, bool is_facing_right);
+                                int angle, bool is_facing_right, int team);
 
     // Envía una notificación indicando que el gusano con el id recibido murió.
     void send_worm_death_notif(size_t id);
 
     // Envía la información pertinente del escenario (ancho y largo e
-    // imagen de fondo). 
+    // imagen de fondo).
     void send_stage_info(size_t width, size_t height, std::string background);
 
     // Envía la información de una viga (posición, ancho, alto y ángulo).
