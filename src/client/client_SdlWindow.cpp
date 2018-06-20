@@ -125,7 +125,7 @@ void SdlWindow::draw(StartTurnDrawable* drawable) {
 void SdlWindow::draw(EndTurnDrawable* drawable) {
     if (change_turn_message.message_texture)
         delete change_turn_message.message_texture;
-    change_turn_message.message_texture = new SdlTexture(end_turn_texture, *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.message_texture = new SdlTexture(end_turn_texture, *this, width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
