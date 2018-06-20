@@ -80,7 +80,7 @@ void SdlWindow::fill() {
 
 void SdlWindow::render() {
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        it->second->worms_texture->render();
+        it->second->worms_texture->render(it->second->angle);
 
         SDL_RenderCopy(this->renderer, \
                         it->second->life_texture, \
@@ -91,7 +91,7 @@ void SdlWindow::render() {
         it->second->render();
     }
     for (size_t i = 0; i < static_textures.size(); ++i){
-        static_textures[i]->render();
+        static_textures[i]->beam_texture->render(static_textures[i]->angle);
     }
 
     // Render turn_chrono
@@ -118,14 +118,16 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 void SdlWindow::draw(StartTurnDrawable* drawable) {
     if (change_turn_message.message_texture)
         delete change_turn_message.message_texture;
-    change_turn_message.message_texture = new SdlTexture(start_turn_texture, *this, width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.message_texture = new SdlTexture(start_turn_texture, *this, area);
     change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
     if (change_turn_message.message_texture)
         delete change_turn_message.message_texture;
-    change_turn_message.message_texture = new SdlTexture(end_turn_texture, *this, width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.message_texture = new SdlTexture(end_turn_texture, *this, area);
     change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
@@ -141,6 +143,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
     double new_x = drawable->get_x() - (WORM_SIZE / 2);
     double new_y = drawable->get_y() - (WORM_SIZE / 2);
+    int new_angle = drawable->get_angle();
     size_t new_life_points_q = drawable->get_life_points();
     std::string new_life_points_s(std::to_string(new_life_points_q));
     bool new_facing_right = drawable->get_is_facing_right();
@@ -150,6 +153,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         w_r->worms_texture->set_position(new_x, new_y);
         w_r->life_rect.x = new_x + 10;
         w_r->life_rect.y = new_y - 20;
+        w_r->angle = new_angle;
 
         // Actualizo la vida si cambió
         if (w_r->life_points != new_life_points_q){
@@ -163,10 +167,11 @@ void SdlWindow::draw(WormDrawable* drawable) {
         // Actualizo el lado para el que mira si cambió
         if (w_r->is_facing_right != new_facing_right) {
           delete w_r->worms_texture;
+          Area area(new_x, new_y, WORM_SIZE, WORM_SIZE);
           if (new_facing_right) {
-              w_r->worms_texture = new SdlTexture(worm_r_texture, *this, new_x, new_y, WORM_SIZE, WORM_SIZE);
+              w_r->worms_texture = new SdlTexture(worm_r_texture, *this, area);
           } else {
-              w_r->worms_texture = new SdlTexture(worm_l_texture, *this, new_x, new_y, WORM_SIZE, WORM_SIZE);
+              w_r->worms_texture = new SdlTexture(worm_l_texture, *this, area);
           }
           w_r->is_facing_right = new_facing_right;
         }
@@ -174,10 +179,11 @@ void SdlWindow::draw(WormDrawable* drawable) {
 
     } else {
         SdlTexture* worms_texture = NULL;
+        Area area(new_x, new_y, WORM_SIZE, WORM_SIZE);
         if (new_facing_right) {
-          worms_texture = new SdlTexture(worm_r_texture, *this, new_x, new_y, WORM_SIZE, WORM_SIZE);
+          worms_texture = new SdlTexture(worm_r_texture, *this, area);
         } else {
-          worms_texture = new SdlTexture(worm_l_texture, *this, new_x, new_y, WORM_SIZE, WORM_SIZE);
+          worms_texture = new SdlTexture(worm_l_texture, *this, area);
         }
 
         SDL_Rect life_rect;
@@ -188,7 +194,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
 
         SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), colors[team % 10]);
 
-        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface), new_facing_right, new_life_points_q });
+        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface), new_facing_right, new_life_points_q, new_angle });
         worms_textures[id] = w_r;
         SDL_FreeSurface(life_surface);
     }
@@ -207,7 +213,8 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
   w_r->life_points = 0;
 
   delete w_r->worms_texture;
-  w_r->worms_texture = new SdlTexture(grave_texture, *this,w_r->life_rect.x, w_r->life_rect.y, WORM_SIZE, WORM_SIZE);
+  Area area(w_r->life_rect.x, w_r->life_rect.y, WORM_SIZE, WORM_SIZE);
+  w_r->worms_texture = new SdlTexture(grave_texture, *this, area);
 }
 
 void SdlWindow::draw(StageDrawable* drawable) {
@@ -216,21 +223,25 @@ void SdlWindow::draw(StageDrawable* drawable) {
   SDL_SetWindowSize(this->window, width, height);
   SDL_Texture* background = loadTexture(string(BACKGROUNDS_FOLDER) + drawable->get_background());
 
-  this->background_texture = new SdlTexture(background, *this, 0, 0, width, height);
+  Area area(0, 0, width, height);
+  this->background_texture = new SdlTexture(background, *this, area);
 
 }
 
 void SdlWindow::draw(BeamDrawable* drawable) {
   double x = drawable->get_x() - (drawable->get_length() / 2);
   double y = drawable->get_y() - (drawable->get_width() / 2);
-  SdlTexture* beam = new SdlTexture(beam_texture, *this, x, y, drawable->get_length(), drawable->get_width());
-  static_textures.push_back(beam);
+  Area area(x, y, drawable->get_length(), drawable->get_width());
+  SdlTexture* beam = new SdlTexture(beam_texture, *this, area);
+  beam_representation* b_r = new beam_representation({ beam, drawable->get_angle() });
+  static_textures.push_back(b_r);
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
-  SdlTexture* dynamite = new SdlTexture(dynamite_texture, *this, x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
+  Area area(x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
+  SdlTexture* dynamite = new SdlTexture(dynamite_texture, *this, area);
   weapons_textures[DYNAMITE_ID] = dynamite;
 }
 
@@ -248,7 +259,8 @@ void SdlWindow::draw(RadiocontrolledDrawable* drawable){
       SdlTexture* radiocontrolled = weapons_textures.at(id);
       radiocontrolled->set_position(x, y);
   } else {
-      SdlTexture* radiocontrolled = new SdlTexture(radioControlled_texture, *this, x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
+      Area area(x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
+      SdlTexture* radiocontrolled = new SdlTexture(radioControlled_texture, *this, area);
       weapons_textures[id] = radiocontrolled;
   }
 }
