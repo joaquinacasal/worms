@@ -68,7 +68,7 @@ void SdlWindow::fill() {
 
 void SdlWindow::render() {
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        it->second->worms_texture->render();
+        it->second->worms_texture->render(it->second->angle);
 
         SDL_RenderCopy(this->renderer, \
                         it->second->life_texture, \
@@ -79,7 +79,7 @@ void SdlWindow::render() {
         it->second->render();
     }
     for (size_t i = 0; i < static_textures.size(); ++i){
-        static_textures[i]->render();
+        static_textures[i]->beam_texture->render(static_textures[i]->angle);
     }
 
     // Render turn_chrono
@@ -131,6 +131,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
     size_t id = drawable->get_id();
     double new_x = drawable->get_x() - (WORM_SIZE / 2);
     double new_y = drawable->get_y() - (WORM_SIZE / 2);
+    int new_angle = drawable->get_angle();
     size_t new_life_points_q = drawable->get_life_points();
     std::string new_life_points_s(std::to_string(new_life_points_q));
     bool new_facing_right = drawable->get_is_facing_right();
@@ -139,6 +140,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         w_r->worms_texture->set_position(new_x, new_y);
         w_r->life_rect.x = new_x + 10;
         w_r->life_rect.y = new_y - 20;
+        w_r->angle = new_angle;
 
         // Actualizo la vida si cambió
         if (w_r->life_points != new_life_points_q){
@@ -179,7 +181,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
 
         SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), White);
 
-        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface), new_facing_right, new_life_points_q });
+        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface), new_facing_right, new_life_points_q, new_angle });
         worms_textures[id] = w_r;
         SDL_FreeSurface(life_surface);
     }
@@ -217,7 +219,8 @@ void SdlWindow::draw(BeamDrawable* drawable) {
   double y = drawable->get_y() - (drawable->get_width() / 2);
   Area area(x, y, drawable->get_length(), drawable->get_width());
   SdlTexture* beam = new SdlTexture(beam_texture, *this, area);
-  static_textures.push_back(beam);
+  beam_representation* b_r = new beam_representation({ beam, drawable->get_angle() });
+  static_textures.push_back(b_r);
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {

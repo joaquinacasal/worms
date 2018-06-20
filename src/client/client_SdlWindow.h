@@ -63,6 +63,12 @@ struct worm_representation {
   SDL_Texture* life_texture;
   bool is_facing_right;
   size_t life_points;
+  int angle;
+};
+
+struct beam_representation {
+  SdlTexture* beam_texture;
+  int angle;
 };
 
 struct turn_message {
@@ -83,7 +89,7 @@ private:
 
     map<int, worm_representation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
-    std::vector<SdlTexture*> static_textures;
+    std::vector<beam_representation*> static_textures;
 
     turn_message change_turn_message;
     SDL_Texture* turn_chrono_texture;

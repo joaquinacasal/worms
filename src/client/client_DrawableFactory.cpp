@@ -27,7 +27,7 @@ void DrawableFactory::create_worm_drawable(){
   size_t life_points = socket_protocol.receive_numeric_value();
   double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
-  int angle = socket_protocol.receive_numeric_value();
+  int angle = socket_protocol.receive_numeric_value() * -1;
   bool is_facing_right = (bool)socket_protocol.receive_numeric_value();
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
@@ -46,7 +46,7 @@ void DrawableFactory::create_beam_drawable(){
   double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
   size_t length = socket_protocol.receive_numeric_value();
   size_t width = socket_protocol.receive_numeric_value();
-  size_t angle = socket_protocol.receive_numeric_value();
+  size_t angle = socket_protocol.receive_numeric_value() * -1;
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
   y = adapt_y_coordinate(y);
