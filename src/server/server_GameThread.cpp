@@ -118,7 +118,6 @@ void GameThread::deadTime(){
 }
 
 void GameThread::tick_turn(){
-  IEvent* temporal_event = NULL;
   Player* actual_player = turns_manager.get_selected_player();
   Worm* actual_worm = actual_player->get_selected_worm();
   size_t initial_life = actual_worm->get_life_points();
@@ -127,53 +126,71 @@ void GameThread::tick_turn(){
 
   while (alive && (turn_chrono > 0 || actual_player->has_an_active_weapon())) {
     auto start = get_time::now();
-    // Chequeo las caidas y termino el turno si el actual recibe danio.
     check_falling();
-    if (initial_life > actual_worm->get_life_points())
-      turn_chrono = 0;
-    // Si ya termina el turno y siguen los ataques dejo de moverlo.
-    if (turn_chrono == 0) actual_worm->stop_moving();
-    // Si ya termino el turno no ejecuta ninguna acción
-    if (turn_chrono > 0 && this->safe_queue.pop(temporal_event)){
-      try {
-        temporal_event->run();
-        delete temporal_event;
-      } catch (...){
-          std::cout << "Un cliente cerró la conexión\n";
-          this->stop();
-
-          delete temporal_event;
-          break;
-      }
-    }
+    check_life_discount(initial_life, actual_worm);
+    check_immobilization(actual_worm);
+    if (!execute_event()) break;
     stage->step(actual_worm);
-
-    //Chequeo las explosiones del teledirigido.
-    if (actual_player->is_radiocontrolled_active())
-      check_radiocontrolled_explosions();
-    if (actual_player->is_dynamite_active())
-      check_dynamite_explosion();
-
-    if (!weapon_was_used) {
-      // Si nunca se usó el arma, me fijo si se activó.
-      if (actual_player->has_an_active_weapon())
-        weapon_was_used = true;
-    } else {
-      // Si alguna vez fue usada un arma, entonces cuando
-      // se desactive termina el turno.
-      if (!actual_player->has_an_active_weapon())
-        turn_chrono = 0;
-    }
-
+    check_weapons(actual_player, weapon_was_used);
     auto end = get_time::now();
-    turn_chrono -= TICK_TIME;
-    std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - \
-                (int)std::chrono::duration_cast<ms>(end - start).count()));
-    if (turn_chrono < 0) turn_chrono = 0;
-
+    discount_time((int)std::chrono::duration_cast<ms>(end - start).count());
     notif_clients();
   }
-  if (is_alive()) actual_worm->stop_moving();
+  actual_worm->stop_moving();
+}
+
+void GameThread::check_life_discount(size_t initial_life, Worm* actual_worm){
+  if (initial_life > actual_worm->get_life_points())
+    turn_chrono = 0;
+}
+
+void GameThread::check_immobilization(Worm* actual_worm){
+  // Si ya termina el turno y siguen los ataques dejo de moverlo.
+  if (turn_chrono == 0) actual_worm->stop_moving();
+}
+
+bool GameThread::execute_event(){
+  IEvent* temporal_event = NULL;
+  // Si ya termino el turno no ejecuta ninguna acción
+  if (turn_chrono > 0 && this->safe_queue.pop(temporal_event)){
+    try {
+      temporal_event->run();
+      delete temporal_event;
+    } catch (...){
+        std::cout << "Un cliente cerró la conexión\n";
+        this->stop();
+
+        delete temporal_event;
+        return false;
+    }
+  }
+  return true;
+}
+
+void GameThread::check_weapons(Player* actual_player, bool& weapon_was_used){
+  // Chequeo las explosiones del teledirigido.
+  if (actual_player->is_radiocontrolled_active())
+    check_radiocontrolled_explosions();
+  // Chequeo la explosión de la dinamita
+  if (actual_player->is_dynamite_active())
+    check_dynamite_explosion();
+
+  if (!weapon_was_used) {
+    // Si nunca se usó el arma, me fijo si se activó.
+    if (actual_player->has_an_active_weapon())
+      weapon_was_used = true;
+  } else {
+    // Si alguna vez fue usada un arma, entonces cuando
+    // se desactive termina el turno.
+    if (!actual_player->has_an_active_weapon())
+      turn_chrono = 0;
+  }
+}
+
+void GameThread::discount_time(int time_spent){
+  turn_chrono -= TICK_TIME;
+  std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - time_spent));
+  if (turn_chrono < 0) turn_chrono = 0;
 }
 
 void GameThread::notif_clients(){

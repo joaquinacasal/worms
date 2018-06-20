@@ -66,6 +66,23 @@ private:
     // Le envía la información relacionada a las armas activas a los clientes.
     void send_weapon_information_to_clients();
 
+    // Chequea si el gusano actual perdió vida.
+    void check_life_discount(size_t initial_life, Worm* actual_worm);
+
+    // Chequea si el gusano actual debe ser inmovilizado.
+    void check_immobilization(Worm* actual_worm);
+
+    // Ejecuta un evento de la cola. Devuelve true si se ejecutó correctamente.
+    // Falso si fue hubo una excepción.
+    bool execute_event();
+
+    // Chequea las explosiones de las armas.
+    void check_weapons(Player* actual_player, bool& weapon_was_used);
+
+    // Descuenta el tiempo a turn_chrono y hace un sleep del thread hasta
+    // completar la longitud del turno.
+    void discount_time(int time_spent);
+
     // Notifica a los clientes sobre toda la información pertinente del tick.
     void notif_clients();
 
