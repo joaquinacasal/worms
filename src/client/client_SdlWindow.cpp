@@ -50,6 +50,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     dynamite_texture = loadTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET));
     radioControlled_texture = loadTexture(string(ASSETS_FOLDER) + string(RADIOCONTROLLED_ASSET));
     grave_texture = loadTexture(string(ASSETS_FOLDER) + string(GRAVE_ASSET));
+    background_texture = NULL;
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -59,7 +60,10 @@ void SdlWindow::fill(int r, int g, int b, int alpha) {
 }
 
 void SdlWindow::fill() {
-    this->fill(0x33,0x33,0x33,0xFF);
+    if (background_texture == NULL)
+      this->fill(0x33,0x33,0x33,0xFF);
+    else
+      this->background_texture->render();
 }
 
 void SdlWindow::render() {
@@ -102,7 +106,7 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 void SdlWindow::draw(StartTurnDrawable* drawable) {
     if (change_turn_message.message_texture)
         delete change_turn_message.message_texture;
-    change_turn_message.message_texture = new SdlTexture(start_turn_texture, *this, width/2 + CHANGE_TURN_MESSAGE_SIZE, height/2 + CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    change_turn_message.message_texture = new SdlTexture(start_turn_texture, *this, width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
 }
 
@@ -193,7 +197,13 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
 }
 
 void SdlWindow::draw(StageDrawable* drawable) {
-  SDL_SetWindowSize(this->window, drawable->get_width(), drawable->get_height());
+  width = drawable->get_width();
+  height = drawable->get_height();
+  SDL_SetWindowSize(this->window, width, height);
+  SDL_Texture* background = loadTexture(string(BACKGROUNDS_FOLDER) + drawable->get_background());
+
+  this->background_texture = new SdlTexture(background, *this, 0, 0, width, height);
+
 }
 
 void SdlWindow::draw(BeamDrawable* drawable) {

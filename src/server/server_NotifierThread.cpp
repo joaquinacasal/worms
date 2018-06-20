@@ -33,9 +33,9 @@ void NotifierThread::send_worm_death_notif(ClientHandler* client, size_t id){
 }
 
 
-void NotifierThread::send_stage_info(ClientHandler* client, size_t width, size_t height){
+void NotifierThread::send_stage_info(ClientHandler* client, size_t width, size_t height, std::string background){
   if (continue_sending)
-    blocking_queue.push(new StageNotification(client, width, height));
+    blocking_queue.push(new StageNotification(client, width, height, background));
 }
 
 void NotifierThread::send_beam_info(ClientHandler* client, int x, int y, int length, int width, int angle){

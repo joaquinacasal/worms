@@ -12,16 +12,18 @@ class StageDrawable : public IDrawable {
 private:
     size_t width;
     size_t height;
+    std::string background;
 
     StageDrawable(const StageDrawable&) = delete;
     StageDrawable& operator=(const StageDrawable&) = delete;
 public:
-    StageDrawable(size_t width, size_t height);
+    StageDrawable(size_t width, size_t height, std::string background);
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
     void be_drawn(SdlWindow* window);
 
     size_t get_width();
     size_t get_height();
+    std::string get_background();
 };
 
 

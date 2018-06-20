@@ -126,11 +126,11 @@ void SocketProtocol::send_beam_info(int x, int y, int length, int width, int ang
     send_numeric_value(angle);
 }
 
-void SocketProtocol::send_stage_info(int width, int height){
+void SocketProtocol::send_stage_info(int width, int height, std::string background){
   send_command_or_code(PROTOCOL_STAGE_INFO);
   send_numeric_value(width);
   send_numeric_value(height);
-  // TODO: mandar nombre de la foto de fondo
+  send_string(background);
 }
 
 void SocketProtocol::send_dynamite_info(int x, int y, int time_to_explosion){
@@ -171,6 +171,28 @@ void SocketProtocol::send_turn_time_info(int turn_chrono){
 
 void SocketProtocol::send_closed_connection_notif(){
   send_command_or_code(PROTOCOL_CLOSED_CON);
+}
+
+std::string SocketProtocol::receive_string(){
+    uint32_t message_size = receive_numeric_value();
+    char* message = (char*) malloc(message_size);
+    socket.receive(message, message_size);
+    string received_message(message, message_size);
+    free(message);
+    return received_message;
+}
+
+void SocketProtocol::send_size(int size) {
+    uint32_t size_big_endian = htonl(size);
+    char size_big_endian_char[PROTOCOL_LENGTHS_VALUE];
+    memcpy(size_big_endian_char, &size_big_endian, PROTOCOL_LENGTHS_VALUE);
+    socket.send(size_big_endian_char, PROTOCOL_LENGTHS_VALUE);
+}
+
+void SocketProtocol::send_string(const std::string& message) {
+    int message_size = message.size();
+    send_size(message_size);
+    socket.send(message.data(), message.size());
 }
 
 void SocketProtocol::shutdown(int mode){

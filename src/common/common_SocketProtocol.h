@@ -71,6 +71,8 @@ private:
     /* Envía un número a través del socket */
     SocketProtocol& operator<<(int value);
 
+    /* Envía un número a través del socket */
+    void send_size(int size);
 
 public:
     /* Constructor que se conecta a la ip y puerto indicados */
@@ -101,7 +103,7 @@ public:
                         int angle, bool is_facing_right);
     void send_worm_death_notif(size_t id);
     void send_beam_info(int x, int y, int length, int width, int angle);
-    void send_stage_info(int width, int height);
+    void send_stage_info(int width, int height, std::string background);
     void send_dynamite_info(int x, int y, int time_to_explosion);
     void send_dynamite_explosion_notif();
     void send_radiocontrolled_info(size_t id, int x, int y);
@@ -115,6 +117,12 @@ public:
 
     /* Recibe un número a través del socket */
     uint32_t receive_numeric_value();
+
+    /* Recibe un string a través del socket */
+    std::string receive_string();
+
+    /* Envía un string a través del socket */
+    void send_string(const std::string& message);
 
     void shutdown(int mode);
     ~SocketProtocol();

@@ -22,7 +22,7 @@ void GameThread::create_stage(string map_file, int number_players){
     throw std::runtime_error("Debe jugar al menos un jugador.\n");
   }
 
-  stage = new Stage((size_t)scenario_DTO.get_width(), (size_t)scenario_DTO.get_height());
+  stage = new Stage((size_t)scenario_DTO.get_width(), (size_t)scenario_DTO.get_height(), scenario_DTO.get_background());
   // Creo los worms y los jugadores.
   int number_players_with_more_worms =  (worms_DTO.size() % number_players);
   if (number_players_with_more_worms == 0) number_players_with_more_worms = number_players;
@@ -206,7 +206,8 @@ void GameThread::send_worms_information_to_clients(){
 void GameThread::send_stage_information_to_clients(){
   int width = this->stage->get_width();
   int height = this->stage->get_height();
-  this->server_thread->send_stage_information_to_clients(width, height);
+  std::string background = this->stage->get_background();
+  this->server_thread->send_stage_information_to_clients(width, height, background);
   std::vector<Beam*> all_beams = this->stage->get_all_beams();
   for (size_t i = 0; i < all_beams.size(); i++){
     int x = all_beams[i]->get_horizontal_position() * 1000;

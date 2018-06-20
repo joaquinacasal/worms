@@ -4,9 +4,10 @@
 #define positionIterations 3.0f   //how strongly to correct position
 
 
-Stage::Stage(size_t width, size_t height){
+Stage::Stage(size_t width, size_t height, std::string background){
   this->width = width;
   this->height = height;
+  this->background = background;
   b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
 	bool doSleep = true;
@@ -135,6 +136,10 @@ size_t Stage::get_width(){
 
 size_t Stage::get_height(){
   return this->height;
+}
+
+std::string Stage::get_background(){
+  return this->background;
 }
 
 void Stage::step(Worm* worm_actual){

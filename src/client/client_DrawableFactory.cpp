@@ -58,12 +58,11 @@ void DrawableFactory::create_beam_drawable(){
 void DrawableFactory::create_stage_drawable(){
   size_t width = socket_protocol.receive_numeric_value();
   size_t height = socket_protocol.receive_numeric_value();
+  std::string background = socket_protocol.receive_string();
   width = meters_to_pixels(width);
-  std::cout << "Altura metros: " << height << std::endl;
   height = meters_to_pixels(height);
-  std::cout << "Altura pixels: " << height << std::endl;
   scenario_heigth = height;
-  safe_queue.push(new StageDrawable(width, height));
+  safe_queue.push(new StageDrawable(width, height, background));
 }
 
 void DrawableFactory::create_dynamite_drawable(){

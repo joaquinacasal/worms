@@ -44,9 +44,9 @@ void ClientHandler::send_worm_death_notif(size_t id){
 }
 
 
-void ClientHandler::send_stage_info(size_t width, size_t height){
+void ClientHandler::send_stage_info(size_t width, size_t height, std::string background){
   if (!is_alive()) return;
-  this->protocol.send_stage_info(width, height);
+  this->protocol.send_stage_info(width, height, background);
 }
 
 void ClientHandler::send_beam_info(int x, int y, int length, int width, int angle){

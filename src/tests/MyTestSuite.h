@@ -23,7 +23,7 @@ public:
       std::string description = "Test de creación del gusano";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* actual_worm = st.get_worm(id);
       TS_ASSERT_EQUALS( id, actual_worm->get_id() );
@@ -45,7 +45,7 @@ public:
       std::string description = "Test de caida del gusano por la gravedad";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* actual_worm = st.get_worm(id);
       for (size_t i = 0; i < 10000; i++){
@@ -61,7 +61,7 @@ public:
       std::string description = "Test del salto para adelante";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       float altura_maxima = -100;
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* actual_worm = st.get_worm(id);
@@ -83,7 +83,7 @@ public:
       std::string description = "Test del salto para atrás";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       float altura_maxima = -100;
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* actual_worm = st.get_worm(id);
@@ -106,7 +106,7 @@ public:
       std::string description = "Test de caminar para la derecha";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* actual_worm = st.get_worm(id);
       actual_worm->move_right();
@@ -125,7 +125,7 @@ public:
       std::string description = "Test de caminar para la izquierda";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* actual_worm = st.get_worm(id);
       actual_worm->move_left();
@@ -143,7 +143,7 @@ public:
       std::string description = "Test de caer sobre una viga";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_beam(id, 10, initial_position_x, 4, 0);
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* actual_worm = st.get_worm(id);
@@ -160,7 +160,7 @@ public:
       std::string description = "Test de descuento de vida por caida";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
 
       size_t position_y = 35;
       for (int i = 1; i < 30; i++){
@@ -199,7 +199,7 @@ public:
       std::string description = "Test de creación de la viga";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_beam(id1, largo_viga, initial_position_x, initial_position_y, angle1);
       st.add_beam(id2, largo_viga, initial_position_x, initial_position_y, angle2);
       Beam* b1 = st.get_beam(id1);
@@ -238,7 +238,7 @@ public:
       std::string description = "Test de creación del Manejador de Turnos";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       TurnsManager tm;
       Worm* arr_worms[15];
       Player* arr_players[5];
@@ -273,7 +273,7 @@ public:
       std::string description = "Test de cambio de turnos con muchos gusanos";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       Armory* armory1 = new Armory(st);
       Armory* armory2 = new Armory(st);
 
@@ -317,7 +317,7 @@ public:
       std::string description = "Test de la teletransportación con un solo gusano";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* worm = st.get_worm(id);
       Armory* armory = new Armory(st);
@@ -369,7 +369,7 @@ public:
       std::string description = "Test de la teletransportación con muchos gusanos";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(1, life, 100, 10);
       st.add_worm(2, life, 200, 10);
       st.add_worm(3, life, 300, 10);
@@ -551,7 +551,7 @@ public:
       std::string description = "Test de explosión de la dinamita";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* worm = st.get_worm(id);
       Armory* armory = new Armory(st);
@@ -611,7 +611,7 @@ public:
       std::string description = "Test de caida del teledirigido";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage);
+      Stage st(ancho_stage, largo_stage, "");
       st.add_worm(id, life, initial_position_x, initial_position_y);
       Worm* worm = st.get_worm(id);
       Armory* armory = new Armory(st);
@@ -648,9 +648,6 @@ public:
       }
       TS_ASSERT( worm->get_life_points() < 100);
       TS_ASSERT( !player->is_radiocontrolled_active() );
-
-      //TS_ASSERT_DELTA( player->get_radiocontrolled_horizontal_position(), initial_position_x, 1);
-      //TS_ASSERT_DELTA( player->get_radiocontrolled_vertical_position(), 4, 1);
 
       std::cout << "EXITOSO\n";
     }

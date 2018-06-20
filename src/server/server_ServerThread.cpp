@@ -83,10 +83,10 @@ void ServerThread::send_worm_death_notif_to_clients(size_t id){
   }
 }
 
-void ServerThread::send_stage_information_to_clients(int width, int height){
+void ServerThread::send_stage_information_to_clients(int width, int height, std::string background){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
-    notifier.send_stage_info(clients[i], width, height);
+    notifier.send_stage_info(clients[i], width, height, background);
   }
 }
 

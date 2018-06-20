@@ -56,8 +56,9 @@ public:
     // Envía una notificación indicando que el gusano con el id recibido murió.
     void send_worm_death_notif(size_t id);
 
-    // Envía la información pertinente del escenario (ancho y largo).
-    void send_stage_info(size_t width, size_t height);
+    // Envía la información pertinente del escenario (ancho y largo e
+    // imagen de fondo). 
+    void send_stage_info(size_t width, size_t height, std::string background);
 
     // Envía la información de una viga (posición, ancho, alto y ángulo).
     void send_beam_info(int x, int y, int length, int width, int angle);

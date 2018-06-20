@@ -22,6 +22,7 @@ class Stage {
 private:
   size_t width;
   size_t height;
+  std::string background;
   std::unordered_map<size_t, Worm*> worms;
   std::unordered_map<size_t, Beam*> beams;
   b2World* m_world;
@@ -39,7 +40,7 @@ private:
   Stage& operator=(const Stage&) = delete;
 public:
   // Constructor. Recibe el ancho y el largo del escenario.
-  Stage(size_t width, size_t height);
+  Stage(size_t width, size_t height, std::string background);
 
   // Crea un nuevo gusano en la posición (X,Y) recibida. Las posiciones deben
   // ser mayores que 0 y menores  que el ancho/largo, respectivamente. Además,
@@ -68,6 +69,9 @@ public:
   // Getters de las dimensiones del escenario.
   size_t get_width();
   size_t get_height();
+
+  //Devuelve un string con el nombre del background
+  std::string get_background();
 
   // Recibe el gusano del cual es el turno para avanzar un frame y actualizar
   // su movimiento.

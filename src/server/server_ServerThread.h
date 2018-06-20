@@ -61,7 +61,7 @@ public:
 
     // Envía la información pertinente del escenario (ancho y largo) a todos
     // los clientes.
-    void send_stage_information_to_clients(int width, int height);
+    void send_stage_information_to_clients(int width, int height, std::string background);
 
     // Envía el tiempo restante hasta finalizar el turno en ms a todos los
     // clientes.

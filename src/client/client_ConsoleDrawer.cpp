@@ -27,6 +27,7 @@ void ConsoleDrawer::draw(WormDrawable* drawable) {
 
 void ConsoleDrawer::draw(StageDrawable* drawable) {
   std::cout << "El escenario tiene ancho: " << drawable->get_width() << " y alto: " << drawable->get_height() << ".\n";
+  std::cout << "El nombre de la foto es '" << drawable->get_background() << "'.\n";
 }
 
 void ConsoleDrawer::draw(BeamDrawable* drawable) {

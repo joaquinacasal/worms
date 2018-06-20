@@ -102,6 +102,8 @@ private:
     SDL_Texture* radioControlled_texture;
     SDL_Texture* grave_texture;
 
+    SdlTexture* background_texture;
+
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);
 
