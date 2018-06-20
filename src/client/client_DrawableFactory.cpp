@@ -38,7 +38,8 @@ void DrawableFactory::create_worm_drawable(){
 
 void DrawableFactory::create_worm_death_drawable(){
   size_t id = socket_protocol.receive_numeric_value();
-  safe_queue.push(new WormDeathDrawable(id));
+  int team = socket_protocol.receive_numeric_value();
+  safe_queue.push(new WormDeathDrawable(id, team));
 }
 
 

@@ -76,10 +76,10 @@ void ServerThread::send_worm_information_to_clients(size_t id, \
   }
 }
 
-void ServerThread::send_worm_death_notif_to_clients(size_t id){
+void ServerThread::send_worm_death_notif_to_clients(size_t id, int team){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
-    notifier.send_worm_death_notif(clients[i], id);
+    notifier.send_worm_death_notif(clients[i], id, team);
   }
 }
 

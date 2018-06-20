@@ -112,9 +112,10 @@ void SocketProtocol::send_worm_info(size_t id, size_t life_points, int x,\
     send_numeric_value(team);
 }
 
-void SocketProtocol::send_worm_death_notif(size_t id){
+void SocketProtocol::send_worm_death_notif(size_t id, int team){
   send_command_or_code(PROTOCOL_WORM_DEATH_NOTIF);
   send_numeric_value((int)id);
+  send_numeric_value(team);
 }
 
 

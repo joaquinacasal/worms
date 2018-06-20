@@ -37,6 +37,18 @@ std::vector<Player*> TurnsManager::get_players(){
   return players;
 }
 
+int TurnsManager::get_team_of_worm(Worm* worm){
+  size_t id = worm->get_id();
+  for (int i = 0; i < players.size(); i++) {
+    std::vector<Worm*> worms = players[i]->get_worms();
+    for (Worm* actual_worm : worms) {
+      if (id == actual_worm->get_id()) return i;
+    }
+  }
+  return -1;
+}
+
+
 TurnsManager::~TurnsManager(){
   for (size_t i = 0; i < players.size(); i++){
     delete players[i];

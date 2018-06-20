@@ -54,7 +54,7 @@ public:
                                 int angle, bool is_facing_right, int team);
 
     // Envía una notificación indicando que el gusano con el id recibido murió.
-    void send_worm_death_notif(size_t id);
+    void send_worm_death_notif(size_t id, int team);
 
     // Envía la información pertinente del escenario (ancho y largo e
     // imagen de fondo).

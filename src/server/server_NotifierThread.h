@@ -43,7 +43,7 @@ class NotifierThread : public Thread {
 
     void send_worm_info(ClientHandler* client, size_t id, size_t life_points, int x, int y, \
                                 int angle, bool is_facing_right, int team);
-    void send_worm_death_notif(ClientHandler* client, size_t id);
+    void send_worm_death_notif(ClientHandler* client, size_t id, int team);
     void send_stage_info(ClientHandler* client, size_t width, size_t height, std::string background);
     void send_beam_info(ClientHandler* client, int x, int y, int length, int width, int angle);
     void send_dynamite_info(ClientHandler* client, int x, int y, int time_to_explosion);

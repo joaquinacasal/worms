@@ -52,7 +52,7 @@ void ConsoleDrawer::draw(RadiocontrolledExplosionDrawable* drawable){
 }
 
 void ConsoleDrawer::draw(WormDeathDrawable* drawable){
-  std::cout << "Murio el gusano con id " << drawable->get_id() << '\n';
+  std::cout << "Murio el gusano con id " << drawable->get_id() << ", del equipo " << drawable->get_team() << '\n';
 }
 
 

@@ -318,8 +318,11 @@ void GameThread::check_deaths(std::vector<Worm*> initial_worms_alive){
         break;
       }
     }
-    if (!still_alive)
-      this->server_thread->send_worm_death_notif_to_clients(id);
+    if (!still_alive){
+      int team = turns_manager.get_team_of_worm(i_worm);
+      if (team != -1)
+        this->server_thread->send_worm_death_notif_to_clients(id, team);
+    }
   }
 }
 

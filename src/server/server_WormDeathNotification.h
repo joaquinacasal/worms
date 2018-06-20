@@ -7,11 +7,12 @@ class WormDeathNotification : public INotification {
 private:
     ClientHandler* client;
     size_t id;
+    int team;
 
     WormDeathNotification(const WormDeathNotification&) = delete;
     WormDeathNotification& operator=(const WormDeathNotification&) = delete;
 public:
-    WormDeathNotification(ClientHandler* client, size_t id);
+    WormDeathNotification(ClientHandler* client, size_t id, int team);
 
     void run();
 

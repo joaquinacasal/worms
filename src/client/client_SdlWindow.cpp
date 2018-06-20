@@ -196,11 +196,12 @@ void SdlWindow::draw(WormDrawable* drawable) {
 
 void SdlWindow::draw(WormDeathDrawable* drawable) {
   size_t id = drawable->get_id();
+  int team = drawable->get_team();
   if (worms_textures.count(id) == 0) return;
   worm_representation* w_r = worms_textures.at(id);
 
   SDL_DestroyTexture(w_r->life_texture);
-  SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, "0", White);
+  SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, "0", colors[team % 10]);
   w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
   SDL_FreeSurface(life_surface);
   w_r->life_points = 0;

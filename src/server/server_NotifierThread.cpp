@@ -27,9 +27,9 @@ void NotifierThread::send_worm_info(ClientHandler* client, size_t id, size_t lif
     blocking_queue.push(new WormNotification(client, id, life_points, x, y, angle, is_facing_right, team));
 }
 
-void NotifierThread::send_worm_death_notif(ClientHandler* client, size_t id){
+void NotifierThread::send_worm_death_notif(ClientHandler* client, size_t id, int team){
   if (continue_sending)
-    blocking_queue.push(new WormDeathNotification(client, id));
+    blocking_queue.push(new WormDeathNotification(client, id, team));
 }
 
 
