@@ -15,10 +15,10 @@ int SdlTexture::render(int angle) const {
             position.getX(), position.getY(),
             position.getWidth(), position.getHeight()
     };
-    if (angle == 0) { 
-        return SDL_RenderCopy(this->renderer, this->texture, NULL, &position_rec);   
+    if (angle == 0) {
+        return SDL_RenderCopy(this->renderer, this->texture, NULL, &position_rec);
     } else {
-        return SDL_RenderCopyEx(this->renderer, this->texture, NULL, &position_rec, angle, NULL, SDL_FLIP_HORIZONTAL);
+        return SDL_RenderCopyEx(this->renderer, this->texture, NULL, &position_rec, angle, NULL, SDL_FLIP_NONE);
     }
 }
 
