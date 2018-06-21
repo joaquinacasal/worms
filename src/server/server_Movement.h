@@ -82,6 +82,9 @@ public:
   // Devuelve un booleano indicando si puede moverse o no.
   bool is_movable();
 
+  // Deja el cuerpo quieto.
+  void reset_velocity();
+
   // Corrige el ángulo del cuerpo, seteandolo a 0.
   void correct_angle();
 

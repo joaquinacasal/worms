@@ -70,6 +70,7 @@ void Worm::apply_movement(){
 
 void Worm::teletransport(double x, double y){
   this->last_solid_height = y;
+  this->movement.reset_velocity();
   this->movement.teletransport(x, y);
 }
 

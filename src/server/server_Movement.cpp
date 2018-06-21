@@ -98,6 +98,14 @@ bool Movement::is_movable(){
   return this->body->GetType() == b2_dynamicBody;
 }
 
+void Movement::reset_velocity(){
+  b2Vec2 vel = body->GetLinearVelocity();
+  vel.x = 0;
+  vel.y = 0;
+  body->SetLinearVelocity( vel );
+}
+
+
 void Movement::correct_angle(){
   this->body->SetTransform(this->body->GetPosition(), 0);
 }
