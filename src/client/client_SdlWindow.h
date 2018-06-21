@@ -26,6 +26,7 @@
 #include "client_WormRepresentation.h"
 #include "client_TurnMessage.h"
 #include "client_FontFactory.h"
+#include "client_ColorsFactory.h"
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
@@ -62,6 +63,7 @@ class WormDeathDrawable;
 class WormRepresentation;
 class TurnMessage;
 class FontFactory;
+class ColorsFactory;
 
 struct beam_representation {
   SdlTexture* beam_texture;
@@ -87,23 +89,11 @@ private:
     TurnMessage change_turn_message;
     turn_chrono_representation turn_chrono;
     FontFactory font_factory;
+    ColorsFactory colors_factory;
+    
     map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     std::vector<beam_representation*> static_textures;
-
-    SDL_Color White;
-    SDL_Color Red;
-    SDL_Color Green;
-    SDL_Color Blue;
-    SDL_Color Black;
-    SDL_Color Yellow;
-    SDL_Color Purple;
-    SDL_Color Light_Blue;
-    SDL_Color Brown;
-    SDL_Color Orange;
-    SDL_Color Pink;
-
-    std::vector<SDL_Color> colors;
 
     SDL_Texture* worm_l_texture;
     SDL_Texture* worm_r_texture;

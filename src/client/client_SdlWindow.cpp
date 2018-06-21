@@ -24,21 +24,8 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
     
-    // Colors
-    White = {255, 255, 255, 0};
-    colors.push_back(Red = {255, 0, 0, 0});
-    colors.push_back(Green = {0, 255, 0, 0});
-    colors.push_back(Blue = {0, 0, 255, 0});
-    colors.push_back(Black = {0, 0, 0, 0});
-    colors.push_back(Yellow = {255, 255, 0, 0});
-    colors.push_back(Purple = {255, 0, 255, 0});
-    colors.push_back(Light_Blue = {0, 255, 255, 0});
-    colors.push_back(Brown = {102, 51, 0, 0});
-    colors.push_back(Orange = {255, 102, 0, 0});
-    colors.push_back(Pink = {255, 153, 255, 0});
-
     // Cronometro del turno.
-    turn_chrono = {font_factory.get_texture_big_font("60.0", White, renderer), Area(0, 0, 100, 80)};
+    turn_chrono = {font_factory.get_texture_big_font("60.0", colors_factory.get_color_by_name("white"), renderer), Area(0, 0, 100, 80)};
 
     worm_r_texture = loadTexture(string(ASSETS_FOLDER) + string(WORM_R_ASSET));
     worm_l_texture = loadTexture(string(ASSETS_FOLDER) + string(WORM_L_ASSET));
@@ -105,7 +92,7 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
   std::string value = std::to_string((int)drawable->get_time_left());
   SDL_DestroyTexture(turn_chrono.texture);
-  turn_chrono.texture = font_factory.get_texture_big_font(value.c_str(), White, renderer);
+  turn_chrono.texture = font_factory.get_texture_big_font(value.c_str(), colors_factory.get_color_by_name("white"), renderer);
 }
 
 void SdlWindow::draw(WormDrawable* drawable) {
@@ -124,7 +111,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
 
         // Actualizo la vida si cambió
         if (worm->get_life_points() != new_life_points_q){
-          worm->set_life_texture(font_factory.get_texture_small_font(new_life_points_s.c_str(), colors[team % 10], renderer));
+          worm->set_life_texture(font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer));
           worm->set_life_points(new_life_points_q);
         }
 
@@ -151,7 +138,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
           worms_texture = new SdlTexture(worm_l_texture, *this, area);
         }
         Area life_area(new_x + 10, new_y - 20, 20, 20);
-        SDL_Texture* life_texture = font_factory.get_texture_small_font(new_life_points_s.c_str(), colors[team % 10], renderer);
+        SDL_Texture* life_texture = font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer);
         WormRepresentation* worm = new WormRepresentation(worms_texture, *this, life_texture, life_area,
                                                         new_facing_right, new_life_points_q, new_angle);
         worms_textures[id] = worm;
@@ -164,7 +151,7 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
   if (worms_textures.count(id) == 0) return;
   WormRepresentation* worm = worms_textures.at(id);
 
-  worm->set_life_texture(font_factory.get_texture_small_font(0, colors[team % 10], renderer));
+  worm->set_life_texture(font_factory.get_texture_small_font(0, colors_factory.get_color_by_id(team), renderer));
   worm->set_life_points(0);
 
   Area life_area = worm->get_life_position();
