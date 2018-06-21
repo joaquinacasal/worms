@@ -100,18 +100,41 @@ void GameThread::run() {
     }
 }
 
+bool GameThread::are_all_worms_still(){
+  std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
+  for (Worm* worm : all_worms_alive) {
+    if (!(worm->get_horizontal_velocity() > -0.1 && \
+        worm->get_horizontal_velocity() < 0.1  && \
+        worm->get_vertical_velocity() > -0.1 && \
+        worm->get_vertical_velocity() < 0.1))
+        return false;
+  }
+  return true;
+}
+
 void GameThread::deadTime(){
-  // Agrego unos segundos para que los gusanos vuelen y se puedan preparar
-  // para hacer el cambio de turno.
-  int ms_between_turns = MS_BETWEEN_TURNS;
   Player* actual_player = turns_manager.get_selected_player();
   Worm* actual_worm = actual_player->get_selected_worm();
-  while (ms_between_turns > 0) {
+
+  // Tiempo minimo entre turnos.
+  int time_between_turns = TIME_BETWEEN_TURNS;
+  while (time_between_turns > 0) {
     auto start = get_time::now();
     stage->step(actual_worm);
     notif_clients();
     auto end = get_time::now();
-    ms_between_turns -= TICK_TIME;
+    time_between_turns -= TICK_TIME;
+    std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - \
+                (int)std::chrono::duration_cast<ms>(end - start).count()));
+  }
+
+  bool all_worms_still = are_all_worms_still();
+  while (!all_worms_still) {
+    auto start = get_time::now();
+    stage->step(actual_worm);
+    notif_clients();
+    all_worms_still = are_all_worms_still();
+    auto end = get_time::now();
     std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - \
                 (int)std::chrono::duration_cast<ms>(end - start).count()));
   }
