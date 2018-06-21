@@ -1,11 +1,9 @@
 #include "client_ColorsFactory.h"
 #include <string>
 #include <map>
-#include <vector>
 #include <SDL2/SDL.h>
 
 using std::string;
-using std::vector;
 using std::map;
 
 ColorsFactory::ColorsFactory(){

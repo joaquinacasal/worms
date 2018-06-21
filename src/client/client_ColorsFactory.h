@@ -2,12 +2,10 @@
 #define __COLORSFACTORY__
 
 #include <map>
-#include <vector>
 #include <string>
 #include <SDL2/SDL.h>
 
 using std::string;
-using std::vector;
 using std::map;
 
 class ColorsFactory {

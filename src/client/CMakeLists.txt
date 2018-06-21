@@ -35,6 +35,7 @@ add_executable(worms_client
 				client_TurnMessage.cpp
 				client_FontFactory.cpp
 				client_ColorsFactory.cpp
+				client_TextureFactory.cpp
 				client_Main.cpp
 				../common/common_SocketProtocol.cpp
 				../common/common_Socket.cpp

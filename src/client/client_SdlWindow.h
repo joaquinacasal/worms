@@ -27,6 +27,7 @@
 #include "client_TurnMessage.h"
 #include "client_FontFactory.h"
 #include "client_ColorsFactory.h"
+#include "client_TextureFactory.h"
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
@@ -34,15 +35,6 @@
 #define DYNAMITE_ID -1
 #define CHANGE_TURN_MESSAGE_DURATION 600
 #define CHANGE_TURN_MESSAGE_SIZE 500
-#define WORM_R_ASSET "worm_r.png"
-#define WORM_L_ASSET "worm_l.png"
-#define BEAM_ASSET "grdl0.png"
-#define DYNAMITE_ASSET "dynamite.png"
-#define RADIOCONTROLLED_ASSET "radiocontrolled.png"
-#define START_TURN_ASSET "startTurn.png"
-#define FINISH_TURN_ASSET "finishTurn.png"
-#define GRAVE_ASSET "grave.png"
-
 
 class SdlWindow;
 class SdlTexture;
@@ -64,6 +56,7 @@ class WormRepresentation;
 class TurnMessage;
 class FontFactory;
 class ColorsFactory;
+class TextureFactory;
 
 struct beam_representation {
   SdlTexture* beam_texture;
@@ -90,21 +83,12 @@ private:
     turn_chrono_representation turn_chrono;
     FontFactory font_factory;
     ColorsFactory colors_factory;
-    
+    TextureFactory texture_factory;
+    SdlTexture* background_texture;
+     
     map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     std::vector<beam_representation*> static_textures;
-
-    SDL_Texture* worm_l_texture;
-    SDL_Texture* worm_r_texture;
-    SDL_Texture* beam_texture;
-    SDL_Texture* start_turn_texture;
-    SDL_Texture* end_turn_texture;
-    SDL_Texture* dynamite_texture;
-    SDL_Texture* radioControlled_texture;
-    SDL_Texture* grave_texture;
-
-    SdlTexture* background_texture;
 
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);
