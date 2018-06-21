@@ -25,6 +25,7 @@
 #include "client_WormDeathDrawable.h"
 #include "client_WormRepresentation.h"
 #include "client_TurnMessage.h"
+#include "client_FontFactory.h"
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
@@ -40,7 +41,7 @@
 #define START_TURN_ASSET "startTurn.png"
 #define FINISH_TURN_ASSET "finishTurn.png"
 #define GRAVE_ASSET "grave.png"
-#define FONT_ASSET "BebasNeueRegular.ttf"
+
 
 class SdlWindow;
 class SdlTexture;
@@ -60,10 +61,16 @@ class WormDrawable;
 class WormDeathDrawable;
 class WormRepresentation;
 class TurnMessage;
+class FontFactory;
 
 struct beam_representation {
   SdlTexture* beam_texture;
   int angle;
+};
+
+struct turn_chrono_representation {
+  SDL_Texture* texture;
+  Area rect;
 };
 
 using std::map;
@@ -77,6 +84,9 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
 
+    TurnMessage change_turn_message;
+    turn_chrono_representation turn_chrono;
+    FontFactory font_factory;
     map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     std::vector<beam_representation*> static_textures;
@@ -94,12 +104,6 @@ private:
     SDL_Color Pink;
 
     std::vector<SDL_Color> colors;
-
-    TurnMessage change_turn_message;
-    SDL_Texture* turn_chrono_texture;
-    TTF_Font* Sans_big;
-    TTF_Font* Sans_small;
-    SDL_Rect turn_chrono_rect;
 
     SDL_Texture* worm_l_texture;
     SDL_Texture* worm_r_texture;

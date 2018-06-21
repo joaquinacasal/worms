@@ -33,6 +33,7 @@ add_executable(worms_client
 				client_SdlTexture.cpp
 				client_WormRepresentation.cpp
 				client_TurnMessage.cpp
+				client_FontFactory.cpp
 				client_Main.cpp
 				../common/common_SocketProtocol.cpp
 				../common/common_Socket.cpp

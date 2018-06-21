@@ -12,10 +12,7 @@ WormRepresentation::WormRepresentation(SdlTexture* worm_texture, const SdlWindow
 
 int WormRepresentation::render() const {
     this->worms_texture->render();
-    SDL_Rect life_rect = {
-            this->life_area.getX(), this->life_area.getY(),
-            this->life_area.getWidth(), this->life_area.getHeight()
-    };
+    SDL_Rect life_rect = this->life_area.toRect();
     SDL_RenderCopy(this->renderer, this->life_texture, NULL, &life_rect);
 }
 
