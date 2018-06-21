@@ -60,5 +60,5 @@ bool WormRepresentation::is_facing_right(){
 
 WormRepresentation::~WormRepresentation(){
     delete this->worms_texture;
-    delete this->life_texture;
+    SDL_DestroyTexture(this->life_texture);
 }

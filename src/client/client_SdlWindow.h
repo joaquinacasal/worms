@@ -24,6 +24,7 @@
 #include "client_WormDrawable.h"
 #include "client_WormDeathDrawable.h"
 #include "client_WormRepresentation.h"
+#include "client_TurnMessage.h"
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
@@ -58,15 +59,11 @@ class TurnTimeDrawable;
 class WormDrawable;
 class WormDeathDrawable;
 class WormRepresentation;
+class TurnMessage;
 
 struct beam_representation {
   SdlTexture* beam_texture;
   int angle;
-};
-
-struct turn_message {
-  SdlTexture* message_texture;
-  int time_alive;
 };
 
 using std::map;
@@ -98,7 +95,7 @@ private:
 
     std::vector<SDL_Color> colors;
 
-    turn_message change_turn_message;
+    TurnMessage change_turn_message;
     SDL_Texture* turn_chrono_texture;
     TTF_Font* Sans_big;
     TTF_Font* Sans_small;

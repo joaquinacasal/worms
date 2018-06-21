@@ -12,7 +12,7 @@
 using std::string;
 
 SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) :
-        safe_queue(_safe_queue), width(width), height(height), connected(true) {
+        safe_queue(_safe_queue), width(width), height(height), connected(true), change_turn_message(NULL, 0) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
@@ -40,7 +40,6 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     colors.push_back(Pink = {255, 153, 255, 0});
 
     // Cronometro del turno.
-    change_turn_message = {NULL, 0};
     string font = string(ASSETS_FOLDER) + string(FONT_ASSET);
     Sans_big = TTF_OpenFont(font.c_str(), 24);
     Sans_small = TTF_OpenFont(font.c_str(), 18);
@@ -93,14 +92,7 @@ void SdlWindow::render() {
     SDL_RenderCopy(this->renderer, turn_chrono_texture, NULL, &turn_chrono_rect);
 
     // Render change_turn_message
-    if (change_turn_message.time_alive > 0) {
-        change_turn_message.message_texture->render();
-        change_turn_message.time_alive--;
-        if (change_turn_message.time_alive == 0){
-          delete change_turn_message.message_texture;
-          change_turn_message.message_texture = NULL;
-        }
-    }
+    change_turn_message.render();
 
     SDL_RenderPresent(this->renderer);
 }
@@ -111,19 +103,15 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {
-    if (change_turn_message.message_texture)
-        delete change_turn_message.message_texture;
     Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
-    change_turn_message.message_texture = new SdlTexture(start_turn_texture, *this, area);
-    change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
+    change_turn_message.set_message_texture(new SdlTexture(start_turn_texture, *this, area));
+    change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
-    if (change_turn_message.message_texture)
-        delete change_turn_message.message_texture;
     Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
-    change_turn_message.message_texture = new SdlTexture(end_turn_texture, *this, area);
-    change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
+    change_turn_message.set_message_texture(new SdlTexture(end_turn_texture, *this, area));
+    change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
@@ -318,7 +306,6 @@ SdlWindow::~SdlWindow() {
     SDL_DestroyTexture(radioControlled_texture);
     SDL_DestroyTexture(grave_texture);
 
-    delete change_turn_message.message_texture;
     SDL_DestroyTexture(turn_chrono_texture);
     TTF_CloseFont(Sans_big);
     TTF_CloseFont(Sans_small);
