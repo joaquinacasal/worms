@@ -23,7 +23,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
-    
+
     // Cronometro del turno.
     turn_chrono = {font_factory.get_texture_big_font("60.0", colors_factory.get_color_by_name("white"), renderer), Area(0, 0, 100, 80)};
 
@@ -146,6 +146,7 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
 
   worm->set_life_texture(font_factory.get_texture_small_font(0, colors_factory.get_color_by_id(team), renderer));
   worm->set_life_points(0);
+  worm->set_angle(0);
 
   Area life_area = worm->get_life_position();
   Area area(life_area.getX(), life_area.getY(), WORM_SIZE, WORM_SIZE);

@@ -287,8 +287,9 @@ void GameThread::set_worms_as_immovable(){
   // Seteo todos los gusanos en no movibles.
   std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
   for (Worm* worm : all_worms_alive){
-    worm->make_immovable();
     worm->correct_angle();
+    send_worms_information_to_clients();
+    worm->make_immovable();
   }
 }
 
@@ -336,6 +337,7 @@ void GameThread::check_deaths(std::vector<Worm*> initial_worms_alive){
       }
     }
     if (!still_alive){
+      i_worm->correct_angle();
       int team = turns_manager.get_team_of_worm(i_worm);
       if (team != -1)
         this->server_thread->send_worm_death_notif_to_clients(id, team);
