@@ -23,6 +23,11 @@
 #include "client_TurnTimeDrawable.h"
 #include "client_WormDrawable.h"
 #include "client_WormDeathDrawable.h"
+#include "client_WormRepresentation.h"
+#include "client_TurnMessage.h"
+#include "client_FontFactory.h"
+#include "client_ColorsFactory.h"
+#include "client_TextureFactory.h"
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
@@ -30,15 +35,6 @@
 #define DYNAMITE_ID -1
 #define CHANGE_TURN_MESSAGE_DURATION 600
 #define CHANGE_TURN_MESSAGE_SIZE 500
-#define WORM_R_ASSET "worm_r.png"
-#define WORM_L_ASSET "worm_l.png"
-#define BEAM_ASSET "grdl0.png"
-#define DYNAMITE_ASSET "dynamite.png"
-#define RADIOCONTROLLED_ASSET "radiocontrolled.png"
-#define START_TURN_ASSET "startTurn.png"
-#define FINISH_TURN_ASSET "finishTurn.png"
-#define GRAVE_ASSET "grave.png"
-#define FONT_ASSET "BebasNeueRegular.ttf"
 
 class SdlWindow;
 class SdlTexture;
@@ -56,24 +52,20 @@ class StartTurnDrawable;
 class TurnTimeDrawable;
 class WormDrawable;
 class WormDeathDrawable;
-
-struct worm_representation {
-  SdlTexture* worms_texture;
-  SDL_Rect life_rect;
-  SDL_Texture* life_texture;
-  bool is_facing_right;
-  size_t life_points;
-  int angle;
-};
+class WormRepresentation;
+class TurnMessage;
+class FontFactory;
+class ColorsFactory;
+class TextureFactory;
 
 struct beam_representation {
   SdlTexture* beam_texture;
   int angle;
 };
 
-struct turn_message {
-  SdlTexture* message_texture;
-  int time_alive;
+struct turn_chrono_representation {
+  SDL_Texture* texture;
+  Area rect;
 };
 
 using std::map;
@@ -87,40 +79,16 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    map<int, worm_representation*> worms_textures;
+    TurnMessage change_turn_message;
+    turn_chrono_representation turn_chrono;
+    FontFactory font_factory;
+    ColorsFactory colors_factory;
+    TextureFactory texture_factory;
+    SdlTexture* background_texture;
+     
+    map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     std::vector<beam_representation*> static_textures;
-
-    SDL_Color White;
-    SDL_Color Red;
-    SDL_Color Green;
-    SDL_Color Blue;
-    SDL_Color Black;
-    SDL_Color Yellow;
-    SDL_Color Purple;
-    SDL_Color Light_Blue;
-    SDL_Color Brown;
-    SDL_Color Orange;
-    SDL_Color Pink;
-
-    std::vector<SDL_Color> colors;
-
-    turn_message change_turn_message;
-    SDL_Texture* turn_chrono_texture;
-    TTF_Font* Sans_big;
-    TTF_Font* Sans_small;
-    SDL_Rect turn_chrono_rect;
-
-    SDL_Texture* worm_l_texture;
-    SDL_Texture* worm_r_texture;
-    SDL_Texture* beam_texture;
-    SDL_Texture* start_turn_texture;
-    SDL_Texture* end_turn_texture;
-    SDL_Texture* dynamite_texture;
-    SDL_Texture* radioControlled_texture;
-    SDL_Texture* grave_texture;
-
-    SdlTexture* background_texture;
 
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);

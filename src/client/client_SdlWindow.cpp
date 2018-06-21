@@ -12,7 +12,7 @@
 using std::string;
 
 SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) :
-        safe_queue(_safe_queue), width(width), height(height), connected(true) {
+        safe_queue(_safe_queue), width(width), height(height), connected(true), change_turn_message(NULL, 0) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
@@ -23,45 +23,11 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
-    if(TTF_Init() < 0)
-        throw SdlException("No se pudo inicializar la librería TTF", TTF_GetError());
-
-    // Colors
-    White = {255, 255, 255, 0};
-    colors.push_back(Red = {255, 0, 0, 0});
-    colors.push_back(Green = {0, 255, 0, 0});
-    colors.push_back(Blue = {0, 0, 255, 0});
-    colors.push_back(Black = {0, 0, 0, 0});
-    colors.push_back(Yellow = {255, 255, 0, 0});
-    colors.push_back(Purple = {255, 0, 255, 0});
-    colors.push_back(Light_Blue = {0, 255, 255, 0});
-    colors.push_back(Brown = {102, 51, 0, 0});
-    colors.push_back(Orange = {255, 102, 0, 0});
-    colors.push_back(Pink = {255, 153, 255, 0});
-
+    
     // Cronometro del turno.
-    change_turn_message = {NULL, 0};
-    string font = string(ASSETS_FOLDER) + string(FONT_ASSET);
-    Sans_big = TTF_OpenFont(font.c_str(), 24);
-    Sans_small = TTF_OpenFont(font.c_str(), 18);
+    turn_chrono = {font_factory.get_texture_big_font("60.0", colors_factory.get_color_by_name("white"), renderer), Area(0, 0, 100, 80)};
 
-    SDL_Surface* turn_chrono_surface = TTF_RenderText_Solid(Sans_big, "60.0", White);
-    turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
-    SDL_FreeSurface(turn_chrono_surface);
-
-    turn_chrono_rect.x = 0;  //controls the rect's x coordinate
-    turn_chrono_rect.y = 0; // controls the rect's y coordinte
-    turn_chrono_rect.w = 100; // controls the width of the rect
-    turn_chrono_rect.h = 80; // controls the height of the rect
-
-    worm_r_texture = loadTexture(string(ASSETS_FOLDER) + string(WORM_R_ASSET));
-    worm_l_texture = loadTexture(string(ASSETS_FOLDER) + string(WORM_L_ASSET));
-    beam_texture = loadTexture(string(ASSETS_FOLDER) + string(BEAM_ASSET));
-    start_turn_texture = loadTexture(string(ASSETS_FOLDER) + string(START_TURN_ASSET));
-    end_turn_texture = loadTexture(string(ASSETS_FOLDER) + string(FINISH_TURN_ASSET));
-    dynamite_texture = loadTexture(string(ASSETS_FOLDER) + string(DYNAMITE_ASSET));
-    radioControlled_texture = loadTexture(string(ASSETS_FOLDER) + string(RADIOCONTROLLED_ASSET));
-    grave_texture = loadTexture(string(ASSETS_FOLDER) + string(GRAVE_ASSET));
+    texture_factory.init(renderer);
     background_texture = NULL;
 }
 
@@ -80,12 +46,7 @@ void SdlWindow::fill() {
 
 void SdlWindow::render() {
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        it->second->worms_texture->render(it->second->angle);
-
-        SDL_RenderCopy(this->renderer, \
-                        it->second->life_texture, \
-                        NULL, \
-                        &it->second->life_rect);
+        it->second->render();
     }
     for (auto it = weapons_textures.begin(); it != weapons_textures.end(); ++it){
         it->second->render();
@@ -95,17 +56,11 @@ void SdlWindow::render() {
     }
 
     // Render turn_chrono
-    SDL_RenderCopy(this->renderer, turn_chrono_texture, NULL, &turn_chrono_rect);
+    SDL_Rect turn_chrono_rect = turn_chrono.rect.toRect();
+    SDL_RenderCopy(this->renderer, turn_chrono.texture, NULL, &turn_chrono_rect);
 
     // Render change_turn_message
-    if (change_turn_message.time_alive > 0) {
-        change_turn_message.message_texture->render();
-        change_turn_message.time_alive--;
-        if (change_turn_message.time_alive == 0){
-          delete change_turn_message.message_texture;
-          change_turn_message.message_texture = NULL;
-        }
-    }
+    change_turn_message.render();
 
     SDL_RenderPresent(this->renderer);
 }
@@ -116,27 +71,21 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {
-    if (change_turn_message.message_texture)
-        delete change_turn_message.message_texture;
     Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
-    change_turn_message.message_texture = new SdlTexture(start_turn_texture, *this, area);
-    change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
+    change_turn_message.set_message_texture(new SdlTexture(texture_factory.get_texture_by_name("start_turn"), *this, area));
+    change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
-    if (change_turn_message.message_texture)
-        delete change_turn_message.message_texture;
     Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
-    change_turn_message.message_texture = new SdlTexture(end_turn_texture, *this, area);
-    change_turn_message.time_alive = CHANGE_TURN_MESSAGE_DURATION;
+    change_turn_message.set_message_texture(new SdlTexture(texture_factory.get_texture_by_name("end_turn"), *this, area));
+    change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
   std::string value = std::to_string((int)drawable->get_time_left());
-  SDL_Surface* turn_chrono_surface = TTF_RenderText_Solid(Sans_big, value.c_str(), White);
-  SDL_DestroyTexture(turn_chrono_texture);
-  turn_chrono_texture = SDL_CreateTextureFromSurface(renderer, turn_chrono_surface);
-  SDL_FreeSurface(turn_chrono_surface);
+  SDL_DestroyTexture(turn_chrono.texture);
+  turn_chrono.texture = font_factory.get_texture_big_font(value.c_str(), colors_factory.get_color_by_name("white"), renderer);
 }
 
 void SdlWindow::draw(WormDrawable* drawable) {
@@ -149,31 +98,27 @@ void SdlWindow::draw(WormDrawable* drawable) {
     bool new_facing_right = drawable->get_is_facing_right();
     int team = drawable->get_team();
     if (worms_textures.count(id)){
-        worm_representation* w_r = worms_textures.at(id);
-        w_r->worms_texture->set_position(new_x, new_y);
-        w_r->life_rect.x = new_x + 10;
-        w_r->life_rect.y = new_y - 20;
-        w_r->angle = new_angle;
+        WormRepresentation* worm = worms_textures.at(id);
+        worm->set_position(new_x, new_y);
+        worm->set_angle(new_angle);
 
         // Actualizo la vida si cambió
-        if (w_r->life_points != new_life_points_q){
-          SDL_DestroyTexture(w_r->life_texture);
-          SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), colors[team % 10]);
-          w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
-          SDL_FreeSurface(life_surface);
-          w_r->life_points = new_life_points_q;
+        if (worm->get_life_points() != new_life_points_q){
+          worm->set_life_texture(font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer));
+          worm->set_life_points(new_life_points_q);
         }
 
         // Actualizo el lado para el que mira si cambió
-        if (w_r->is_facing_right != new_facing_right) {
-          delete w_r->worms_texture;
+        if (worm->is_facing_right() != new_facing_right) {
+          SdlTexture* worms_texture = NULL;
           Area area(new_x, new_y, WORM_SIZE, WORM_SIZE);
           if (new_facing_right) {
-              w_r->worms_texture = new SdlTexture(worm_r_texture, *this, area);
+              worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_r"), *this, area);
           } else {
-              w_r->worms_texture = new SdlTexture(worm_l_texture, *this, area);
+              worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_l"), *this, area);
           }
-          w_r->is_facing_right = new_facing_right;
+          worm->set_texture(worms_texture);
+          worm->set_facing_right(new_facing_right);
         }
 
 
@@ -181,22 +126,15 @@ void SdlWindow::draw(WormDrawable* drawable) {
         SdlTexture* worms_texture = NULL;
         Area area(new_x, new_y, WORM_SIZE, WORM_SIZE);
         if (new_facing_right) {
-          worms_texture = new SdlTexture(worm_r_texture, *this, area);
+          worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_r"), *this, area);
         } else {
-          worms_texture = new SdlTexture(worm_l_texture, *this, area);
+          worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_l"), *this, area);
         }
-
-        SDL_Rect life_rect;
-        life_rect.x = new_x + 10;  //controls the rect's x coordinate
-        life_rect.y = new_y - 20;  //controls the rect's y coordinate
-        life_rect.w = 20; // controls the width of the rect
-        life_rect.h = 20; // controls the height of the rect
-
-        SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), colors[team % 10]);
-
-        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface), new_facing_right, new_life_points_q, new_angle });
-        worms_textures[id] = w_r;
-        SDL_FreeSurface(life_surface);
+        Area life_area(new_x + 10, new_y - 20, 20, 20);
+        SDL_Texture* life_texture = font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer);
+        WormRepresentation* worm = new WormRepresentation(worms_texture, *this, life_texture, life_area,
+                                                        new_facing_right, new_life_points_q, new_angle);
+        worms_textures[id] = worm;
     }
 }
 
@@ -204,35 +142,31 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
   size_t id = drawable->get_id();
   int team = drawable->get_team();
   if (worms_textures.count(id) == 0) return;
-  worm_representation* w_r = worms_textures.at(id);
+  WormRepresentation* worm = worms_textures.at(id);
 
-  SDL_DestroyTexture(w_r->life_texture);
-  SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, "0", colors[team % 10]);
-  w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
-  SDL_FreeSurface(life_surface);
-  w_r->life_points = 0;
+  worm->set_life_texture(font_factory.get_texture_small_font(0, colors_factory.get_color_by_id(team), renderer));
+  worm->set_life_points(0);
 
-  delete w_r->worms_texture;
-  Area area(w_r->life_rect.x, w_r->life_rect.y, WORM_SIZE, WORM_SIZE);
-  w_r->worms_texture = new SdlTexture(grave_texture, *this, area);
+  Area life_area = worm->get_life_position();
+  Area area(life_area.getX(), life_area.getY(), WORM_SIZE, WORM_SIZE);
+  worm->set_texture(new SdlTexture(texture_factory.get_texture_by_name("grave"), *this, area));
 }
 
 void SdlWindow::draw(StageDrawable* drawable) {
   width = drawable->get_width();
   height = drawable->get_height();
   SDL_SetWindowSize(this->window, width, height);
-  SDL_Texture* background = loadTexture(string(BACKGROUNDS_FOLDER) + drawable->get_background());
+  SDL_Texture* background = texture_factory.load_texture(string(BACKGROUNDS_FOLDER) + drawable->get_background(), renderer);
 
   Area area(0, 0, width, height);
   this->background_texture = new SdlTexture(background, *this, area);
-
 }
 
 void SdlWindow::draw(BeamDrawable* drawable) {
   double x = drawable->get_x() - (drawable->get_length() / 2);
   double y = drawable->get_y() - (drawable->get_width() / 2);
   Area area(x, y, drawable->get_length(), drawable->get_width());
-  SdlTexture* beam = new SdlTexture(beam_texture, *this, area);
+  SdlTexture* beam = new SdlTexture(texture_factory.get_texture_by_name("beam"), *this, area);
   beam_representation* b_r = new beam_representation({ beam, drawable->get_angle() });
   static_textures.push_back(b_r);
 }
@@ -241,7 +175,7 @@ void SdlWindow::draw(DynamiteDrawable* drawable) {
   double x = drawable->get_x() - DYNAMITE_SIZE / 2;
   double y = drawable->get_y() - DYNAMITE_SIZE / 2;
   Area area(x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
-  SdlTexture* dynamite = new SdlTexture(dynamite_texture, *this, area);
+  SdlTexture* dynamite = new SdlTexture(texture_factory.get_texture_by_name("dynamite"), *this, area);
   weapons_textures[DYNAMITE_ID] = dynamite;
 }
 
@@ -260,7 +194,7 @@ void SdlWindow::draw(RadiocontrolledDrawable* drawable){
       radiocontrolled->set_position(x, y);
   } else {
       Area area(x, y, RADIOCONTROLLED_SIZE, RADIOCONTROLLED_SIZE);
-      SdlTexture* radiocontrolled = new SdlTexture(radioControlled_texture, *this, area);
+      SdlTexture* radiocontrolled = new SdlTexture(texture_factory.get_texture_by_name("radioControlled"), *this, area);
       weapons_textures[id] = radiocontrolled;
   }
 }
@@ -320,31 +254,8 @@ SdlWindow::~SdlWindow() {
     }
 
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        SDL_DestroyTexture(it->second->life_texture);
-        delete it->second->worms_texture;
         delete it->second;
     }
 
-    SDL_DestroyTexture(worm_l_texture);
-    SDL_DestroyTexture(worm_r_texture);
-    SDL_DestroyTexture(beam_texture);
-    SDL_DestroyTexture(start_turn_texture);
-    SDL_DestroyTexture(end_turn_texture);
-    SDL_DestroyTexture(dynamite_texture);
-    SDL_DestroyTexture(radioControlled_texture);
-    SDL_DestroyTexture(grave_texture);
-
-    delete change_turn_message.message_texture;
-    SDL_DestroyTexture(turn_chrono_texture);
-    TTF_CloseFont(Sans_big);
-    TTF_CloseFont(Sans_small);
-}
-
-SDL_Texture* SdlWindow::loadTexture(const std::string &filename) {
-    SDL_Texture* texture = IMG_LoadTexture(this->renderer,
-                                           filename.c_str());
-    if (!texture) {
-        throw SdlException("Error al cargar la textura", SDL_GetError());
-    }
-    return texture;
+    SDL_DestroyTexture(turn_chrono.texture);
 }
