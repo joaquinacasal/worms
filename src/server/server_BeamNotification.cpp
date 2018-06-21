@@ -1,6 +1,6 @@
 #include "server_BeamNotification.h"
 
-BeamNotification::BeamNotification(ClientHandler* client, int x, int y, \
+BeamNotification::BeamNotification(ClientHandler* client, double x, double y, \
                                           int length, int width, int angle){
   this->client = client;
   this->x = x;

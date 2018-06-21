@@ -19,8 +19,8 @@ void ClientHandler::run() {
           if (!alive) continue;
           IEvent* event;
           if (protocol_translator.need_coordinates(code)){
-            int x = this->protocol.receive_numeric_value();
-            int y = this->protocol.receive_numeric_value();
+            double x = this->protocol.receive_double_value();
+            double y = this->protocol.receive_double_value();
             event = protocol_translator.translate(player, code, x, y);
           } else {
             event = protocol_translator.translate(player, code);
@@ -32,7 +32,7 @@ void ClientHandler::run() {
     }
 }
 
-void ClientHandler::send_worm_info(size_t id, size_t life_points, int x, int y,\
+void ClientHandler::send_worm_info(size_t id, size_t life_points, double x, double y,\
                             int angle, bool is_facing_right, int team){
   if (!is_alive()) return;
   this->protocol.send_worm_info(id, life_points, x, y, angle, is_facing_right, team);
@@ -49,12 +49,12 @@ void ClientHandler::send_stage_info(size_t width, size_t height, std::string bac
   this->protocol.send_stage_info(width, height, background);
 }
 
-void ClientHandler::send_beam_info(int x, int y, int length, int width, int angle){
+void ClientHandler::send_beam_info(double x, double y, int length, int width, int angle){
   if (!is_alive()) return;
   this->protocol.send_beam_info(x, y, length, width, angle);
 }
 
-void ClientHandler::send_dynamite_info(int x, int y, int time_to_explosion){
+void ClientHandler::send_dynamite_info(double x, double y, int time_to_explosion){
   if (!is_alive()) return;
   this->protocol.send_dynamite_info(x, y, time_to_explosion);
 }
@@ -64,7 +64,7 @@ void ClientHandler::send_dynamite_explosion_notif(){
   this->protocol.send_dynamite_explosion_notif();
 }
 
-void ClientHandler::send_radiocontrolled_info(size_t id, int x, int y){
+void ClientHandler::send_radiocontrolled_info(size_t id, double x, double y){
   if (!is_alive()) return;
   this->protocol.send_radiocontrolled_info(id, x, y);
 }

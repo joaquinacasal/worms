@@ -1,6 +1,6 @@
 #include "server_RadiocontrolledEvent.h"
 
-RadiocontrolledEvent::RadiocontrolledEvent(Player* player, int x, int y){
+RadiocontrolledEvent::RadiocontrolledEvent(Player* player, double x, double y){
   this->player = player;
   this->x = x;
 }

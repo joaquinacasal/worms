@@ -76,7 +76,7 @@ public:
   void apply_movement();
 
   // Teletransporta el gusano a la posición (X,Y) recibida.
-  void teletransport(int x, int y);
+  void teletransport(double x, double y);
 
   // Devuelve true si el gusano está mirando hacia la derecha, false en caso
   // contrario.

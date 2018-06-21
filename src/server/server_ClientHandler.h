@@ -50,7 +50,7 @@ public:
 
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando).
-    void send_worm_info(size_t id, size_t life_points, int x, int y, \
+    void send_worm_info(size_t id, size_t life_points, double x, double y, \
                                 int angle, bool is_facing_right, int team);
 
     // Envía una notificación indicando que el gusano con el id recibido murió.
@@ -61,17 +61,17 @@ public:
     void send_stage_info(size_t width, size_t height, std::string background);
 
     // Envía la información de una viga (posición, ancho, alto y ángulo).
-    void send_beam_info(int x, int y, int length, int width, int angle);
+    void send_beam_info(double x, double y, int length, int width, int angle);
 
     // Envía la información de la dinamita activa (posición y tiempo hasta
     // la explosión).
-    void send_dynamite_info(int x, int y, int time_to_explosion);
+    void send_dynamite_info(double x, double y, int time_to_explosion);
 
     // Envía una notificación avisando que la dinamita explotó.
     void send_dynamite_explosion_notif();
 
     // Envía la información (posición) de una munición del teledirigido.
-    void send_radiocontrolled_info(size_t id, int x, int y);
+    void send_radiocontrolled_info(size_t id, double x, double y);
 
     // Notificación sobre la explosión del teledirigido con el id recibido.
     void send_radiocontrolled_explosion_info(size_t id);

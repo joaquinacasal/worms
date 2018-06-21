@@ -69,6 +69,9 @@ private:
     void send_numeric_value(int value);
 
     /* Envía un número a través del socket */
+    void send_numeric_value(double value);
+
+    /* Envía un número a través del socket */
     SocketProtocol& operator<<(int value);
 
     /* Envía un número a través del socket */
@@ -92,21 +95,21 @@ public:
     void send_stop_moving();
     void send_enter();
     void send_backspace();
-    void send_teletransportation(int x, int y);
+    void send_teletransportation(double x, double y);
     void send_dynamite();
-    void send_radiocontrolled(int x, int y);
+    void send_radiocontrolled(double x, double y);
 
     /* Envía el servidor*/
     void send_turn_start();
     void send_turn_end();
-    void send_worm_info(size_t id, size_t life_points, int x, int y, \
+    void send_worm_info(size_t id, size_t life_points, double x, double y, \
                         int angle, bool is_facing_right, int team);
     void send_worm_death_notif(size_t id, int team);
-    void send_beam_info(int x, int y, int length, int width, int angle);
+    void send_beam_info(double x, double y, int length, int width, int angle);
     void send_stage_info(int width, int height, std::string background);
-    void send_dynamite_info(int x, int y, int time_to_explosion);
+    void send_dynamite_info(double x, double y, int time_to_explosion);
     void send_dynamite_explosion_notif();
-    void send_radiocontrolled_info(size_t id, int x, int y);
+    void send_radiocontrolled_info(size_t id, double x, double y);
     void send_radiocontrolled_explosion_info(size_t id);
     void send_start_turn_notif();
     void send_end_turn_notif();
@@ -117,6 +120,9 @@ public:
 
     /* Recibe un número a través del socket */
     uint32_t receive_numeric_value();
+
+    /* Recibe un número a través del socket */
+    double receive_double_value();
 
     /* Recibe un string a través del socket */
     std::string receive_string();

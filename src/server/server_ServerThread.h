@@ -53,8 +53,8 @@ public:
 
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando) a todos los clientes.
-    void send_worm_information_to_clients(size_t id, size_t life_points, int x,\
-                            int y, int angle, bool is_facing_right, int team);
+    void send_worm_information_to_clients(size_t id, size_t life_points, double x,\
+                            double y, int angle, bool is_facing_right, int team);
 
     // Envía la notificación de que el gusano con id recibido murió.
     void send_worm_death_notif_to_clients(size_t id, int team);
@@ -69,12 +69,12 @@ public:
 
     // Envía la información de una viga (posición, ancho, alto y ángulo) a
     // todos los clientes.
-    void send_beam_information_to_clients(int x, int y, int length, int width,\
+    void send_beam_information_to_clients(double x, double y, int length, int width,\
                                                             int angle);
 
     // Envía la información de la dinamita activa (posición y tiempo hasta
     // la explosión) a todos los clientes.
-    void send_dynamite_information_to_clients(int x, int y, \
+    void send_dynamite_information_to_clients(double x, double y, \
                                                     int time_to_explosion);
 
 
@@ -83,7 +83,7 @@ public:
 
     // Envía la información (posición) de una munición del teledirigido
     // a todos los clientes.
-    void send_radiocontrolled_information_to_clients(size_t id, int x, int y);
+    void send_radiocontrolled_information_to_clients(size_t id, double x, double y);
 
     // Envía la notificación de explosión del teledirigido con id recibido.
     void send_radiocontrolled_explosion_to_clients(size_t id);

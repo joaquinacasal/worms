@@ -212,8 +212,8 @@ void GameThread::send_worms_information_to_clients(){
       if (!worm->is_movable() || !worm->is_alive()) continue;
       size_t id = worm->get_id();
       size_t life_points = worm->get_life_points();
-      int x = worm->get_horizontal_position() * 1000;
-      int y = worm->get_vertical_position() * 1000;
+      double x = worm->get_horizontal_position();
+      double y = worm->get_vertical_position();
       int angle = (int)worm->get_angle();
       bool is_facing_right = worm->is_facing_right();
 
@@ -232,8 +232,8 @@ void GameThread::send_stage_information_to_clients(){
   this->server_thread->send_stage_information_to_clients(width, height, background);
   std::vector<Beam*> all_beams = this->stage->get_all_beams();
   for (size_t i = 0; i < all_beams.size(); i++){
-    int x = all_beams[i]->get_horizontal_position() * 1000;
-    int y = all_beams[i]->get_vertical_position() * 1000;
+    double x = all_beams[i]->get_horizontal_position();
+    double y = all_beams[i]->get_vertical_position();
     int length = all_beams[i]->get_length();
     int width = all_beams[i]->get_width();
     int angle = all_beams[i]->get_angle();
@@ -246,8 +246,8 @@ void GameThread::send_stage_information_to_clients(){
 void GameThread::send_weapon_information_to_clients(){
   Player* actual_player = turns_manager.get_selected_player();
   if (actual_player->is_dynamite_active()){
-    double x = actual_player->get_dynamite_horizontal_position() * 1000;
-    double y = actual_player->get_dynamite_vertical_position() * 1000;
+    double x = actual_player->get_dynamite_horizontal_position();
+    double y = actual_player->get_dynamite_vertical_position();
     double time_to_explosion = actual_player->get_dynamite_time_to_explosion();
     this->server_thread->send_dynamite_information_to_clients(x, y, time_to_explosion);
   }
@@ -255,8 +255,8 @@ void GameThread::send_weapon_information_to_clients(){
     std::map<size_t, std::pair<float, float>> positions = actual_player->get_radiocontrolled_positions();
     for (size_t i = 0; i < 6; i++){
       if (positions.count(i) == 0) continue;
-      double x = positions[i].first * 1000;
-      double y = positions[i].second * 1000;
+      double x = positions[i].first;
+      double y = positions[i].second;
       this->server_thread->send_radiocontrolled_information_to_clients(i, x, y);
     }
   }
