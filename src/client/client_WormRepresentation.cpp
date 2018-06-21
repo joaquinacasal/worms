@@ -11,7 +11,7 @@ WormRepresentation::WormRepresentation(SdlTexture* worm_texture, const SdlWindow
                         life_area(life_rect), _is_facing_right(is_facing_right), life_points(life_points), angle(angle) {}
 
 int WormRepresentation::render() const {
-    this->worms_texture->render();
+    this->worms_texture->render(angle);
     SDL_Rect life_rect = this->life_area.toRect();
     SDL_RenderCopy(this->renderer, this->life_texture, NULL, &life_rect);
 }
