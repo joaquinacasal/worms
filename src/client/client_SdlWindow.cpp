@@ -80,12 +80,7 @@ void SdlWindow::fill() {
 
 void SdlWindow::render() {
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        it->second->worms_texture->render(it->second->angle);
-
-        SDL_RenderCopy(this->renderer, \
-                        it->second->life_texture, \
-                        NULL, \
-                        &it->second->life_rect);
+        it->second->render();
     }
     for (auto it = weapons_textures.begin(); it != weapons_textures.end(); ++it){
         it->second->render();
@@ -149,31 +144,29 @@ void SdlWindow::draw(WormDrawable* drawable) {
     bool new_facing_right = drawable->get_is_facing_right();
     int team = drawable->get_team();
     if (worms_textures.count(id)){
-        worm_representation* w_r = worms_textures.at(id);
-        w_r->worms_texture->set_position(new_x, new_y);
-        w_r->life_rect.x = new_x + 10;
-        w_r->life_rect.y = new_y - 20;
-        w_r->angle = new_angle;
+        WormRepresentation* worm = worms_textures.at(id);
+        worm->set_position(new_x, new_y);
+        worm->set_angle(new_angle);
 
         // Actualizo la vida si cambió
-        if (w_r->life_points != new_life_points_q){
-          SDL_DestroyTexture(w_r->life_texture);
+        if (worm->get_life_points() != new_life_points_q){
           SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), colors[team % 10]);
-          w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
+          worm->set_life_texture(SDL_CreateTextureFromSurface(renderer, life_surface));
+          worm->set_life_points(new_life_points_q);
           SDL_FreeSurface(life_surface);
-          w_r->life_points = new_life_points_q;
         }
 
         // Actualizo el lado para el que mira si cambió
-        if (w_r->is_facing_right != new_facing_right) {
-          delete w_r->worms_texture;
+        if (worm->is_facing_right() != new_facing_right) {
+          SdlTexture* worms_texture = NULL;
           Area area(new_x, new_y, WORM_SIZE, WORM_SIZE);
           if (new_facing_right) {
-              w_r->worms_texture = new SdlTexture(worm_r_texture, *this, area);
+              worms_texture = new SdlTexture(worm_r_texture, *this, area);
           } else {
-              w_r->worms_texture = new SdlTexture(worm_l_texture, *this, area);
+              worms_texture = new SdlTexture(worm_l_texture, *this, area);
           }
-          w_r->is_facing_right = new_facing_right;
+          worm->set_texture(worms_texture);
+          worm->set_facing_right(new_facing_right);
         }
 
 
@@ -185,17 +178,11 @@ void SdlWindow::draw(WormDrawable* drawable) {
         } else {
           worms_texture = new SdlTexture(worm_l_texture, *this, area);
         }
-
-        SDL_Rect life_rect;
-        life_rect.x = new_x + 10;  //controls the rect's x coordinate
-        life_rect.y = new_y - 20;  //controls the rect's y coordinate
-        life_rect.w = 20; // controls the width of the rect
-        life_rect.h = 20; // controls the height of the rect
-
+        Area life_area(new_x + 10, new_y - 20, 20, 20);
         SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, new_life_points_s.c_str(), colors[team % 10]);
-
-        worm_representation* w_r = new worm_representation({ worms_texture, life_rect, SDL_CreateTextureFromSurface(renderer, life_surface), new_facing_right, new_life_points_q, new_angle });
-        worms_textures[id] = w_r;
+        WormRepresentation* worm = new WormRepresentation(worms_texture, *this, SDL_CreateTextureFromSurface(renderer, life_surface),
+                                                        life_area, new_facing_right, new_life_points_q, new_angle);
+        worms_textures[id] = worm;
         SDL_FreeSurface(life_surface);
     }
 }
@@ -204,17 +191,16 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
   size_t id = drawable->get_id();
   int team = drawable->get_team();
   if (worms_textures.count(id) == 0) return;
-  worm_representation* w_r = worms_textures.at(id);
+  WormRepresentation* worm = worms_textures.at(id);
 
-  SDL_DestroyTexture(w_r->life_texture);
   SDL_Surface* life_surface = TTF_RenderText_Solid(Sans_small, "0", colors[team % 10]);
-  w_r->life_texture =  SDL_CreateTextureFromSurface(renderer, life_surface);
+  worm->set_life_texture(SDL_CreateTextureFromSurface(renderer, life_surface));
   SDL_FreeSurface(life_surface);
-  w_r->life_points = 0;
+  worm->set_life_points(0);
 
-  delete w_r->worms_texture;
-  Area area(w_r->life_rect.x, w_r->life_rect.y, WORM_SIZE, WORM_SIZE);
-  w_r->worms_texture = new SdlTexture(grave_texture, *this, area);
+  Area life_area = worm->get_life_position();
+  Area area(life_area.getX(), life_area.getY(), WORM_SIZE, WORM_SIZE);
+  worm->set_texture(new SdlTexture(grave_texture, *this, area));
 }
 
 void SdlWindow::draw(StageDrawable* drawable) {
@@ -320,8 +306,6 @@ SdlWindow::~SdlWindow() {
     }
 
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        SDL_DestroyTexture(it->second->life_texture);
-        delete it->second->worms_texture;
         delete it->second;
     }
 

@@ -23,6 +23,7 @@
 #include "client_TurnTimeDrawable.h"
 #include "client_WormDrawable.h"
 #include "client_WormDeathDrawable.h"
+#include "client_WormRepresentation.h"
 
 #define WORM_SIZE 40
 #define DYNAMITE_SIZE 40
@@ -56,15 +57,7 @@ class StartTurnDrawable;
 class TurnTimeDrawable;
 class WormDrawable;
 class WormDeathDrawable;
-
-struct worm_representation {
-  SdlTexture* worms_texture;
-  SDL_Rect life_rect;
-  SDL_Texture* life_texture;
-  bool is_facing_right;
-  size_t life_points;
-  int angle;
-};
+class WormRepresentation;
 
 struct beam_representation {
   SdlTexture* beam_texture;
@@ -87,7 +80,7 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    map<int, worm_representation*> worms_textures;
+    map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     std::vector<beam_representation*> static_textures;
 
