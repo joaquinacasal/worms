@@ -147,7 +147,10 @@ void ServerThread::changeTurn(){
   if (!keep_running) return;
   finishTurn(clients[actual_turn]);
   turns_manager.finish_turn();
-  if (++actual_turn == clients.size()) actual_turn = 0;
+  Player* actual_player = turns_manager.get_selected_player();
+  for (size_t i = 0; i < clients.size(); i++){
+      if (clients[i]->get_player() == actual_player) actual_turn = i;
+  }
   startTurn(clients[actual_turn]);
 }
 

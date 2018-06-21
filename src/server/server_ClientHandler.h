@@ -96,6 +96,8 @@ public:
     // la cola de eventos.
     void disable_queue();
 
+    Player* get_player();
+
     ~ClientHandler() override = default;
 };
 

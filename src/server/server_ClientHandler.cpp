@@ -115,3 +115,7 @@ void ClientHandler::disable_queue(){
   if (!is_alive()) return;
     this->is_queue_enabled = false;
 }
+
+Player* ClientHandler::get_player(){
+  return player;
+}
