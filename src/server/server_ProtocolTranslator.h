@@ -34,7 +34,7 @@ class ProtocolTranslator {
 public:
     // Transforma el codigo recibido en un evento
     IEvent* translate(Player* player, char code);
-    IEvent* translate(Player* player, char code, int x, int y);
+    IEvent* translate(Player* player, char code, double x, double y);
 
 
     // Indica si el codigo recibido necesita coordenadas.

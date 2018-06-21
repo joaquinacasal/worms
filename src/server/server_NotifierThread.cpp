@@ -21,7 +21,7 @@ void NotifierThread::stop(){
 }
 
 
-void NotifierThread::send_worm_info(ClientHandler* client, size_t id, size_t life_points, int x, int y, \
+void NotifierThread::send_worm_info(ClientHandler* client, size_t id, size_t life_points, double x, double y, \
                             int angle, bool is_facing_right, int team){
   if (continue_sending)
     blocking_queue.push(new WormNotification(client, id, life_points, x, y, angle, is_facing_right, team));
@@ -38,12 +38,12 @@ void NotifierThread::send_stage_info(ClientHandler* client, size_t width, size_t
     blocking_queue.push(new StageNotification(client, width, height, background));
 }
 
-void NotifierThread::send_beam_info(ClientHandler* client, int x, int y, int length, int width, int angle){
+void NotifierThread::send_beam_info(ClientHandler* client, double x, double y, int length, int width, int angle){
   if (continue_sending)
     blocking_queue.push(new BeamNotification(client, x, y, length, width, angle));
 }
 
-void NotifierThread::send_dynamite_info(ClientHandler* client, int x, int y, int time_to_explosion){
+void NotifierThread::send_dynamite_info(ClientHandler* client, double x, double y, int time_to_explosion){
   if (continue_sending)
     blocking_queue.push(new DynamiteNotification(client, x, y, time_to_explosion));
 }
@@ -54,7 +54,7 @@ void NotifierThread::send_dynamite_explosion_info(ClientHandler* client){
 }
 
 
-void NotifierThread::send_radiocontrolled_info(ClientHandler* client, size_t id, int x, int y){
+void NotifierThread::send_radiocontrolled_info(ClientHandler* client, size_t id, double x, double y){
   if (continue_sending)
     blocking_queue.push(new RadiocontrolledNotification(client, id, x, y));
 }

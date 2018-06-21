@@ -35,6 +35,13 @@ void SocketProtocol::send_numeric_value(int value) {
     socket.send(value_big_endian_char, PROTOCOL_LENGTHS_VALUE);
 }
 
+void SocketProtocol::send_numeric_value(double value) {
+    uint32_t value_big_endian = htonl((int)(value * 1000));
+    char value_big_endian_char[PROTOCOL_LENGTHS_VALUE];
+    memcpy(value_big_endian_char, &value_big_endian, PROTOCOL_LENGTHS_VALUE);
+    socket.send(value_big_endian_char, PROTOCOL_LENGTHS_VALUE);
+}
+
 SocketProtocol &SocketProtocol::operator<<(int value) {
     send_numeric_value(value);
     return *this;
@@ -47,6 +54,15 @@ uint32_t SocketProtocol::receive_numeric_value() {
     memcpy(&value_big_endian, value_big_endian_char, PROTOCOL_LENGTHS_VALUE);
     uint32_t value = ntohl(value_big_endian);
     return value;
+}
+
+double SocketProtocol::receive_double_value() {
+    char value_big_endian_char[PROTOCOL_LENGTHS_VALUE];
+    socket.receive(value_big_endian_char, PROTOCOL_LENGTHS_VALUE);
+    uint32_t value_big_endian;
+    memcpy(&value_big_endian, value_big_endian_char, PROTOCOL_LENGTHS_VALUE);
+    uint32_t value = ntohl(value_big_endian);
+    return (double)value / 1000;
 }
 
 char SocketProtocol::receive(){
@@ -73,13 +89,13 @@ void SocketProtocol::send_backspace(){
     send_command_or_code(PROTOCOL_BACKSPACE);
 }
 
-void SocketProtocol::send_teletransportation(int x, int y){
+void SocketProtocol::send_teletransportation(double x, double y){
     send_command_or_code(PROTOCOL_TELETRANSPORTATION);
     send_numeric_value(x);
     send_numeric_value(y);
 }
 
-void SocketProtocol::send_radiocontrolled(int x, int y){
+void SocketProtocol::send_radiocontrolled(double x, double y){
     send_command_or_code(PROTOCOL_RADIOCONTROLLED);
     send_numeric_value(x);
     send_numeric_value(y);
@@ -98,8 +114,8 @@ void SocketProtocol::send_turn_end(){
     send_command_or_code(PROTOCOL_TURN_END);
 }
 
-void SocketProtocol::send_worm_info(size_t id, size_t life_points, int x,\
-              int y, int angle, bool is_facing_right, int team){
+void SocketProtocol::send_worm_info(size_t id, size_t life_points, double x,\
+              double y, int angle, bool is_facing_right, int team){
 
     send_command_or_code(PROTOCOL_WORM_INFO);
     send_numeric_value((int)id);
@@ -119,7 +135,7 @@ void SocketProtocol::send_worm_death_notif(size_t id, int team){
 }
 
 
-void SocketProtocol::send_beam_info(int x, int y, int length, int width, int angle){
+void SocketProtocol::send_beam_info(double x, double y, int length, int width, int angle){
     send_command_or_code(PROTOCOL_BEAM_INFO);
     send_numeric_value(x);
     send_numeric_value(y);
@@ -135,7 +151,7 @@ void SocketProtocol::send_stage_info(int width, int height, std::string backgrou
   send_string(background);
 }
 
-void SocketProtocol::send_dynamite_info(int x, int y, int time_to_explosion){
+void SocketProtocol::send_dynamite_info(double x, double y, int time_to_explosion){
     send_command_or_code(PROTOCOL_DYMAMITE_INFO);
     send_numeric_value(x);
     send_numeric_value(y);
@@ -146,7 +162,7 @@ void SocketProtocol::send_dynamite_explosion_notif(){
     send_command_or_code(PROTOCOL_DYMAMITE_EXPLOSION);
 }
 
-void SocketProtocol::send_radiocontrolled_info(size_t id, int x, int y){
+void SocketProtocol::send_radiocontrolled_info(size_t id, double x, double y){
     send_command_or_code(PROTOCOL_RADIOCONTROLLED_INFO);
     send_numeric_value((int)id);
     send_numeric_value(x);

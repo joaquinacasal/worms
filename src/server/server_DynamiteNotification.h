@@ -6,14 +6,14 @@
 class DynamiteNotification : public INotification {
 private:
     ClientHandler* client;
-    int x;
-    int y;
+    double x;
+    double y;
     int time_to_explosion;
 
     DynamiteNotification(const DynamiteNotification&) = delete;
     DynamiteNotification& operator=(const DynamiteNotification&) = delete;
 public:
-    DynamiteNotification(ClientHandler* client, int x, int y, \
+    DynamiteNotification(ClientHandler* client, double x, double y, \
                                                     int time_to_explosion);
 
     void run();

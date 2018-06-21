@@ -39,7 +39,7 @@ public:
   std::vector<Worm*> get_worms();
 
   // Teletransporta el gusano seleccionado a la coordenada (X,Y) indicada.
-  bool teletransport_actual_worm(int x, int y);
+  bool teletransport_actual_worm(double x, double y);
 
   // Devuelve la cantidad de teletransportaciones que quedan.
   size_t get_teletransportation_munitions();

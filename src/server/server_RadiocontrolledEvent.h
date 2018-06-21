@@ -7,13 +7,13 @@
 class RadiocontrolledEvent : public IEvent {
 private:
     Player* player;
-    int x;
-    int y;
+    double x;
+    double y;
 
     RadiocontrolledEvent(const RadiocontrolledEvent&) = delete;
     RadiocontrolledEvent& operator=(const RadiocontrolledEvent&) = delete;
 public:
-    explicit RadiocontrolledEvent(Player* player, int x, int y);
+    explicit RadiocontrolledEvent(Player* player, double x, double y);
 
     void run();
 

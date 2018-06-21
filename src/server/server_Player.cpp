@@ -35,7 +35,7 @@ std::vector<Worm*> Player::get_worms(){
 }
 
 
-bool Player::teletransport_actual_worm(int x, int y){
+bool Player::teletransport_actual_worm(double x, double y){
   return this->armory->use_teletransportation(get_selected_worm(), x, y);
 }
 

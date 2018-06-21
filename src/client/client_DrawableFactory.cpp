@@ -18,15 +18,15 @@ void DrawableFactory::create_end_turn_drawable(){
 }
 
 void DrawableFactory::create_turn_time_drawable(){
-  double turn_time = (double)(socket_protocol.receive_numeric_value()) / 1000;
+  double turn_time = socket_protocol.receive_double_value();
   safe_queue.push(new TurnTimeDrawable(turn_time));
 }
 
 void DrawableFactory::create_worm_drawable(){
   size_t id = socket_protocol.receive_numeric_value();
   size_t life_points = socket_protocol.receive_numeric_value();
-  double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
-  double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
+  double x = socket_protocol.receive_double_value();
+  double y = socket_protocol.receive_double_value();
   int angle = socket_protocol.receive_numeric_value() * -1;
   bool is_facing_right = (bool)socket_protocol.receive_numeric_value();
   int team = socket_protocol.receive_numeric_value();
@@ -44,8 +44,8 @@ void DrawableFactory::create_worm_death_drawable(){
 
 
 void DrawableFactory::create_beam_drawable(){
-  double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
-  double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
+  double x = socket_protocol.receive_double_value();
+  double y = socket_protocol.receive_double_value();
   size_t length = socket_protocol.receive_numeric_value();
   size_t width = socket_protocol.receive_numeric_value();
   size_t angle = socket_protocol.receive_numeric_value() * -1;
@@ -68,9 +68,9 @@ void DrawableFactory::create_stage_drawable(){
 }
 
 void DrawableFactory::create_dynamite_drawable(){
-  double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
-  double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
-  double time_to_explosion = (double)(socket_protocol.receive_numeric_value()) / 1000;
+  double x = socket_protocol.receive_double_value();
+  double y = socket_protocol.receive_double_value();
+  double time_to_explosion = socket_protocol.receive_double_value();
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
   y = adapt_y_coordinate(y);
@@ -83,8 +83,8 @@ void DrawableFactory::create_dynamite_explosion_drawable(){
 
 void DrawableFactory::create_radiocontrolled_drawable(){
   size_t id = (size_t)(socket_protocol.receive_numeric_value());
-  double x = (double)(socket_protocol.receive_numeric_value()) / 1000;
-  double y = (double)(socket_protocol.receive_numeric_value()) / 1000;
+  double x = socket_protocol.receive_double_value();
+  double y = socket_protocol.receive_double_value();
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
   y = adapt_y_coordinate(y);

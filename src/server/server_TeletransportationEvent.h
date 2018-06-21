@@ -7,13 +7,13 @@
 class TeletransportationEvent : public IEvent {
 private:
     Player* player;
-    int x;
-    int y;
+    double x;
+    double y;
 
     TeletransportationEvent(const TeletransportationEvent&) = delete;
     TeletransportationEvent& operator=(const TeletransportationEvent&) = delete;
 public:
-    explicit TeletransportationEvent(Player* player, int x, int y);
+    explicit TeletransportationEvent(Player* player, double x, double y);
 
     void run();
 

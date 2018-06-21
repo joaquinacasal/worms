@@ -41,14 +41,14 @@ class NotifierThread : public Thread {
 
     void stop();
 
-    void send_worm_info(ClientHandler* client, size_t id, size_t life_points, int x, int y, \
+    void send_worm_info(ClientHandler* client, size_t id, size_t life_points, double x, double y, \
                                 int angle, bool is_facing_right, int team);
     void send_worm_death_notif(ClientHandler* client, size_t id, int team);
     void send_stage_info(ClientHandler* client, size_t width, size_t height, std::string background);
-    void send_beam_info(ClientHandler* client, int x, int y, int length, int width, int angle);
-    void send_dynamite_info(ClientHandler* client, int x, int y, int time_to_explosion);
+    void send_beam_info(ClientHandler* client, double x, double y, int length, int width, int angle);
+    void send_dynamite_info(ClientHandler* client, double x, double y, int time_to_explosion);
     void send_dynamite_explosion_info(ClientHandler* client);
-    void send_radiocontrolled_info(ClientHandler* client, size_t id, int x, int y);
+    void send_radiocontrolled_info(ClientHandler* client, size_t id, double x, double y);
     void send_radiocontrolled_explosion_info(ClientHandler* client, size_t id);
     void send_turn_time_info(ClientHandler* client, int turn_chrono);
     void send_start_turn_notif(ClientHandler* client);

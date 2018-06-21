@@ -1,7 +1,7 @@
 #include "server_WormNotification.h"
 
 WormNotification::WormNotification(ClientHandler* client, size_t id, \
-  size_t life_points, int x, int y, int angle, bool is_facing_right, int team){
+  size_t life_points, double x, double y, int angle, bool is_facing_right, int team){
   this->client = client;
   this->id = id;
   this->life_points = life_points;
