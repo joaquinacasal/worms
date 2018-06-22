@@ -16,6 +16,7 @@ public:
     BeamLabel(const QString& image_filename, QWidget* parent, bool original, int length, int angle);
     BeamLabel(const QPixmap& image, QWidget* parent, bool original, int length, int angle);
     bool is_worm();
+    ~BeamLabel() = default;
 };
 
 #endif // BEAMLABEL_H

@@ -12,6 +12,7 @@ public:
     WormLabel(const QString& image_filename, QWidget* parent, bool original);
     WormLabel(const QPixmap& image, QWidget* parent, bool original);
     bool is_worm();
+    ~WormLabel() = default;
 };
 
 #endif // WORMLABEL_H

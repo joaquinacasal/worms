@@ -37,8 +37,8 @@ private:
     QList<DragLabel*> get_worms();
     QList<DragLabel*> get_beams();
     bool check_intersections();
-    int pixels_to_meters(int pixels);
-    int meters_to_pixels(int meters);
+    float pixels_to_meters(float pixels);
+    float meters_to_pixels(float meters);
 
 public:
     explicit MainWindow(QWidget* parent = 0);

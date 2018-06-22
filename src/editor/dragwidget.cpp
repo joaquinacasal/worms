@@ -24,15 +24,14 @@ DragWidget::DragWidget(QWidget *parent)
         for (int i = 0 ; i < 4 ; i++){
             QString beam_image_filename;
             int beam_length;
-            QString i_str = QString::fromStdString(std::to_string(i));
             if (n == 0){
-                beam_image_filename = LONG_BEAM_PREFIX + i_str + IMAGE_EXTENSION;
+                beam_image_filename = LONG_BEAM_IMAGE_FILENAME;
                 beam_length = LONG_BEAM_LENGTH;
             } else {
-                beam_image_filename = SHORT_BEAM_PREFIX + i_str + IMAGE_EXTENSION;
+                beam_image_filename = SHORT_BEAM_IMAGE_FILENAME;
                 beam_length = SHORT_BEAM_LENGTH;
             }
-            float current_angle = ANGLE_DELTA * i;
+            int current_angle = ANGLE_DELTA * i;
             DragLabel* beam = new DragLabel(beam_image_filename, this, true, beam_length, current_angle, false);
             beam->move(x, y);
             beam->show();
@@ -90,15 +89,15 @@ void DragWidget::mousePressEvent(QMouseEvent *event)
     dataStream << child->get_image_filename() << QPoint(hotSpot) << child->get_length() << child->get_angle() << child->is_worm();
     QMimeData* mimeData = new QMimeData;
     mimeData->setData(wormsLabelMimeType(), itemData);
-    QDrag* drag = new QDrag(this);
-    drag->setMimeData(mimeData);
-    drag->setPixmap(*child->pixmap());
-    drag->setHotSpot(hotSpot);
+    QDrag drag(this);
+    drag.setMimeData(mimeData);
+    drag.setPixmap(*child->pixmap());
+    drag.setHotSpot(hotSpot);
     bool original = child->is_original();
     if (!original){
         child->hide();
     }
-    drag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction);
+    drag.exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction);
     if (original){
         child->show();
     } else {

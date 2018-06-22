@@ -22,6 +22,7 @@ public:
     int get_length() const;
     int get_angle() const;
     QString get_image_filename() const;
+    ~DragLabel() = default;
 };
 
 #endif // DRAGLABEL_H

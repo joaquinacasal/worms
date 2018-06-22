@@ -48,6 +48,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    QList<DragLabel*> worms_labels = get_worms();
+    QList<DragLabel*> beams_labels = get_beams();
+    for (DragLabel* worm : worms_labels){
+        worm->close();
+    }
+    for (DragLabel* beam : beams_labels){
+        beam->close();
+    }
     delete ui;
 }
 
@@ -107,12 +115,12 @@ bool MainWindow::check_intersections(){
     return false;
 }
 
-int MainWindow::pixels_to_meters(int pixels)
+float MainWindow::pixels_to_meters(float pixels)
 {
     return pixels / PIXEL_METER_CONVERSION;
 }
 
-int MainWindow::meters_to_pixels(int meters)
+float MainWindow::meters_to_pixels(float meters)
 {
     return meters * PIXEL_METER_CONVERSION;
 }
@@ -153,28 +161,24 @@ void MainWindow::on_actionOpen_scenario_triggered()
     vector<map<string, string>> beams = new_scenario["beams"].as<vector<map<string, string>>>();
 
     for (map<string, string> worm : worms){
-        int x = meters_to_pixels(std::stoi(worm.at("x")));
-        int y = std::stoi(worm.at("y"));
+        float x = meters_to_pixels(std::stof(worm.at("x")));
+        float y = std::stof(worm.at("y"));
         y = meters_to_pixels((y - heigth) * -1);
         QString image_filename = QString::fromStdString(worm.at("image"));
         DragLabel* new_worm = new DragLabel(image_filename, scenario_widget, false, 2, 0, true);
-        //x -= new_worm->rect().center().x();
-        //y -= new_worm->rect().center().y();
         new_worm->move(x, y);
         new_worm->show();
         new_worm->setAttribute(Qt::WA_DeleteOnClose);
     }
 
     for (map<string, string> beam : beams){
-        int x = meters_to_pixels(std::stoi(beam.at("x")));
-        int y = std::stoi(beam.at("y"));
+        float x = meters_to_pixels(std::stof(beam.at("x")));
+        float y = std::stof(beam.at("y"));
         y = meters_to_pixels((y - heigth) * -1);
         int length = std::stoi(beam.at("length"));
         int angle = std::stoi(beam.at("angle"));
         QString image_filename = QString::fromStdString(beam.at("image"));
         DragLabel* new_beam = new DragLabel(image_filename, scenario_widget, false, length, angle, false);
-        //x -= new_beam->rect().center().x();
-        //y -= new_beam->rect().center().y();
         new_beam->move(x, y);
         new_beam->show();
         new_beam->setAttribute(Qt::WA_DeleteOnClose);
@@ -221,17 +225,16 @@ void MainWindow::on_actionSave_scenario_triggered()
     int id_counter = 1;
     int scenario_heigth = std::stoi(scenario.at("heigth"));
     for (DragLabel* worm_label : worms_labels){
-        int x = pixels_to_meters(worm_label->pos().x());
-        int y = pixels_to_meters(worm_label->pos().y());
+        float x = pixels_to_meters(worm_label->pos().x());
+        float y = pixels_to_meters(worm_label->pos().y());
         y = y * -1 + scenario_heigth;
-        //x += worm_label->rect().center().x();
-        //y += worm_label->rect().center().y();
         std::map<string, string> worm;
         worm["id"] = std::to_string(id_counter);
         worm["x"] = std::to_string(x);
         worm["y"] = std::to_string(y);
         worm["image"] = worm_label->get_image_filename().toStdString();
         parser << worm;
+        id_counter += 1;
     }
     parser << YAML::EndSeq;
 
@@ -239,11 +242,9 @@ void MainWindow::on_actionSave_scenario_triggered()
     parser << YAML::Value << YAML::BeginSeq;
     id_counter = 1;
     for (DragLabel* beam_label : beams_labels){
-        int x = pixels_to_meters(beam_label->pos().x());
-        int y = pixels_to_meters(beam_label->pos().y());
+        float x = pixels_to_meters(beam_label->pos().x());
+        float y = pixels_to_meters(beam_label->pos().y());
         y = y * -1 + scenario_heigth;
-        //x += beam_label->rect().center().x();
-        //y += beam_label->rect().center().y();
         std::map<string, string> beam;
         beam["id"] = std::to_string(id_counter);
         beam["x"] = std::to_string(x);
@@ -252,6 +253,7 @@ void MainWindow::on_actionSave_scenario_triggered()
         beam["angle"] = std::to_string(beam_label->get_angle());
         beam["image"] = beam_label->get_image_filename().toStdString();
         parser << beam;
+        id_counter += 1;
     }
     parser << YAML::EndSeq << YAML::EndMap;
 

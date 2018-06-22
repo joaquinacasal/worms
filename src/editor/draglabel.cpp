@@ -1,6 +1,7 @@
 #include <QString>
 #include <QPixmap>
 #include <QWidget>
+#include <QMatrix>
 #include "draglabel.h"
 #include "config.h"
 
@@ -9,6 +10,9 @@ DragLabel::DragLabel(const QString& image_filename, QWidget* parent, bool origin
     : QLabel(parent), original(original), length(length), angle(angle), _is_worm(is_worm), image_filename(image_filename)
 {
     QPixmap image(LABEL_IMAGES_DIR + image_filename);
+    QMatrix matrix;
+    matrix.rotate(-angle);
+    image = image.transformed(matrix);
     setPixmap(image);
 }
 
