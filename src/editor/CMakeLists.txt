@@ -41,5 +41,4 @@ configure_file(
 
 install(TARGETS worms_editor DESTINATION ${INSTALL_PATH}/worms/editor/bin/)
 install(DIRECTORY "scenarios" DESTINATION ${INSTALL_PATH}/worms/editor)
-install(DIRECTORY "resources" DESTINATION ${INSTALL_PATH}/worms/editor)
-install(FILES ${ICONS} DESTINATION ${INSTALL_PATH}/worms/editor/resources)
+install(DIRECTORY "resources/images" DESTINATION ${INSTALL_PATH}/worms/editor)

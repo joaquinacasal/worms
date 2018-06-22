@@ -50,8 +50,8 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionLoad_background">
    <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/resources/images/icons/background-icon.png</normaloff>:/resources/images/icons/background-icon.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/resources/icons/background.png</normaloff>:/resources/icons/background-icon.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Load background</string>
@@ -62,8 +62,8 @@
   </action>
   <action name="actionOpen_scenario">
    <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/resources/images/icons/open.png</normaloff>:/resources/images/icons/open.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/resources/icons/open.png</normaloff>:/resources/icons/open.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open scenario...</string>
@@ -71,8 +71,8 @@
   </action>
   <action name="actionSave_scenario">
    <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/resources/images/icons/save.png</normaloff>:/resources/images/icons/save.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/resources/icons/save.png</normaloff>:/resources/icons/save.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Save scenario</string>
@@ -80,8 +80,8 @@
   </action>
   <action name="actionSave_scenario_as">
    <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/resources/images/icons/save_as.png</normaloff>:/resources/images/icons/save_as.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/resources/icons/save_as.png</normaloff>:/resources/icons/save_as.png</iconset>
    </property>
    <property name="text">
     <string>Sa&amp;ve scenario as...</string>
@@ -89,8 +89,8 @@
   </action>
   <action name="actionChange_size">
    <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/resources/images/icons/resize.png</normaloff>:/resources/images/icons/resize.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/resources/icons/resize.png</normaloff>:/resources/icons/resize.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Change size</string>
@@ -99,7 +99,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections/>
 </ui>
