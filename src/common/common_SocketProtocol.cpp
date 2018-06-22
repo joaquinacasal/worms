@@ -106,14 +106,6 @@ void SocketProtocol::send_dynamite(){
     send_command_or_code(PROTOCOL_DYMAMITE);
 }
 
-void SocketProtocol::send_turn_start(){
-    send_command_or_code(PROTOCOL_TURN_START);
-}
-
-void SocketProtocol::send_turn_end(){
-    send_command_or_code(PROTOCOL_TURN_END);
-}
-
 void SocketProtocol::send_worm_info(size_t id, size_t life_points, double x,\
               double y, int angle, bool is_facing_right, int team){
 
@@ -180,6 +172,10 @@ void SocketProtocol::send_start_turn_notif(){
 
 void SocketProtocol::send_end_turn_notif(){
   send_command_or_code(PROTOCOL_TURN_END);
+}
+
+void SocketProtocol::send_you_win_notif(){
+  send_command_or_code(PROTOCOL_YOU_WIN_NOTIF);
 }
 
 void SocketProtocol::send_turn_time_info(int turn_chrono){

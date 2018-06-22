@@ -88,6 +88,11 @@ void ClientHandler::send_end_turn_notif(){
   this->protocol.send_end_turn_notif();
 }
 
+void ClientHandler::send_you_win_notif(){
+  if (!is_alive()) return;
+  this->protocol.send_you_win_notif();
+}
+
 void ClientHandler::send_closed_connection_notif(){
   if (!is_alive()) return;
   this->protocol.send_closed_connection_notif();

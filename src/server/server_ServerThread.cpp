@@ -143,6 +143,11 @@ void ServerThread::startTurn(ClientHandler* client){
   client->enable_queue();
 }
 
+void ServerThread::send_you_win_notif(){
+  notifier.send_you_win_notif(clients[actual_turn]);
+}
+
+
 void ServerThread::changeTurn(){
   if (!keep_running) return;
   finishTurn(clients[actual_turn]);

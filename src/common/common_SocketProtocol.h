@@ -35,6 +35,7 @@
 #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
 #define PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO 0x71
 
+#define PROTOCOL_YOU_WIN_NOTIF 0x10
 
 
 
@@ -100,8 +101,6 @@ public:
     void send_radiocontrolled(double x, double y);
 
     /* Envía el servidor*/
-    void send_turn_start();
-    void send_turn_end();
     void send_worm_info(size_t id, size_t life_points, double x, double y, \
                         int angle, bool is_facing_right, int team);
     void send_worm_death_notif(size_t id, int team);
@@ -113,6 +112,7 @@ public:
     void send_radiocontrolled_explosion_info(size_t id);
     void send_start_turn_notif();
     void send_end_turn_notif();
+    void send_you_win_notif();
     void send_turn_time_info(int turn_chrono);
 
     // Envían ambos

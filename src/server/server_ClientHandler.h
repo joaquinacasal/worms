@@ -85,6 +85,9 @@ public:
     // Envía una notificación indicando que finalizó el turno.
     void send_end_turn_notif();
 
+    // Envía una notificación indicando que ganó el juego.
+    void send_you_win_notif();
+
     // Envía una notificación indicando que se cerró la conexión desde el
     // servidor.
     void send_closed_connection_notif();

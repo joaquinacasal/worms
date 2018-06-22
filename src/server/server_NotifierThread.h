@@ -17,6 +17,7 @@
 #include "server_TurnTimeNotification.h"
 #include "server_WormNotification.h"
 #include "server_WormDeathNotification.h"
+#include "server_YouWinNotification.h"
 
 /* Clase que hereda de Thread. Se encarga de recibir toda la información
  * necesaria para crear las notificaciones, crear objetos del tipo INotification
@@ -53,6 +54,7 @@ class NotifierThread : public Thread {
     void send_turn_time_info(ClientHandler* client, int turn_chrono);
     void send_start_turn_notif(ClientHandler* client);
     void send_end_turn_notif(ClientHandler* client);
+    void send_you_win_notif(ClientHandler* client);
     void send_closed_connection_notif(ClientHandler* client);
 
 

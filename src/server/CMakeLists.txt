@@ -15,6 +15,7 @@ add_executable(worms_server
 				server_WormNotification.cpp
 				server_WormDeathNotification.cpp
 				server_TurnTimeNotification.cpp
+				server_YouWinNotification.cpp
 				server_Radiocontrolled.cpp
 				server_RadiocontrolledEvent.cpp
 				server_DynamiteEvent.cpp

@@ -88,9 +88,11 @@ public:
     // Envía la notificación de explosión del teledirigido con id recibido.
     void send_radiocontrolled_explosion_to_clients(size_t id);
 
+    // Envía una notificiación indicando que el jugador actual gano el juego.
+    void send_you_win_notif();
+
     // Envía una notificiación para cerrar la conexión a todos los clientes.
     void send_closed_connection_notif();
-
 
     // Devuelve un booleano indicando si el hilo sigue vivo.
     bool is_alive();

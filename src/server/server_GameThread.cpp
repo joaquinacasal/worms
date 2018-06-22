@@ -94,6 +94,7 @@ void GameThread::run() {
     set_worms_as_immovable();
     turns_manager.get_selected_player()->get_selected_worm()->make_movable();
     while (alive) {
+      check_winner();
       tick_turn();
       deadTime();
       changeTurn();
@@ -165,6 +166,12 @@ void GameThread::tick_turn(){
 void GameThread::check_life_discount(size_t initial_life, Worm* actual_worm){
   if (initial_life > actual_worm->get_life_points())
     turn_chrono = 0;
+}
+
+void GameThread::check_winner(){
+  if (turns_manager.get_number_players() == 1) return;
+  if (turns_manager.get_number_players_alive() == 1)
+    this->server_thread->send_you_win_notif();
 }
 
 void GameThread::check_immobilization(Worm* actual_worm){
