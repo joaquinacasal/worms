@@ -91,9 +91,13 @@ public:
   // Aplica la fuerza recibida.
   void apply_force(float x, float y);
 
-  // Método privado que devuelve un booleano indicando si está colisionando
+  // Devuelve un booleano indicando si está colisionando
   // con algún objeto.
   bool is_colliding();
+
+  // Devuelve un booleano indicando si el cuerpo se está moviendo a la
+  // izquierda o a la derecha.
+  bool is_moving();
 };
 
 

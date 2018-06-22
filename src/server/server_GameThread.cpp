@@ -247,9 +247,18 @@ void GameThread::send_worms_information_to_clients(){
       double y = worm->get_vertical_position();
       int angle = (int)worm->get_angle();
       bool is_facing_right = worm->is_facing_right();
+      int movement_state;
+      if (!worm->is_colliding()){
+        movement_state = 3; // Volando
+      } else {
+        if (worm->is_moving())
+          movement_state = 2; // Moviendose
+        else
+          movement_state = 1; // Quieto
+      }
 
       this->server_thread->send_worm_information_to_clients(id, life_points, x, \
-                                            y, angle, is_facing_right, i);
+                                            y, angle, is_facing_right, i, movement_state);
 
     }
   }

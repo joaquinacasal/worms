@@ -145,6 +145,14 @@ void SdlWindow::draw(WormDrawable* drawable) {
                                                         new_facing_right, new_life_points_q, new_angle);
         worms_textures[id] = worm;
     }
+
+
+    // TODO: Borrar esto y agregar la logica de la animación.
+    std::string estado;
+    if (drawable->is_still()) estado = "quieto";
+    if (drawable->is_moving()) estado = "moviendose";
+    if (drawable->is_flying()) estado = "volando";
+    std::cout << "El estado es " << estado << '\n';
 }
 
 void SdlWindow::draw(WormDeathDrawable* drawable) {
