@@ -39,9 +39,14 @@ bool Player::teletransport_actual_worm(double x, double y){
   return this->armory->use_teletransportation(get_selected_worm(), x, y);
 }
 
-size_t Player::get_teletransportation_munitions(){
+int Player::get_teletransportation_munitions(){
   return this->armory->get_teletransportation_munitions();
 }
+
+bool Player::was_teletransportation_used(){
+  return this->armory->was_teletransportation_used();
+}
+
 
 bool Player::use_dynamite(){
   if (has_an_active_weapon()) return false;
@@ -49,7 +54,7 @@ bool Player::use_dynamite(){
                                                         is_facing_right());
 }
 
-size_t Player::get_dynamite_munitions(){
+int Player::get_dynamite_munitions(){
   return this->armory->get_dynamite_munitions();
 }
 
@@ -83,6 +88,11 @@ bool Player::use_radiocontrolled(float x){
 bool Player::is_radiocontrolled_active(){
   return this->armory->is_radiocontrolled_active();
 }
+
+int Player::get_radiocontrolled_munitions(){
+  return this->armory->get_radiocontrolled_munitions();
+}
+
 
 std::map<size_t, std::pair<float, float>> Player::get_radiocontrolled_positions(){
   return this->armory->get_radiocontrolled_positions();

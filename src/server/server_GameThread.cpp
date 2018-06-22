@@ -102,6 +102,7 @@ void GameThread::run() {
     add_all_clients();
     server_thread->start_clients();
     send_stage_information_to_clients();
+    send_munitions_information_to_all_clients();
     deadTime();
     set_worms_as_immovable();
     turns_manager.get_selected_player()->get_selected_worm()->make_movable();
@@ -220,14 +221,20 @@ void GameThread::check_weapons(Player* actual_player, bool& weapon_was_used){
 
   if (!weapon_was_used) {
     // Si nunca se usó el arma, me fijo si se activó.
-    if (actual_player->has_an_active_weapon())
+    if (actual_player->has_an_active_weapon()){
       weapon_was_used = true;
+      send_munitions_information();
+      return;
+    }
   } else {
     // Si alguna vez fue usada un arma, entonces cuando
     // se desactive termina el turno.
     if (!actual_player->has_an_active_weapon())
       turn_chrono = 0;
   }
+
+  if (actual_player->was_teletransportation_used())
+    send_munitions_information();
 }
 
 void GameThread::discount_time(int time_spent){
@@ -312,6 +319,20 @@ void GameThread::send_weapon_information_to_clients(){
       this->server_thread->send_radiocontrolled_information_to_clients(i, x, y);
     }
   }
+}
+
+void GameThread::send_munitions_information(){
+  Player* actual_player = turns_manager.get_selected_player();
+  this->server_thread->send_munitions_info(actual_player->get_dynamite_munitions(), \
+                                          actual_player->get_radiocontrolled_munitions(), \
+                                          actual_player->get_teletransportation_munitions());
+
+}
+
+void GameThread::send_munitions_information_to_all_clients(){
+  Player* actual_player = turns_manager.get_selected_player();
+  this->server_thread->send_munitions_info_to_all_clients();
+
 }
 
 

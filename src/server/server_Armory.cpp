@@ -11,8 +11,12 @@ bool Armory::use_teletransportation(Worm* worm, float x, float y){
   return teletransportation.teletransport_to(worm, x, y);
 }
 
-size_t Armory::get_teletransportation_munitions(){
+int Armory::get_teletransportation_munitions(){
   return teletransportation.get_munitions();
+}
+
+bool Armory::was_teletransportation_used(){
+  return teletransportation.was_teletransportation_used();
 }
 
 bool Armory::use_dynamite(Worm* worm, bool is_facing_right){
@@ -23,7 +27,7 @@ bool Armory::use_dynamite(Worm* worm, bool is_facing_right){
   return this->dynamite.turn_on_dynamite(x, y);
 }
 
-size_t Armory::get_dynamite_munitions(){
+int Armory::get_dynamite_munitions(){
   return this->dynamite.get_munitions();
 }
 
@@ -53,6 +57,10 @@ bool Armory::use_radiocontrolled(float x){
 
 bool Armory::is_radiocontrolled_active(){
   return this->radiocontrolled.is_active();
+}
+
+int Armory::get_radiocontrolled_munitions(){
+  return this->radiocontrolled.get_munitions();
 }
 
 std::map<size_t, std::pair<float, float>> Armory::get_radiocontrolled_positions(){

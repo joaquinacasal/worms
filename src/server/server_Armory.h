@@ -32,7 +32,11 @@ class Armory {
     bool use_teletransportation(Worm* worm, float x, float y);
 
     // Devuelve el número de municiones de la teletransportación.
-    size_t get_teletransportation_munitions();
+    int get_teletransportation_munitions();
+
+    // Devuelve un booleano indicando si la teletransportacion fue utilizada
+    // desde la última vez que se preguntó.
+    bool was_teletransportation_used();
 
     // Hace que el gusano recibido deje una dinamita. Si is_facing_right es True
     // entonces lo deja a la derecha, en caso contrario lo deja a la izquierda.
@@ -40,7 +44,7 @@ class Armory {
     bool use_dynamite(Worm* worm, bool is_facing_right);
 
     // Devuelve el numero de municiones de la dinamita.
-    size_t get_dynamite_munitions();
+    int get_dynamite_munitions();
 
     // Descuenta el tiempo recibido en milisegundos a la explosión de la
     // dinamita.
@@ -68,6 +72,9 @@ class Armory {
 
     // Devuelve un booleano indicando si el teledirigido está activo.
     bool is_radiocontrolled_active();
+
+    // Devuelve el numero de municiones de la dinamita.
+    int get_radiocontrolled_munitions();
 
     // Devuelve un vector de pares (X,Y) con las posiciones actuales de todos los
     // proyectiles.

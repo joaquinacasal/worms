@@ -27,6 +27,7 @@ class Radiocontrolled {
     std::map<size_t, b2Body*> munitions;
     bool active;
     Stage& stage;
+    int munitions_q = -1;
 
     // No copiable
     Radiocontrolled(const Radiocontrolled&) = delete;
@@ -48,6 +49,9 @@ class Radiocontrolled {
 
     // Devuelve un booleano indicando si está activo.
     bool is_active();
+
+    // Devuelve la cantidad de municiones disponibles.
+    int get_munitions();
 
     // Devuelve un vector de pares X,Y indicando las posiciones de todos los
     // teledirigidos activos.

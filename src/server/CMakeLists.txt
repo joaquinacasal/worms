@@ -22,6 +22,7 @@ add_executable(worms_server
 				server_Dynamite.cpp
 				server_Armory.cpp
 				server_Teletransportation.cpp
+				server_MunitionsNotification.cpp
 				server_Beam.cpp
 				server_Main.cpp
 				server_JumpBackwardEvent.cpp

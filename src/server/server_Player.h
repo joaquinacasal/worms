@@ -41,14 +41,18 @@ public:
   // Teletransporta el gusano seleccionado a la coordenada (X,Y) indicada.
   bool teletransport_actual_worm(double x, double y);
 
+  // Devuelve un booleano indicando si la teletransportacion fue utilizada
+  // desde la última vez que se preguntó.
+  bool was_teletransportation_used();
+
   // Devuelve la cantidad de teletransportaciones que quedan.
-  size_t get_teletransportation_munitions();
+  int get_teletransportation_munitions();
 
   // Utiliza la dinamita con el gusano seleccionado.
   bool use_dynamite();
 
   // Devuelve la cantidad de dinamitas que quedan.
-  size_t get_dynamite_munitions();
+  int get_dynamite_munitions();
 
   // Descuenta la cantidad de milisegundos recibida para la explosión de la
   // dinamita.
@@ -72,6 +76,9 @@ public:
 
   // Devuelve un booleano indicando si el teledirigido está activo.
   bool is_radiocontrolled_active();
+
+  // Devuelve la cantidad de teledirigidos que quedan.
+  int get_radiocontrolled_munitions();
 
   // Devuelve un vector de pares X,Y indicando las posiciones de todos los
   // teledirigidos activos.

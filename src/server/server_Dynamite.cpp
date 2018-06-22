@@ -32,7 +32,7 @@ void Dynamite::discount_time(float t){
   }
 }
 
-size_t Dynamite::get_munitions(){
+int Dynamite::get_munitions(){
   return q_munitions;
 }
 

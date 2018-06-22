@@ -126,6 +126,19 @@ void ServerThread::send_radiocontrolled_explosion_to_clients(size_t id){
   }
 }
 
+void ServerThread::send_munitions_info(int dynamite_m, int radiocontrolled_m, int teletransportation_m){
+  notifier.send_munitions_info(clients[actual_turn], dynamite_m, radiocontrolled_m, teletransportation_m);
+}
+
+void ServerThread::send_munitions_info_to_all_clients(){
+  for (size_t i = 0; i < clients.size(); ++i){
+    Player* actual_player = clients[i]->get_player();
+    notifier.send_munitions_info(clients[i], actual_player->get_dynamite_munitions(), \
+                                            actual_player->get_radiocontrolled_munitions(), \
+                                            actual_player->get_teletransportation_munitions());
+  }
+}
+
 void ServerThread::send_closed_connection_notif(){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){

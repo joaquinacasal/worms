@@ -20,12 +20,14 @@
 #include "client_WormDrawable.h"
 #include "client_WormDeathDrawable.h"
 #include "client_YouWinDrawable.h"
+#include "client_MunitionsDrawable.h"
 
 /* Clase que representa a una fábrica de objetos Drawable, recibe
  * por socket la información necesaria y los encola en la cola protegida.
  */
 
  #define PROTOCOL_CLOSED_CON 0x09
+ #define PROTOCOL_YOU_WIN_NOTIF 0x10
  #define PROTOCOL_TURN_START 0x30
  #define PROTOCOL_TURN_END 0x31
  #define PROTOCOL_TURN_TIME 0x32
@@ -34,9 +36,9 @@
  #define PROTOCOL_STAGE_INFO 0x50
  #define PROTOCOL_DYMAMITE_INFO 0x60
  #define PROTOCOL_DYMAMITE_EXPLOSION 0x61
+ #define PROTOCOL_MUNITIONS_INFO 0x65
  #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
  #define PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO 0x71
- #define PROTOCOL_YOU_WIN_NOTIF 0x10
 
  #define METERS_TO_PIXELS_CONVERSION 10
 
@@ -53,6 +55,7 @@
  class WormDrawable;
  class WormDeathDrawable;
  class YouWinDrawable;
+ class MunitionsDrawable;
 
 class DrawableFactory : public Thread {
 private:
@@ -73,6 +76,7 @@ private:
     void create_radiocontrolled_drawable();
     void create_radiocontrolled_explosion_drawable();
     void create_you_win_drawable();
+    void create_munitions_drawable();
     void create_closed_connection_drawable();
 
     void create_drawable();

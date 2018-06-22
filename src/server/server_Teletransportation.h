@@ -10,7 +10,8 @@
  */
 class Teletransportation {
   private:
-    size_t munitions = 5;
+    int munitions = 5;
+    bool was_used;
 
     // No copiable.
     Teletransportation(const Teletransportation&) = delete;
@@ -25,7 +26,11 @@ class Teletransportation {
     bool teletransport_to(Worm* worm, int x, int y);
 
     // Devuelve la cantidad de municiones disponibles.
-    size_t get_munitions();
+    int get_munitions();
+
+    // Devuelve un booleano indicando si la teletransportacion fue utilizada
+    // desde la última vez que se preguntó.
+    bool was_teletransportation_used();
 };
 
 #endif //__TELETRANSPORTATION_H__

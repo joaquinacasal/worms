@@ -63,6 +63,10 @@ void NotifierThread::send_radiocontrolled_explosion_info(ClientHandler* client, 
   blocking_queue.push(new RadiocontrolledExplosionNotification(client, id));
 }
 
+void NotifierThread::send_munitions_info(ClientHandler* client, int dynamite_m, int radiocontrolled_m, int teletransportation_m){
+  blocking_queue.push(new MunitionsNotification(client, dynamite_m, radiocontrolled_m, teletransportation_m));
+}
+
 
 void NotifierThread::send_turn_time_info(ClientHandler* client, int turn_chrono){
   if (continue_sending)

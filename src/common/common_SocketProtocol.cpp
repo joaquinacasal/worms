@@ -167,6 +167,15 @@ void SocketProtocol::send_radiocontrolled_explosion_info(size_t id){
     send_numeric_value((int)id);
 }
 
+void SocketProtocol::send_munitions_info(int dynamite_m, int radiocontrolled_m,\
+                                        int teletransportation_m){
+  send_command_or_code(PROTOCOL_MUNITIONS_INFO);
+  send_numeric_value(dynamite_m);
+  send_numeric_value(radiocontrolled_m);
+  send_numeric_value(teletransportation_m);
+}
+
+
 void SocketProtocol::send_start_turn_notif(){
   send_command_or_code(PROTOCOL_TURN_START);
 }

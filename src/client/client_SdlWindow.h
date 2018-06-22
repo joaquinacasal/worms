@@ -25,6 +25,7 @@
 #include "client_WormDrawable.h"
 #include "client_WormDeathDrawable.h"
 #include "client_YouWinDrawable.h"
+#include "client_MunitionsDrawable.h"
 #include "client_WormRepresentation.h"
 #include "client_TurnMessage.h"
 #include "client_YouWinMessage.h"
@@ -58,6 +59,7 @@ class TurnTimeDrawable;
 class WormDrawable;
 class WormDeathDrawable;
 class YouWinDrawable;
+class MunitionsDrawable;
 class WormRepresentation;
 class TurnMessage;
 class FontFactory;
@@ -72,6 +74,17 @@ struct beam_representation {
 struct chrono_representation {
   SDL_Texture* texture;
   Area rect;
+};
+
+struct munitions_representation {
+  SDL_Texture* titulo;
+  Area rect_titulo;
+  SDL_Texture* dinamita;
+  Area rect_dinamita;
+  SDL_Texture* teledirigido;
+  Area rect_teledirigido;
+  SDL_Texture* teletransportacion;
+  Area rect_teletransportacion;
 };
 
 using std::map;
@@ -89,6 +102,7 @@ private:
     YouWinMessage you_win_message;
     chrono_representation turn_chrono;
     chrono_representation dynamite_chrono;
+    munitions_representation munitions_info;
     FontFactory font_factory;
     ColorsFactory colors_factory;
     TextureFactory texture_factory;
@@ -118,6 +132,7 @@ public:
     void draw(RadiocontrolledDrawable* drawable);
     void draw(RadiocontrolledExplosionDrawable* drawable);
     void draw(YouWinDrawable* drawable);
+    void draw(MunitionsDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
     void run() override;
     void stop();

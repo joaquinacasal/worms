@@ -70,3 +70,7 @@ std::map<size_t, std::pair<float, float>> Radiocontrolled::get_positions(){
   }
   return positions;
 }
+
+int Radiocontrolled::get_munitions(){
+  return munitions_q;
+}

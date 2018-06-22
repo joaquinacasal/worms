@@ -88,6 +88,13 @@ public:
     // Envía la notificación de explosión del teledirigido con id recibido.
     void send_radiocontrolled_explosion_to_clients(size_t id);
 
+    // Envía la cantidad de municiones de cada arma.
+    void send_munitions_info(int dynamite_m, int radiocontrolled_m, int teletransportation_m);
+
+    // Envía la información de las municiones disponibles de cada arma a todos
+    // los jugadores.
+    void send_munitions_info_to_all_clients();
+
     // Envía una notificiación indicando que el jugador actual gano el juego.
     void send_you_win_notif();
 

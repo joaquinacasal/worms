@@ -74,6 +74,13 @@ void ClientHandler::send_radiocontrolled_explosion_info(size_t id){
   this->protocol.send_radiocontrolled_explosion_info(id);
 }
 
+void ClientHandler::send_munitions_info(int dynamite_m, int radiocontrolled_m,\
+                                            int teletransportation_m){
+  if (!is_alive()) return;
+  this->protocol.send_munitions_info(dynamite_m, radiocontrolled_m, teletransportation_m);
+}
+
+
 void ClientHandler::send_turn_time_info(int turn_chrono){
   this->protocol.send_turn_time_info(turn_chrono);
 }

@@ -101,6 +101,13 @@ void DrawableFactory::create_you_win_drawable(){
   safe_queue.push(new YouWinDrawable());
 }
 
+void DrawableFactory::create_munitions_drawable(){
+  int dynamite_m = socket_protocol.receive_numeric_value();
+  int radiocontrolled_m = socket_protocol.receive_numeric_value();
+  int teletransportation_m = socket_protocol.receive_numeric_value();
+  safe_queue.push(new MunitionsDrawable(dynamite_m, radiocontrolled_m, teletransportation_m));
+}
+
 
 void DrawableFactory::create_closed_connection_drawable(){
   safe_queue.push(new ClosedConnectionDrawable());
@@ -144,6 +151,9 @@ void DrawableFactory::create_drawable(){
       break;
     case PROTOCOL_YOU_WIN_NOTIF:
       create_you_win_drawable();
+      break;
+    case PROTOCOL_MUNITIONS_INFO:
+      create_munitions_drawable();
       break;
     case PROTOCOL_CLOSED_CON:
       this->stop();

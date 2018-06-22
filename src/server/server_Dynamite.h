@@ -17,7 +17,7 @@
  */
 class Dynamite {
   private:
-    size_t q_munitions = 5;
+    int q_munitions = 5;
     b2Body* munition = NULL;
     bool active;
     float counting;
@@ -45,7 +45,7 @@ class Dynamite {
     void discount_time(float t);
 
     // Obtiene la cantidad de municiones de dinamita disponibles.
-    size_t get_munitions();
+    int get_munitions();
 
     // Pre: La dinamita está activa
     // Obtiene la posición horizontal de la dinamita activa.

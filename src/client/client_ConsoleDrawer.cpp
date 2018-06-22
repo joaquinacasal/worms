@@ -63,6 +63,9 @@ void ConsoleDrawer::draw(YouWinDrawable* drawable){
   std::cout << "Ganaste!\n";
 }
 
+void ConsoleDrawer::draw(MunitionsDrawable* drawable){
+  std::cout << "Dinamita: " << drawable->get_dynamite_munitions() << ", teledirigido: " << drawable->get_radiocontrolled_munitions() << ", y teletransportacion: " << drawable->get_teletransportation_munitions() << ".\n";
+}
 
 void ConsoleDrawer::draw(ClosedConnectionDrawable* drawable) {
   std::cout << "Se cerró la conección desde el servidor.\n";

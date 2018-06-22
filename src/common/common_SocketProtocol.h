@@ -6,7 +6,6 @@
 #include "common_Socket.h"
 
 #define PROTOCOL_LENGTHS_VALUE 4
-#define PROTOCOL_CLOSED_CON 0x09
 
 // Send by client
 #define PROTOCOL_RIGHT_ARROW 0x01
@@ -17,6 +16,8 @@
 #define PROTOCOL_TELETRANSPORTATION 0X06
 #define PROTOCOL_DYMAMITE 0X07
 #define PROTOCOL_RADIOCONTROLLED 0X08
+#define PROTOCOL_CLOSED_CON 0x09
+#define PROTOCOL_YOU_WIN_NOTIF 0x10
 
 
 // Send by server
@@ -32,10 +33,10 @@
 
 #define PROTOCOL_DYMAMITE_INFO 0x60
 #define PROTOCOL_DYMAMITE_EXPLOSION 0x61
+#define PROTOCOL_MUNITIONS_INFO 0x65
 #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
 #define PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO 0x71
 
-#define PROTOCOL_YOU_WIN_NOTIF 0x10
 
 
 
@@ -110,6 +111,7 @@ public:
     void send_dynamite_explosion_notif();
     void send_radiocontrolled_info(size_t id, double x, double y);
     void send_radiocontrolled_explosion_info(size_t id);
+    void send_munitions_info(int dynamite_m, int radiocontrolled_m, int teletransportation_m);
     void send_start_turn_notif();
     void send_end_turn_notif();
     void send_you_win_notif();

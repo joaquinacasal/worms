@@ -72,6 +72,14 @@ private:
     // Le envía la información relacionada a las armas activas a los clientes.
     void send_weapon_information_to_clients();
 
+    // Envía la información de las municiones disponibles de cada arma al
+    // jugador del turno actual.
+    void send_munitions_information();
+
+    // Envía la información de las municiones disponibles de cada arma a todos
+    // los jugadores.
+    void send_munitions_information_to_all_clients();
+
     // Chequea si el gusano actual perdió vida.
     void check_life_discount(size_t initial_life, Worm* actual_worm);
 
