@@ -26,7 +26,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     }
 
     // Cronometro del turno.
-    turn_chrono = {font_factory.get_texture_big_font("60.0", colors_factory.get_color_by_name("white"), renderer), Area(0, 0, 100, 80)};
+    turn_chrono = {font_factory.get_texture_big_font("60.0", colors_factory.get_color_by_name("white"), renderer), Area(10, 10, 100, 80)};
 
     texture_factory.init(renderer);
     background_texture = NULL;
@@ -145,14 +145,6 @@ void SdlWindow::draw(WormDrawable* drawable) {
                                                         new_facing_right, new_life_points_q, new_angle);
         worms_textures[id] = worm;
     }
-
-
-    // TODO: Borrar esto y agregar la logica de la animación.
-    std::string estado;
-    if (drawable->is_still()) estado = "quieto";
-    if (drawable->is_moving()) estado = "moviendose";
-    if (drawable->is_flying()) estado = "volando";
-    std::cout << "El estado es " << estado << '\n';
 }
 
 void SdlWindow::draw(WormDeathDrawable* drawable) {
