@@ -114,6 +114,11 @@ private:
 
     // Chequea la explosión de la dinamita y los gusanos afectados.
     void check_dynamite_explosion();
+
+    // Verifica si el jugador actual es el ganador (siempre el jugador actual
+    // está vivo), y en caso afirmativo envía una notificación indicandolo.
+    void check_winner();
+    
 public:
     // Recibe el puerto donde escuchará y el nombre del archivo
     // donde leerá las características del mapa.

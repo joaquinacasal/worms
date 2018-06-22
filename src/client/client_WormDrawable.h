@@ -17,11 +17,12 @@ private:
     int angle;
     bool is_facing_right;
     int team;
+    int movement_state;
 
     WormDrawable(const WormDrawable&) = delete;
     WormDrawable& operator=(const WormDrawable&) = delete;
 public:
-    WormDrawable(size_t id, size_t life_points, double x, double y, int angle, bool is_facing_right, int team);
+    WormDrawable(size_t id, size_t life_points, double x, double y, int angle, bool is_facing_right, int team, int movement_state);
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
     void be_drawn(SdlWindow* window);
@@ -33,6 +34,10 @@ public:
     int get_angle();
     bool get_is_facing_right();
     int get_team();
+
+    bool is_flying();
+    bool is_moving();
+    bool is_still();
     ~WormDrawable() = default;
 };
 

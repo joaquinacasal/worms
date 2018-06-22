@@ -17,6 +17,7 @@ using std::map;
 #define START_TURN_ASSET "startTurn.png"
 #define FINISH_TURN_ASSET "finishTurn.png"
 #define GRAVE_ASSET "grave.png"
+#define YOU_WIN_ASSET "fort.png"
 
 class TextureFactory {
 public:

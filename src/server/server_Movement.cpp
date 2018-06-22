@@ -120,3 +120,7 @@ bool Movement::is_colliding(){
   }
   return false;
 }
+
+bool Movement::is_moving(){
+  return (move_state == MS_LEFT || move_state == MS_RIGHT);
+}

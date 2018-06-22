@@ -1,7 +1,7 @@
 #include "client_WormDrawable.h"
 
 WormDrawable::WormDrawable(size_t id, size_t life_points, double x, double y,\
-              int angle, bool is_facing_right, int team){
+              int angle, bool is_facing_right, int team, int movement_state){
     this->id = id;
     this->life_points = life_points;
     this->x = x;
@@ -9,6 +9,7 @@ WormDrawable::WormDrawable(size_t id, size_t life_points, double x, double y,\
     this->angle = angle;
     this->is_facing_right = is_facing_right;
     this->team = team;
+    this->movement_state = movement_state;
 }
 
 void WormDrawable::be_drawn_by_console(ConsoleDrawer* console_drawer){
@@ -45,4 +46,16 @@ bool WormDrawable::get_is_facing_right(){
 
 int WormDrawable::get_team(){
     return team;
+}
+
+bool WormDrawable::is_flying(){
+    return movement_state == 3;
+}
+
+bool WormDrawable::is_moving(){
+    return movement_state == 2;
+}
+
+bool WormDrawable::is_still(){
+    return movement_state == 1;
 }

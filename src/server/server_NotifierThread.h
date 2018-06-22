@@ -17,6 +17,7 @@
 #include "server_TurnTimeNotification.h"
 #include "server_WormNotification.h"
 #include "server_WormDeathNotification.h"
+#include "server_YouWinNotification.h"
 
 /* Clase que hereda de Thread. Se encarga de recibir toda la información
  * necesaria para crear las notificaciones, crear objetos del tipo INotification
@@ -42,7 +43,7 @@ class NotifierThread : public Thread {
     void stop();
 
     void send_worm_info(ClientHandler* client, size_t id, size_t life_points, double x, double y, \
-                                int angle, bool is_facing_right, int team);
+                                int angle, bool is_facing_right, int team, int movement_state);
     void send_worm_death_notif(ClientHandler* client, size_t id, int team);
     void send_stage_info(ClientHandler* client, size_t width, size_t height, std::string background);
     void send_beam_info(ClientHandler* client, double x, double y, int length, int width, int angle);
@@ -53,6 +54,7 @@ class NotifierThread : public Thread {
     void send_turn_time_info(ClientHandler* client, int turn_chrono);
     void send_start_turn_notif(ClientHandler* client);
     void send_end_turn_notif(ClientHandler* client);
+    void send_you_win_notif(ClientHandler* client);
     void send_closed_connection_notif(ClientHandler* client);
 
 

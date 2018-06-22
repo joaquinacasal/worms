@@ -117,3 +117,7 @@ void Worm::check_falling(){
     last_solid_height = vertical_pos;
   }
 }
+
+bool Worm::is_moving(){
+  return this->movement.is_moving();
+}

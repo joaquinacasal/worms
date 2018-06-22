@@ -94,8 +94,10 @@ void GameThread::run() {
     set_worms_as_immovable();
     turns_manager.get_selected_player()->get_selected_worm()->make_movable();
     while (alive) {
+      check_winner();
       tick_turn();
       deadTime();
+      check_falling();
       changeTurn();
     }
 }
@@ -165,6 +167,12 @@ void GameThread::tick_turn(){
 void GameThread::check_life_discount(size_t initial_life, Worm* actual_worm){
   if (initial_life > actual_worm->get_life_points())
     turn_chrono = 0;
+}
+
+void GameThread::check_winner(){
+  if (turns_manager.get_number_players() == 1) return;
+  if (turns_manager.get_number_players_alive() == 1)
+    this->server_thread->send_you_win_notif();
 }
 
 void GameThread::check_immobilization(Worm* actual_worm){
@@ -239,9 +247,18 @@ void GameThread::send_worms_information_to_clients(){
       double y = worm->get_vertical_position();
       int angle = (int)worm->get_angle();
       bool is_facing_right = worm->is_facing_right();
+      int movement_state;
+      if (!worm->is_colliding()){
+        movement_state = 3; // Volando
+      } else {
+        if (worm->is_moving())
+          movement_state = 2; // Moviendose
+        else
+          movement_state = 1; // Quieto
+      }
 
       this->server_thread->send_worm_information_to_clients(id, life_points, x, \
-                                            y, angle, is_facing_right, i);
+                                            y, angle, is_facing_right, i, movement_state);
 
     }
   }

@@ -54,7 +54,7 @@ public:
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando) a todos los clientes.
     void send_worm_information_to_clients(size_t id, size_t life_points, double x,\
-                            double y, int angle, bool is_facing_right, int team);
+                            double y, int angle, bool is_facing_right, int team, int movement_state);
 
     // Envía la notificación de que el gusano con id recibido murió.
     void send_worm_death_notif_to_clients(size_t id, int team);
@@ -88,9 +88,11 @@ public:
     // Envía la notificación de explosión del teledirigido con id recibido.
     void send_radiocontrolled_explosion_to_clients(size_t id);
 
+    // Envía una notificiación indicando que el jugador actual gano el juego.
+    void send_you_win_notif();
+
     // Envía una notificiación para cerrar la conexión a todos los clientes.
     void send_closed_connection_notif();
-
 
     // Devuelve un booleano indicando si el hilo sigue vivo.
     bool is_alive();

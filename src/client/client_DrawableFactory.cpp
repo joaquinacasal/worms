@@ -30,10 +30,11 @@ void DrawableFactory::create_worm_drawable(){
   int angle = socket_protocol.receive_numeric_value() * -1;
   bool is_facing_right = (bool)socket_protocol.receive_numeric_value();
   int team = socket_protocol.receive_numeric_value();
+  int movement_state = socket_protocol.receive_numeric_value();
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
   y = adapt_y_coordinate(y);
-  safe_queue.push(new WormDrawable(id, life_points, x, y, angle, is_facing_right, team));
+  safe_queue.push(new WormDrawable(id, life_points, x, y, angle, is_facing_right, team, movement_state));
 }
 
 void DrawableFactory::create_worm_death_drawable(){
@@ -96,6 +97,10 @@ void DrawableFactory::create_radiocontrolled_explosion_drawable(){
   safe_queue.push(new RadiocontrolledExplosionDrawable(id));
 }
 
+void DrawableFactory::create_you_win_drawable(){
+  safe_queue.push(new YouWinDrawable());
+}
+
 
 void DrawableFactory::create_closed_connection_drawable(){
   safe_queue.push(new ClosedConnectionDrawable());
@@ -136,6 +141,9 @@ void DrawableFactory::create_drawable(){
       break;
     case PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO:
       create_radiocontrolled_explosion_drawable();
+      break;
+    case PROTOCOL_YOU_WIN_NOTIF:
+      create_you_win_drawable();
       break;
     case PROTOCOL_CLOSED_CON:
       this->stop();

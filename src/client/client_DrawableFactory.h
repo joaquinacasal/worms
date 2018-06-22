@@ -19,6 +19,7 @@
 #include "client_TurnTimeDrawable.h"
 #include "client_WormDrawable.h"
 #include "client_WormDeathDrawable.h"
+#include "client_YouWinDrawable.h"
 
 /* Clase que representa a una fábrica de objetos Drawable, recibe
  * por socket la información necesaria y los encola en la cola protegida.
@@ -35,6 +36,8 @@
  #define PROTOCOL_DYMAMITE_EXPLOSION 0x61
  #define PROTOCOL_RADIOCONTROLLED_INFO 0x70
  #define PROTOCOL_RADIOCONTROLLED_EXPLOSION_INFO 0x71
+ #define PROTOCOL_YOU_WIN_NOTIF 0x10
+
  #define METERS_TO_PIXELS_CONVERSION 10
 
  class IDrawable;
@@ -49,6 +52,7 @@
  class TurnTimeDrawable;
  class WormDrawable;
  class WormDeathDrawable;
+ class YouWinDrawable;
 
 class DrawableFactory : public Thread {
 private:
@@ -68,6 +72,7 @@ private:
     void create_dynamite_explosion_drawable();
     void create_radiocontrolled_drawable();
     void create_radiocontrolled_explosion_drawable();
+    void create_you_win_drawable();
     void create_closed_connection_drawable();
 
     void create_drawable();

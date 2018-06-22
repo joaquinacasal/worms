@@ -22,9 +22,9 @@ void NotifierThread::stop(){
 
 
 void NotifierThread::send_worm_info(ClientHandler* client, size_t id, size_t life_points, double x, double y, \
-                            int angle, bool is_facing_right, int team){
+                            int angle, bool is_facing_right, int team, int movement_state){
   if (continue_sending)
-    blocking_queue.push(new WormNotification(client, id, life_points, x, y, angle, is_facing_right, team));
+    blocking_queue.push(new WormNotification(client, id, life_points, x, y, angle, is_facing_right, team, movement_state));
 }
 
 void NotifierThread::send_worm_death_notif(ClientHandler* client, size_t id, int team){
@@ -78,6 +78,12 @@ void NotifierThread::send_end_turn_notif(ClientHandler* client){
   if (continue_sending)
     blocking_queue.push(new EndTurnNotification(client));
 }
+
+void NotifierThread::send_you_win_notif(ClientHandler* client){
+  if (continue_sending)
+    blocking_queue.push(new YouWinNotification(client));
+}
+
 
 void NotifierThread::send_closed_connection_notif(ClientHandler* client){
   if (continue_sending)

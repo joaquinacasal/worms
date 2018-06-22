@@ -12,7 +12,8 @@
 using std::string;
 
 SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) :
-        safe_queue(_safe_queue), width(width), height(height), connected(true), change_turn_message(NULL, 0) {
+        safe_queue(_safe_queue), width(width), height(height), connected(true),\
+                      change_turn_message(NULL, 0), you_win_message(NULL, 0) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
@@ -62,6 +63,9 @@ void SdlWindow::render() {
     // Render change_turn_message
     change_turn_message.render();
 
+    // Render you_win_message
+    you_win_message.render();
+
     SDL_RenderPresent(this->renderer);
 }
 
@@ -69,6 +73,11 @@ SDL_Renderer* SdlWindow::getRenderer() const {
     return this->renderer;
 }
 
+void SdlWindow::draw(YouWinDrawable* drawable) {
+    Area area(width/2 - YOU_WIN_MESSAGE_SIZE / 2, height/2 - YOU_WIN_MESSAGE_SIZE / 2, YOU_WIN_MESSAGE_SIZE, YOU_WIN_MESSAGE_SIZE);
+    you_win_message.set_message_texture(new SdlTexture(texture_factory.get_texture_by_name("you_win"), *this, area));
+    you_win_message.set_time_alive(YOU_WIN_MESSAGE_DURATION);
+}
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {
     Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
@@ -136,6 +145,14 @@ void SdlWindow::draw(WormDrawable* drawable) {
                                                         new_facing_right, new_life_points_q, new_angle);
         worms_textures[id] = worm;
     }
+
+
+    // TODO: Borrar esto y agregar la logica de la animación.
+    std::string estado;
+    if (drawable->is_still()) estado = "quieto";
+    if (drawable->is_moving()) estado = "moviendose";
+    if (drawable->is_flying()) estado = "volando";
+    std::cout << "El estado es " << estado << '\n';
 }
 
 void SdlWindow::draw(WormDeathDrawable* drawable) {

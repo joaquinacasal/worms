@@ -51,7 +51,7 @@ public:
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando).
     void send_worm_info(size_t id, size_t life_points, double x, double y, \
-                                int angle, bool is_facing_right, int team);
+                                int angle, bool is_facing_right, int team, int movement_state);
 
     // Envía una notificación indicando que el gusano con el id recibido murió.
     void send_worm_death_notif(size_t id, int team);
@@ -84,6 +84,9 @@ public:
 
     // Envía una notificación indicando que finalizó el turno.
     void send_end_turn_notif();
+
+    // Envía una notificación indicando que ganó el juego.
+    void send_you_win_notif();
 
     // Envía una notificación indicando que se cerró la conexión desde el
     // servidor.
