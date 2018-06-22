@@ -69,7 +69,7 @@ struct beam_representation {
   int angle;
 };
 
-struct turn_chrono_representation {
+struct chrono_representation {
   SDL_Texture* texture;
   Area rect;
 };
@@ -87,7 +87,8 @@ private:
 
     TurnMessage change_turn_message;
     YouWinMessage you_win_message;
-    turn_chrono_representation turn_chrono;
+    chrono_representation turn_chrono;
+    chrono_representation dynamite_chrono;
     FontFactory font_factory;
     ColorsFactory colors_factory;
     TextureFactory texture_factory;

@@ -27,7 +27,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
 
     // Cronometro del turno.
     turn_chrono = {font_factory.get_texture_big_font("60.0", colors_factory.get_color_by_name("white"), renderer), Area(10, 10, 100, 80)};
-
+    dynamite_chrono = {NULL, Area(0, 0, 0, 0)};
     texture_factory.init(renderer);
     background_texture = NULL;
 }
@@ -59,6 +59,10 @@ void SdlWindow::render() {
     // Render turn_chrono
     SDL_Rect turn_chrono_rect = turn_chrono.rect.toRect();
     SDL_RenderCopy(this->renderer, turn_chrono.texture, NULL, &turn_chrono_rect);
+
+    // Render dynamite_chrono
+    SDL_Rect dynamite_chrono_rect = dynamite_chrono.rect.toRect();
+    SDL_RenderCopy(this->renderer, dynamite_chrono.texture, NULL, &dynamite_chrono_rect);
 
     // Render change_turn_message
     change_turn_message.render();
@@ -187,11 +191,21 @@ void SdlWindow::draw(DynamiteDrawable* drawable) {
   Area area(x, y, DYNAMITE_SIZE, DYNAMITE_SIZE);
   SdlTexture* dynamite = new SdlTexture(texture_factory.get_texture_by_name("dynamite"), *this, area);
   weapons_textures[DYNAMITE_ID] = dynamite;
+
+  // Dynamite chornometer
+  std::string time_left = std::to_string((int)drawable->get_time_to_explosion() + 1);
+  if (dynamite_chrono.texture)
+    SDL_DestroyTexture(dynamite_chrono.texture);
+  dynamite_chrono.rect = Area(x + 10, y - 20, 20, 20);
+  dynamite_chrono.texture = font_factory.get_texture_small_font(time_left.c_str(), colors_factory.get_color_by_name("red"), renderer);
+
 }
 
 void SdlWindow::draw(DynamiteExplosionDrawable* drawable) {
   delete weapons_textures[DYNAMITE_ID];
   weapons_textures.erase(DYNAMITE_ID);
+  SDL_DestroyTexture(dynamite_chrono.texture);
+  dynamite_chrono.texture = NULL;
 }
 
 
