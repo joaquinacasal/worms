@@ -58,3 +58,4 @@ configure_file(
 
 install(TARGETS worms_server DESTINATION ${INSTALL_PATH}/worms/server/bin/)
 install(DIRECTORY "scenarios" DESTINATION ${INSTALL_PATH}/worms/server)
+install(DIRECTORY "config" DESTINATION ${INSTALL_PATH}/worms/server)

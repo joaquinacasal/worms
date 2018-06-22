@@ -19,6 +19,7 @@
 #define TIME_BETWEEN_TURNS 1000
 #define INITIAL_LIFE_POINTS 100
 #define TICK_TIME 20
+#define CONFIG_FILE "config.yaml"
 
 class ServerThread;
 

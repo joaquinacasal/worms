@@ -2,5 +2,6 @@
 #define CONFIG_H
 
 #define SCENARIOS_FOLDER "@INSTALL_PATH@/worms/server/scenarios/"
+#define CONFIG_FOLDER "@INSTALL_PATH@/worms/server/config/"
 
 #endif // CONFIG_H
