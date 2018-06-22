@@ -3,7 +3,7 @@
 
 using std::string;
 
-BeamDTO::BeamDTO(int id, string image, int x, int y, int length, int angle) : id(id), image(image), x(x), y(y), length(length), angle(angle) {}
+BeamDTO::BeamDTO(int id, string image, float x, float y, int length, int angle) : id(id), image(image), x(x), y(y), length(length), angle(angle) {}
 
 int BeamDTO::get_id() {
     return id;
@@ -13,11 +13,11 @@ string BeamDTO::get_image() {
     return image;
 }
 
-int BeamDTO::get_x() {
+float BeamDTO::get_x() {
     return x;
 }
 
-int BeamDTO::get_y() {
+float BeamDTO::get_y() {
     return y;
 }
 

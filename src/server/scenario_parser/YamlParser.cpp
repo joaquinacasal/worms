@@ -25,8 +25,8 @@ ScenarioDTO YamlParser::load_scenario(string filename) {
     vector<WormDTO> wormsDTOs;
     for (map<string, string> worm : worms){
         int id = std::stoi(worm.at("id"));
-        int x = std::stoi(worm.at("x"));
-        int y = std::stoi(worm.at("y"));
+        float x = std::stof(worm.at("x"));
+        float y = std::stof(worm.at("y"));
         string image = worm.at("image");
         WormDTO wormDTO(id, image, x, y);
         wormsDTOs.push_back(wormDTO);
@@ -36,8 +36,8 @@ ScenarioDTO YamlParser::load_scenario(string filename) {
     vector<BeamDTO> beamsDTOs;
     for (map<string, string> beam : beams){
         int id = std::stoi(beam.at("id"));
-        int x = std::stoi(beam.at("x"));
-        int y = std::stoi(beam.at("y"));
+        float x = std::stof(beam.at("x"));
+        float y = std::stof(beam.at("y"));
         string image = beam.at("image");
         int length = std::stoi(beam.at("length"));
         int angle = std::stoi(beam.at("angle"));

@@ -9,15 +9,15 @@ class WormDTO {
 private:
     int id;
     string image;
-    int x;
-    int y;
+    float x;
+    float y;
 
 public:
-    WormDTO(int id, string image, int x, int y);
+    WormDTO(int id, string image, float x, float y);
     int get_id();
     string get_image();
-    int get_x();
-    int get_y();
+    float get_x();
+    float get_y();
 };
 
 

@@ -9,7 +9,7 @@
 #include "dialog.h"
 #include "draglabel.h"
 
-#define PIXEL_METER_CONVERSION 27
+#define PIXEL_METER_CONVERSION 10
 #define SAVE_SCENARIO_MESSAGE "Guardar escenario"
 #define NO_WORMS_MESSAGE "Tenés que agregar algún gusano para guardar el escenario"
 #define OVERLAPPING_MESSAGE "Hay elementos que se solapan. Separalos para guardar el escenario"

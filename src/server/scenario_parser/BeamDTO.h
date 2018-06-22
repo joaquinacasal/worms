@@ -9,17 +9,17 @@ class BeamDTO {
 private:
     int id;
     string image;
-    int x;
-    int y;
+    float x;
+    float y;
     int length;
     int angle;
 
 public:
-    BeamDTO(int id, string image, int x, int y, int length, int angle);
+    BeamDTO(int id, string image, float x, float y, int length, int angle);
     int get_id();
     string get_image();
-    int get_x();
-    int get_y();
+    float get_x();
+    float get_y();
     int get_length();
     int get_angle();
 };
