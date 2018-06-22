@@ -2,6 +2,7 @@
 #include <vector>
 #include <syslog.h>
 #include "server_GameThread.h"
+#include "config.h"
 #include <chrono>
 #include <iostream>
 #include <thread>
@@ -9,6 +10,16 @@
 using ms = std::chrono::milliseconds;
 using get_time = std::chrono::steady_clock;
 using std::move;
+
+void GameThread::load_config(){
+  YamlParser yaml_parser;
+  map<string, string> config = yaml_parser.load_config(string(CONFIG_FOLDER) + string(CONFIG_FILE));
+  if (config.count("worm_life") == 1) {
+    worm_life_points = (size_t)std::stoi(config["worm_life"]);
+  } else {
+    worm_life_points = INITIAL_LIFE_POINTS;
+  }
+}
 
 void GameThread::create_stage(string map_file, int number_players){
   YamlParser yaml_parser;
@@ -42,7 +53,7 @@ void GameThread::create_stage(string map_file, int number_players){
     Player* player = new Player(armory);
     for (int j = 0; j < number_worms_per_player_with_more_worms; j++){
       stage->add_worm(worms_DTO[worm_index].get_id(),\
-                      INITIAL_LIFE_POINTS, \
+                      worm_life_points, \
                       worms_DTO[worm_index].get_x(),\
                       worms_DTO[worm_index].get_y());
       player->add_worm(stage->get_worm(worms_DTO[worm_index].get_id()));
@@ -56,7 +67,7 @@ void GameThread::create_stage(string map_file, int number_players){
     Player* player = new Player(armory);
     for (int j = 0; j < number_worms_per_player_with_less_worms; j++){
       stage->add_worm(worms_DTO[worm_index].get_id(),\
-                      INITIAL_LIFE_POINTS + 25, \
+                      worm_life_points + 25, \
                       worms_DTO[worm_index].get_x(),\
                       worms_DTO[worm_index].get_y());
       player->add_worm(stage->get_worm(worms_DTO[worm_index].get_id()));
@@ -76,6 +87,7 @@ void GameThread::create_stage(string map_file, int number_players){
 GameThread::GameThread(const char* port, string map_file, int number_players){
   alive = false;
   has_been_connected = false;
+  load_config();
   create_stage(map_file, number_players);
   server_thread = new ServerThread(port, turns_manager, *this);
 }

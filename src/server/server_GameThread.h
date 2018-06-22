@@ -40,9 +40,14 @@ private:
     SafeQueue<IEvent*> safe_queue;
     int turn_chrono = TURN_LENGTH;
 
+    size_t worm_life_points;
+
     // No copiable.
     GameThread(const GameThread &other) = delete;
     GameThread& operator=(const GameThread &other) = delete;
+
+    // Carga el archivo de configuración config.yaml.
+    void load_config();
 
     // Crea el escenario leyendo el mapa recibido por parámetro, en formato
     // YAML. Además, recibe la cantidad de jugadores para asignar los
@@ -119,7 +124,7 @@ private:
     // Verifica si el jugador actual es el ganador (siempre el jugador actual
     // está vivo), y en caso afirmativo envía una notificación indicandolo.
     void check_winner();
-    
+
 public:
     // Recibe el puerto donde escuchará y el nombre del archivo
     // donde leerá las características del mapa.
