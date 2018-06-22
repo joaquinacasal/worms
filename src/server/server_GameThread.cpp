@@ -97,6 +97,7 @@ void GameThread::run() {
       check_winner();
       tick_turn();
       deadTime();
+      check_falling();
       changeTurn();
     }
 }
