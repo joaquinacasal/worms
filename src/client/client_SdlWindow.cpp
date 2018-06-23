@@ -13,7 +13,7 @@ using std::string;
 
 SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) :
         safe_queue(_safe_queue), width(width), height(height), connected(true),\
-                      change_turn_message(NULL, 0), you_win_message(NULL, 0) {
+        change_turn_message(NULL, 0), you_win_message(NULL, 0) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
@@ -28,9 +28,9 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height) 
     // Cronometro del turno.
     turn_chrono = {font_factory.get_texture_big_font("60.0", colors_factory.get_color_by_name("white"), renderer), Area(10, 10, 100, 80)};
     dynamite_chrono = {NULL, Area(0, 0, 0, 0)};
-    munitions_info = {NULL, Area(10, 100, 180, 40), NULL, Area(10, 140, 180, 40), NULL, Area(10, 180, 180, 40), NULL, Area(10, 220, 180, 40)};
     texture_factory.init(renderer);
     background_texture = NULL;
+    munitions_info = new MunitionsInformation(10, 100, font_factory, colors_factory, renderer);
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -66,14 +66,7 @@ void SdlWindow::render() {
     SDL_RenderCopy(this->renderer, dynamite_chrono.texture, NULL, &dynamite_chrono_rect);
 
     // Render munitions information
-    SDL_Rect munitions_info_rect_titulo = munitions_info.rect_titulo.toRect();
-    SDL_Rect munitions_info_rect_dinamita = munitions_info.rect_dinamita.toRect();
-    SDL_Rect munitions_info_rect_teledirigido = munitions_info.rect_teledirigido.toRect();
-    SDL_Rect munitions_info_rect_teletransportacion = munitions_info.rect_teletransportacion.toRect();
-    SDL_RenderCopy(this->renderer, munitions_info.titulo, NULL, &munitions_info_rect_titulo);
-    SDL_RenderCopy(this->renderer, munitions_info.dinamita, NULL, &munitions_info_rect_dinamita);
-    SDL_RenderCopy(this->renderer, munitions_info.teledirigido, NULL, &munitions_info_rect_teledirigido);
-    SDL_RenderCopy(this->renderer, munitions_info.teletransportacion, NULL, &munitions_info_rect_teletransportacion);
+    munitions_info->render();
 
     // Render change_turn_message
     change_turn_message.render();
@@ -240,32 +233,9 @@ void SdlWindow::draw(RadiocontrolledExplosionDrawable* drawable) {
 }
 
 void SdlWindow::draw(MunitionsDrawable* drawable){
-  std::cout << "Dinamita: " << drawable->get_dynamite_munitions() << ", teledirigido: " << drawable->get_radiocontrolled_munitions() << ", y teletransportacion: " << drawable->get_teletransportation_munitions() << ".\n";
-
-  std::string dynamite_m = std::to_string(drawable->get_dynamite_munitions());
-  if (dynamite_m == "-1") dynamite_m = "INFINITO";
-  std::string radiocontrolled_m = std::to_string(drawable->get_radiocontrolled_munitions());
-  if (radiocontrolled_m == "-1") radiocontrolled_m = "INFINITO";
-  std::string teletransportation_m = std::to_string(drawable->get_teletransportation_munitions());
-  if (teletransportation_m == "-1") teletransportation_m = "INFINITO";
-
-  std::string title_message = "MUNICIONES";
-  std::string dynamite_message = "Dinamita: " + dynamite_m;
-  std::string radiocontrolled_message = "Teledirigido: " + radiocontrolled_m;
-  std::string teletransportation_message = "Teletransportacion: " + teletransportation_m;
-
-  if (munitions_info.titulo)
-    SDL_DestroyTexture(munitions_info.titulo);
-  if (munitions_info.dinamita)
-    SDL_DestroyTexture(munitions_info.dinamita);
-  if (munitions_info.teledirigido)
-    SDL_DestroyTexture(munitions_info.teledirigido);
-  if (munitions_info.teletransportacion)
-    SDL_DestroyTexture(munitions_info.teletransportacion);
-  munitions_info.titulo = font_factory.get_texture_small_font(title_message.c_str(), colors_factory.get_color_by_name("black"), renderer);
-  munitions_info.dinamita = font_factory.get_texture_small_font(dynamite_message.c_str(), colors_factory.get_color_by_name("black"), renderer);
-  munitions_info.teledirigido = font_factory.get_texture_small_font(radiocontrolled_message.c_str(), colors_factory.get_color_by_name("black"), renderer);
-  munitions_info.teletransportacion = font_factory.get_texture_small_font(teletransportation_message.c_str(), colors_factory.get_color_by_name("black"), renderer);
+  munitions_info->set_munitions(drawable->get_dynamite_munitions(),\
+                               drawable->get_radiocontrolled_munitions(),\
+                               drawable->get_teletransportation_munitions());
 }
 
 
@@ -323,4 +293,6 @@ SdlWindow::~SdlWindow() {
     }
 
     SDL_DestroyTexture(turn_chrono.texture);
+
+    delete munitions_info;
 }

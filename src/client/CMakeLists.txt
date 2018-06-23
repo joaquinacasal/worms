@@ -36,6 +36,7 @@ add_executable(worms_client
 				client_WormRepresentation.cpp
 				client_TurnMessage.cpp
 				client_YouWinMessage.cpp
+				client_MunitionsInformation.cpp
 				client_FontFactory.cpp
 				client_ColorsFactory.cpp
 				client_TextureFactory.cpp

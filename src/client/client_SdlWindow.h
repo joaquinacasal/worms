@@ -29,6 +29,7 @@
 #include "client_WormRepresentation.h"
 #include "client_TurnMessage.h"
 #include "client_YouWinMessage.h"
+#include "client_MunitionsInformation.h"
 #include "client_FontFactory.h"
 #include "client_ColorsFactory.h"
 #include "client_TextureFactory.h"
@@ -62,6 +63,7 @@ class YouWinDrawable;
 class MunitionsDrawable;
 class WormRepresentation;
 class TurnMessage;
+class MunitionsInformation;
 class FontFactory;
 class ColorsFactory;
 class TextureFactory;
@@ -74,17 +76,6 @@ struct beam_representation {
 struct chrono_representation {
   SDL_Texture* texture;
   Area rect;
-};
-
-struct munitions_representation {
-  SDL_Texture* titulo;
-  Area rect_titulo;
-  SDL_Texture* dinamita;
-  Area rect_dinamita;
-  SDL_Texture* teledirigido;
-  Area rect_teledirigido;
-  SDL_Texture* teletransportacion;
-  Area rect_teletransportacion;
 };
 
 using std::map;
@@ -102,7 +93,7 @@ private:
     YouWinMessage you_win_message;
     chrono_representation turn_chrono;
     chrono_representation dynamite_chrono;
-    munitions_representation munitions_info;
+    MunitionsInformation* munitions_info;
     FontFactory font_factory;
     ColorsFactory colors_factory;
     TextureFactory texture_factory;
