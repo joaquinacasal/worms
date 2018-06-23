@@ -17,7 +17,7 @@ ScenarioDTO YamlParser::load_scenario(string filename) {
     YAML::Node scenario_file = YAML::LoadFile(filename);
 
     map<string, string> scenario = scenario_file["scenario"].as<map<string, string>>();
-    int heigth = std::stoi(scenario.at("heigth"));
+    int height = std::stoi(scenario.at("height"));
     int width = std::stoi(scenario.at("width"));
     string background = scenario.at("background");
 
@@ -45,7 +45,7 @@ ScenarioDTO YamlParser::load_scenario(string filename) {
         beamsDTOs.push_back(beamDTO);
     }
 
-    ScenarioDTO scenarioDTO(background, heigth, width, wormsDTOs, beamsDTOs);
+    ScenarioDTO scenarioDTO(background, height, width, wormsDTOs, beamsDTOs);
     return scenarioDTO;
 }
 

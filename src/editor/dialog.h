@@ -15,7 +15,7 @@ class Dialog : public QDialog
     Q_OBJECT
 
 public:
-    Dialog(MainWindow* window, int width, int heigth);
+    Dialog(MainWindow* window, int width, int height);
     ~Dialog();
 
 private slots:
@@ -28,7 +28,7 @@ private:
     Ui::Dialog *ui;
     MainWindow* main_window;
     int scenario_width;
-    int scenario_heigth;
+    int scenario_height;
 };
 
 #endif // DIALOG_H

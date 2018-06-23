@@ -64,7 +64,7 @@ void DrawableFactory::create_stage_drawable(){
   std::string background = socket_protocol.receive_string();
   width = meters_to_pixels(width);
   height = meters_to_pixels(height);
-  scenario_heigth = height;
+  scenario_height = height;
   safe_queue.push(new StageDrawable(width, height, background));
 }
 
@@ -183,9 +183,9 @@ double DrawableFactory::meters_to_pixels(double meters){
 }
 
 double DrawableFactory::adapt_y_coordinate(double y){
-  return y * -1 + scenario_heigth;
+  return y * -1 + scenario_height;
 }
 
-double DrawableFactory::get_scenario_heigth(){
-  return scenario_heigth;
+double DrawableFactory::get_scenario_height(){
+  return scenario_height;
 }

@@ -40,9 +40,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QScreen* screen = QGuiApplication::primaryScreen();
     int screen_width = pixels_to_meters(screen->geometry().width());
-    int screen_heigth = pixels_to_meters(screen->geometry().height());
-    set_widget_size(screen_width, screen_heigth);
-    input_dialog = new Dialog(this, screen_width, screen_heigth);
+    int screen_height = pixels_to_meters(screen->geometry().height());
+    set_widget_size(screen_width, screen_height);
+    input_dialog = new Dialog(this, screen_width, screen_height);
     input_dialog->setAttribute(Qt::WA_DeleteOnClose);
 }
 
@@ -63,11 +63,11 @@ void MainWindow::show_dialog(){
     input_dialog->show();
 }
 
-void MainWindow::set_widget_size(int width, int heigth)
+void MainWindow::set_widget_size(int width, int height)
 {
     scenario["width"] = std::to_string(width);
-    scenario["heigth"] = std::to_string(heigth);
-    scenario_widget->resize(meters_to_pixels(width), meters_to_pixels(heigth));
+    scenario["height"] = std::to_string(height);
+    scenario_widget->resize(meters_to_pixels(width), meters_to_pixels(height));
 }
 
 void MainWindow::load_background(QString filename){
@@ -151,10 +151,10 @@ void MainWindow::on_actionOpen_scenario_triggered()
     YAML::Node new_scenario = YAML::LoadFile(filename.toStdString());
 
     scenario = new_scenario["scenario"].as<map<string, string>>();
-    int heigth = std::stoi(scenario.at("heigth"));
+    int height = std::stoi(scenario.at("height"));
     int width = std::stoi(scenario.at("width"));
     string background = scenario.at("background");
-    set_widget_size(width, heigth);
+    set_widget_size(width, height);
     load_background(QString::fromStdString(background));
 
     vector<map<string, string>> worms = new_scenario["worms"].as<vector<map<string, string>>>();
@@ -163,7 +163,7 @@ void MainWindow::on_actionOpen_scenario_triggered()
     for (map<string, string> worm : worms){
         float x = meters_to_pixels(std::stof(worm.at("x")));
         float y = std::stof(worm.at("y"));
-        y = meters_to_pixels((y - heigth) * -1);
+        y = meters_to_pixels((y - height) * -1);
         QString image_filename = QString::fromStdString(worm.at("image"));
         DragLabel* new_worm = new DragLabel(image_filename, scenario_widget, false, 2, 0, true);
         new_worm->move(x, y);
@@ -174,7 +174,7 @@ void MainWindow::on_actionOpen_scenario_triggered()
     for (map<string, string> beam : beams){
         float x = meters_to_pixels(std::stof(beam.at("x")));
         float y = std::stof(beam.at("y"));
-        y = meters_to_pixels((y - heigth) * -1);
+        y = meters_to_pixels((y - height) * -1);
         int length = std::stoi(beam.at("length"));
         int angle = std::stoi(beam.at("angle"));
         QString image_filename = QString::fromStdString(beam.at("image"));
@@ -223,11 +223,11 @@ void MainWindow::on_actionSave_scenario_triggered()
     parser << YAML::Key << "worms";
     parser << YAML::Value << YAML::BeginSeq;
     int id_counter = 1;
-    int scenario_heigth = std::stoi(scenario.at("heigth"));
+    int scenario_height = std::stoi(scenario.at("height"));
     for (DragLabel* worm_label : worms_labels){
         float x = pixels_to_meters(worm_label->pos().x());
         float y = pixels_to_meters(worm_label->pos().y());
-        y = y * -1 + scenario_heigth;
+        y = y * -1 + scenario_height;
         std::map<string, string> worm;
         worm["id"] = std::to_string(id_counter);
         worm["x"] = std::to_string(x);
@@ -244,7 +244,7 @@ void MainWindow::on_actionSave_scenario_triggered()
     for (DragLabel* beam_label : beams_labels){
         float x = pixels_to_meters(beam_label->pos().x());
         float y = pixels_to_meters(beam_label->pos().y());
-        y = y * -1 + scenario_heigth;
+        y = y * -1 + scenario_height;
         std::map<string, string> beam;
         beam["id"] = std::to_string(id_counter);
         beam["x"] = std::to_string(x);
@@ -273,7 +273,7 @@ void MainWindow::on_actionSave_scenario_as_triggered()
 
 void MainWindow::on_actionChange_size_triggered()
 {
-    QDialog* input_dialog = new Dialog(this, std::stoi(scenario["width"]), std::stoi(scenario["heigth"]));
+    QDialog* input_dialog = new Dialog(this, std::stoi(scenario["width"]), std::stoi(scenario["height"]));
     input_dialog->setAttribute(Qt::WA_DeleteOnClose);
     input_dialog->show();
 }

@@ -43,7 +43,7 @@ private:
 public:
     explicit MainWindow(QWidget* parent = 0);
     void show_dialog();
-    void set_widget_size(int width, int heigth);
+    void set_widget_size(int width, int height);
     ~MainWindow();
 
 private slots:

@@ -1,6 +1,6 @@
 scenario:
   background: background.png
-  heigth: 100
+  height: 100
   width: 150
 worms:
   - id: 1

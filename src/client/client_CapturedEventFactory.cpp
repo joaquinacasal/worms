@@ -30,16 +30,16 @@ void CapturedEventFactory::create_dynamite_event(){
   blocking_queue.push(new DynamiteCapturedEvent(socket_protocol));
 }
 
-void CapturedEventFactory::create_radiocontrolled_event(int x, int y, double scenario_heigth){
+void CapturedEventFactory::create_radiocontrolled_event(int x, int y, double scenario_height){
   x = pixels_to_meters(x);
-  y = adapt_y_coordinate(y, scenario_heigth);
+  y = adapt_y_coordinate(y, scenario_height);
   y = pixels_to_meters(y);
   blocking_queue.push(new RadiocontrolledCapturedEvent(socket_protocol, x, y));
 }
 
-void CapturedEventFactory::create_teletransportation_event(int x, int y, double scenario_heigth){
+void CapturedEventFactory::create_teletransportation_event(int x, int y, double scenario_height){
   x = pixels_to_meters(x);
-  y = adapt_y_coordinate(y, scenario_heigth);
+  y = adapt_y_coordinate(y, scenario_height);
   y = pixels_to_meters(y);
   blocking_queue.push(new TeletransportationCapturedEvent(socket_protocol, x, y));
 }
@@ -52,8 +52,8 @@ int CapturedEventFactory::pixels_to_meters(int pixels){
   return pixels / PIXELS_TO_METERS_CONVERSION;
 }
 
-int CapturedEventFactory::adapt_y_coordinate(int y, double scenario_heigth){
-  y -= scenario_heigth;
+int CapturedEventFactory::adapt_y_coordinate(int y, double scenario_height){
+  y -= scenario_height;
   y *= -1;
   return y;
 }

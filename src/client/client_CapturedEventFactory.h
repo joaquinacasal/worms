@@ -33,10 +33,10 @@ public:
     void create_jump_backward_event();
     void create_closed_connection_event();
     void create_dynamite_event();
-    void create_radiocontrolled_event(int x, int y, double scenario_heigth);
-    void create_teletransportation_event(int x, int y, double scenario_heigth);
+    void create_radiocontrolled_event(int x, int y, double scenario_height);
+    void create_teletransportation_event(int x, int y, double scenario_height);
     int pixels_to_meters(int pixels);
-    int adapt_y_coordinate(int y, double scenario_heigth);
+    int adapt_y_coordinate(int y, double scenario_height);
 
     ~CapturedEventFactory();
 };

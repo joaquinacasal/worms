@@ -89,9 +89,9 @@ int main(int argc, char* argv[]){
           }
           SDL_GetMouseState(&x, &y);
           if (state == WAITING_RADIO_CLICK){
-            captured_event_factory.create_radiocontrolled_event(x, y, drawable_factory.get_scenario_heigth());
+            captured_event_factory.create_radiocontrolled_event(x, y, drawable_factory.get_scenario_height());
           } else {
-            captured_event_factory.create_teletransportation_event(x, y, drawable_factory.get_scenario_heigth());
+            captured_event_factory.create_teletransportation_event(x, y, drawable_factory.get_scenario_height());
           }
           state = WAITING_COMMAND;
           std::cout << "X: " << x << std::endl;

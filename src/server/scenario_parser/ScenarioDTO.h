@@ -19,7 +19,7 @@ private:
     vector<BeamDTO> beams;
 
 public:
-    ScenarioDTO(string background, int heigth, int width, vector<WormDTO> worms, vector<BeamDTO> beams) ;
+    ScenarioDTO(string background, int height, int width, vector<WormDTO> worms, vector<BeamDTO> beams) ;
     string get_background();
     int get_height();
     int get_width();

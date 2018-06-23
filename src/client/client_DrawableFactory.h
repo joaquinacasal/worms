@@ -62,7 +62,7 @@ private:
     SocketProtocol& socket_protocol;
     SafeQueue<IDrawable*>& safe_queue;
     bool connected;
-    double scenario_heigth;
+    double scenario_height;
 
     void create_start_turn_drawable();
     void create_end_turn_drawable();
@@ -98,7 +98,7 @@ public:
 
     bool is_connected();
 
-    double get_scenario_heigth();
+    double get_scenario_height();
 
     ~DrawableFactory() override = default;
 };
