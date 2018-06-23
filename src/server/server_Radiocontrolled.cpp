@@ -55,7 +55,7 @@ std::vector<size_t> Radiocontrolled::check_explosions(){
 bool Radiocontrolled::is_colliding(b2Body* munition){
   if (!is_active()) return false;
   for (b2ContactEdge* edge = munition->GetContactList(); edge; edge = edge->next){
-    return true;
+    if (edge->contact->IsTouching()) return true;
   }
   return false;
 }

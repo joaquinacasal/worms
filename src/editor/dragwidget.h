@@ -10,8 +10,8 @@
 #define WORM_IMAGE_FILENAME "worm.png"
 #define SHORT_BEAM_IMAGE_FILENAME "short_beam.png"
 #define LONG_BEAM_IMAGE_FILENAME "long_beam.png"
-#define LONG_BEAM_LENGTH 8
-#define SHORT_BEAM_LENGTH 4
+#define LONG_BEAM_LENGTH 60
+#define SHORT_BEAM_LENGTH 30
 #define ANGLE_DELTA 45
 
 class DragWidget : public QWidget

@@ -19,14 +19,13 @@ beams:
   - angle: 45
     id: 1
     image: grdl0.png
-    length: 8
+    length: 60
     x: 110
-    y: 70
-
+    y: 40
 
   - angle: 0
-    id: 2
+    id: 1
     image: grdl0.png
-    length: 8
+    length: 30
     x: 40
-    y: 50
+    y: 60

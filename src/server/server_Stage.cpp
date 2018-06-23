@@ -69,6 +69,7 @@ void Stage::add_beam(size_t id, size_t length, float position_h,\
   b2BodyDef myBodyDef;
   myBodyDef.type = b2_staticBody;
   myBodyDef.position.Set(position_h, position_v);
+  myBodyDef.angle = angle * DEGTORAD;
   b2Body* beam_body = m_world->CreateBody(&myBodyDef);
   //shape definition
   b2PolygonShape polygonShape;

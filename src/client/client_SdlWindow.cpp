@@ -47,14 +47,14 @@ void SdlWindow::fill() {
 }
 
 void SdlWindow::render() {
+    for (size_t i = 0; i < static_textures.size(); ++i){
+      static_textures[i]->beam_texture->render(static_textures[i]->angle);
+    }
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
         it->second->render();
     }
     for (auto it = weapons_textures.begin(); it != weapons_textures.end(); ++it){
         it->second->render();
-    }
-    for (size_t i = 0; i < static_textures.size(); ++i){
-        static_textures[i]->beam_texture->render(static_textures[i]->angle);
     }
 
     // Render turn_chrono
