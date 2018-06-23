@@ -19,6 +19,7 @@ void TextureFactory::init(SDL_Renderer* renderer){
     textures["radioControlled"] = load_texture(string(ASSETS_FOLDER) + string(RADIOCONTROLLED_ASSET), renderer);
     textures["grave"] = load_texture(string(ASSETS_FOLDER) + string(GRAVE_ASSET), renderer);
     textures["you_win"] = load_texture(string(ASSETS_FOLDER) + string(YOU_WIN_ASSET), renderer);
+    textures["water"] = load_texture(string(ASSETS_FOLDER) + string(WATER_ASSET), renderer);
 }
 
 SDL_Texture* TextureFactory::get_texture_by_name(string name){

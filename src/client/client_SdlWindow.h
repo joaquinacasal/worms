@@ -42,6 +42,7 @@
 #define CHANGE_TURN_MESSAGE_SIZE 500
 #define YOU_WIN_MESSAGE_DURATION 6000
 #define YOU_WIN_MESSAGE_SIZE 1000
+#define WATER_HEIGTH 80
 
 class SdlWindow;
 class SdlTexture;
@@ -101,7 +102,9 @@ private:
 
     map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
-    std::vector<beam_representation*> static_textures;
+    std::vector<beam_representation*> beams_textures;
+    SdlTexture* water_representation;
+
 
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);

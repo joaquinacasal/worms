@@ -47,9 +47,10 @@ void SdlWindow::fill() {
 }
 
 void SdlWindow::render() {
-    for (size_t i = 0; i < static_textures.size(); ++i){
-      static_textures[i]->beam_texture->render(static_textures[i]->angle);
+    for (size_t i = 0; i < beams_textures.size(); ++i){
+      beams_textures[i]->beam_texture->render(beams_textures[i]->angle);
     }
+    water_representation->render();
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
         it->second->render();
     }
@@ -178,6 +179,10 @@ void SdlWindow::draw(StageDrawable* drawable) {
 
   Area area(0, 0, width, height);
   this->background_texture = new SdlTexture(background, *this, area);
+
+  // Water
+  Area water_area(0, height - WATER_HEIGTH, width, WATER_HEIGTH);
+  water_representation = new SdlTexture(texture_factory.get_texture_by_name("water"), *this, water_area);
 }
 
 void SdlWindow::draw(BeamDrawable* drawable) {
@@ -186,7 +191,7 @@ void SdlWindow::draw(BeamDrawable* drawable) {
   Area area(x, y, drawable->get_length(), drawable->get_width());
   SdlTexture* beam = new SdlTexture(texture_factory.get_texture_by_name("beam"), *this, area);
   beam_representation* b_r = new beam_representation({ beam, drawable->get_angle() });
-  static_textures.push_back(b_r);
+  beams_textures.push_back(b_r);
 }
 
 void SdlWindow::draw(DynamiteDrawable* drawable) {
@@ -284,8 +289,8 @@ SdlWindow::~SdlWindow() {
       delete drawable;
     }
 
-    for (int i = 0; i < static_textures.size(); i++){
-        delete static_textures[i];
+    for (int i = 0; i < beams_textures.size(); i++){
+        delete beams_textures[i];
     }
 
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
