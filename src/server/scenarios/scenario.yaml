@@ -5,12 +5,12 @@ scenario:
 worms:
   - id: 1
     image: worm.png
-    x: 10
-    y: 10
+    x: 40
+    y: 65
   - id: 2
     image: worm.png
-    x: 100
-    y: 15
+    x: 40
+    y: 48
   - id: 3
     image: worm.png
     x: 110
@@ -24,8 +24,30 @@ beams:
     y: 40
 
   - angle: 0
-    id: 1
+    id: 2
     image: grdl0.png
     length: 30
     x: 40
     y: 60
+
+  - angle: 0
+    id: 3
+    image: grdl0.png
+    length: 30
+    x: 60
+    y: 8
+
+  - angle: 90
+    id: 4
+    image: grdl0.png
+    length: 30
+    x: 40
+    y: 30
+
+
+  - angle: 0
+    id: 5
+    image: grdl0.png
+    length: 30
+    x: 20
+    y: 20

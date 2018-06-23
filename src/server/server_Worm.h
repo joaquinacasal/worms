@@ -4,6 +4,8 @@
 #include "server_Movement.h"
 #include <stdlib.h>
 
+#define WATER_HEIGTH 4
+
 /* Clase que representa a un gusano del juego, con un id, vida, posición,
  * ángulo y movimiento. Es no copiable.
  */

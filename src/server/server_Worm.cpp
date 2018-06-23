@@ -116,6 +116,7 @@ void Worm::check_falling(){
     }
     last_solid_height = vertical_pos;
   }
+  if (vertical_pos < WATER_HEIGTH) subtract_life(get_life_points());
 }
 
 bool Worm::is_moving(){
