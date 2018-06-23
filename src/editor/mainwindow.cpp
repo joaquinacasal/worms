@@ -39,8 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(QString(LABEL_IMAGES_DIR) + QString(WORM_IMAGE_FILENAME)));
 
     QScreen* screen = QGuiApplication::primaryScreen();
-    int screen_width = pixels_to_meters(screen->geometry().width());
-    int screen_height = pixels_to_meters(screen->geometry().height());
+    int screen_width = scenario.pixels_to_meters(screen->geometry().width());
+    int screen_height = scenario.pixels_to_meters(screen->geometry().height());
     set_widget_size(screen_width, screen_height);
     input_dialog = new Dialog(this, screen_width, screen_height);
     input_dialog->setAttribute(Qt::WA_DeleteOnClose);
@@ -48,14 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    QList<DragLabel*> worms_labels = get_worms();
-    QList<DragLabel*> beams_labels = get_beams();
-    for (DragLabel* worm : worms_labels){
-        worm->close();
-    }
-    for (DragLabel* beam : beams_labels){
-        beam->close();
-    }
+    delete_labels(true);
     delete ui;
 }
 
@@ -65,9 +58,8 @@ void MainWindow::show_dialog(){
 
 void MainWindow::set_widget_size(int width, int height)
 {
-    scenario["width"] = std::to_string(width);
-    scenario["height"] = std::to_string(height);
-    scenario_widget->resize(meters_to_pixels(width), meters_to_pixels(height));
+    scenario.set_size(width, height);
+    scenario_widget->resize(scenario.meters_to_pixels(width), scenario.meters_to_pixels(height));
 }
 
 void MainWindow::load_background(QString filename){
@@ -82,7 +74,7 @@ QList<DragLabel*> MainWindow::get_worms(){
     QList<DragLabel*> labels = scenario_widget->findChildren<DragLabel*>();
     QList<DragLabel*> worms_labels;
     for (DragLabel* label : labels){
-        if (!label->is_original() && label->is_worm()){
+        if (label->is_worm() && !label->is_original()){
             worms_labels.append(label);
         }
     }
@@ -93,36 +85,28 @@ QList<DragLabel*> MainWindow::get_beams(){
     QList<DragLabel*> labels = scenario_widget->findChildren<DragLabel*>();
     QList<DragLabel*> beams_labels;
     for (DragLabel* label : labels){
-        if (!label->is_original() && !label->is_worm()){
+        if (!label->is_worm() && !label->is_original()){
             beams_labels.append(label);
         }
     }
     return beams_labels;
 }
 
-bool MainWindow::check_intersections(){
+void MainWindow::delete_labels(bool include_originals){
     QList<DragLabel*> labels = scenario_widget->findChildren<DragLabel*>();
-    for (DragLabel* label : labels){
-        for (DragLabel* other_label : labels){
-            if (label == other_label){
-                continue;
-            }
-            if (label->geometry().intersects(other_label->geometry())){
-                return true;
+    if (include_originals){
+        for (DragLabel* label : labels){
+            label->clear();
+            label->close();
+        }
+    } else {
+        for (DragLabel* label : labels){
+            if (!label->is_original()){
+                label->clear();
+                label->close();
             }
         }
     }
-    return false;
-}
-
-float MainWindow::pixels_to_meters(float pixels)
-{
-    return pixels / PIXEL_METER_CONVERSION;
-}
-
-float MainWindow::meters_to_pixels(float meters)
-{
-    return meters * PIXEL_METER_CONVERSION;
 }
 
 void MainWindow::on_actionLoad_background_triggered()
@@ -131,7 +115,7 @@ void MainWindow::on_actionLoad_background_triggered()
     if (filename == "")
         return;
     filename = filename.split('/').last();
-    scenario["background"] = filename.toStdString();
+    scenario.set_background(filename.toStdString());
     load_background(filename);
 }
 
@@ -141,40 +125,29 @@ void MainWindow::on_actionOpen_scenario_triggered()
     if (filename == "")
         return;
     current_file = filename;
-    QList<DragLabel*> old_labels = scenario_widget->findChildren<DragLabel*>();
-    for (DragLabel* old_label : old_labels){
-        if (!old_label->is_original()){
-            old_label->clear();
-            old_label->close();
-        }
-    }
-    YAML::Node new_scenario = YAML::LoadFile(filename.toStdString());
+    delete_labels(false);
 
-    scenario = new_scenario["scenario"].as<map<string, string>>();
-    int height = std::stoi(scenario.at("height"));
-    int width = std::stoi(scenario.at("width"));
-    string background = scenario.at("background");
+    int height;
+    int width;
+    string background;
+    vector<map<string, string>> worms;
+    vector<map<string, string>> beams;
+    scenario.load_scenario(filename.toStdString(), height, width, background, worms, beams);
+
     set_widget_size(width, height);
     load_background(QString::fromStdString(background));
-
-    vector<map<string, string>> worms = new_scenario["worms"].as<vector<map<string, string>>>();
-    vector<map<string, string>> beams = new_scenario["beams"].as<vector<map<string, string>>>();
-
     for (map<string, string> worm : worms){
-        float x = meters_to_pixels(std::stof(worm.at("x")));
+        float x = std::stof(worm.at("x"));
         float y = std::stof(worm.at("y"));
-        y = meters_to_pixels((y - height) * -1);
         QString image_filename = QString::fromStdString(worm.at("image"));
         DragLabel* new_worm = new DragLabel(image_filename, scenario_widget, false, 2, 0, true);
         new_worm->move(x, y);
         new_worm->show();
         new_worm->setAttribute(Qt::WA_DeleteOnClose);
     }
-
     for (map<string, string> beam : beams){
-        float x = meters_to_pixels(std::stof(beam.at("x")));
+        float x = std::stof(beam.at("x"));
         float y = std::stof(beam.at("y"));
-        y = meters_to_pixels((y - height) * -1);
         int length = std::stoi(beam.at("length"));
         int angle = std::stoi(beam.at("angle"));
         QString image_filename = QString::fromStdString(beam.at("image"));
@@ -187,23 +160,6 @@ void MainWindow::on_actionOpen_scenario_triggered()
 
 void MainWindow::on_actionSave_scenario_triggered()
 {
-    if (check_intersections()){
-        QMessageBox message(this);
-        message.setText(OVERLAPPING_MESSAGE);
-        message.exec();
-        return;
-    }
-
-    QList<DragLabel*> worms_labels = get_worms();
-    QList<DragLabel*> beams_labels = get_beams();
-
-    if (worms_labels.empty()){
-        QMessageBox message(this);
-        message.setText(NO_WORMS_MESSAGE);
-        message.exec();
-        return;
-    }
-
     QString filename;
     if (current_file.isEmpty()) {
         filename = QFileDialog::getSaveFileName(this, SAVE_SCENARIO_MESSAGE, SCENARIO_FILES_DIR);
@@ -214,51 +170,24 @@ void MainWindow::on_actionSave_scenario_triggered()
     } else {
         filename = current_file;
     }
-
-    YAML::Emitter parser;
-    parser << YAML::BeginMap;
-    parser << YAML::Key << "scenario";
-    parser << YAML::Value << scenario;
-
-    parser << YAML::Key << "worms";
-    parser << YAML::Value << YAML::BeginSeq;
-    int id_counter = 1;
-    int scenario_height = std::stoi(scenario.at("height"));
-    for (DragLabel* worm_label : worms_labels){
-        float x = pixels_to_meters(worm_label->pos().x());
-        float y = pixels_to_meters(worm_label->pos().y());
-        y = y * -1 + scenario_height;
-        std::map<string, string> worm;
-        worm["id"] = std::to_string(id_counter);
-        worm["x"] = std::to_string(x);
-        worm["y"] = std::to_string(y);
-        worm["image"] = worm_label->get_image_filename().toStdString();
-        parser << worm;
-        id_counter += 1;
+    
+    QList<DragLabel*> worms_labels = get_worms();
+    QList<DragLabel*> beams_labels = get_beams();
+    int status = scenario.save_scenario(worms_labels, beams_labels, filename.toStdString());
+    if (status == 1){
+        QMessageBox message(this);
+        message.setText(OVERLAPPING_MESSAGE);
+        message.exec();
+        return;
+    } else if (status == 2){
+        QMessageBox message(this);
+        message.setText(NO_WORMS_MESSAGE);
+        message.exec();
+        return;
     }
-    parser << YAML::EndSeq;
-
-    parser << YAML::Key << "beams";
-    parser << YAML::Value << YAML::BeginSeq;
-    id_counter = 1;
-    for (DragLabel* beam_label : beams_labels){
-        float x = pixels_to_meters(beam_label->pos().x());
-        float y = pixels_to_meters(beam_label->pos().y());
-        y = y * -1 + scenario_height;
-        std::map<string, string> beam;
-        beam["id"] = std::to_string(id_counter);
-        beam["x"] = std::to_string(x);
-        beam["y"] = std::to_string(y);
-        beam["length"] = std::to_string(beam_label->get_length());
-        beam["angle"] = std::to_string(beam_label->get_angle());
-        beam["image"] = beam_label->get_image_filename().toStdString();
-        parser << beam;
-        id_counter += 1;
-    }
-    parser << YAML::EndSeq << YAML::EndMap;
-
-    std::ofstream fout(filename.toStdString());
-    fout << parser.c_str();
+    QMessageBox message(this);
+    message.setText(SAVE_SCENARIO_SUCCESS);
+    message.exec();
 }
 
 void MainWindow::on_actionSave_scenario_as_triggered()
@@ -273,7 +202,7 @@ void MainWindow::on_actionSave_scenario_as_triggered()
 
 void MainWindow::on_actionChange_size_triggered()
 {
-    QDialog* input_dialog = new Dialog(this, std::stoi(scenario["width"]), std::stoi(scenario["height"]));
+    QDialog* input_dialog = new Dialog(this, scenario.get_width(), scenario.get_height());
     input_dialog->setAttribute(Qt::WA_DeleteOnClose);
     input_dialog->show();
 }

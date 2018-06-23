@@ -17,6 +17,7 @@ set(SOURCES
     dragwidget.cpp
     draglabel.cpp
     dialog.cpp
+    scenariosaver.cpp
 )
 
 qt5_wrap_ui(UIS_HEADERS

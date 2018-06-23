@@ -8,6 +8,7 @@
 #include <QList>
 #include "dialog.h"
 #include "draglabel.h"
+#include "scenariosaver.h"
 
 #define PIXEL_METER_CONVERSION 10
 #define SAVE_SCENARIO_MESSAGE "Guardar escenario"
@@ -15,6 +16,7 @@
 #define OVERLAPPING_MESSAGE "Hay elementos que se solapan. Separalos para guardar el escenario"
 #define SELECT_SCENARIO_MESSAGE "Seleccioná un escenario"
 #define SELECT_BACKGROUND_MESSAGE "Seleccioná una imagen de fondo"
+#define SAVE_SCENARIO_SUCCESS "Se guardó correctamente el escenario"
 
 namespace Ui {
 class MainWindow;
@@ -30,15 +32,13 @@ private:
     Ui::MainWindow* ui;
     QWidget* scenario_widget;
     Dialog* input_dialog;
-    std::map<std::string, std::string> scenario;
+    ScenarioSaver scenario;
     QString current_file;
 
     void load_background(QString filename);
     QList<DragLabel*> get_worms();
     QList<DragLabel*> get_beams();
-    bool check_intersections();
-    float pixels_to_meters(float pixels);
-    float meters_to_pixels(float meters);
+    void delete_labels(bool include_originals);
 
 public:
     explicit MainWindow(QWidget* parent = 0);
