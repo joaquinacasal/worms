@@ -20,6 +20,7 @@ using std::map;
 #define GRAVE_ASSET "grave.png"
 #define YOU_WIN_ASSET "fort.png"
 #define WATER_ASSET "water.png"
+#define ARROW_ASSET "arrow.png"
 
 class TextureFactory {
 public:

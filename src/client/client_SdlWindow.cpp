@@ -98,6 +98,10 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
     Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.set_message_texture(new SdlTexture(texture_factory.get_texture_by_name("end_turn"), *this, area));
     change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
+
+    for (const auto& sm_pair : worms_textures){
+      sm_pair.second->deselect_worm();
+    }
 }
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {
@@ -120,17 +124,23 @@ void SdlWindow::draw(WormDrawable* drawable) {
     else if (drawable->is_moving()) state = WALKING;
     else if (drawable->is_flying()) state = JUMPING;
     else state = DEAD;
+    bool is_the_selected_worm = drawable->is_the_selected_worm();
 
     if (worms_textures.count(id)){
         WormRepresentation* worm = worms_textures.at(id);
         worm->set_position(new_x, new_y);
         worm->set_life_points(new_life_points_q, font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer));
         worm->set_state(state, new_angle, new_facing_right);
+        if (is_the_selected_worm)
+          worm->select_worm();
+        else
+          worm->deselect_worm();
     } else {
         Area position(new_x, new_y, WORM_SIZE, WORM_SIZE);
         SDL_Texture* life_texture = font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer);
-        WormRepresentation* worm = new WormRepresentation(state, position, *this, life_texture,
-                                                        new_facing_right, new_life_points_q, new_angle, texture_factory);
+        WormRepresentation* worm = new WormRepresentation(state, position, \
+                    *this, life_texture, new_facing_right, new_life_points_q,\
+                    new_angle, texture_factory, is_the_selected_worm);
         worms_textures[id] = worm;
     }
 }

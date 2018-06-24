@@ -23,12 +23,13 @@ void NotifierThread::stop(){
 
 
 void NotifierThread::send_worm_info(ClientHandler* client, size_t id,\
-                                    size_t life_points, double x, double y, \
-                                    int angle, bool is_facing_right, int team,\
-                                    int movement_state){
+                                size_t life_points, double x, double y, \
+                                int angle, bool is_facing_right, int team,\
+                                int movement_state, bool is_the_selected_worm){
   if (continue_sending)
     blocking_queue.push(new WormNotification(client, id, life_points,\
-                          x, y, angle, is_facing_right, team, movement_state));
+                        x, y, angle, is_facing_right, team, movement_state,\
+                        is_the_selected_worm));
 }
 
 void NotifierThread::send_worm_death_notif(ClientHandler* client, \

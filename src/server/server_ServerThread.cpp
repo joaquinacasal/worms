@@ -72,11 +72,12 @@ void ServerThread::send_turn_time_information_to_clients(int turn_chrono){
 
 void ServerThread::send_worm_information_to_clients(size_t id, \
                   size_t life_points, double x, double y, int angle, \
-                  bool is_facing_right, int team, int movement_state){
+                  bool is_facing_right, int team, int movement_state,\
+                  bool is_the_selected_worm){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
     notifier.send_worm_info(clients[i], id, life_points, x, y, angle,\
-                            is_facing_right, team, movement_state);
+                  is_facing_right, team, movement_state, is_the_selected_worm);
   }
 }
 

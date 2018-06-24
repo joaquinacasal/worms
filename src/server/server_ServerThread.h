@@ -58,7 +58,8 @@ public:
     void send_worm_information_to_clients(size_t id, size_t life_points,\
                                           double x, double y, int angle, \
                                           bool is_facing_right, int team,\
-                                          int movement_state);
+                                          int movement_state,\
+                                          bool is_the_selected_worm);
 
     // Envía la notificación de que el gusano con id recibido murió.
     void send_worm_death_notif_to_clients(size_t id, int team);

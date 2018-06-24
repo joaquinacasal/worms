@@ -21,6 +21,7 @@ void TextureFactory::init(SDL_Renderer* renderer){
     textures["grave"] = load_texture(string(ASSETS_FOLDER) + string(GRAVE_ASSET), renderer);
     textures["you_win"] = load_texture(string(ASSETS_FOLDER) + string(YOU_WIN_ASSET), renderer);
     textures["water"] = load_texture(string(ASSETS_FOLDER) + string(WATER_ASSET), renderer);
+    textures["arrow"] = load_texture(string(ASSETS_FOLDER) + string(ARROW_ASSET), renderer);
 }
 
 SDL_Texture* TextureFactory::get_texture_by_name(string name){

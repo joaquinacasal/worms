@@ -28,6 +28,8 @@ void ConsoleDrawer::draw(WormDrawable* drawable) {
   if (drawable->is_moving()) estado = "moviendose";
   if (drawable->is_flying()) estado = "volando";
   std::cout << "El estado es " << estado << '\n';
+  if (drawable->is_the_selected_worm())
+  std::cout << "Es el gusano actual.\n";
 }
 
 void ConsoleDrawer::draw(StageDrawable* drawable) {

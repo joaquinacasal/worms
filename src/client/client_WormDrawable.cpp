@@ -1,7 +1,8 @@
 #include "client_WormDrawable.h"
 
 WormDrawable::WormDrawable(size_t id, size_t life_points, double x, double y,\
-              int angle, bool is_facing_right, int team, int movement_state){
+              int angle, bool is_facing_right, int team, int movement_state,\
+              bool is_the_selected_worm){
     this->id = id;
     this->life_points = life_points;
     this->x = x;
@@ -10,6 +11,7 @@ WormDrawable::WormDrawable(size_t id, size_t life_points, double x, double y,\
     this->is_facing_right = is_facing_right;
     this->team = team;
     this->movement_state = movement_state;
+    this->_is_the_selected_worm = is_the_selected_worm;
 }
 
 void WormDrawable::be_drawn_by_console(ConsoleDrawer* console_drawer){
@@ -58,4 +60,8 @@ bool WormDrawable::is_moving(){
 
 bool WormDrawable::is_still(){
     return movement_state == 1;
+}
+
+bool WormDrawable::is_the_selected_worm(){
+    return _is_the_selected_worm;
 }

@@ -47,8 +47,8 @@ class NotifierThread : public Thread {
     void stop();
 
     void send_worm_info(ClientHandler* client, size_t id, size_t life_points,\
-                        double x, double y, int angle, bool is_facing_right,\
-                        int team, int movement_state);
+                      double x, double y, int angle, bool is_facing_right,\
+                      int team, int movement_state, bool is_the_selected_worm);
     void send_worm_death_notif(ClientHandler* client, size_t id, int team);
     void send_stage_info(ClientHandler* client, size_t width, size_t height,\
                         std::string background);

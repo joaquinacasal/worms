@@ -103,7 +103,8 @@ public:
 
     /* Envía el servidor*/
     void send_worm_info(size_t id, size_t life_points, double x, double y, \
-                int angle, bool is_facing_right, int team, int movement_state);
+                        int angle, bool is_facing_right, int team,\
+                        int movement_state, bool is_the_selected_worm);
     void send_worm_death_notif(size_t id, int team);
     void send_beam_info(double x, double y, int length, int width, int angle);
     void send_stage_info(int width, int height, std::string background);

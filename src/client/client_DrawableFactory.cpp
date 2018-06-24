@@ -31,10 +31,13 @@ void DrawableFactory::create_worm_drawable(){
   bool is_facing_right = (bool)socket_protocol.receive_numeric_value();
   int team = socket_protocol.receive_numeric_value();
   int movement_state = socket_protocol.receive_numeric_value();
+  bool is_the_selected_worm = (bool)socket_protocol.receive_numeric_value();
   x = meters_to_pixels(x);
   y = meters_to_pixels(y);
   y = adapt_y_coordinate(y);
-  safe_queue.push(new WormDrawable(id, life_points, x, y, angle, is_facing_right, team, movement_state));
+  safe_queue.push(new WormDrawable(id, life_points, x, y, angle, \
+                                   is_facing_right, team, movement_state,\
+                                   is_the_selected_worm));
 }
 
 void DrawableFactory::create_worm_death_drawable(){

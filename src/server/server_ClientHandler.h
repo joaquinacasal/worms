@@ -51,7 +51,8 @@ public:
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando).
     void send_worm_info(size_t id, size_t life_points, double x, double y, \
-                int angle, bool is_facing_right, int team, int movement_state);
+                        int angle, bool is_facing_right, int team,\
+                        int movement_state, bool is_the_selected_worm);
 
     // Envía una notificación indicando que el gusano con el id recibido murió.
     void send_worm_death_notif(size_t id, int team);

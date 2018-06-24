@@ -108,7 +108,9 @@ void SocketProtocol::send_dynamite(){
 }
 
 void SocketProtocol::send_worm_info(size_t id, size_t life_points, double x,\
-      double y, int angle, bool is_facing_right, int team, int movement_state){
+                                    double y, int angle, bool is_facing_right,\
+                                    int team, int movement_state, \
+                                    bool is_the_selected_worm){
     send_command_or_code(PROTOCOL_WORM_INFO);
     send_numeric_value((int)id);
     send_numeric_value((int)life_points);
@@ -121,6 +123,10 @@ void SocketProtocol::send_worm_info(size_t id, size_t life_points, double x,\
       send_numeric_value(0);
     send_numeric_value(team);
     send_numeric_value(movement_state);
+    if (is_the_selected_worm)
+      send_numeric_value(1);
+    else
+      send_numeric_value(0);
 }
 
 void SocketProtocol::send_worm_death_notif(size_t id, int team){

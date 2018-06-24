@@ -265,6 +265,7 @@ void GameThread::send_turn_time_information(){
 
 void GameThread::send_worms_information_to_clients(){
   std::vector<Player*> players = turns_manager.get_players();
+  Worm* actual_worm = turns_manager.get_selected_player()->get_selected_worm();
   for (int i = 0; i < players.size(); i++){
     std::vector<Worm*> worms = players[i]->get_worms();
     for (Worm* worm : worms) {
@@ -286,9 +287,9 @@ void GameThread::send_worms_information_to_clients(){
         else
           movement_state = 1; // Quieto
       }
-
+      bool is_the_selected_worm = (actual_worm->get_id() == id);
       this->server_thread->send_worm_information_to_clients(id, life_points,\
-                          x, y, angle, is_facing_right, i, movement_state);
+        x, y, angle, is_facing_right, i, movement_state, is_the_selected_worm);
     }
   }
 }
