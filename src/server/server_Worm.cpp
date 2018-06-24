@@ -137,7 +137,11 @@ bool Worm::is_moving(){
 }
 
 bool Worm::has_suffered_changes(){
-  bool aux = is_moving() || !is_colliding() || changed;
+  bool is_in_movement = get_vertical_velocity() > -0.01 || \
+                        get_vertical_velocity() < 0.01  || \
+                        get_horizontal_velocity() > -0.01 || \
+                        get_horizontal_velocity() < 0.01;
+  bool aux = is_moving() || !is_colliding() || changed || is_in_movement;
   changed = false;
   return aux;
 }
