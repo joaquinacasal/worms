@@ -58,7 +58,7 @@ void Stage::add_worm(size_t id, size_t life, float position_h, \
   b2FixtureDef myFixtureDef;
   myFixtureDef.shape = &polygonShape;
   myFixtureDef.density = 1;
-  myFixtureDef.friction = 0.4;
+  myFixtureDef.friction = 0.6;
 
   worm_body->CreateFixture(&myFixtureDef);
   Worm* worm = new Worm(id, life, worm_body);

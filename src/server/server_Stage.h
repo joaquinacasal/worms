@@ -11,7 +11,7 @@
 #include <string>
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
-#define EXPLOSION_FORCE 100
+#define EXPLOSION_FORCE 1500
 
 /* Clase que representa el escenario donde se lleva a cabo una partida. Contiene
  * vigas, gusanos y puede crear nuevos cuerpos que representen municiones o
