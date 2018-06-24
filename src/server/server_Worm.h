@@ -16,6 +16,7 @@ private:
   Movement movement;
 
   float last_solid_height;
+  bool changed;
 
   // No copiable.
   Worm(const Worm&) = delete;
@@ -103,6 +104,10 @@ public:
   // Devuelve un booleano indicando si está colisionando
   // con algún objeto.
   bool is_colliding();
+
+  // Devuelve un booleano indicando si cambió el estado del gusano desde
+  // la última vez que se consultó.
+  bool has_suffered_changes();
 };
 
 

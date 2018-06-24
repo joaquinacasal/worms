@@ -269,7 +269,8 @@ void GameThread::send_worms_information_to_clients(){
     std::vector<Worm*> worms = players[i]->get_worms();
     for (Worm* worm : worms) {
       // Solo envío la información de los movibles.
-      if (!worm->is_movable() || !worm->is_alive()) continue;
+      if (!worm->is_movable() || !worm->is_alive() ||\
+                      !worm->has_suffered_changes()) continue;
       size_t id = worm->get_id();
       size_t life_points = worm->get_life_points();
       double x = worm->get_horizontal_position();
