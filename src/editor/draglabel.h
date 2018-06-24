@@ -10,16 +10,18 @@ class DragLabel : public QLabel
 {
 private:
     bool original;
-    int length;
+    int _width;
+    int _height;
     int angle;
     bool _is_worm;
     QString image_filename;
 
 public:
-    DragLabel(const QString& image_filename, QWidget* parent, bool original, int length, int angle, bool is_worm);
+    DragLabel(const QString& image_filename, QWidget* parent, bool original, int width, int height, int angle, bool is_worm);
     bool is_original() const;
     bool is_worm() const;
-    int get_length() const;
+    int get_width() const;
+    int get_height() const;
     int get_angle() const;
     QString get_image_filename() const;
     ~DragLabel() = default;

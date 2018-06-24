@@ -140,7 +140,7 @@ void MainWindow::on_actionOpen_scenario_triggered()
         float x = std::stof(worm.at("x"));
         float y = std::stof(worm.at("y"));
         QString image_filename = QString::fromStdString(worm.at("image"));
-        DragLabel* new_worm = new DragLabel(image_filename, scenario_widget, false, 2, 0, true);
+        DragLabel* new_worm = new DragLabel(image_filename, scenario_widget, false, WORM_SIZE, WORM_SIZE, 0, true);
         new_worm->move(x, y);
         new_worm->show();
         new_worm->setAttribute(Qt::WA_DeleteOnClose);
@@ -149,9 +149,10 @@ void MainWindow::on_actionOpen_scenario_triggered()
         float x = std::stof(beam.at("x"));
         float y = std::stof(beam.at("y"));
         int length = std::stoi(beam.at("length"));
+        int height = std::stoi(beam.at("height"));
         int angle = std::stoi(beam.at("angle"));
         QString image_filename = QString::fromStdString(beam.at("image"));
-        DragLabel* new_beam = new DragLabel(image_filename, scenario_widget, false, length, angle, false);
+        DragLabel* new_beam = new DragLabel(image_filename, scenario_widget, false, length, height, angle, false);
         new_beam->move(x, y);
         new_beam->show();
         new_beam->setAttribute(Qt::WA_DeleteOnClose);

@@ -11,8 +11,6 @@ using std::string;
 using std::vector;
 using std::map;
 
-#define PIXEL_METER_CONVERSION 10
-
 class ScenarioSaver
 {
 private:
