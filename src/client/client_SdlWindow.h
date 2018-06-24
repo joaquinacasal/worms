@@ -34,6 +34,7 @@
 #include "client_FontFactory.h"
 #include "client_ColorsFactory.h"
 #include "client_TextureFactory.h"
+#include "client_Camera.h"
 
 #define WORM_SIZE 36
 #define DYNAMITE_SIZE 36
@@ -99,6 +100,7 @@ private:
     ColorsFactory colors_factory;
     TextureFactory texture_factory;
     SdlTexture* background_texture;
+    Camera camera;
 
     map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
@@ -113,7 +115,7 @@ private:
     SdlWindow& operator=(const ConsoleDrawer&) = delete;
 
 public:
-    SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height);
+    SdlWindow(SafeQueue<IDrawable*>& _safe_queue);
     SdlWindow(SdlWindow&& other) = default;
     void draw(StartTurnDrawable* drawable);
     void draw(EndTurnDrawable* drawable);
@@ -135,6 +137,7 @@ public:
     void fill();
     void fill(int r, int g, int b, int alpha);
     void render();
+    void move_camera(CameraMovement movement);
     SDL_Renderer* getRenderer() const;
     ~SdlWindow();
 };

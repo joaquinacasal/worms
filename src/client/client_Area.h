@@ -12,6 +12,8 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	void setPosition(int x, int y);
+	void setX(int x);
+	void setY(int y);
 	SDL_Rect toRect() const;
 private:
 	int x, y;

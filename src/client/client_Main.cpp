@@ -19,7 +19,7 @@ int main(int argc, char* argv[]){
   //ConsoleDrawer console_drawer(safe_queue);
   //console_drawer.start();
   //SdlWindow window(safe_queue, 1920, 1080);
-  SdlWindow window(safe_queue, 50, 50);
+  SdlWindow window(safe_queue);
   window.start();
   DrawableFactory drawable_factory(sp, safe_queue);
   drawable_factory.start();
@@ -39,19 +39,19 @@ int main(int argc, char* argv[]){
         case SDL_KEYUP: {
           SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
           switch (keyEvent.keysym.sym) {
-            case SDLK_RIGHT:
+            case SDLK_d:
               captured_event_factory.create_move_right_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_LEFT:
+            case SDLK_a:
               captured_event_factory.create_move_left_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_DOWN:
+            case SDLK_s:
               captured_event_factory.create_stop_moving_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_UP:
+            case SDLK_w:
               captured_event_factory.create_jump_forward_event();
               state = WAITING_COMMAND;
               break;
@@ -59,7 +59,19 @@ int main(int argc, char* argv[]){
               captured_event_factory.create_jump_backward_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_d:
+            case SDLK_UP:
+              window.move_camera(UP);
+              break;
+            case SDLK_LEFT:
+              window.move_camera(LEFT);
+              break;
+            case SDLK_DOWN:
+              window.move_camera(DOWN);
+              break;
+            case SDLK_RIGHT:
+              window.move_camera(RIGHT);
+              break;
+            case SDLK_b:
               captured_event_factory.create_dynamite_event();
               state = WAITING_COMMAND;
               break;

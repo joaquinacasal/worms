@@ -26,6 +26,14 @@ void Area::setPosition(int x, int y) {
 	this->y = y;
 }
 
+void Area::setX(int x) {
+	this->x = x;
+}
+
+void Area::setY(int y) {
+	this->y = y;
+}
+
 SDL_Rect Area::toRect() const{
 	SDL_Rect rec = {
             this->x, this->y, this->width, this->height

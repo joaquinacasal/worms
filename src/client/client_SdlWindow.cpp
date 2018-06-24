@@ -11,19 +11,21 @@
 
 using std::string;
 
-SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height):
-        safe_queue(_safe_queue), width(width), height(height), connected(true),\
+SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue) :
+        safe_queue(_safe_queue), connected(true),\
         change_turn_message(NULL, 0), you_win_message(NULL, 0) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
     }
     errCode = SDL_CreateWindowAndRenderer(
-        width, height, SDL_RENDERER_ACCELERATED,
+        0, 0, SDL_RENDERER_ACCELERATED | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED,
         &this->window, &this->renderer);
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
+    SDL_GetWindowSize(this->window, &width, &height);
+    camera.set_position(Area(0, 0, width, height));
 
     // Cronometro del turno.
     turn_chrono = {font_factory.get_texture_big_font("60.0", \
@@ -34,6 +36,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height):
     background_texture = NULL;
     munitions_info = new MunitionsInformation(10, 100, font_factory, \
                                               colors_factory, renderer);
+    std::cout << "Fin del constructor SdlWindow" << std::endl;
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -46,20 +49,20 @@ void SdlWindow::fill() {
     if (background_texture == NULL)
       this->fill(0x33,0x33,0x33,0xFF);
     else
-      this->background_texture->render();
+      this->background_texture->render(camera);
 }
 
 void SdlWindow::render() {
     for (size_t i = 0; i < beams_textures.size(); ++i){
-      beams_textures[i]->beam_texture->render(beams_textures[i]->angle);
+      beams_textures[i]->beam_texture->render(camera, beams_textures[i]->angle);
     }
-    water_representation->render();
+    water_representation->render(camera);
     for (auto it = worms_textures.begin(); it != worms_textures.end(); ++it){
-        it->second->render();
+        it->second->render(camera);
     }
     for (auto it = weapons_textures.begin(); it != weapons_textures.end();\
                                                                         ++it){
-        it->second->render();
+        it->second->render(camera);
     }
 
     // Render turn_chrono
@@ -68,7 +71,8 @@ void SdlWindow::render() {
                    &turn_chrono_rect);
 
     // Render dynamite_chrono
-    SDL_Rect dynamite_chrono_rect = dynamite_chrono.rect.toRect();
+    Area dynamite_chrono_pos = camera.adapt_area(dynamite_chrono.rect);
+    SDL_Rect dynamite_chrono_rect = dynamite_chrono_pos.toRect();
     SDL_RenderCopy(this->renderer, dynamite_chrono.texture, NULL, \
                    &dynamite_chrono_rect);
 
@@ -89,27 +93,21 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 }
 
 void SdlWindow::draw(YouWinDrawable* drawable) {
-    Area area(width/2 - YOU_WIN_MESSAGE_SIZE / 2, height/2 - \
-              YOU_WIN_MESSAGE_SIZE / 2, YOU_WIN_MESSAGE_SIZE, \
-              YOU_WIN_MESSAGE_SIZE);
+    Area area = camera.get_center(YOU_WIN_MESSAGE_SIZE, YOU_WIN_MESSAGE_SIZE);
     you_win_message.set_message_texture(new SdlTexture(texture_factory.\
                                 get_texture_by_name("you_win"), *this, area));
     you_win_message.set_time_alive(YOU_WIN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {
-    Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - \
-              CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE,\
-              CHANGE_TURN_MESSAGE_SIZE);
+    Area area = camera.get_center(CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.set_message_texture(new SdlTexture(texture_factory.\
                               get_texture_by_name("start_turn"), *this, area));
     change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
-    Area area(width/2 - CHANGE_TURN_MESSAGE_SIZE / 2, height/2 - \
-              CHANGE_TURN_MESSAGE_SIZE / 2, CHANGE_TURN_MESSAGE_SIZE,\
-              CHANGE_TURN_MESSAGE_SIZE);
+    Area area = camera.get_center(CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.set_message_texture(new SdlTexture(texture_factory.\
                               get_texture_by_name("end_turn"), *this, area));
     change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
@@ -186,7 +184,7 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
 void SdlWindow::draw(StageDrawable* drawable) {
   width = drawable->get_width();
   height = drawable->get_height();
-  SDL_SetWindowSize(this->window, width, height);
+  camera.set_map_size(width, height);
   SDL_Texture* background = texture_factory.load_texture(\
                               string(BACKGROUNDS_FOLDER) + \
                               drawable->get_background(), renderer);
@@ -222,8 +220,9 @@ void SdlWindow::draw(DynamiteDrawable* drawable) {
   // Dynamite chornometer
   std::string time_left = std::to_string((int)drawable->\
                                                   get_time_to_explosion() + 1);
-  if (dynamite_chrono.texture)
+  if (dynamite_chrono.texture){
     SDL_DestroyTexture(dynamite_chrono.texture);
+  }
   dynamite_chrono.rect = Area(x + 10, y - 20, 20, 20);
   dynamite_chrono.texture = font_factory.get_texture_small_font(\
                               time_left.c_str(), \
@@ -237,7 +236,6 @@ void SdlWindow::draw(DynamiteExplosionDrawable* drawable) {
   SDL_DestroyTexture(dynamite_chrono.texture);
   dynamite_chrono.texture = NULL;
 }
-
 
 void SdlWindow::draw(RadiocontrolledDrawable* drawable){
   size_t id = drawable->get_id();
@@ -292,6 +290,10 @@ bool SdlWindow::is_connected(){
 
 void SdlWindow::stop(){
   connected = false;
+}
+
+void SdlWindow::move_camera(CameraMovement movement){
+    camera.move(movement);
 }
 
 SdlWindow::~SdlWindow() {

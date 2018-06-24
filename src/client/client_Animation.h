@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL2/SDL_image.h>
 #include "client_Area.h"
+#include "client_Camera.h"
 
 using std::string;
 
@@ -15,7 +16,7 @@ class Animation {
 public:
     Animation(SDL_Texture* texture, const SdlWindow& window, \
               Area position, int frames);
-    void render(int angle = 0, SDL_RendererFlip flip_flags = SDL_FLIP_NONE);
+    void render(Camera& camera, int angle = 0, SDL_RendererFlip flip_flags = SDL_FLIP_NONE);
     void set_position(int x, int y);
     void set_texture(SDL_Texture* texture, int frames);
     ~Animation() = default;

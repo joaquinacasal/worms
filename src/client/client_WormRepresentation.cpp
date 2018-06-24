@@ -22,12 +22,13 @@ WormRepresentation::WormRepresentation(WormState state, Area position, \
     arrow_texture = texture_factory.get_texture_by_name("arrow");
 }
 
-int WormRepresentation::render() const {
+int WormRepresentation::render(Camera& camera) const {
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     if (this->is_facing_right())
         flip = SDL_FLIP_HORIZONTAL;
-    this->worm_animation->render(angle, flip);
-    SDL_Rect life_rect = this->life_area.toRect();
+    this->worm_animation->render(camera, angle, flip);
+    Area pos = camera.adapt_area(this->life_area);
+    SDL_Rect life_rect = pos.toRect();
     SDL_RenderCopy(this->renderer, this->life_texture, NULL, &life_rect);
     if (_is_the_selected_worm) {
       SDL_Rect arrow_rect = this->arrow_area.toRect();

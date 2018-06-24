@@ -16,8 +16,9 @@ Animation::Animation(SDL_Texture* texture, const SdlWindow& window,\
         this->current_frame = Area(0, 0, width, frame_height);
 }
 
-void Animation::render(int angle, SDL_RendererFlip flip_flags) {
-    SDL_Rect position_rec = position.toRect();
+void Animation::render(Camera& camera, int angle, SDL_RendererFlip flip_flags) {
+    Area pos = camera.adapt_area(position);
+    SDL_Rect position_rec = pos.toRect();
     SDL_Rect src_frame = current_frame.toRect();
 
     SDL_RenderCopyEx(this->renderer, this->texture, &src_frame, &position_rec,\
