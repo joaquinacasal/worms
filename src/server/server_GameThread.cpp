@@ -6,6 +6,8 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <utility>
+#include <map>
 
 using ms = std::chrono::milliseconds;
 using get_time = std::chrono::steady_clock;
@@ -13,7 +15,8 @@ using std::move;
 
 void GameThread::load_config(){
   YamlParser yaml_parser;
-  map<string, string> config = yaml_parser.load_config(string(CONFIG_FOLDER) + string(CONFIG_FILE));
+  map<string, string> config = yaml_parser.load_config(string(CONFIG_FOLDER) +\
+                                string(CONFIG_FILE));
   if (config.count("worm_life") == 1) {
     worm_life_points = (size_t)std::stoi(config["worm_life"]);
   } else {
@@ -26,22 +29,28 @@ void GameThread::create_stage(string map_file, int number_players){
   ScenarioDTO scenario_DTO = yaml_parser.load_scenario(map_file);
 
   vector<WormDTO> worms_DTO = scenario_DTO.get_worms();
-  // Verifico que la cantidad de gusanos sea menor o igual a la cantidad de jugadores
+  // Verifico que la cantidad de gusanos sea <= a la cantidad de jugadores
   if (worms_DTO.size() < number_players) {
-    throw std::runtime_error("Número de jugadores es mayor a la cantidad de gusanos.\n");
+    throw std::runtime_error(\
+                  "Número de jugadores es mayor a la cantidad de gusanos.\n");
   } else if (number_players == 0) {
     throw std::runtime_error("Debe jugar al menos un jugador.\n");
   }
 
-  stage = new Stage((size_t)scenario_DTO.get_width(), (size_t)scenario_DTO.get_height(), scenario_DTO.get_background());
+  stage = new Stage((size_t)scenario_DTO.get_width(), \
+            (size_t)scenario_DTO.get_height(), scenario_DTO.get_background());
   // Creo los worms y los jugadores.
-  int number_players_with_more_worms =  (worms_DTO.size() % number_players);
-  if (number_players_with_more_worms == 0) number_players_with_more_worms = number_players;
-  int number_players_with_less_worms = number_players - number_players_with_more_worms;
+  int number_players_with_more_worms = (worms_DTO.size() % number_players);
+  if (number_players_with_more_worms == 0)
+    number_players_with_more_worms = number_players;
+  int number_players_with_less_worms = \
+    number_players - number_players_with_more_worms;
 
   // Cantidad de gusanos de los jugadores con MENOS gusanos.
-  int number_worms_per_player_with_less_worms = (int) (worms_DTO.size() / number_players);
-  int number_worms_per_player_with_more_worms = number_worms_per_player_with_less_worms;
+  int number_worms_per_player_with_less_worms = \
+                              (int)(worms_DTO.size() / number_players);
+  int number_worms_per_player_with_more_worms = \
+                              number_worms_per_player_with_less_worms;
 
   if (number_players_with_less_worms != 0)
     ++number_worms_per_player_with_more_worms;
@@ -239,7 +248,8 @@ void GameThread::check_weapons(Player* actual_player, bool& weapon_was_used){
 
 void GameThread::discount_time(int time_spent){
   turn_chrono -= TICK_TIME;
-  std::this_thread::sleep_for(std::chrono::milliseconds((int) TICK_TIME - time_spent));
+  std::this_thread::sleep_for(std::chrono::milliseconds(\
+                                                (int) TICK_TIME - time_spent));
   if (turn_chrono < 0) turn_chrono = 0;
 }
 
@@ -276,19 +286,18 @@ void GameThread::send_worms_information_to_clients(){
           movement_state = 1; // Quieto
       }
 
-      this->server_thread->send_worm_information_to_clients(id, life_points, x, \
-                                            y, angle, is_facing_right, i, movement_state);
-
+      this->server_thread->send_worm_information_to_clients(id, life_points,\
+                          x, y, angle, is_facing_right, i, movement_state);
     }
   }
-
 }
 
 void GameThread::send_stage_information_to_clients(){
   int width = this->stage->get_width();
   int height = this->stage->get_height();
   std::string background = this->stage->get_background();
-  this->server_thread->send_stage_information_to_clients(width, height, background);
+  this->server_thread->send_stage_information_to_clients(width, \
+                                                          height, background);
   std::vector<Beam*> all_beams = this->stage->get_all_beams();
   for (size_t i = 0; i < all_beams.size(); i++){
     double x = all_beams[i]->get_horizontal_position();
@@ -308,10 +317,12 @@ void GameThread::send_weapon_information_to_clients(){
     double x = actual_player->get_dynamite_horizontal_position();
     double y = actual_player->get_dynamite_vertical_position();
     double time_to_explosion = actual_player->get_dynamite_time_to_explosion();
-    this->server_thread->send_dynamite_information_to_clients(x, y, time_to_explosion);
+    this->server_thread->send_dynamite_information_to_clients(x,\
+                                                      y, time_to_explosion);
   }
   if (actual_player->is_radiocontrolled_active()){
-    std::map<size_t, std::pair<float, float>> positions = actual_player->get_radiocontrolled_positions();
+    std::map<size_t, std::pair<float, float>> positions = \
+                                actual_player->get_radiocontrolled_positions();
     for (size_t i = 0; i < 6; i++){
       if (positions.count(i) == 0) continue;
       double x = positions[i].first;
@@ -323,16 +334,15 @@ void GameThread::send_weapon_information_to_clients(){
 
 void GameThread::send_munitions_information(){
   Player* actual_player = turns_manager.get_selected_player();
-  this->server_thread->send_munitions_info(actual_player->get_dynamite_munitions(), \
-                                          actual_player->get_radiocontrolled_munitions(), \
-                                          actual_player->get_teletransportation_munitions());
-
+  this->server_thread->send_munitions_info(\
+                            actual_player->get_dynamite_munitions(), \
+                            actual_player->get_radiocontrolled_munitions(), \
+                            actual_player->get_teletransportation_munitions());
 }
 
 void GameThread::send_munitions_information_to_all_clients(){
   Player* actual_player = turns_manager.get_selected_player();
   this->server_thread->send_munitions_info_to_all_clients();
-
 }
 
 
@@ -350,7 +360,8 @@ void GameThread::addClient(ClientHandler* client_handler){
 }
 
 void GameThread::add_all_clients(){
-  std::vector<ClientHandler*>* clients = server_thread->get_all_connected_clients();
+  std::vector<ClientHandler*>* clients = \
+                                  server_thread->get_all_connected_clients();
   for (size_t i = 0; i < clients->size(); i++){
     addClient((*clients)[i]);
   }
@@ -422,9 +433,11 @@ void GameThread::check_radiocontrolled_explosions(){
   std::vector<Worm*> all_worms_alive = this->stage->get_all_alive_worms();
   Player* actual_player = turns_manager.get_selected_player();
   if (actual_player->is_radiocontrolled_active()){
-    std::vector<size_t> explosions = actual_player->check_radiocontrolled_explosions();
+    std::vector<size_t> explosions = \
+                            actual_player->check_radiocontrolled_explosions();
     for (size_t i = 0; i < explosions.size(); i++){
-      this->server_thread->send_radiocontrolled_explosion_to_clients(explosions[i]);
+      this->server_thread->\
+                    send_radiocontrolled_explosion_to_clients(explosions[i]);
     }
   }
   check_deaths(all_worms_alive);

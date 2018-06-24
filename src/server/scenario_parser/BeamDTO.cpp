@@ -3,7 +3,8 @@
 
 using std::string;
 
-BeamDTO::BeamDTO(int id, string image, float x, float y, int length, int angle) : id(id), image(image), x(x), y(y), length(length), angle(angle) {}
+BeamDTO::BeamDTO(int id, string image, float x, float y, int length, int angle)\
+            : id(id), image(image), x(x), y(y), length(length), angle(angle) {}
 
 int BeamDTO::get_id() {
     return id;

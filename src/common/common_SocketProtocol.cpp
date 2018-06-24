@@ -11,7 +11,8 @@ using std::move;
 SocketProtocol::SocketProtocol(const char *ip, const char *port) :
                                                 socket(ip, port) {}
 
-SocketProtocol::SocketProtocol(Socket &&other_socket) : socket(move(other_socket)) {}
+SocketProtocol::SocketProtocol(Socket &&other_socket) : \
+                                socket(move(other_socket)) {}
 
 void SocketProtocol::send_command_or_code(char command_or_code) {
     socket.send(&command_or_code, 1);
@@ -107,16 +108,17 @@ void SocketProtocol::send_dynamite(){
 }
 
 void SocketProtocol::send_worm_info(size_t id, size_t life_points, double x,\
-              double y, int angle, bool is_facing_right, int team, int movement_state){
-
+      double y, int angle, bool is_facing_right, int team, int movement_state){
     send_command_or_code(PROTOCOL_WORM_INFO);
     send_numeric_value((int)id);
     send_numeric_value((int)life_points);
     send_numeric_value(x);
     send_numeric_value(y);
     send_numeric_value(angle);
-    if (is_facing_right) send_numeric_value(1);
-    else send_numeric_value(0);
+    if (is_facing_right)
+      send_numeric_value(1);
+    else
+      send_numeric_value(0);
     send_numeric_value(team);
     send_numeric_value(movement_state);
 }
@@ -128,7 +130,8 @@ void SocketProtocol::send_worm_death_notif(size_t id, int team){
 }
 
 
-void SocketProtocol::send_beam_info(double x, double y, int length, int width, int angle){
+void SocketProtocol::send_beam_info(double x, double y, int length,\
+                                    int width, int angle){
     send_command_or_code(PROTOCOL_BEAM_INFO);
     send_numeric_value(x);
     send_numeric_value(y);
@@ -137,14 +140,16 @@ void SocketProtocol::send_beam_info(double x, double y, int length, int width, i
     send_numeric_value(angle);
 }
 
-void SocketProtocol::send_stage_info(int width, int height, std::string background){
+void SocketProtocol::send_stage_info(int width, int height,\
+                                     std::string background){
   send_command_or_code(PROTOCOL_STAGE_INFO);
   send_numeric_value(width);
   send_numeric_value(height);
   send_string(background);
 }
 
-void SocketProtocol::send_dynamite_info(double x, double y, int time_to_explosion){
+void SocketProtocol::send_dynamite_info(double x, double y,\
+                                        int time_to_explosion){
     send_command_or_code(PROTOCOL_DYMAMITE_INFO);
     send_numeric_value(x);
     send_numeric_value(y);

@@ -8,8 +8,10 @@ private:
     ClientHandler* client;
     size_t id;
 
-    RadiocontrolledExplosionNotification(const RadiocontrolledExplosionNotification&) = delete;
-    RadiocontrolledExplosionNotification& operator=(const RadiocontrolledExplosionNotification&) = delete;
+    RadiocontrolledExplosionNotification(\
+                        const RadiocontrolledExplosionNotification&) = delete;
+    RadiocontrolledExplosionNotification& operator=\
+                        (const RadiocontrolledExplosionNotification&) = delete;
 public:
     RadiocontrolledExplosionNotification(ClientHandler* client, size_t id);
 

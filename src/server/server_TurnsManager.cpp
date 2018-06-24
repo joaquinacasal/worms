@@ -1,4 +1,5 @@
 #include "server_TurnsManager.h"
+#include <vector>
 
 TurnsManager::TurnsManager(){
   players = std::vector<Player*>();

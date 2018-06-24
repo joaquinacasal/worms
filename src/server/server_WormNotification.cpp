@@ -15,5 +15,6 @@ WormNotification::WormNotification(ClientHandler* client, size_t id, \
 }
 
 void WormNotification::run(){
-  client->send_worm_info(id, life_points, x, y, angle, is_facing_right, team, movement_state);
+  client->send_worm_info(id, life_points, x, y, angle, is_facing_right,\
+                                                      team, movement_state);
 }

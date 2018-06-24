@@ -1,6 +1,7 @@
 #include "server_WormDeathNotification.h"
 
-WormDeathNotification::WormDeathNotification(ClientHandler* client, size_t id, int team){
+WormDeathNotification::WormDeathNotification(ClientHandler* client,\
+                                             size_t id, int team){
   this->client = client;
   this->id = id;
   this->team = team;

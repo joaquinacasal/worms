@@ -20,10 +20,13 @@ IEvent* ProtocolTranslator::translate(Player* player, char code){
   return NULL;
 }
 
-IEvent* ProtocolTranslator::translate(Player* player, char code, double x, double y){
+IEvent* ProtocolTranslator::translate(Player* player, char code, double x,\
+                                                                double y){
   switch (code) {
-    case PROTOCOL_TELETRANSPORTATION: return new TeletransportationEvent(player, x, y);
-    case PROTOCOL_RADIOCONTROLLED: return new RadiocontrolledEvent(player, x, y);
+    case PROTOCOL_TELETRANSPORTATION:
+      return new TeletransportationEvent(player, x, y);
+    case PROTOCOL_RADIOCONTROLLED:
+      return new RadiocontrolledEvent(player, x, y);
   }
   return NULL;
 }

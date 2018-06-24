@@ -4,6 +4,9 @@
 #include "server_Worm.h"
 #include "server_Armory.h"
 #include <stdlib.h>
+#include <map>
+#include <utility>
+#include <vector>
 
 /* Representación de un Jugador. Tiene un grupo de gusanos que conforma su
  * ejército, y un armamento que comparten todos los gusanos. Internamente
@@ -19,9 +22,10 @@ private:
   // No copiable.
   Player(const Player&) = delete;
   Player& operator=(const Player&) = delete;
+
 public:
   // Constructor. Recibe un puntero al armory que va a equipar.
-  Player(Armory* armory);
+  explicit Player(Armory* armory);
 
   // Agrega el gusano al ejército.
   void add_worm(Worm* worm);

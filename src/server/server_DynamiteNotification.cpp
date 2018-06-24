@@ -1,7 +1,7 @@
 #include "server_DynamiteNotification.h"
 
-DynamiteNotification::DynamiteNotification(ClientHandler* client, double x, double y,\
-                                                int time_to_explosion){
+DynamiteNotification::DynamiteNotification(ClientHandler* client, \
+                                    double x, double y, int time_to_explosion){
   this->client = client;
   this->x = x;
   this->y = y;

@@ -11,9 +11,11 @@ private:
     double y;
 
     RadiocontrolledNotification(const RadiocontrolledNotification&) = delete;
-    RadiocontrolledNotification& operator=(const RadiocontrolledNotification&) = delete;
+    RadiocontrolledNotification& operator=(const RadiocontrolledNotification&)\
+                                                                  = delete;
 public:
-    RadiocontrolledNotification(ClientHandler* client, size_t id, double x, double y);
+    RadiocontrolledNotification(ClientHandler* client, size_t id, double x,\
+                                                                    double y);
 
     void run();
 

@@ -3,6 +3,7 @@
 
 #include "server_Player.h"
 #include <stdlib.h>
+#include <vector>
 
 /* Clase que representa el manejador de turnos del juego. Tiene una lista de
  * los jugadores y organiza de quién es el turno actual y quién le sigue.
@@ -16,6 +17,7 @@ private:
   // No copiable
   TurnsManager(const TurnsManager&) = delete;
   TurnsManager& operator=(const TurnsManager&) = delete;
+
 public:
   // Constructor.
   TurnsManager();

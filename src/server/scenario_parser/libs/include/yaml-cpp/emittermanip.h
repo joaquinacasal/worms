@@ -63,21 +63,21 @@ enum EMITTER_MANIP {
 };
 
 struct _Indent {
-  _Indent(int value_) : value(value_) {}
+  explicit _Indent(int value_) : value(value_) {}
   int value;
 };
 
 inline _Indent Indent(int value) { return _Indent(value); }
 
 struct _Alias {
-  _Alias(const std::string& content_) : content(content_) {}
+  explicit _Alias(const std::string& content_) : content(content_) {}
   std::string content;
 };
 
 inline _Alias Alias(const std::string content) { return _Alias(content); }
 
 struct _Anchor {
-  _Anchor(const std::string& content_) : content(content_) {}
+  explicit _Anchor(const std::string& content_) : content(content_) {}
   std::string content;
 };
 
@@ -113,7 +113,7 @@ inline _Tag SecondaryTag(const std::string content) {
 }
 
 struct _Comment {
-  _Comment(const std::string& content_) : content(content_) {}
+  explicit _Comment(const std::string& content_) : content(content_) {}
   std::string content;
 };
 

@@ -7,10 +7,12 @@ class DynamiteExplosionNotification : public INotification {
 private:
     ClientHandler* client;
 
-    DynamiteExplosionNotification(const DynamiteExplosionNotification&) = delete;
-    DynamiteExplosionNotification& operator=(const DynamiteExplosionNotification&) = delete;
+    DynamiteExplosionNotification(const DynamiteExplosionNotification&)\
+                                  = delete;
+    DynamiteExplosionNotification& operator=\
+                              (const DynamiteExplosionNotification&) = delete;
 public:
-    DynamiteExplosionNotification(ClientHandler* client);
+    explicit DynamiteExplosionNotification(ClientHandler* client);
 
     void run();
 

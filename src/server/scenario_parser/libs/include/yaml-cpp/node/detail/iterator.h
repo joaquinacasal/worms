@@ -21,7 +21,6 @@ struct iterator_value;
 
 template <typename V>
 class iterator_base {
-
  private:
   template <typename>
   friend class iterator_base;

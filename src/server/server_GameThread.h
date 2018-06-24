@@ -14,6 +14,8 @@
 #include "scenario_parser/ScenarioDTO.h"
 #include "scenario_parser/WormDTO.h"
 #include "scenario_parser/BeamDTO.h"
+#include <string>
+#include <vector>
 
 #define TURN_LENGTH 60000
 #define TIME_BETWEEN_TURNS 1000

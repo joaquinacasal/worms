@@ -26,9 +26,10 @@ private:
   // No copiable
   Movement(const Movement&) = delete;
   Movement& operator=(const Movement&) = delete;
+
 public:
   // Constructor. Recibe el body de Box2D.
-  Movement(b2Body* body);
+  explicit Movement(b2Body* body);
 
   // Devuelve un float indicando la posición horizontal del gusano.
   float get_horizontal_position();

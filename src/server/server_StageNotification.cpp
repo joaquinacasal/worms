@@ -1,5 +1,7 @@
 #include "server_StageNotification.h"
 
+#include <string>
+
 StageNotification::StageNotification(ClientHandler* client, int width, \
                                           int height, std::string background){
   this->client = client;

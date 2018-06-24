@@ -8,9 +8,10 @@ private:
     ClientHandler* client;
 
     ClosedConnectionNotification(const ClosedConnectionNotification&) = delete;
-    ClosedConnectionNotification& operator=(const ClosedConnectionNotification&) = delete;
+    ClosedConnectionNotification& operator=\
+                                (const ClosedConnectionNotification&) = delete;
 public:
-    ClosedConnectionNotification(ClientHandler* client);
+    explicit ClosedConnectionNotification(ClientHandler* client);
 
     void run();
 

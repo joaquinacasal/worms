@@ -13,7 +13,8 @@ private:
     MunitionsNotification(const MunitionsNotification&) = delete;
     MunitionsNotification& operator=(const MunitionsNotification&) = delete;
 public:
-    MunitionsNotification(ClientHandler* client, int dynamite_m, int radiocontrolled_m, int teletransportation_m);
+    MunitionsNotification(ClientHandler* client, int dynamite_m, \
+                            int radiocontrolled_m, int teletransportation_m);
 
     void run();
 

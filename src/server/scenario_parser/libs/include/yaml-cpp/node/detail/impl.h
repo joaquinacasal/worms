@@ -10,6 +10,8 @@
 #include "yaml-cpp/node/detail/node.h"
 #include "yaml-cpp/node/detail/node_data.h"
 #include <type_traits>
+#include <string>
+#include <vector>
 
 namespace YAML {
 namespace detail {
@@ -65,7 +67,6 @@ template <typename Key>
 struct remove_idx<
     Key, typename std::enable_if<std::is_unsigned<Key>::value &&
                                  !std::is_same<Key, bool>::value>::type> {
-
   static bool remove(std::vector<node*>& sequence, const Key& key) {
     if (key >= sequence.size()) {
       return false;
@@ -79,7 +80,6 @@ struct remove_idx<
 template <typename Key>
 struct remove_idx<Key,
                   typename std::enable_if<std::is_signed<Key>::value>::type> {
-
   static bool remove(std::vector<node*>& sequence, const Key& key) {
     return key >= 0 ? remove_idx<std::size_t>::remove(
                           sequence, static_cast<std::size_t>(key))

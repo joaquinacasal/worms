@@ -13,6 +13,7 @@
 #include "yaml-cpp/node/ptr.h"
 #include "yaml-cpp/node/detail/node_ref.h"
 #include <set>
+#include <string>
 
 namespace YAML {
 namespace detail {

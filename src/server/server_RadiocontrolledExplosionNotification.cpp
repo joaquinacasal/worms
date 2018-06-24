@@ -1,7 +1,7 @@
 #include "server_RadiocontrolledExplosionNotification.h"
 
-RadiocontrolledExplosionNotification::RadiocontrolledExplosionNotification(ClientHandler* client,\
-                                                size_t id){
+RadiocontrolledExplosionNotification::RadiocontrolledExplosionNotification(\
+                                          ClientHandler* client, size_t id){
   this->client = client;
   this->id = id;
 }

@@ -11,8 +11,10 @@ size_t Worm::get_id(){
 }
 
 void Worm::subtract_life(size_t life_points){
-  if (this->life >= life_points) this->life -= life_points;
-  else this->life = 0;
+  if (this->life >= life_points)
+    this->life -= life_points;
+  else
+    this->life = 0;
 }
 
 bool Worm::is_alive(){

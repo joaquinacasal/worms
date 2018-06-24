@@ -8,6 +8,7 @@
 #endif
 
 #include <stack>
+#include <string>
 
 #include "yaml-cpp/anchor.h"
 #include "yaml-cpp/emitterstyle.h"
@@ -22,7 +23,7 @@ class Emitter;
 
 class EmitFromEvents : public EventHandler {
  public:
-  EmitFromEvents(Emitter& emitter);
+  explicit EmitFromEvents(Emitter& emitter);
 
   virtual void OnDocumentStart(const Mark& mark);
   virtual void OnDocumentEnd();

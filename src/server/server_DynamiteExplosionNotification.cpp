@@ -1,6 +1,7 @@
 #include "server_DynamiteExplosionNotification.h"
 
-DynamiteExplosionNotification::DynamiteExplosionNotification(ClientHandler* client){
+DynamiteExplosionNotification::DynamiteExplosionNotification(\
+                                                      ClientHandler* client){
   this->client = client;
 }
 

@@ -10,6 +10,7 @@
 #include "../common/common_SafeQueue.h"
 #include "server_IEvent.h"
 #include "server_NotifierThread.h"
+#include <string>
 using std::vector;
 
 class GameThread;
@@ -34,6 +35,7 @@ private:
 
     void startTurn(ClientHandler* client);
     void finishTurn(ClientHandler* client);
+
 public:
     ServerThread(const char* port, TurnsManager& turns_manager, GameThread& gt);
 
@@ -53,15 +55,18 @@ public:
 
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando) a todos los clientes.
-    void send_worm_information_to_clients(size_t id, size_t life_points, double x,\
-                            double y, int angle, bool is_facing_right, int team, int movement_state);
+    void send_worm_information_to_clients(size_t id, size_t life_points,\
+                                          double x, double y, int angle, \
+                                          bool is_facing_right, int team,\
+                                          int movement_state);
 
     // Envía la notificación de que el gusano con id recibido murió.
     void send_worm_death_notif_to_clients(size_t id, int team);
 
     // Envía la información pertinente del escenario (ancho y largo) a todos
     // los clientes.
-    void send_stage_information_to_clients(int width, int height, std::string background);
+    void send_stage_information_to_clients(int width, int height, \
+                                           std::string background);
 
     // Envía el tiempo restante hasta finalizar el turno en ms a todos los
     // clientes.
@@ -69,8 +74,8 @@ public:
 
     // Envía la información de una viga (posición, ancho, alto y ángulo) a
     // todos los clientes.
-    void send_beam_information_to_clients(double x, double y, int length, int width,\
-                                                            int angle);
+    void send_beam_information_to_clients(double x, double y, int length,\
+                                          int width, int angle);
 
     // Envía la información de la dinamita activa (posición y tiempo hasta
     // la explosión) a todos los clientes.
@@ -83,13 +88,15 @@ public:
 
     // Envía la información (posición) de una munición del teledirigido
     // a todos los clientes.
-    void send_radiocontrolled_information_to_clients(size_t id, double x, double y);
+    void send_radiocontrolled_information_to_clients(size_t id,\
+                                                     double x, double y);
 
     // Envía la notificación de explosión del teledirigido con id recibido.
     void send_radiocontrolled_explosion_to_clients(size_t id);
 
     // Envía la cantidad de municiones de cada arma.
-    void send_munitions_info(int dynamite_m, int radiocontrolled_m, int teletransportation_m);
+    void send_munitions_info(int dynamite_m, int radiocontrolled_m, \
+                             int teletransportation_m);
 
     // Envía la información de las municiones disponibles de cada arma a todos
     // los jugadores.

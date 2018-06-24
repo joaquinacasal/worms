@@ -1,4 +1,7 @@
 #include "server_Radiocontrolled.h"
+#include <map>
+#include <utility>
+#include <vector>
 
 Radiocontrolled::Radiocontrolled(Stage& a_stage) : stage(a_stage){
   active = false;
@@ -54,7 +57,8 @@ std::vector<size_t> Radiocontrolled::check_explosions(){
 
 bool Radiocontrolled::is_colliding(b2Body* munition){
   if (!is_active()) return false;
-  for (b2ContactEdge* edge = munition->GetContactList(); edge; edge = edge->next){
+  for (b2ContactEdge* edge = munition->GetContactList(); \
+      edge; edge = edge->next){
     if (edge->contact->IsTouching()) return true;
   }
   return false;

@@ -9,6 +9,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "yaml-cpp/dll.h"
 

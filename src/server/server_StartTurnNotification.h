@@ -10,7 +10,7 @@ private:
     StartTurnNotification(const StartTurnNotification&) = delete;
     StartTurnNotification& operator=(const StartTurnNotification&) = delete;
 public:
-    StartTurnNotification(ClientHandler* client);
+    explicit StartTurnNotification(ClientHandler* client);
 
     void run();
 

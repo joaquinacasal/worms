@@ -51,7 +51,7 @@ public:
     // Envía la información de un gusano (id, puntos de vida, posición, angulo}
     // y para qué lado está mirando).
     void send_worm_info(size_t id, size_t life_points, double x, double y, \
-                                int angle, bool is_facing_right, int team, int movement_state);
+                int angle, bool is_facing_right, int team, int movement_state);
 
     // Envía una notificación indicando que el gusano con el id recibido murió.
     void send_worm_death_notif(size_t id, int team);
@@ -77,7 +77,8 @@ public:
     void send_radiocontrolled_explosion_info(size_t id);
 
     // Envía la información de las municiones disponibles.
-    void send_munitions_info(int dynamite_m, int radiocontrolled_m, int teletransportation_m);
+    void send_munitions_info(int dynamite_m, int radiocontrolled_m,\
+                                                  int teletransportation_m);
 
     // Envía el tiempo restante hasta finalizar el turno en ms.
     void send_turn_time_info(int turn_chrono);

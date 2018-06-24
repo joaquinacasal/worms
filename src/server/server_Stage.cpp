@@ -2,7 +2,8 @@
 #define timeStep 1.0f/50.0f   //the length of time passed to simulate (seconds)
 #define velocityIterations 8.0f   //how strongly to correct velocity
 #define positionIterations 3.0f   //how strongly to correct position
-
+#include <string>
+#include <vector>
 
 Stage::Stage(size_t width, size_t height, std::string background){
   this->width = width;
@@ -107,7 +108,7 @@ b2Body* Stage::add_radiocontrolled(float x){
   myBodyDef.type = b2_dynamicBody;
   myBodyDef.position.Set(x, height - 10);
   b2Body* radiocontrolled_body = m_world->CreateBody(&myBodyDef);
-  radiocontrolled_body->SetLinearVelocity( b2Vec2( 5, 0 ) );
+  radiocontrolled_body->SetLinearVelocity(b2Vec2(5, 0));
   //shape definition
   b2PolygonShape polygonShape;
   polygonShape.SetAsBox(0.1, 0.1); // Tamanio muy chico
@@ -121,13 +122,13 @@ b2Body* Stage::add_radiocontrolled(float x){
 
 Worm* Stage::get_worm(size_t id){
   auto search = worms.find(id);
-  if(search != worms.end()) return search->second;
+  if (search != worms.end()) return search->second;
   return NULL;
 }
 
 Beam* Stage::get_beam(size_t id){
   auto search = beams.find(id);
-  if(search != beams.end()) return search->second;
+  if (search != beams.end()) return search->second;
   return NULL;
 }
 
@@ -187,12 +188,16 @@ void Stage::explode(float x, float y, float radius, float epicentre_damage){
     // Resto el epicentre_damage, si es igual al radio resto 0.
     float force = (radius - distance) / radius * epicentre_damage;
 
-    affected_worms[i]->subtract_life( (size_t)force );
+    affected_worms[i]->subtract_life((size_t)force);
     affected_worms[i]->make_movable();
 
     bool fly_to_the_left = (affected_worms[i]->get_horizontal_position() < x);
-    if (fly_to_the_left) affected_worms[i]->apply_force(-force * EXPLOSION_FORCE, force * EXPLOSION_FORCE);
-    else affected_worms[i]->apply_force(force * EXPLOSION_FORCE, force * EXPLOSION_FORCE);
+    if (fly_to_the_left)
+      affected_worms[i]->apply_force(\
+        -force * EXPLOSION_FORCE, force * EXPLOSION_FORCE);
+    else
+      affected_worms[i]->apply_force(\
+          force * EXPLOSION_FORCE, force * EXPLOSION_FORCE);
   }
 }
 
@@ -208,5 +213,4 @@ Stage::~Stage(){
     delete beams[i];
   }
   delete m_world;
-
 }

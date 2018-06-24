@@ -16,12 +16,14 @@ map<string, string> YamlParser::load_config(string filename) {
 ScenarioDTO YamlParser::load_scenario(string filename) {
     YAML::Node scenario_file = YAML::LoadFile(filename);
 
-    map<string, string> scenario = scenario_file["scenario"].as<map<string, string>>();
+    map<string, string> scenario = scenario_file["scenario"].\
+                                                    as<map<string, string>>();
     int height = std::stoi(scenario.at("height"));
     int width = std::stoi(scenario.at("width"));
     string background = scenario.at("background");
 
-    vector<map<string, string>> worms = scenario_file["worms"].as<vector<map<string, string>>>();
+    vector<map<string, string>> worms = scenario_file["worms"].\
+                                            as<vector<map<string, string>>>();
     vector<WormDTO> wormsDTOs;
     for (map<string, string> worm : worms){
         int id = std::stoi(worm.at("id"));
@@ -32,7 +34,8 @@ ScenarioDTO YamlParser::load_scenario(string filename) {
         wormsDTOs.push_back(wormDTO);
     }
 
-    vector<map<string, string>> beams = scenario_file["beams"].as<vector<map<string, string>>>();
+    vector<map<string, string>> beams = scenario_file["beams"].\
+                                            as<vector<map<string, string>>>();
     vector<BeamDTO> beamsDTOs;
     for (map<string, string> beam : beams){
         int id = std::stoi(beam.at("id"));
@@ -48,4 +51,3 @@ ScenarioDTO YamlParser::load_scenario(string filename) {
     ScenarioDTO scenarioDTO(background, height, width, wormsDTOs, beamsDTOs);
     return scenarioDTO;
 }
-

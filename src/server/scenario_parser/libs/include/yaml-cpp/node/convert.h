@@ -13,6 +13,8 @@
 #include <map>
 #include <sstream>
 #include <vector>
+#include <string>
+#include <utility>
 
 #include "yaml-cpp/binary.h"
 #include "yaml-cpp/node/impl.h"

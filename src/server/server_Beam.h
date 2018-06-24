@@ -21,6 +21,7 @@ private:
   // No es copiable
   Beam(const Beam&) = delete;
   Beam& operator=(const Beam&) = delete;
+
 public:
   // Constructor. Recibe el id de la viga, el largo, el ángulo y el body de
   // Box2D que lo representa en el escenario.

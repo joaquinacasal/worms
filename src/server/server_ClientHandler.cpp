@@ -32,10 +32,12 @@ void ClientHandler::run() {
     }
 }
 
-void ClientHandler::send_worm_info(size_t id, size_t life_points, double x, double y,\
-                            int angle, bool is_facing_right, int team, int movement_state){
+void ClientHandler::send_worm_info(size_t id, size_t life_points,\
+                  double x, double y, int angle, bool is_facing_right,\
+                  int team, int movement_state){
   if (!is_alive()) return;
-  this->protocol.send_worm_info(id, life_points, x, y, angle, is_facing_right, team, movement_state);
+  this->protocol.send_worm_info(id, life_points, x, y, angle,\
+                                is_facing_right, team, movement_state);
 }
 
 void ClientHandler::send_worm_death_notif(size_t id, int team){
@@ -44,17 +46,20 @@ void ClientHandler::send_worm_death_notif(size_t id, int team){
 }
 
 
-void ClientHandler::send_stage_info(size_t width, size_t height, std::string background){
+void ClientHandler::send_stage_info(size_t width, size_t height,\
+                                    std::string background){
   if (!is_alive()) return;
   this->protocol.send_stage_info(width, height, background);
 }
 
-void ClientHandler::send_beam_info(double x, double y, int length, int width, int angle){
+void ClientHandler::send_beam_info(double x, double y, int length,\
+                                   int width, int angle){
   if (!is_alive()) return;
   this->protocol.send_beam_info(x, y, length, width, angle);
 }
 
-void ClientHandler::send_dynamite_info(double x, double y, int time_to_explosion){
+void ClientHandler::send_dynamite_info(double x, double y, \
+                                       int time_to_explosion){
   if (!is_alive()) return;
   this->protocol.send_dynamite_info(x, y, time_to_explosion);
 }
@@ -77,7 +82,8 @@ void ClientHandler::send_radiocontrolled_explosion_info(size_t id){
 void ClientHandler::send_munitions_info(int dynamite_m, int radiocontrolled_m,\
                                             int teletransportation_m){
   if (!is_alive()) return;
-  this->protocol.send_munitions_info(dynamite_m, radiocontrolled_m, teletransportation_m);
+  this->protocol.send_munitions_info(dynamite_m, radiocontrolled_m,\
+                                     teletransportation_m);
 }
 
 
@@ -120,12 +126,12 @@ bool ClientHandler::is_alive() const {
 
 void ClientHandler::enable_queue(){
   if (!is_alive()) return;
-    this->is_queue_enabled = true;
+  this->is_queue_enabled = true;
 }
 
 void ClientHandler::disable_queue(){
   if (!is_alive()) return;
-    this->is_queue_enabled = false;
+  this->is_queue_enabled = false;
 }
 
 Player* ClientHandler::get_player(){

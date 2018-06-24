@@ -14,8 +14,7 @@ private:
  std::queue<T> queue_;
  std::mutex mutex_;
 
- public:
-
+public:
   // Guarda el primer elemento el puntero recibido.
   bool pop(T& elem) {
     Lock l(mutex_);
@@ -32,7 +31,6 @@ private:
       Lock l(mutex_);
       queue_.push(elem);
   }
-
 };
 
 #endif

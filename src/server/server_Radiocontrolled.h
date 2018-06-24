@@ -6,6 +6,7 @@
 #include <map>
 #include "Box2D/Box2D.h"
 #include "server_Stage.h"
+#include <utility>
 
 #define RADIUS_RADIOCONTROLLED 20.0 // 2 m * 10 .
 #define EPICENTRE_DAMAGE_RADIOCONTROLLED 40.0
@@ -36,9 +37,10 @@ class Radiocontrolled {
     // Método privado que recibe una munición y devuelve un booleano
     // indicando si está colisionando con algún objeto.
     bool is_colliding(b2Body* munition);
+
   public:
     // Constructor. Recibe el stage donde creará las 6 municiones.
-    Radiocontrolled(Stage& a_stage);
+    explicit Radiocontrolled(Stage& a_stage);
 
 
     // Si ya esta activo, devuelve false sin cambiar nada.

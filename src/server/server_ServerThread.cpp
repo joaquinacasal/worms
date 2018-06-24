@@ -1,6 +1,8 @@
 #include <iostream>
 #include <syslog.h>
 #include "server_ServerThread.h"
+#include <string>
+#include <vector>
 
 #define SOCKETS_HOLDING 10
 
@@ -14,7 +16,7 @@ ServerThread::ServerThread(const char* port, TurnsManager& turns_manager,\
 }
 
 void ServerThread::run() {
-    for (size_t i = 0;i < turns_manager.get_number_players() && keep_running;\
+    for (size_t i = 0; i < turns_manager.get_number_players() && keep_running;\
                                                                       i++){
       try {
         Socket client_socket = socket.accept();
@@ -69,10 +71,12 @@ void ServerThread::send_turn_time_information_to_clients(int turn_chrono){
 }
 
 void ServerThread::send_worm_information_to_clients(size_t id, \
-  size_t life_points, double x, double y, int angle, bool is_facing_right, int team, int movement_state){
+                  size_t life_points, double x, double y, int angle, \
+                  bool is_facing_right, int team, int movement_state){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
-    notifier.send_worm_info(clients[i], id, life_points, x, y, angle, is_facing_right, team, movement_state);
+    notifier.send_worm_info(clients[i], id, life_points, x, y, angle,\
+                            is_facing_right, team, movement_state);
   }
 }
 
@@ -83,14 +87,16 @@ void ServerThread::send_worm_death_notif_to_clients(size_t id, int team){
   }
 }
 
-void ServerThread::send_stage_information_to_clients(int width, int height, std::string background){
+void ServerThread::send_stage_information_to_clients(int width, \
+                                          int height, std::string background){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
     notifier.send_stage_info(clients[i], width, height, background);
   }
 }
 
-void ServerThread::send_beam_information_to_clients(double x, double y, int length, int width, int angle){
+void ServerThread::send_beam_information_to_clients(double x, double y,\
+                                            int length, int width, int angle){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
     notifier.send_beam_info(clients[i],x, y, length, width, angle);
@@ -112,7 +118,8 @@ void ServerThread::send_dynamite_explosion_to_clients(){
 }
 
 
-void ServerThread::send_radiocontrolled_information_to_clients(size_t id, double x, double y){
+void ServerThread::send_radiocontrolled_information_to_clients(size_t id,\
+                                                          double x, double y){
   if (!keep_running) return;
   for (size_t i = 0; i < clients.size(); ++i){
     notifier.send_radiocontrolled_info(clients[i], id, x, y);
@@ -126,16 +133,19 @@ void ServerThread::send_radiocontrolled_explosion_to_clients(size_t id){
   }
 }
 
-void ServerThread::send_munitions_info(int dynamite_m, int radiocontrolled_m, int teletransportation_m){
-  notifier.send_munitions_info(clients[actual_turn], dynamite_m, radiocontrolled_m, teletransportation_m);
+void ServerThread::send_munitions_info(int dynamite_m, int radiocontrolled_m,\
+                                       int teletransportation_m){
+  notifier.send_munitions_info(clients[actual_turn], dynamite_m, \
+                               radiocontrolled_m, teletransportation_m);
 }
 
 void ServerThread::send_munitions_info_to_all_clients(){
   for (size_t i = 0; i < clients.size(); ++i){
     Player* actual_player = clients[i]->get_player();
-    notifier.send_munitions_info(clients[i], actual_player->get_dynamite_munitions(), \
-                                            actual_player->get_radiocontrolled_munitions(), \
-                                            actual_player->get_teletransportation_munitions());
+    notifier.send_munitions_info(clients[i], \
+                             actual_player->get_dynamite_munitions(), \
+                             actual_player->get_radiocontrolled_munitions(), \
+                             actual_player->get_teletransportation_munitions());
   }
 }
 

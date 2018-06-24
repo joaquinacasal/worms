@@ -3,7 +3,8 @@
 
 using std::string;
 
-WormDTO::WormDTO(int id, string image, float x, float y): id(id), image(image), x(x), y(y) {}
+WormDTO::WormDTO(int id, string image, float x, float y): \
+                                        id(id), image(image), x(x), y(y) {}
 
 int WormDTO::get_id() {
     return id;

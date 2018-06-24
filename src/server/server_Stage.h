@@ -8,6 +8,7 @@
 #include "Box2D/Box2D.h"
 #include <unordered_map>
 #include <vector>
+#include <string>
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 #define EXPLOSION_FORCE 100
@@ -38,6 +39,7 @@ private:
   // No es copiable.
   Stage(const Stage&) = delete;
   Stage& operator=(const Stage&) = delete;
+
 public:
   // Constructor. Recibe el ancho y el largo del escenario.
   Stage(size_t width, size_t height, std::string background);

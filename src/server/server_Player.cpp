@@ -1,4 +1,7 @@
 #include "server_Player.h"
+#include <map>
+#include <utility>
+#include <vector>
 
 Player::Player(Armory* armory){
   this->armory = armory;
@@ -94,7 +97,8 @@ int Player::get_radiocontrolled_munitions(){
 }
 
 
-std::map<size_t, std::pair<float, float>> Player::get_radiocontrolled_positions(){
+std::map<size_t, std::pair<float, float>> Player::\
+                                            get_radiocontrolled_positions(){
   return this->armory->get_radiocontrolled_positions();
 }
 

@@ -9,5 +9,6 @@ MunitionsNotification::MunitionsNotification(ClientHandler* client,\
 }
 
 void MunitionsNotification::run(){
-  client->send_munitions_info(dynamite_m, radiocontrolled_m, teletransportation_m);
+  client->send_munitions_info(dynamite_m, radiocontrolled_m, \
+                              teletransportation_m);
 }

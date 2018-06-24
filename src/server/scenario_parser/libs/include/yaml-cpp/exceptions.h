@@ -160,7 +160,7 @@ class YAML_CPP_API RepresentationException : public Exception {
 // representation exceptions
 class YAML_CPP_API InvalidScalar : public RepresentationException {
  public:
-  InvalidScalar(const Mark& mark_)
+  explicit InvalidScalar(const Mark& mark_)
       : RepresentationException(mark_, ErrorMsg::INVALID_SCALAR) {}
   InvalidScalar(const InvalidScalar&) = default;
   virtual ~InvalidScalar() YAML_CPP_NOEXCEPT;
@@ -248,7 +248,7 @@ class YAML_CPP_API BadInsert : public RepresentationException {
 
 class YAML_CPP_API EmitterException : public Exception {
  public:
-  EmitterException(const std::string& msg_)
+  explicit EmitterException(const std::string& msg_)
       : Exception(Mark::null_mark(), msg_) {}
   EmitterException(const EmitterException&) = default;
   virtual ~EmitterException() YAML_CPP_NOEXCEPT;

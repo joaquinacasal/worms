@@ -11,7 +11,7 @@ namespace YAML {
 namespace detail {
 struct unspecified_bool {
   struct NOT_ALLOWED;
-  static void true_value(NOT_ALLOWED*) {}
+  static void true_value(struct NOT_ALLOWED*) {}
 };
 typedef void (*unspecified_bool_type)(unspecified_bool::NOT_ALLOWED*);
 }

@@ -10,7 +10,7 @@ private:
     YouWinNotification(const YouWinNotification&) = delete;
     YouWinNotification& operator=(const YouWinNotification&) = delete;
 public:
-    YouWinNotification(ClientHandler* client);
+    explicit YouWinNotification(ClientHandler* client);
 
     void run();
 

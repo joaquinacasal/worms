@@ -103,7 +103,7 @@ public:
 
     /* Envía el servidor*/
     void send_worm_info(size_t id, size_t life_points, double x, double y, \
-                        int angle, bool is_facing_right, int team, int movement_state);
+                int angle, bool is_facing_right, int team, int movement_state);
     void send_worm_death_notif(size_t id, int team);
     void send_beam_info(double x, double y, int length, int width, int angle);
     void send_stage_info(int width, int height, std::string background);
@@ -111,7 +111,8 @@ public:
     void send_dynamite_explosion_notif();
     void send_radiocontrolled_info(size_t id, double x, double y);
     void send_radiocontrolled_explosion_info(size_t id);
-    void send_munitions_info(int dynamite_m, int radiocontrolled_m, int teletransportation_m);
+    void send_munitions_info(int dynamite_m, int radiocontrolled_m,\
+                             int teletransportation_m);
     void send_start_turn_notif();
     void send_end_turn_notif();
     void send_you_win_notif();

@@ -33,9 +33,11 @@ void Movement::jump_forward(){
 
   // Solo salto si estoy quieto en la velocidad vertical para no poder saltar
   // en el aire. Hay que cambiarlo para poder saltar en las vigas con angulo.
-  if (body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon)
+  if (body->GetLinearVelocity().y < epsilon &&\
+      body->GetLinearVelocity().y > -epsilon)
     // Formulas calculadas a mano.
-    body->ApplyLinearImpulse( b2Vec2( side * 78.85f, 162.0f), body->GetWorldCenter() );
+    body->ApplyLinearImpulse(b2Vec2(side * 78.85f, 162.0f), \
+                                                body->GetWorldCenter());
 }
 
 void Movement::jump_backward(){
@@ -45,10 +47,12 @@ void Movement::jump_backward(){
 
   // Solo salto si estoy quieto en la velocidad vertical para no poder saltar
   // en el aire. Hay que cambiarlo para poder saltar en las vigas con angulo.
-  if (body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon){
+  if (body->GetLinearVelocity().y < epsilon &&\
+      body->GetLinearVelocity().y > -epsilon){
     // Formulas calculadas a mano.
-    body->ApplyLinearImpulse( b2Vec2(side * -10.3f, 250.0f), body->GetWorldCenter() );
-    body->ApplyAngularImpulse( side * 86.3);
+    body->ApplyLinearImpulse(b2Vec2(side * -10.3f, 250.0f),\
+                                                body->GetWorldCenter());
+    body->ApplyAngularImpulse(side * 86.3);
   }
 }
 
@@ -69,13 +73,21 @@ void Movement::stop_moving(){
 void Movement::apply_movement(){
   b2Vec2 vel = body->GetLinearVelocity();
   float force = 0;
-  switch ( move_state )
+  switch (move_state)
   {
-    case MS_LEFT:  if ( vel.x > -2 ) force = -200;  break;
-    case MS_STOP:  force = 0; break;
-    case MS_RIGHT: if ( vel.x <  2 ) force =  200; break;
+    case MS_LEFT:
+      if (vel.x > -2)
+        force = -200;
+      break;
+    case MS_STOP:
+      force = 0;
+      break;
+    case MS_RIGHT:
+      if (vel.x <  2)
+        force = 200;
+      break;
   }
-  body->ApplyForce( b2Vec2(force,0), body->GetWorldCenter() );
+  body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter());
 }
 
 void Movement::teletransport(int x, int y){
@@ -102,7 +114,7 @@ void Movement::reset_velocity(){
   b2Vec2 vel = body->GetLinearVelocity();
   vel.x = 0;
   vel.y = 0;
-  body->SetLinearVelocity( vel );
+  body->SetLinearVelocity(vel);
 }
 
 
@@ -111,7 +123,7 @@ void Movement::correct_angle(){
 }
 
 void Movement::apply_force(float x, float y){
-  this->body->ApplyForce( b2Vec2(x, y), body->GetWorldCenter() );
+  this->body->ApplyForce(b2Vec2(x, y), body->GetWorldCenter());
 }
 
 bool Movement::is_colliding(){

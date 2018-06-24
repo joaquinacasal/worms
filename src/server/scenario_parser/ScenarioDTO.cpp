@@ -7,8 +7,10 @@
 using std::string;
 using std::vector;
 
-ScenarioDTO::ScenarioDTO(string background, int height, int width, vector<WormDTO> worms, vector<BeamDTO> beams) :
-                    background(background), height(height), width(width), worms(worms), beams(beams) {}
+ScenarioDTO::ScenarioDTO(string background, int height, int width, \
+                         vector<WormDTO> worms, vector<BeamDTO> beams) :
+                         background(background), height(height), width(width),\
+                         worms(worms), beams(beams) {}
 
 string ScenarioDTO::get_background() {
     return background;

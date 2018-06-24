@@ -7,6 +7,9 @@
 #include "server_Radiocontrolled.h"
 #include "server_Worm.h"
 #include "server_Stage.h"
+#include <map>
+#include <utility>
+#include <vector>
 
 /* Clase que representa el armamento de un jugador, el cual es compartido por
  * todos los gusanos de su equipo. Está conformado por la herramienta de
@@ -25,7 +28,7 @@ class Armory {
 
   public:
     // Constructor. Recibe el stage donde van a actuar todas las armas.
-    Armory(Stage& a_stage);
+    explicit Armory(Stage& a_stage);
 
     // Teletransporta el gusano recibido a la coordenada (x,y) recibida.
     // Si no tiene municiones devuelve false. En caso contrario, devuelve true.
@@ -76,13 +79,14 @@ class Armory {
     // Devuelve el numero de municiones de la dinamita.
     int get_radiocontrolled_munitions();
 
-    // Devuelve un vector de pares (X,Y) con las posiciones actuales de todos los
-    // proyectiles.
+    // Devuelve un vector de pares (X,Y) con las posiciones actuales de todos
+    // los proyectiles.
     std::map<size_t, std::pair<float, float>> get_radiocontrolled_positions();
 
 
-    // Verifica si algun proyectil está colisionando, y en caso que sea verdadero lo hace
-    // explotar. Devuelve un vector con los ids de las municiones que explotaron.
+    // Verifica si algun proyectil está colisionando, y en caso que sea
+    // verdadero lo hace explotar. Devuelve un vector con los ids de las
+    // municiones que explotaron.
     std::vector<size_t> check_radiocontrolled_explosions();
 
     // Destructor.

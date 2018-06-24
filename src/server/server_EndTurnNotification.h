@@ -10,7 +10,7 @@ private:
     EndTurnNotification(const EndTurnNotification&) = delete;
     EndTurnNotification& operator=(const EndTurnNotification&) = delete;
 public:
-    EndTurnNotification(ClientHandler* client);
+    explicit EndTurnNotification(ClientHandler* client);
 
     void run();
 

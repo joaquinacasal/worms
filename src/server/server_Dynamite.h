@@ -26,9 +26,10 @@ class Dynamite {
     // No copiable
     Dynamite(const Dynamite&) = delete;
     Dynamite& operator=(const Dynamite&) = delete;
+
   public:
     // Constructor. Recibe el Stage donde va a crearse.
-    Dynamite(Stage& a_stage);
+    explicit Dynamite(Stage& a_stage);
 
 
     // Si la cantidad de municiones es 0, devuelve false sin cambiar nada.
@@ -58,7 +59,6 @@ class Dynamite {
     // Obtiene la cantidad de ms restantes para la explosión.
     // Si la dinamita no está activa, devuelve 7000.
     float get_time_to_explosion();
-
 };
 
 #endif  //__DYNAMITE_H__

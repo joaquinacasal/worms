@@ -72,7 +72,7 @@ class GraphBuilder : public GraphBuilderInterface {
   typedef typename Impl::Sequence Sequence;
   typedef typename Impl::Map Map;
 
-  GraphBuilder(Impl &impl) : m_impl(impl) {
+  explicit GraphBuilder(Impl &impl) : m_impl(impl) {
     Map *pMap = NULL;
     Sequence *pSeq = NULL;
     Node *pNode = NULL;

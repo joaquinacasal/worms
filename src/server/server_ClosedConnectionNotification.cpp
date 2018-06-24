@@ -1,6 +1,7 @@
 #include "server_ClosedConnectionNotification.h"
 
-ClosedConnectionNotification::ClosedConnectionNotification(ClientHandler* client){
+ClosedConnectionNotification::ClosedConnectionNotification(\
+                                                    ClientHandler* client){
   this->client = client;
 }
 

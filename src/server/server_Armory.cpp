@@ -1,4 +1,8 @@
 #include "server_Armory.h"
+#include <map>
+#include <utility>
+#include <vector>
+
 
 Armory::Armory(Stage& a_stage) :  stage(a_stage),
                                   dynamite(a_stage),
@@ -21,8 +25,10 @@ bool Armory::was_teletransportation_used(){
 
 bool Armory::use_dynamite(Worm* worm, bool is_facing_right){
   float x = worm->get_horizontal_position();
-  if (is_facing_right) x += 2.02;
-  else x -= 2.02;
+  if (is_facing_right)
+    x += 2.02;
+  else
+    x -= 2.02;
   float y = worm->get_vertical_position();
   return this->dynamite.turn_on_dynamite(x, y);
 }
@@ -63,7 +69,8 @@ int Armory::get_radiocontrolled_munitions(){
   return this->radiocontrolled.get_munitions();
 }
 
-std::map<size_t, std::pair<float, float>> Armory::get_radiocontrolled_positions(){
+std::map<size_t, std::pair<float, float>> Armory::\
+                                              get_radiocontrolled_positions(){
   return this->radiocontrolled.get_positions();
 }
 

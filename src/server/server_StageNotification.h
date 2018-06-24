@@ -2,6 +2,7 @@
 #define __STAGENOTIFICATION__
 
 #include "server_INotification.h"
+#include <string>
 
 class StageNotification : public INotification {
 private:
@@ -13,7 +14,8 @@ private:
     StageNotification(const StageNotification&) = delete;
     StageNotification& operator=(const StageNotification&) = delete;
 public:
-    StageNotification(ClientHandler* client, int width, int height, std::string background);
+    StageNotification(ClientHandler* client, int width, int height,\
+                      std::string background);
 
     void run();
 

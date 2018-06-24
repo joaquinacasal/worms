@@ -11,6 +11,7 @@
 #include "yaml-cpp/node/type.h"
 #include "yaml-cpp/node/ptr.h"
 #include "yaml-cpp/node/detail/node_data.h"
+#include <string>
 
 namespace YAML {
 namespace detail {
