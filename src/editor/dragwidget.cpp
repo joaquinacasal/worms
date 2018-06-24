@@ -6,7 +6,9 @@
 #include <string>
 #include <vector>
 
-static inline QString wormsLabelMimeType() { return QStringLiteral("application/x-wormlabel"); }
+static inline QString wormsLabelMimeType() {
+  return QStringLiteral("application/x-wormlabel");
+}
 
 DragWidget::DragWidget(QWidget *parent)
     : QWidget(parent)
@@ -14,7 +16,8 @@ DragWidget::DragWidget(QWidget *parent)
     int x = 5;
     int y = 5;
 
-    DragLabel* worm = new DragLabel(WORM_IMAGE_FILENAME, this, true, WORM_SIZE, WORM_SIZE, 0, true);
+    DragLabel* worm = new DragLabel(WORM_IMAGE_FILENAME, this, true, WORM_SIZE,\
+                                    WORM_SIZE, 0, true);
     worm->move(x, y);
     worm->show();
     worm->setAttribute(Qt::WA_DeleteOnClose);
@@ -32,7 +35,8 @@ DragWidget::DragWidget(QWidget *parent)
                 beam_length = SHORT_BEAM_LENGTH;
             }
             int current_angle = ANGLE_DELTA * i;
-            DragLabel* beam = new DragLabel(beam_image_filename, this, true, beam_length, BEAM_HEIGHT, current_angle, false);
+            DragLabel* beam = new DragLabel(beam_image_filename, this, true, \
+                                beam_length, BEAM_HEIGHT, current_angle, false);
             beam->move(x, y);
             beam->show();
             beam->setAttribute(Qt::WA_DeleteOnClose);
@@ -69,8 +73,10 @@ void DragWidget::dropEvent(QDropEvent *event)
     int height;
     int angle;
     bool is_worm;
-    dataStream >> image_filename >> offset >> width >> height >> angle >> is_worm;
-    DragLabel* newLabel = new DragLabel(image_filename, this, false, width, height, angle, is_worm);
+    dataStream >> image_filename >> offset >> width >> \
+                            height >> angle >> is_worm;
+    DragLabel* newLabel = new DragLabel(image_filename, this, false, width, \
+                                        height, angle, is_worm);
     newLabel->move(event->pos() - offset);
     newLabel->show();
     newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -87,7 +93,9 @@ void DragWidget::mousePressEvent(QMouseEvent *event)
     QPoint hotSpot = event->pos() - child->pos();
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->get_image_filename() << QPoint(hotSpot) << child->get_width() << child->get_height() << child->get_angle() << child->is_worm();
+    dataStream << child->get_image_filename() << QPoint(hotSpot) << \
+                  child->get_width() << child->get_height() << \
+                  child->get_angle() << child->is_worm();
     QMimeData* mimeData = new QMimeData;
     mimeData->setData(wormsLabelMimeType(), itemData);
     QDrag drag(this);

@@ -16,7 +16,8 @@ public:
     MunitionsInformation(double x, double y, FontFactory& _font_factory,\
         ColorsFactory& _colors_factory, SDL_Renderer* renderer);
     int render();
-    void set_munitions(int dynamite_q, int radiocontrolled_q, int teletransportation_q);
+    void set_munitions(int dynamite_q, int radiocontrolled_q, \
+                       int teletransportation_q);
     ~MunitionsInformation();
 
 private:

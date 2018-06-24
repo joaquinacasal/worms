@@ -1,6 +1,7 @@
 #include "client_StopMovingCapturedEvent.h"
 
-StopMovingCapturedEvent::StopMovingCapturedEvent(SocketProtocol& _socket_protocol):
+StopMovingCapturedEvent::StopMovingCapturedEvent(\
+                                          SocketProtocol& _socket_protocol):\
                                           socket_protocol(_socket_protocol){}
 
 void StopMovingCapturedEvent::send(){

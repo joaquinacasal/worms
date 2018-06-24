@@ -6,7 +6,8 @@ RadiocontrolledDrawable::RadiocontrolledDrawable(size_t id, double x, double y){
     this->y = y;
 }
 
-void RadiocontrolledDrawable::be_drawn_by_console(ConsoleDrawer* console_drawer){
+void RadiocontrolledDrawable::be_drawn_by_console(\
+                                              ConsoleDrawer* console_drawer){
   console_drawer->draw(this);
 }
 

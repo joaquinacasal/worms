@@ -11,8 +11,10 @@ public:
     FontFactory();
     TTF_Font* get_big_font();
     TTF_Font* get_small_font();
-    SDL_Texture* get_texture_big_font(const char* text, SDL_Color, SDL_Renderer* renderer);
-    SDL_Texture* get_texture_small_font(const char* text, SDL_Color, SDL_Renderer* renderer);
+    SDL_Texture* get_texture_big_font(const char* text, SDL_Color, \
+                                      SDL_Renderer* renderer);
+    SDL_Texture* get_texture_small_font(const char* text, SDL_Color, \
+                                        SDL_Renderer* renderer);
     ~FontFactory();
 
 private:

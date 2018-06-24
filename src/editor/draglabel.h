@@ -17,7 +17,8 @@ private:
     QString image_filename;
 
 public:
-    DragLabel(const QString& image_filename, QWidget* parent, bool original, int width, int height, int angle, bool is_worm);
+    DragLabel(const QString& image_filename, QWidget* parent, bool original,\
+              int width, int height, int angle, bool is_worm);
     bool is_original() const;
     bool is_worm() const;
     int get_width() const;

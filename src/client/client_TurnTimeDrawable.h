@@ -14,7 +14,7 @@ private:
     TurnTimeDrawable(const TurnTimeDrawable&) = delete;
     TurnTimeDrawable& operator=(const TurnTimeDrawable&) = delete;
 public:
-    TurnTimeDrawable(double t);
+    explicit TurnTimeDrawable(double t);
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
     void be_drawn(SdlWindow* window);

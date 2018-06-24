@@ -4,7 +4,8 @@ RadiocontrolledExplosionDrawable::RadiocontrolledExplosionDrawable(size_t id){
     this->id = id;
 }
 
-void RadiocontrolledExplosionDrawable::be_drawn_by_console(ConsoleDrawer* console_drawer){
+void RadiocontrolledExplosionDrawable::be_drawn_by_console(\
+                                                ConsoleDrawer* console_drawer){
   console_drawer->draw(this);
 }
 

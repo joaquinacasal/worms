@@ -10,13 +10,13 @@ class ConsoleDrawer;
 class ClosedConnectionDrawable : public IDrawable {
 private:
     ClosedConnectionDrawable(const ClosedConnectionDrawable&) = delete;
-    ClosedConnectionDrawable& operator=(const ClosedConnectionDrawable&) = delete;
+    ClosedConnectionDrawable& operator=(const ClosedConnectionDrawable&) =\
+                                                                        delete;
 public:
     ClosedConnectionDrawable();
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
     void be_drawn(SdlWindow* window);
-
 };
 
 

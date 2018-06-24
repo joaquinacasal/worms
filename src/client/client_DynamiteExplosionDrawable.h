@@ -10,13 +10,13 @@ class ConsoleDrawer;
 class DynamiteExplosionDrawable : public IDrawable {
 private:
     DynamiteExplosionDrawable(const DynamiteExplosionDrawable&) = delete;
-    DynamiteExplosionDrawable& operator=(const DynamiteExplosionDrawable&) = delete;
+    DynamiteExplosionDrawable& operator=\
+                              (const DynamiteExplosionDrawable&) = delete;
 public:
     DynamiteExplosionDrawable();
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
     void be_drawn(SdlWindow* window);
-
 };
 
 

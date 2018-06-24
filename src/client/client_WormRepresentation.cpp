@@ -10,8 +10,8 @@ WormRepresentation::WormRepresentation(WormState state, Area position, \
       size_t life_points, int angle, TextureFactory& texture_factory, \
       bool is_the_selected_worm) :
       renderer(window.getRenderer()), life_texture(life_texture),
-      _is_facing_right(is_facing_right), life_points(life_points), angle(angle),\
-      state(state), texture_factory(texture_factory), \
+      _is_facing_right(is_facing_right), life_points(life_points), \
+      angle(angle), state(state), texture_factory(texture_factory), \
       _is_the_selected_worm(is_the_selected_worm) {
     SDL_Texture* texture;
     int frames;
@@ -41,7 +41,8 @@ void WormRepresentation::set_position(int x, int y){
     arrow_area.setPosition(x + 10, y - 40);
 }
 
-void WormRepresentation::set_life_points(size_t points, SDL_Texture* life_texture){
+void WormRepresentation::set_life_points(size_t points, \
+                                         SDL_Texture* life_texture){
     if (this->life_points == points){
         return;
     }
@@ -50,7 +51,8 @@ void WormRepresentation::set_life_points(size_t points, SDL_Texture* life_textur
     this->life_texture = life_texture;
 }
 
-void WormRepresentation::set_state(WormState state, int angle, bool is_facing_right){
+void WormRepresentation::set_state(WormState state, int angle, \
+                                   bool is_facing_right){
     this->angle = angle;
     this->_is_facing_right = is_facing_right;
     if (this->state == state){
@@ -83,7 +85,9 @@ bool WormRepresentation::is_facing_right() const{
     return this->_is_facing_right;
 }
 
-void WormRepresentation::get_texture_by_state(WormState state, SDL_Texture** texture, int* frames){
+void WormRepresentation::get_texture_by_state(WormState state, \
+                                              SDL_Texture** texture, \
+                                              int* frames){
     if (state == JUMPING){
         *texture = texture_factory.get_texture_by_name("worm_jumping");
         *frames = JUMPING_FRAMES;

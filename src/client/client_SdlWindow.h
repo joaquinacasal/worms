@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
@@ -108,8 +109,9 @@ private:
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);
 
-    SdlWindow(const ConsoleDrawer&) = delete;
+    explicit SdlWindow(const ConsoleDrawer&) = delete;
     SdlWindow& operator=(const ConsoleDrawer&) = delete;
+
 public:
     SdlWindow(SafeQueue<IDrawable*>& _safe_queue, int width, int height);
     SdlWindow(SdlWindow&& other) = default;

@@ -4,7 +4,8 @@
 #include <QPixmap>
 #include <QWidget>
 
-WormLabel::WormLabel(const QString &image_filename, QWidget *parent, bool original)
+WormLabel::WormLabel(const QString &image_filename, QWidget *parent, \
+                     bool original)
      {}
 
 WormLabel::WormLabel(const QPixmap &image, QWidget *parent, bool original)

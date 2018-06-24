@@ -16,13 +16,16 @@ class ScenarioSaver
 private:
     map<string, string> data;
 
-    bool check_intersections(QList<DragLabel*>& worms_labels, QList<DragLabel*>& beams_labels);
+    bool check_intersections(QList<DragLabel*>& worms_labels,\
+                             QList<DragLabel*>& beams_labels);
 
 public:
     ScenarioSaver() = default;
-    int save_scenario(QList<DragLabel*>& worms_labels, QList<DragLabel*>& beams_labels, string filename);
-    void load_scenario(string filename, int& height, int& width, string& background,
-                                vector<map<string, string>>& worms, vector<map<string, string>>& beams);
+    int save_scenario(QList<DragLabel*>& worms_labels, \
+                      QList<DragLabel*>& beams_labels, string filename);
+    void load_scenario(string filename, int& height, int& width, \
+                       string& background, vector<map<string, string>>& worms,\
+                       vector<map<string, string>>& beams);
     void set_size(int width, int height);
     void set_background(string filename);
     int get_width();
@@ -34,5 +37,3 @@ public:
 };
 
 #endif // BEAMLABEL_H
-
-

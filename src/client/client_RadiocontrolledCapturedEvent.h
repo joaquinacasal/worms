@@ -11,9 +11,11 @@ private:
     int y;
 
     RadiocontrolledCapturedEvent(const RadiocontrolledCapturedEvent&) = delete;
-    RadiocontrolledCapturedEvent& operator=(const RadiocontrolledCapturedEvent&) = delete;
+    RadiocontrolledCapturedEvent& operator=\
+                            (const RadiocontrolledCapturedEvent&) = delete;
 public:
-    RadiocontrolledCapturedEvent(SocketProtocol& _socket_protocol, int x, int y);
+    RadiocontrolledCapturedEvent(SocketProtocol& _socket_protocol, \
+                                 int x, int y);
 
     void send();
 

@@ -22,6 +22,7 @@ private:
 
     WormDrawable(const WormDrawable&) = delete;
     WormDrawable& operator=(const WormDrawable&) = delete;
+
 public:
     WormDrawable(size_t id, size_t life_points, double x, double y, int angle,\
                  bool is_facing_right, int team, int movement_state, \

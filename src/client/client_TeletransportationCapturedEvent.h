@@ -10,10 +10,13 @@ private:
     int x;
     int y;
 
-    TeletransportationCapturedEvent(const TeletransportationCapturedEvent&) = delete;
-    TeletransportationCapturedEvent& operator=(const TeletransportationCapturedEvent&) = delete;
+    TeletransportationCapturedEvent(const TeletransportationCapturedEvent&)\
+                                                                      = delete;
+    TeletransportationCapturedEvent& operator=\
+                              (const TeletransportationCapturedEvent&) = delete;
 public:
-    TeletransportationCapturedEvent(SocketProtocol& _socket_protocol, int x, int y);
+    TeletransportationCapturedEvent(SocketProtocol& _socket_protocol,\
+                                    int x, int y);
 
     void send();
 

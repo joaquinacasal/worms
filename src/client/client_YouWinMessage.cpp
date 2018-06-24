@@ -1,6 +1,7 @@
 #include "client_YouWinMessage.h"
 
-YouWinMessage::YouWinMessage(SdlTexture* message_texture, int time) : message_texture(message_texture), time_alive(time) {}
+YouWinMessage::YouWinMessage(SdlTexture* message_texture, int time) : \
+                        message_texture(message_texture), time_alive(time) {}
 
 int YouWinMessage::render() {
     if (this->time_alive > 0) {

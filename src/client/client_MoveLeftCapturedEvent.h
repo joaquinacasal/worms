@@ -11,7 +11,7 @@ private:
     MoveLeftCapturedEvent(const MoveLeftCapturedEvent&) = delete;
     MoveLeftCapturedEvent& operator=(const MoveLeftCapturedEvent&) = delete;
 public:
-    MoveLeftCapturedEvent(SocketProtocol& _socket_protocol);
+    explicit MoveLeftCapturedEvent(SocketProtocol& _socket_protocol);
 
     void send();
 

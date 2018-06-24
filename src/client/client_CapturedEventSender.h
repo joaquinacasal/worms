@@ -19,7 +19,8 @@ private:
     CapturedEventSender(const CapturedEventSender&) = delete;
     CapturedEventSender& operator=(const CapturedEventSender&) = delete;
 public:
-    CapturedEventSender(BlockingQueue<ICapturedEvent*>& _blocking_queue);
+    explicit CapturedEventSender(BlockingQueue<ICapturedEvent*>&\
+                                 _blocking_queue);
     CapturedEventSender(CapturedEventSender&& other) = default;
 
     void run() override;

@@ -11,7 +11,7 @@ private:
     StopMovingCapturedEvent(const StopMovingCapturedEvent&) = delete;
     StopMovingCapturedEvent& operator=(const StopMovingCapturedEvent&) = delete;
 public:
-    StopMovingCapturedEvent(SocketProtocol& _socket_protocol);
+    explicit StopMovingCapturedEvent(SocketProtocol& _socket_protocol);
 
     void send();
 

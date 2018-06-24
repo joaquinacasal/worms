@@ -1,6 +1,8 @@
 #include "client_StageDrawable.h"
+#include <string>
 
-StageDrawable::StageDrawable(size_t width, size_t height, std::string background){
+StageDrawable::StageDrawable(size_t width, size_t height, \
+                             std::string background){
     this->width = width;
     this->height = height;
     this->background = background;

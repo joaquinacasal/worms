@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include "client_DrawableFactory.h"
 
 DrawableFactory::DrawableFactory(SocketProtocol& sp, \
@@ -108,7 +109,8 @@ void DrawableFactory::create_munitions_drawable(){
   int dynamite_m = socket_protocol.receive_numeric_value();
   int radiocontrolled_m = socket_protocol.receive_numeric_value();
   int teletransportation_m = socket_protocol.receive_numeric_value();
-  safe_queue.push(new MunitionsDrawable(dynamite_m, radiocontrolled_m, teletransportation_m));
+  safe_queue.push(new MunitionsDrawable(dynamite_m, radiocontrolled_m,\
+                                        teletransportation_m));
 }
 
 
@@ -166,7 +168,7 @@ void DrawableFactory::create_drawable(){
 }
 
 void DrawableFactory::run(){
-  while(connected) {
+  while (connected) {
     create_drawable();
   }
 }

@@ -31,6 +31,7 @@ public:
     size_t get_life_points() const;
     bool is_facing_right() const;
     ~WormRepresentation();
+
 private:
     Animation* worm_animation;
     SDL_Renderer* renderer;
@@ -45,7 +46,8 @@ private:
     WormState state;
     TextureFactory& texture_factory;
 
-    void get_texture_by_state(WormState state, SDL_Texture** texture, int* frames);
+    void get_texture_by_state(WormState state, SDL_Texture** texture, \
+                              int* frames);
 };
 
 #endif

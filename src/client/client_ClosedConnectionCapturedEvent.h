@@ -8,10 +8,12 @@ class ClosedConnectionCapturedEvent : public ICapturedEvent {
 private:
     SocketProtocol& socket_protocol;
 
-    ClosedConnectionCapturedEvent(const ClosedConnectionCapturedEvent&) = delete;
-    ClosedConnectionCapturedEvent& operator=(const ClosedConnectionCapturedEvent&) = delete;
+    ClosedConnectionCapturedEvent(const ClosedConnectionCapturedEvent&) =\
+                                                                        delete;
+    ClosedConnectionCapturedEvent& operator=\
+                               (const ClosedConnectionCapturedEvent&) = delete;
 public:
-    ClosedConnectionCapturedEvent(SocketProtocol& _socket_protocol);
+    explicit ClosedConnectionCapturedEvent(SocketProtocol& _socket_protocol);
 
     void send();
 

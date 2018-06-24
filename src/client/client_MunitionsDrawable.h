@@ -16,7 +16,8 @@ private:
     MunitionsDrawable(const MunitionsDrawable&) = delete;
     MunitionsDrawable& operator=(const MunitionsDrawable&) = delete;
 public:
-    MunitionsDrawable(int dynamite_m, int radiocontrolled_m, int teletransportation_m);
+    MunitionsDrawable(int dynamite_m, int radiocontrolled_m, \
+                      int teletransportation_m);
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
     void be_drawn(SdlWindow* window);

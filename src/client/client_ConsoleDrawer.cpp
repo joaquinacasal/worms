@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include "client_ConsoleDrawer.h"
 
 ConsoleDrawer::ConsoleDrawer(SafeQueue<IDrawable*>& _safe_queue) : \
@@ -16,13 +17,22 @@ void ConsoleDrawer::draw(EndTurnDrawable* drawable) {
 }
 
 void ConsoleDrawer::draw(TurnTimeDrawable* drawable) {
-  std::cout << "Quedan " << std::fixed << std::setprecision(2) << drawable->get_time_left() << " segundos para que finalice el turno.\n";
+  std::cout << "Quedan " << std::fixed << std::setprecision(2) << \
+                drawable->get_time_left() << \
+                " segundos para que finalice el turno.\n";
 }
 
 void ConsoleDrawer::draw(WormDrawable* drawable) {
-  std::cout << "Worm con id: " << drawable->get_id() << ", del equipo " << drawable->get_team() <<", vida: " << drawable->get_life_points() << ", posición (" << std::fixed << std::setprecision(2) << drawable->get_x() << ", " << std::fixed << std::setprecision(2) << drawable->get_y() << "), ángulo: " << drawable->get_angle() << ". Mirando hacia la ";
-  if (drawable->get_is_facing_right()) std::cout << "derecha.\n";
-  else std::cout << "izquierda.\n";
+  std::cout << "Worm con id: " << drawable->get_id() << ", del equipo " << \
+                drawable->get_team() <<", vida: " << \
+                drawable->get_life_points() << ", posición (" << std::fixed <<\
+                std::setprecision(2) << drawable->get_x() << ", " << \
+                std::fixed\ << std::setprecision(2) << drawable->get_y() <<\
+                "), ángulo: " << drawable->get_angle() << ". Mirando hacia la ";
+  if (drawable->get_is_facing_right())
+    std::cout << "derecha.\n";
+  else
+    std::cout << "izquierda.\n";
   std::string estado;
   if (drawable->is_still()) estado = "quieto";
   if (drawable->is_moving()) estado = "moviendose";
@@ -33,16 +43,24 @@ void ConsoleDrawer::draw(WormDrawable* drawable) {
 }
 
 void ConsoleDrawer::draw(StageDrawable* drawable) {
-  std::cout << "El escenario tiene ancho: " << drawable->get_width() << " y alto: " << drawable->get_height() << ".\n";
-  std::cout << "El nombre de la foto es '" << drawable->get_background() << "'.\n";
+  std::cout << "El escenario tiene ancho: " << drawable->get_width() << \
+               " y alto: " << drawable->get_height() << ".\n";
+  std::cout << "El nombre de la foto es '" << drawable->get_background() <<\
+               "'.\n";
 }
 
 void ConsoleDrawer::draw(BeamDrawable* drawable) {
-  std::cout << "Viga en la posición (" << drawable->get_x() << ", " << drawable->get_y() << "), ángulo: " << drawable->get_angle() << ". Largo de " << drawable->get_length() << ", ancho de " << drawable->get_width() << ".\n";
+  std::cout << "Viga en la posición (" << drawable->get_x() << ", " << \
+               drawable->get_y() << "), ángulo: " << drawable->get_angle() << \
+               ". Largo de " << drawable->get_length() << ", ancho de " << \
+               drawable->get_width() << ".\n";
 }
 
 void ConsoleDrawer::draw(DynamiteDrawable* drawable) {
-  std::cout << "Dinamita en la posición (" << drawable->get_x() << ", " << drawable->get_y() << "), explota en: " << std::fixed << std::setprecision(2) << drawable->get_time_to_explosion() << ".\n";
+  std::cout << "Dinamita en la posición (" << drawable->get_x() << ", " << \
+               drawable->get_y() << "), explota en: " << std::fixed << \
+               std::setprecision(2) << drawable->get_time_to_explosion() << \
+               ".\n";
 }
 
 void ConsoleDrawer::draw(DynamiteExplosionDrawable* drawable) {
@@ -50,7 +68,9 @@ void ConsoleDrawer::draw(DynamiteExplosionDrawable* drawable) {
 }
 
 void ConsoleDrawer::draw(RadiocontrolledDrawable* drawable){
-  std::cout << "Teledirigido en (" << std::fixed << std::setprecision(2) << drawable->get_x() << ", " << std::fixed << std::setprecision(2) << drawable->get_y() << ").\n";
+  std::cout << "Teledirigido en (" << std::fixed << std::setprecision(2) <<\
+               drawable->get_x() << ", " << std::fixed << \
+               std::setprecision(2) << drawable->get_y() << ").\n";
 }
 
 void ConsoleDrawer::draw(RadiocontrolledExplosionDrawable* drawable){
@@ -58,7 +78,8 @@ void ConsoleDrawer::draw(RadiocontrolledExplosionDrawable* drawable){
 }
 
 void ConsoleDrawer::draw(WormDeathDrawable* drawable){
-  std::cout << "Murio el gusano con id " << drawable->get_id() << ", del equipo " << drawable->get_team() << '\n';
+  std::cout << "Murio el gusano con id " << drawable->get_id() << \
+               ", del equipo " << drawable->get_team() << '\n';
 }
 
 void ConsoleDrawer::draw(YouWinDrawable* drawable){
@@ -66,7 +87,10 @@ void ConsoleDrawer::draw(YouWinDrawable* drawable){
 }
 
 void ConsoleDrawer::draw(MunitionsDrawable* drawable){
-  std::cout << "Dinamita: " << drawable->get_dynamite_munitions() << ", teledirigido: " << drawable->get_radiocontrolled_munitions() << ", y teletransportacion: " << drawable->get_teletransportation_munitions() << ".\n";
+  std::cout << "Dinamita: " << drawable->get_dynamite_munitions() << \
+               ", teledirigido: " << drawable->get_radiocontrolled_munitions()\
+               << ", y teletransportacion: " << \
+               drawable->get_teletransportation_munitions() << ".\n";
 }
 
 void ConsoleDrawer::draw(ClosedConnectionDrawable* drawable) {
@@ -80,7 +104,7 @@ void ConsoleDrawer::draw(IDrawable* drawable) {
 
 void ConsoleDrawer::run(){
   IDrawable* drawable = NULL;
-  while(connected) {
+  while (connected) {
     if (safe_queue.pop(drawable)){
       draw(drawable);
       delete drawable;
@@ -101,7 +125,7 @@ void ConsoleDrawer::stop(){
 
 ConsoleDrawer::~ConsoleDrawer(){
   IDrawable* drawable = NULL;
-  while(safe_queue.pop(drawable)) {
+  while (safe_queue.pop(drawable)) {
       delete drawable;
   }
 }

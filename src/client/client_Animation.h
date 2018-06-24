@@ -13,7 +13,8 @@ class SdlWindow;
 
 class Animation {
 public:
-    Animation(SDL_Texture* texture, const SdlWindow& window, Area position, int frames);
+    Animation(SDL_Texture* texture, const SdlWindow& window, \
+              Area position, int frames);
     void render(int angle = 0, SDL_RendererFlip flip_flags = SDL_FLIP_NONE);
     void set_position(int x, int y);
     void set_texture(SDL_Texture* texture, int frames);

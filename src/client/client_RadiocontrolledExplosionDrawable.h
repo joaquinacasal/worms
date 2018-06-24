@@ -11,10 +11,12 @@ class RadiocontrolledExplosionDrawable : public IDrawable {
 private:
     size_t id;
 
-    RadiocontrolledExplosionDrawable(const RadiocontrolledExplosionDrawable&) = delete;
-    RadiocontrolledExplosionDrawable& operator=(const RadiocontrolledExplosionDrawable&) = delete;
+    RadiocontrolledExplosionDrawable(const RadiocontrolledExplosionDrawable&) =\
+                                                                        delete;
+    RadiocontrolledExplosionDrawable& operator=\
+                            (const RadiocontrolledExplosionDrawable&) = delete;
 public:
-    RadiocontrolledExplosionDrawable(size_t id);
+    explicit RadiocontrolledExplosionDrawable(size_t id);
 
     void be_drawn_by_console(ConsoleDrawer* console_drawer);
     void be_drawn(SdlWindow* window);

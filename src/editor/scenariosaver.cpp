@@ -13,7 +13,8 @@ using std::string;
 using std::vector;
 using std::map;
 
-int ScenarioSaver::save_scenario(QList<DragLabel*>& worms_labels, QList<DragLabel*>& beams_labels, string filename){
+int ScenarioSaver::save_scenario(QList<DragLabel*>& worms_labels, \
+                            QList<DragLabel*>& beams_labels, string filename){
     if (check_intersections(worms_labels, beams_labels)){
         return 1;
     }
@@ -69,8 +70,9 @@ int ScenarioSaver::save_scenario(QList<DragLabel*>& worms_labels, QList<DragLabe
     return 0;
 }
 
-void ScenarioSaver::load_scenario(string filename, int& height, int& width, string& background,
-                                vector<map<string, string>>& worms, vector<map<string, string>>& beams){
+void ScenarioSaver::load_scenario(string filename, int& height, int& width, \
+                        string& background, vector<map<string, string>>& worms,\
+                        vector<map<string, string>>& beams){
     YAML::Node new_scenario = YAML::LoadFile(filename);
 
     data = new_scenario["scenario"].as<map<string, string>>();
@@ -78,8 +80,10 @@ void ScenarioSaver::load_scenario(string filename, int& height, int& width, stri
     width = get_width();
     background = get_background();
 
-    vector<map<string, string>> scenario_worms = new_scenario["worms"].as<vector<map<string, string>>>();
-    vector<map<string, string>> scenario_beams = new_scenario["beams"].as<vector<map<string, string>>>();
+    vector<map<string, string>> scenario_worms = new_scenario["worms"].\
+                                              as<vector<map<string, string>>>();
+    vector<map<string, string>> scenario_beams = new_scenario["beams"].\
+                                              as<vector<map<string, string>>>();
 
     for (map<string, string> worm : scenario_worms){
         map<string, string> new_worm;
@@ -109,7 +113,7 @@ void ScenarioSaver::load_scenario(string filename, int& height, int& width, stri
         new_beam["length"] = std::to_string(length);
         new_beam["height"] = std::to_string(height);
         new_beam["angle"] = std::to_string(angle);
-        new_beam["image"] = image;        
+        new_beam["image"] = image;
         beams.push_back(new_beam);
     }
 }
@@ -124,7 +128,8 @@ float ScenarioSaver::meters_to_pixels(float meters)
     return meters * PIXEL_METER_CONVERSION;
 }
 
-bool ScenarioSaver::check_intersections(QList<DragLabel*>& worms_labels, QList<DragLabel*>& beams_labels){
+bool ScenarioSaver::check_intersections(QList<DragLabel*>& worms_labels,\
+                                        QList<DragLabel*>& beams_labels){
     QList<DragLabel*> labels = worms_labels;
     labels.append(beams_labels);
     for (DragLabel* label : labels){

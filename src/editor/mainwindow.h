@@ -11,8 +11,10 @@
 #include "scenariosaver.h"
 
 #define SAVE_SCENARIO_MESSAGE "Guardar escenario"
-#define NO_WORMS_MESSAGE "Tenés que agregar algún gusano para guardar el escenario"
-#define OVERLAPPING_MESSAGE "Hay elementos que se solapan. Separalos para guardar el escenario"
+#define NO_WORMS_MESSAGE \
+                    "Tenés que agregar algún gusano para guardar el escenario"
+#define OVERLAPPING_MESSAGE \
+            "Hay elementos que se solapan. Separalos para guardar el escenario"
 #define SELECT_SCENARIO_MESSAGE "Seleccioná un escenario"
 #define SELECT_BACKGROUND_MESSAGE "Seleccioná una imagen de fondo"
 #define SAVE_SCENARIO_SUCCESS "Se guardó correctamente el escenario"

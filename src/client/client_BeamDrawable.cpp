@@ -1,6 +1,7 @@
 #include "client_BeamDrawable.h"
 
-BeamDrawable::BeamDrawable(double x, double y, int length, int width, int angle){
+BeamDrawable::BeamDrawable(double x, double y, int length, int width,\
+                           int angle){
   this->x = x;
   this->y = y;
   this->length = length;

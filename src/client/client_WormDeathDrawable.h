@@ -15,6 +15,7 @@ private:
 
     WormDeathDrawable(const WormDeathDrawable&) = delete;
     WormDeathDrawable& operator=(const WormDeathDrawable&) = delete;
+
 public:
     WormDeathDrawable(size_t id, int team);
 

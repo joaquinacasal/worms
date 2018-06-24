@@ -85,6 +85,7 @@ private:
 
     DrawableFactory(const DrawableFactory&) = delete;
     DrawableFactory& operator=(const DrawableFactory&) = delete;
+
 public:
     DrawableFactory(SocketProtocol& sp, SafeQueue<IDrawable*>& _safe_queue);
     DrawableFactory(DrawableFactory&& other) = default;

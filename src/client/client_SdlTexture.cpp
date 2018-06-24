@@ -6,16 +6,19 @@
 
 using std::string;
 
-SdlTexture::SdlTexture(SDL_Texture* texture, const SdlWindow& window, Area position)
+SdlTexture::SdlTexture(SDL_Texture* texture, const SdlWindow& window,\
+                       Area position)
     : renderer(window.getRenderer()), texture(texture), position(position) {
 }
 
 int SdlTexture::render(int angle) const {
     SDL_Rect position_rec = position.toRect();
-    if (angle == 0) { 
-        return SDL_RenderCopy(this->renderer, this->texture, NULL, &position_rec);
+    if (angle == 0) {
+        return SDL_RenderCopy(this->renderer, this->texture, NULL,\
+                              &position_rec);
     } else {
-        return SDL_RenderCopyEx(this->renderer, this->texture, NULL, &position_rec, angle, NULL, SDL_FLIP_NONE);
+        return SDL_RenderCopyEx(this->renderer, this->texture, NULL,\
+                                &position_rec, angle, NULL, SDL_FLIP_NONE);
     }
 }
 

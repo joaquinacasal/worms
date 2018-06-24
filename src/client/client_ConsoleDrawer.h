@@ -49,8 +49,9 @@ private:
 
     ConsoleDrawer(const ConsoleDrawer&) = delete;
     ConsoleDrawer& operator=(const ConsoleDrawer&) = delete;
+
 public:
-    ConsoleDrawer(SafeQueue<IDrawable*>& _safe_queue);
+    explicit ConsoleDrawer(SafeQueue<IDrawable*>& _safe_queue);
     ConsoleDrawer(ConsoleDrawer&& other) = default;
 
     void draw(StartTurnDrawable* drawable);

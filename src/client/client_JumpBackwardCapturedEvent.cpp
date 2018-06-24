@@ -1,6 +1,7 @@
 #include "client_JumpBackwardCapturedEvent.h"
 
-JumpBackwardCapturedEvent::JumpBackwardCapturedEvent(SocketProtocol& _socket_protocol):
+JumpBackwardCapturedEvent::JumpBackwardCapturedEvent(\
+                                          SocketProtocol& _socket_protocol):
                                           socket_protocol(_socket_protocol){}
 
 void JumpBackwardCapturedEvent::send(){

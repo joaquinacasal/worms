@@ -9,9 +9,11 @@ private:
     SocketProtocol& socket_protocol;
 
     JumpForwardCapturedEvent(const JumpForwardCapturedEvent&) = delete;
-    JumpForwardCapturedEvent& operator=(const JumpForwardCapturedEvent&) = delete;
+    JumpForwardCapturedEvent& operator=(const JumpForwardCapturedEvent&) =\
+                                                                        delete;
+
 public:
-    JumpForwardCapturedEvent(SocketProtocol& _socket_protocol);
+    explicit JumpForwardCapturedEvent(SocketProtocol& _socket_protocol);
 
     void send();
 

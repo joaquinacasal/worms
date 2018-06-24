@@ -1,6 +1,7 @@
 #include "client_DynamiteDrawable.h"
 
-MunitionsDrawable::MunitionsDrawable(int dynamite_m, int radiocontrolled_m, int teletransportation_m){
+MunitionsDrawable::MunitionsDrawable(int dynamite_m, int radiocontrolled_m,\
+                                     int teletransportation_m){
     this->dynamite_m = dynamite_m;
     this->radiocontrolled_m = radiocontrolled_m;
     this->teletransportation_m = teletransportation_m;

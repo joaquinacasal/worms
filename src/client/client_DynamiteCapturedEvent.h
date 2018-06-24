@@ -11,7 +11,7 @@ private:
     DynamiteCapturedEvent(const DynamiteCapturedEvent&) = delete;
     DynamiteCapturedEvent& operator=(const DynamiteCapturedEvent&) = delete;
 public:
-    DynamiteCapturedEvent(SocketProtocol& _socket_protocol);
+    explicit DynamiteCapturedEvent(SocketProtocol& _socket_protocol);
 
     void send();
 
