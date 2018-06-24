@@ -23,7 +23,7 @@ void TextureFactory::init(SDL_Renderer* renderer){
     textures["end_turn"] = load_texture(string(ASSETS_FOLDER) + \
                                         string(FINISH_TURN_ASSET), renderer);
     textures["dynamite"] = load_texture(string(ASSETS_FOLDER) + \
-                                        tring(DYNAMITE_ASSET), renderer);
+                                        string(DYNAMITE_ASSET), renderer);
     textures["radioControlled"] = load_texture(string(ASSETS_FOLDER) + \
                                       string(RADIOCONTROLLED_ASSET), renderer);
     textures["grave"] = load_texture(string(ASSETS_FOLDER) + \

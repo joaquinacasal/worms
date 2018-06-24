@@ -23,12 +23,13 @@ void ConsoleDrawer::draw(TurnTimeDrawable* drawable) {
 }
 
 void ConsoleDrawer::draw(WormDrawable* drawable) {
-  std::cout << "Worm con id: " << drawable->get_id() << ", del equipo " << \
-                drawable->get_team() <<", vida: " << \
-                drawable->get_life_points() << ", posición (" << std::fixed <<\
-                std::setprecision(2) << drawable->get_x() << ", " << \
-                std::fixed\ << std::setprecision(2) << drawable->get_y() <<\
-                "), ángulo: " << drawable->get_angle() << ". Mirando hacia la ";
+  std::cout << "Worm con id: " << drawable->get_id() << ", del equipo "\
+                << drawable->get_team() <<", vida: " \
+                << drawable->get_life_points() << ", posición (" \
+                << std::fixed << std::setprecision(2) << drawable->get_x() \
+                << ", " << std::fixed << std::setprecision(2) \
+                << drawable->get_y() << "), ángulo: " << drawable->get_angle()\
+                << ". Mirando hacia la ";
   if (drawable->get_is_facing_right())
     std::cout << "derecha.\n";
   else
