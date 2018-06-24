@@ -9,7 +9,7 @@
 #include "../common/common_SocketProtocol.h"
 #include "server_ProtocolTranslator.h"
 #include "../common/common_SafeQueue.h"
-#include "server_IEvent.h"
+#include "events/server_IEvent.h"
 
 /* Clase que representa a un cliente del sistema.
  * Es un objeto activo, ya que cada cliente se ejecuta en paralelo.

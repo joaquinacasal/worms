@@ -4,16 +4,16 @@
 #include <string>
 #include <vector>
 #include "server_Player.h"
-#include "server_IEvent.h"
-#include "server_MoveRightEvent.h"
-#include "server_MoveLeftEvent.h"
-#include "server_StopMovingEvent.h"
-#include "server_JumpForwardEvent.h"
-#include "server_JumpBackwardEvent.h"
-#include "server_TeletransportationEvent.h"
-#include "server_RadiocontrolledEvent.h"
-#include "server_DynamiteEvent.h"
-#include "server_ClosedConnectionEvent.h"
+#include "events/server_IEvent.h"
+#include "events/server_MoveRightEvent.h"
+#include "events/server_MoveLeftEvent.h"
+#include "events/server_StopMovingEvent.h"
+#include "events/server_JumpForwardEvent.h"
+#include "events/server_JumpBackwardEvent.h"
+#include "events/server_TeletransportationEvent.h"
+#include "events/server_RadiocontrolledEvent.h"
+#include "events/server_DynamiteEvent.h"
+#include "events/server_ClosedConnectionEvent.h"
 
 #define PROTOCOL_CLOSED_CON 0x09
 #define PROTOCOL_RIGHT_ARROW 0x01

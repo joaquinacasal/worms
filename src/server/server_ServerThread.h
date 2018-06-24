@@ -8,7 +8,7 @@
 #include "server_TurnsManager.h"
 #include "server_GameThread.h"
 #include "../common/common_SafeQueue.h"
-#include "server_IEvent.h"
+#include "events/server_IEvent.h"
 #include "server_NotifierThread.h"
 #include <string>
 using std::vector;

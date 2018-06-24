@@ -2,7 +2,7 @@
 #define __MOVERIGHTEVENT__
 
 #include "server_IEvent.h"
-#include "server_Worm.h"
+#include "../server_Worm.h"
 
 class MoveRightEvent : public IEvent {
 private:

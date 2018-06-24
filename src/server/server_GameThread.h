@@ -7,7 +7,7 @@
 #include "server_ServerThread.h"
 #include "server_ClientHandler.h"
 #include "../common/common_SafeQueue.h"
-#include "server_IEvent.h"
+#include "events/server_IEvent.h"
 #include "server_Armory.h"
 #include "server_Worm.h"
 #include "scenario_parser/YamlParser.h"

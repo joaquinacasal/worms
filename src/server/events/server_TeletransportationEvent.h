@@ -2,7 +2,7 @@
 #define __TELETRANSPORTATIONEVENT__
 
 #include "server_IEvent.h"
-#include "server_Player.h"
+#include "../server_Player.h"
 
 class TeletransportationEvent : public IEvent {
 private:

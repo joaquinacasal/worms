@@ -2,7 +2,7 @@
 #define __JUMPBACKWARDEVENT__
 
 #include "server_IEvent.h"
-#include "server_Worm.h"
+#include "../server_Worm.h"
 
 class JumpBackwardEvent : public IEvent {
 private:

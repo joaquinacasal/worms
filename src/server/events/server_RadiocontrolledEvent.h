@@ -2,7 +2,7 @@
 #define __RADIOCONTROLLEDEVENT__
 
 #include "server_IEvent.h"
-#include "server_Player.h"
+#include "../server_Player.h"
 
 class RadiocontrolledEvent : public IEvent {
 private:

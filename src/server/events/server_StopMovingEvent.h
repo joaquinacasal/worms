@@ -2,7 +2,7 @@
 #define __STOPMOVINGEVENT__
 
 #include "server_IEvent.h"
-#include "server_Worm.h"
+#include "../server_Worm.h"
 
 class StopMovingEvent : public IEvent {
 private:

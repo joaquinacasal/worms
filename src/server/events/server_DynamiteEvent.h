@@ -2,7 +2,7 @@
 #define __DYNAMITEEVENT__
 
 #include "server_IEvent.h"
-#include "server_Player.h"
+#include "../server_Player.h"
 
 class DynamiteEvent : public IEvent {
 private:

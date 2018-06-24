@@ -2,7 +2,7 @@
 #define __MOVELEFTEVENT__
 
 #include "server_IEvent.h"
-#include "server_Worm.h"
+#include "../server_Worm.h"
 
 class MoveLeftEvent : public IEvent {
 private:
