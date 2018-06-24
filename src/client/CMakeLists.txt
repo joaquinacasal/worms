@@ -40,6 +40,7 @@ add_executable(worms_client
 				client_FontFactory.cpp
 				client_ColorsFactory.cpp
 				client_TextureFactory.cpp
+				client_Animation.cpp
 				client_Main.cpp
 				../common/common_SocketProtocol.cpp
 				../common/common_Socket.cpp

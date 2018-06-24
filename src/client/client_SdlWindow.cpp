@@ -115,43 +115,22 @@ void SdlWindow::draw(WormDrawable* drawable) {
     std::string new_life_points_s(std::to_string(new_life_points_q));
     bool new_facing_right = drawable->get_is_facing_right();
     int team = drawable->get_team();
+    WormState state;
+    if (drawable->is_still()) state = RESTING;
+    else if (drawable->is_moving()) state = WALKING;
+    else if (drawable->is_flying()) state = JUMPING;
+    else state = DEAD;
+
     if (worms_textures.count(id)){
         WormRepresentation* worm = worms_textures.at(id);
         worm->set_position(new_x, new_y);
-        worm->set_angle(new_angle);
-
-        // Actualizo la vida si cambió
-        if (worm->get_life_points() != new_life_points_q){
-          worm->set_life_texture(font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer));
-          worm->set_life_points(new_life_points_q);
-        }
-
-        // Actualizo el lado para el que mira si cambió
-        if (worm->is_facing_right() != new_facing_right) {
-          SdlTexture* worms_texture = NULL;
-          Area area(new_x, new_y, WORM_SIZE, WORM_SIZE);
-          if (new_facing_right) {
-              worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_r"), *this, area);
-          } else {
-              worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_l"), *this, area);
-          }
-          worm->set_texture(worms_texture);
-          worm->set_facing_right(new_facing_right);
-        }
-
-
+        worm->set_life_points(new_life_points_q, font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer));
+        worm->set_state(state, new_angle, new_facing_right);
     } else {
-        SdlTexture* worms_texture = NULL;
-        Area area(new_x, new_y, WORM_SIZE, WORM_SIZE);
-        if (new_facing_right) {
-          worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_r"), *this, area);
-        } else {
-          worms_texture = new SdlTexture(texture_factory.get_texture_by_name("worm_l"), *this, area);
-        }
-        Area life_area(new_x + 10, new_y - 20, 20, 20);
+        Area position(new_x, new_y, WORM_SIZE, WORM_SIZE);
         SDL_Texture* life_texture = font_factory.get_texture_small_font(new_life_points_s.c_str(), colors_factory.get_color_by_id(team), renderer);
-        WormRepresentation* worm = new WormRepresentation(worms_texture, *this, life_texture, life_area,
-                                                        new_facing_right, new_life_points_q, new_angle);
+        WormRepresentation* worm = new WormRepresentation(state, position, *this, life_texture,
+                                                        new_facing_right, new_life_points_q, new_angle, texture_factory);
         worms_textures[id] = worm;
     }
 }
@@ -162,13 +141,10 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
   if (worms_textures.count(id) == 0) return;
   WormRepresentation* worm = worms_textures.at(id);
 
-  worm->set_life_texture(font_factory.get_texture_small_font(0, colors_factory.get_color_by_id(team), renderer));
-  worm->set_life_points(0);
-  worm->set_angle(0);
-
+  worm->set_life_points(0, font_factory.get_texture_small_font(0, colors_factory.get_color_by_id(team), renderer));
+  worm->set_state(DEAD, 0, false);
   Area life_area = worm->get_life_position();
-  Area area(life_area.getX(), life_area.getY(), WORM_SIZE, WORM_SIZE);
-  worm->set_texture(new SdlTexture(texture_factory.get_texture_by_name("grave"), *this, area));
+  worm->set_position(life_area.getX(), life_area.getY());
 }
 
 void SdlWindow::draw(StageDrawable* drawable) {
@@ -260,7 +236,6 @@ void SdlWindow::run(){
       delete drawable;
     }
     render();
-    // TODO: acá también se hacen las animaciones.
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
 }

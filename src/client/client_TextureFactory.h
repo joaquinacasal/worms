@@ -9,8 +9,9 @@
 using std::string;
 using std::map;
 
-#define WORM_R_ASSET "worm_r.png"
-#define WORM_L_ASSET "worm_l.png"
+#define WORM_RESTING_ASSET "worm_resting.png"
+#define WORM_WALKING_ASSET "worm_walking.png"
+#define WORM_JUMPING_ASSET "worm_jumping.png"
 #define BEAM_ASSET "grdl0.png"
 #define DYNAMITE_ASSET "dynamite.png"
 #define RADIOCONTROLLED_ASSET "radiocontrolled.png"

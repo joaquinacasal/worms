@@ -10,8 +10,9 @@ using std::string;
 using std::map;
 
 void TextureFactory::init(SDL_Renderer* renderer){
-    textures["worm_r"] = load_texture(string(ASSETS_FOLDER) + string(WORM_R_ASSET), renderer);
-    textures["worm_l"] = load_texture(string(ASSETS_FOLDER) + string(WORM_L_ASSET), renderer);
+    textures["worm_resting"] = load_texture(string(ASSETS_FOLDER) + string(WORM_RESTING_ASSET), renderer);
+    textures["worm_walking"] = load_texture(string(ASSETS_FOLDER) + string(WORM_WALKING_ASSET), renderer);
+    textures["worm_jumping"] = load_texture(string(ASSETS_FOLDER) + string(WORM_JUMPING_ASSET), renderer);
     textures["beam"] = load_texture(string(ASSETS_FOLDER) + string(BEAM_ASSET), renderer);
     textures["start_turn"] = load_texture(string(ASSETS_FOLDER) + string(START_TURN_ASSET), renderer);
     textures["end_turn"] = load_texture(string(ASSETS_FOLDER) + string(FINISH_TURN_ASSET), renderer);

@@ -46,7 +46,6 @@
 
 class SdlWindow;
 class SdlTexture;
-class Area;
 class IDrawable;
 class BeamDrawable;
 class ClosedConnectionDrawable;

@@ -42,40 +42,32 @@ int main(int argc, char* argv[]){
             case SDLK_RIGHT:
               captured_event_factory.create_move_right_event();
               state = WAITING_COMMAND;
-              std::cout << "Flecha derecha" << std::endl;
               break;
             case SDLK_LEFT:
               captured_event_factory.create_move_left_event();
               state = WAITING_COMMAND;
-              std::cout << "Flecha izquierda" << std::endl;
               break;
             case SDLK_DOWN:
               captured_event_factory.create_stop_moving_event();
               state = WAITING_COMMAND;
-              std::cout << "Flecha abajo" << std::endl;
               break;
             case SDLK_UP:
               captured_event_factory.create_jump_forward_event();
               state = WAITING_COMMAND;
-              std::cout << "Flecha arriba" << std::endl;
               break;
             case SDLK_BACKSPACE:
               captured_event_factory.create_jump_backward_event();
               state = WAITING_COMMAND;
-              std::cout << "Barra espaciadora" << std::endl;
               break;
             case SDLK_d:
               captured_event_factory.create_dynamite_event();
               state = WAITING_COMMAND;
-              std::cout << "Letra D" << std::endl;
               break;
             case SDLK_r:
               state = WAITING_RADIO_CLICK;
-              std::cout << "Letra R" << std::endl;
               break;
             case SDLK_t:
               state = WAITING_TELE_CLICK;
-              std::cout << "Letra T" << std::endl;
               break;
             case SDLK_q:
               captured_event_factory.create_closed_connection_event();
@@ -94,8 +86,6 @@ int main(int argc, char* argv[]){
             captured_event_factory.create_teletransportation_event(x, y, drawable_factory.get_scenario_height());
           }
           state = WAITING_COMMAND;
-          std::cout << "X: " << x << std::endl;
-          std::cout << "Y: " << y << std::endl;
           break;
       }
   }

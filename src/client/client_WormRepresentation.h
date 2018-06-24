@@ -1,36 +1,45 @@
 #ifndef __WORMREPRESENTATION__
 #define __WORMREPRESENTATION__
 
-#include "client_SdlTexture.h"
+#include "client_Animation.h"
+#include "client_TextureFactory.h"
+
+#define JUMPING_FRAMES 7
+#define WALKING_FRAMES 15
+#define RESTING_FRAMES 20
+#define DEAD_FRAMES 1
 
 class SDL_Texture;
 class SDL_Renderer;
 class SdlWindow;
 class Area;
 
+enum WormState { RESTING, WALKING, JUMPING, DEAD };
+
 class WormRepresentation {
 public:
-    WormRepresentation(SdlTexture* worm_texture, const SdlWindow& window, SDL_Texture* life_texture, Area life_rect,
-                        bool is_facing_right, size_t life_points, int angle);
+    WormRepresentation(WormState state, Area position, const SdlWindow& window, SDL_Texture* life_texture,
+                        bool is_facing_right, size_t life_points, int angle, TextureFactory& texture_factory);
     int render() const;
-    void set_texture(SdlTexture* worm_texture);
-    void set_life_texture(SDL_Texture* life_texture);
     void set_position(int x, int y);
-    void set_life_points(size_t points);
-    void set_angle(int angle);
-    void set_facing_right(bool is_facing_right);
-    Area get_life_position();
-    size_t get_life_points();
-    bool is_facing_right();
+    void set_life_points(size_t points, SDL_Texture* life_texture);
+    void set_state(WormState state, int angle, bool is_facing_right);
+    Area get_life_position() const;
+    size_t get_life_points() const;
+    bool is_facing_right() const;
     ~WormRepresentation();
 private:
-    SdlTexture* worms_texture;
+    Animation* worm_animation;
     SDL_Renderer* renderer;
     SDL_Texture* life_texture;
     Area life_area;
     bool _is_facing_right;
     size_t life_points;
     int angle;
+    WormState state;
+    TextureFactory& texture_factory;
+
+    void get_texture_by_state(WormState state, SDL_Texture** texture, int* frames);
 };
 
 #endif

@@ -10,7 +10,6 @@ using std::string;
 class SDL_Texture;
 class SDL_Renderer;
 class SdlWindow;
-class Area;
 
 class SdlTexture {
 public:
