@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
-#include "../common/common_Thread.h"
-#include "../common/common_SocketProtocol.h"
-#include "../common/common_SafeQueue.h"
+#include "../../common/common_Thread.h"
+#include "../../common/common_SocketProtocol.h"
+#include "../../common/common_SafeQueue.h"
 
 #include "client_IDrawable.h"
 #include "client_BeamDrawable.h"

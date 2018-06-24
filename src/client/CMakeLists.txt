@@ -2,33 +2,33 @@ cmake_minimum_required(VERSION 3.1)
 project(worms_client)
 
 add_executable(worms_client
-				client_CapturedEventSender.cpp
-				client_CapturedEventFactory.cpp
-				client_TeletransportationCapturedEvent.cpp
-				client_RadiocontrolledCapturedEvent.cpp
-				client_ClosedConnectionCapturedEvent.cpp
-				client_DynamiteCapturedEvent.cpp
-				client_JumpBackwardCapturedEvent.cpp
-				client_JumpForwardCapturedEvent.cpp
-				client_StopMovingCapturedEvent.cpp
-				client_MoveRightCapturedEvent.cpp
-				client_MoveLeftCapturedEvent.cpp
+				capturedEvents/client_CapturedEventFactory.cpp
+				capturedEvents/client_TeletransportationCapturedEvent.cpp
+				capturedEvents/client_RadiocontrolledCapturedEvent.cpp
+				capturedEvents/client_ClosedConnectionCapturedEvent.cpp
+				capturedEvents/client_DynamiteCapturedEvent.cpp
+				capturedEvents/client_JumpBackwardCapturedEvent.cpp
+				capturedEvents/client_JumpForwardCapturedEvent.cpp
+				capturedEvents/client_StopMovingCapturedEvent.cpp
+				capturedEvents/client_MoveRightCapturedEvent.cpp
+				capturedEvents/client_MoveLeftCapturedEvent.cpp
+				capturedEvents/client_CapturedEventSender.cpp
 				client_ConsoleDrawer.cpp
-				client_DrawableFactory.cpp
-				client_BeamDrawable.cpp
-				client_ClosedConnectionDrawable.cpp
-				client_DynamiteDrawable.cpp
-				client_DynamiteExplosionDrawable.cpp
-				client_MunitionsDrawable.cpp
-				client_EndTurnDrawable.cpp
-				client_RadiocontrolledDrawable.cpp
-				client_RadiocontrolledExplosionDrawable.cpp
-				client_StageDrawable.cpp
-				client_StartTurnDrawable.cpp
-				client_TurnTimeDrawable.cpp
-				client_YouWinDrawable.cpp
-				client_WormDrawable.cpp
-				client_WormDeathDrawable.cpp
+				drawables/client_DrawableFactory.cpp
+				drawables/client_BeamDrawable.cpp
+				drawables/client_ClosedConnectionDrawable.cpp
+				drawables/client_DynamiteDrawable.cpp
+				drawables/client_DynamiteExplosionDrawable.cpp
+				drawables/client_MunitionsDrawable.cpp
+				drawables/client_EndTurnDrawable.cpp
+				drawables/client_RadiocontrolledDrawable.cpp
+				drawables/client_RadiocontrolledExplosionDrawable.cpp
+				drawables/client_StageDrawable.cpp
+				drawables/client_StartTurnDrawable.cpp
+				drawables/client_TurnTimeDrawable.cpp
+				drawables/client_YouWinDrawable.cpp
+				drawables/client_WormDrawable.cpp
+				drawables/client_WormDeathDrawable.cpp
 				client_SdlWindow.cpp
 				client_SdlException.cpp
 				client_Area.cpp

@@ -2,7 +2,7 @@
 #define __JUMPFORWARDCAPTUREDEVENT__
 
 #include "client_ICapturedEvent.h"
-#include "../common/common_SocketProtocol.h"
+#include "../../common/common_SocketProtocol.h"
 
 class JumpForwardCapturedEvent : public ICapturedEvent {
 private:

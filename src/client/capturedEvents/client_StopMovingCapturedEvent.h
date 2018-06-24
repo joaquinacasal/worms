@@ -2,7 +2,7 @@
 #define __STOPMOVINGCAPTUREDEVENT__
 
 #include "client_ICapturedEvent.h"
-#include "../common/common_SocketProtocol.h"
+#include "../../common/common_SocketProtocol.h"
 
 class StopMovingCapturedEvent : public ICapturedEvent {
 private:

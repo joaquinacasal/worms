@@ -2,7 +2,7 @@
 #define __CAPTUREDEVENTFACTORY__
 
 #include "client_ICapturedEvent.h"
-#include "../common/common_BlockingQueue.h"
+#include "../../common/common_BlockingQueue.h"
 #include "client_DynamiteCapturedEvent.h"
 #include "client_TeletransportationCapturedEvent.h"
 #include "client_RadiocontrolledCapturedEvent.h"

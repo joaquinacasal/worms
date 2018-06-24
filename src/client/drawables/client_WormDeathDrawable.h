@@ -3,8 +3,8 @@
 
 #include "client_IDrawable.h"
 #include <string>
-#include "client_ConsoleDrawer.h"
-#include "client_SdlWindow.h"
+#include "../client_ConsoleDrawer.h"
+#include "../client_SdlWindow.h"
 class SdlWindow;
 class ConsoleDrawer;
 

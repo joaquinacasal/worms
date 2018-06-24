@@ -2,7 +2,7 @@
 #define __TELETRANSPORTATIONCAPTUREDEVENT__
 
 #include "client_ICapturedEvent.h"
-#include "../common/common_SocketProtocol.h"
+#include "../../common/common_SocketProtocol.h"
 
 class TeletransportationCapturedEvent : public ICapturedEvent {
 private:

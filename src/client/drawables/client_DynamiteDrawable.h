@@ -2,8 +2,8 @@
 #define __DYNAMITEDRAWABLE__
 
 #include "client_IDrawable.h"
-#include "client_ConsoleDrawer.h"
-#include "client_SdlWindow.h"
+#include "../client_ConsoleDrawer.h"
+#include "../client_SdlWindow.h"
 class SdlWindow;
 class ConsoleDrawer;
 

@@ -5,9 +5,9 @@
 #include "../common/common_SafeQueue.h"
 #include "../common/common_BlockingQueue.h"
 #include "client_ConsoleDrawer.h"
-#include "client_DrawableFactory.h"
-#include "client_CapturedEventFactory.h"
-#include "client_CapturedEventSender.h"
+#include "drawables/client_DrawableFactory.h"
+#include "capturedEvents/client_CapturedEventFactory.h"
+#include "capturedEvents/client_CapturedEventSender.h"
 
 enum InputState { WAITING_COMMAND, WAITING_RADIO_CLICK, WAITING_TELE_CLICK };
 

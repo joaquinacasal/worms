@@ -2,7 +2,7 @@
 #define __MOVELEFTCAPTUREDEVENT__
 
 #include "client_ICapturedEvent.h"
-#include "../common/common_SocketProtocol.h"
+#include "../../common/common_SocketProtocol.h"
 
 class MoveLeftCapturedEvent : public ICapturedEvent {
 private:
