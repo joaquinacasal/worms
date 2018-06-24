@@ -52,13 +52,13 @@ void Stage::add_worm(size_t id, size_t life, float position_h, \
 
   //shape definition
   b2PolygonShape polygonShape;
-  polygonShape.SetAsBox(2, 2);
+  polygonShape.SetAsBox(6, 6);
 
   //fixture definition
   b2FixtureDef myFixtureDef;
   myFixtureDef.shape = &polygonShape;
   myFixtureDef.density = 1;
-  myFixtureDef.friction = 0.4;
+  myFixtureDef.friction = 0.6;
 
   worm_body->CreateFixture(&myFixtureDef);
   Worm* worm = new Worm(id, life, worm_body);

@@ -51,7 +51,7 @@ public:
       for (size_t i = 0; i < 10000; i++){
         st.step(actual_worm);
       }
-      TS_ASSERT_DELTA( 2, actual_worm->get_vertical_position(), 0.1f );
+      TS_ASSERT_DELTA( 6, actual_worm->get_vertical_position(), 0.1f );
 
       std::cout << "EXITOSO\n";
     }
@@ -73,8 +73,8 @@ public:
         st.step(actual_worm);
         if (actual_worm->get_vertical_position() > altura_maxima) altura_maxima = actual_worm->get_vertical_position();
       }
-      TS_ASSERT_DELTA( initial_position_x + 10, actual_worm->get_horizontal_position(), 0.2f );
-      TS_ASSERT_DELTA( 2 + 5, altura_maxima, 0.2f );
+      TS_ASSERT_DELTA( initial_position_x + 10, actual_worm->get_horizontal_position(), 0.1f );
+      TS_ASSERT_DELTA( 6 + 5, altura_maxima, 0.1f );
       std::cout << "EXITOSO\n";
     }
 
@@ -95,8 +95,9 @@ public:
         st.step(actual_worm);
         if (actual_worm->get_vertical_position() > altura_maxima) altura_maxima = actual_worm->get_vertical_position();
       }
-      TS_ASSERT_DELTA( initial_position_x - 2, actual_worm->get_horizontal_position(), 0.2f );
-      TS_ASSERT_DELTA( 14, altura_maxima, 0.2f );
+      TS_ASSERT_DELTA( initial_position_x - 2, actual_worm->get_horizontal_position(), 0.01f );
+      TS_ASSERT_DELTA( 18, altura_maxima, 0.1f );
+      TS_ASSERT_DELTA( 360, actual_worm->get_angle(), 0.1f );
 
       std::cout << "EXITOSO\n";
     }
@@ -113,9 +114,9 @@ public:
       for (size_t i = 0; i < 15000; i++){
         st.step(actual_worm);
         if (i > 100 && i < 1000 && i%100 == 0)
-          TS_ASSERT_DELTA( 2, actual_worm->get_horizontal_velocity(), 0.3f );
+          TS_ASSERT_DELTA( 2, actual_worm->get_horizontal_velocity(), 0.1f );
       }
-      TS_ASSERT_DELTA( ancho_stage, actual_worm->get_horizontal_position(), 3.0f );
+      TS_ASSERT_DELTA( ancho_stage - 6, actual_worm->get_horizontal_position(), 1.0f );
 
       std::cout << "EXITOSO\n";
     }
@@ -132,9 +133,9 @@ public:
       for (size_t i = 0; i < 15000; i++){
         st.step(actual_worm);
         if (i > 100 && i < 1000 && i%100 == 0)
-          TS_ASSERT_DELTA( -2, actual_worm->get_horizontal_velocity(), 0.3f );
+          TS_ASSERT_DELTA( -2, actual_worm->get_horizontal_velocity(), 0.1f );
       }
-      TS_ASSERT_DELTA( 0 , actual_worm->get_horizontal_position(), 3.0f );
+      TS_ASSERT_DELTA( 6 , actual_worm->get_horizontal_position(), 1.0f );
       std::cout << "EXITOSO\n";
     }
 
@@ -150,7 +151,7 @@ public:
       for (size_t i = 0; i < 1000; i++){
         st.step(actual_worm);
       }
-      TS_ASSERT_DELTA( 10, actual_worm->get_vertical_position(), 0.2f );
+      TS_ASSERT_DELTA( 14, actual_worm->get_vertical_position(), 0.2f );
       std::cout << "EXITOSO\n";
 
     }
@@ -160,13 +161,13 @@ public:
       std::string description = "Test de descuento de vida por caida";
       std::cout << "\nIniciando test: '" << description << "' ... ";
       TS_TRACE(description);
-      Stage st(ancho_stage, largo_stage, "");
-      st.add_beam(1, 10000, initial_position_x, 6, 0);
-      size_t position_y = 45;
+      Stage st(ancho_stage * 10, largo_stage, "");
+      st.add_beam(1, 100000, initial_position_x, 6, 0);
+      size_t position_y = 50;
       for (int i = 1; i < 30; i++){
-        st.add_worm(i, life, initial_position_x + i * 10, position_y);
+        st.add_worm(i, life, initial_position_x + i * 30, position_y);
         Worm* actual_worm = st.get_worm(i);
-        for (size_t i = 0; i < 1000; i++){
+        for (size_t i = 0; i < 1500; i++){
           st.step(actual_worm);
           actual_worm->check_falling();
         }

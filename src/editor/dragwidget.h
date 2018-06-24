@@ -12,6 +12,8 @@
 #define LONG_BEAM_IMAGE_FILENAME "long_beam.png"
 #define LONG_BEAM_LENGTH 60
 #define SHORT_BEAM_LENGTH 30
+#define BEAM_HEIGHT 8
+#define WORM_SIZE 12
 #define ANGLE_DELTA 45
 
 class DragWidget : public QWidget

@@ -36,7 +36,7 @@ void Movement::jump_forward(){
   if (body->GetLinearVelocity().y < epsilon &&\
       body->GetLinearVelocity().y > -epsilon)
     // Formulas calculadas a mano.
-    body->ApplyLinearImpulse(b2Vec2(side * 78.85f, 162.0f), \
+    body->ApplyLinearImpulse(b2Vec2(side * 720.0f, 1450.0f), \
                                                 body->GetWorldCenter());
 }
 
@@ -50,9 +50,9 @@ void Movement::jump_backward(){
   if (body->GetLinearVelocity().y < epsilon &&\
       body->GetLinearVelocity().y > -epsilon){
     // Formulas calculadas a mano.
-    body->ApplyLinearImpulse(b2Vec2(side * -10.3f, 250.0f),\
+    body->ApplyLinearImpulse(b2Vec2(side * -93.0f, 2250.0f),\
                                                 body->GetWorldCenter());
-    body->ApplyAngularImpulse(side * 86.3);
+    body->ApplyAngularImpulse(side * 6980);
   }
 }
 
@@ -77,14 +77,14 @@ void Movement::apply_movement(){
   {
     case MS_LEFT:
       if (vel.x > -2)
-        force = -200;
+        force = -1000;
       break;
     case MS_STOP:
       force = 0;
       break;
     case MS_RIGHT:
       if (vel.x <  2)
-        force = 200;
+        force = 1000;
       break;
   }
   body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter());

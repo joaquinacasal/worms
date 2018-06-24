@@ -4,5 +4,6 @@
 #define LABEL_IMAGES_DIR "@INSTALL_PATH@/worms/editor/images/labels/"
 #define BACKGROUND_IMAGES_DIR "@INSTALL_PATH@/worms/editor/images/backgrounds/"
 #define SCENARIO_FILES_DIR "@INSTALL_PATH@/worms/editor/scenarios/"
+#define PIXEL_METER_CONVERSION 3
 
 #endif // CONFIG_H

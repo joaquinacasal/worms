@@ -1,6 +1,7 @@
 #include "scenariosaver.h"
 #include "yaml-cpp/yaml.h"
 #include "draglabel.h"
+#include "config.h"
 #include <QList>
 #include <string>
 #include <vector>
@@ -54,7 +55,8 @@ int ScenarioSaver::save_scenario(QList<DragLabel*>& worms_labels, QList<DragLabe
         beam["id"] = std::to_string(id_counter);
         beam["x"] = std::to_string(x);
         beam["y"] = std::to_string(y);
-        beam["length"] = std::to_string(beam_label->get_length());
+        beam["length"] = std::to_string(beam_label->get_width());
+        beam["height"] = std::to_string(beam_label->get_height());
         beam["angle"] = std::to_string(beam_label->get_angle());
         beam["image"] = beam_label->get_image_filename().toStdString();
         parser << beam;
@@ -98,12 +100,14 @@ void ScenarioSaver::load_scenario(string filename, int& height, int& width, stri
         float y = std::stof(beam.at("y"));
         y = meters_to_pixels((y - height) * -1);
         int length = std::stoi(beam.at("length"));
+        int height = std::stoi(beam.at("height"));
         int angle = std::stoi(beam.at("angle"));
         string image = beam.at("image");
 
         new_beam["x"] = std::to_string(x);
         new_beam["y"] = std::to_string(y);
         new_beam["length"] = std::to_string(length);
+        new_beam["height"] = std::to_string(height);
         new_beam["angle"] = std::to_string(angle);
         new_beam["image"] = image;        
         beams.push_back(new_beam);

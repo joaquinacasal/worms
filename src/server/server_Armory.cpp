@@ -7,8 +7,6 @@
 Armory::Armory(Stage& a_stage) :  stage(a_stage),
                                   dynamite(a_stage),
                                   radiocontrolled(a_stage){
-  //dynamite = new Dynamite(a_stage);
-  //teletransportation = new Teletransportation();
 }
 
 bool Armory::use_teletransportation(Worm* worm, float x, float y){
@@ -26,9 +24,9 @@ bool Armory::was_teletransportation_used(){
 bool Armory::use_dynamite(Worm* worm, bool is_facing_right){
   float x = worm->get_horizontal_position();
   if (is_facing_right)
-    x += 2.02;
+    x += 6.02;
   else
-    x -= 2.02;
+    x -= 6.02;
   float y = worm->get_vertical_position();
   return this->dynamite.turn_on_dynamite(x, y);
 }

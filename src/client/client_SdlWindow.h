@@ -34,15 +34,15 @@
 #include "client_ColorsFactory.h"
 #include "client_TextureFactory.h"
 
-#define WORM_SIZE 40
-#define DYNAMITE_SIZE 40
-#define RADIOCONTROLLED_SIZE 40
+#define WORM_SIZE 36
+#define DYNAMITE_SIZE 36
+#define RADIOCONTROLLED_SIZE 36
 #define DYNAMITE_ID -1
 #define CHANGE_TURN_MESSAGE_DURATION 600
-#define CHANGE_TURN_MESSAGE_SIZE 500
+#define CHANGE_TURN_MESSAGE_SIZE 450
 #define YOU_WIN_MESSAGE_DURATION 6000
-#define YOU_WIN_MESSAGE_SIZE 1000
-#define WATER_HEIGTH 80
+#define YOU_WIN_MESSAGE_SIZE 900
+#define WATER_HEIGTH 72
 
 class SdlWindow;
 class SdlTexture;
