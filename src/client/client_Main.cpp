@@ -38,76 +38,78 @@ int main(int argc, char* argv[]){
       if (!drawable_factory.is_connected()) break;
       SDL_Event event;
       SDL_WaitEvent(&event);
-      if (event.type == SDL_KEYDOWN && event.key.repeat == 0){
-        SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
-        switch (keyEvent.keysym.sym) {
-          case SDLK_d: {
-            captured_event_factory.create_move_right_event();
-            state = WAITING_COMMAND;
-            break;
-          }
-          case SDLK_a: {
-            captured_event_factory.create_move_left_event();
-            state = WAITING_COMMAND;
-            break;
-          }
-          case SDLK_s: {
-            captured_event_factory.create_stop_moving_event();
-            state = WAITING_COMMAND;
-            break;
-          }
-          case SDLK_w: {
-            captured_event_factory.create_jump_forward_event();
-            state = WAITING_COMMAND;
-            break;
-          }
-          case SDLK_BACKSPACE: {
-            captured_event_factory.create_jump_backward_event();
-            state = WAITING_COMMAND;
-            break;
-          }
-          case SDLK_UP: {
-            Lock camera_lock(camera_mutex);
-            window.move_camera(UP);
-            break;
-          }
-          case SDLK_LEFT: {
-            Lock camera_lock(camera_mutex);
-            window.move_camera(LEFT);
-            break;
-          }
-          case SDLK_DOWN: {
-            Lock camera_lock(camera_mutex);
-            window.move_camera(DOWN);
-            break;
-          }
-          case SDLK_RIGHT: {
-            Lock camera_lock(camera_mutex);
-            window.move_camera(RIGHT);
-            break;
-          }
-          case SDLK_b: {
-            captured_event_factory.create_dynamite_event();
-            state = WAITING_COMMAND;
-            break;
-          }
-          case SDLK_r: {
-            state = WAITING_RADIO_CLICK;
-            break;
-          }
-          case SDLK_t: {
-            state = WAITING_TELE_CLICK;
-            break;
-          }
-          case SDLK_q: {
-            captured_event_factory.create_closed_connection_event();
-            break;
+      switch (event.type) {
+        case SDL_KEYUP: {
+          SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
+          switch (keyEvent.keysym.sym) {
+            case SDLK_d: {
+              captured_event_factory.create_move_right_event();
+              state = WAITING_COMMAND;
+              break;
+            }
+            case SDLK_a: {
+              captured_event_factory.create_move_left_event();
+              state = WAITING_COMMAND;
+              break;
+            }
+            case SDLK_s: {
+              captured_event_factory.create_stop_moving_event();
+              state = WAITING_COMMAND;
+              break;
+            }
+            case SDLK_w: {
+              captured_event_factory.create_jump_forward_event();
+              state = WAITING_COMMAND;
+              break;
+            }
+            case SDLK_BACKSPACE: {
+              captured_event_factory.create_jump_backward_event();
+              state = WAITING_COMMAND;
+              break;
+            }
+            case SDLK_UP: {
+              Lock camera_lock(camera_mutex);
+              window.move_camera(UP);
+              break;
+            }
+            case SDLK_LEFT: {
+              Lock camera_lock(camera_mutex);
+              window.move_camera(LEFT);
+              break;
+            }
+            case SDLK_DOWN: {
+              Lock camera_lock(camera_mutex);
+              window.move_camera(DOWN);
+              break;
+            }
+            case SDLK_RIGHT: {
+              Lock camera_lock(camera_mutex);
+              window.move_camera(RIGHT);
+              break;
+            }
+            case SDLK_b: {
+              captured_event_factory.create_dynamite_event();
+              state = WAITING_COMMAND;
+              break;
+            }
+            case SDLK_r: {
+              state = WAITING_RADIO_CLICK;
+              break;
+            }
+            case SDLK_t: {
+              state = WAITING_TELE_CLICK;
+              break;
+            }
+            case SDLK_q: {
+              captured_event_factory.create_closed_connection_event();
+              break;
+            }
           }
         }
-      } else if (event.type == SDL_MOUSEBUTTONDOWN){
+        case SDL_MOUSEBUTTONDOWN: {
           if (event.button.button != SDL_BUTTON_LEFT ||
-            (state != WAITING_RADIO_CLICK && state != WAITING_TELE_CLICK)){
-              break;
+          (state != WAITING_RADIO_CLICK && state != WAITING_TELE_CLICK)){
+            break;
           }
           SDL_GetMouseState(&x, &y);
           if (state == WAITING_RADIO_CLICK){
@@ -118,7 +120,9 @@ int main(int argc, char* argv[]){
                                   drawable_factory.get_scenario_height());
           }
           state = WAITING_COMMAND;
+          break;
         }
+      }
   }
   drawable_factory.join();
   //console_drawer.stop();
