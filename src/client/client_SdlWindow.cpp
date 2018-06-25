@@ -316,7 +316,13 @@ void SdlWindow::stop(){
 }
 
 void SdlWindow::move_camera(CameraMovement movement){
+    Lock camera_lock(camera_mutex);
     camera.move(movement);
+}
+
+void SdlWindow::convert_coordinates_to_absolut(int* x, int* y){
+    Lock camera_lock(camera_mutex);
+    camera.coordinates_to_absolut(x, y);
 }
 
 SdlWindow::~SdlWindow() {

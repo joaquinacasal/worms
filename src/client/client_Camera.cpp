@@ -24,6 +24,13 @@ Area Camera::adapt_area(Area area){
     return Area(x, y, area.getWidth(), area.getHeight());
 }
 
+void Camera::coordinates_to_absolut(int* x, int* y){
+    int aux_x = *x + position.getX();
+    int aux_y = *y + position.getY();
+    *x = aux_x;
+    *y = aux_y;
+}
+
 Area Camera::get_center(int width, int height){
     int x = position.getX() + position.getWidth() / 2 - width / 2;
     int y = position.getY() + position.getHeight() / 2 - height / 2;

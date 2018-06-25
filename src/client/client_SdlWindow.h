@@ -144,6 +144,7 @@ public:
     void fill(int r, int g, int b, int alpha);
     void render();
     void move_camera(CameraMovement movement);
+    void convert_coordinates_to_absolut(int* x, int* y);
     SDL_Renderer* getRenderer() const;
     ~SdlWindow();
 };

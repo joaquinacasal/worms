@@ -68,22 +68,18 @@ int main(int argc, char* argv[]){
               break;
             }
             case SDLK_UP: {
-              Lock camera_lock(camera_mutex);
               window.move_camera(UP);
               break;
             }
             case SDLK_LEFT: {
-              Lock camera_lock(camera_mutex);
               window.move_camera(LEFT);
               break;
             }
             case SDLK_DOWN: {
-              Lock camera_lock(camera_mutex);
               window.move_camera(DOWN);
               break;
             }
             case SDLK_RIGHT: {
-              Lock camera_lock(camera_mutex);
               window.move_camera(RIGHT);
               break;
             }
@@ -112,6 +108,7 @@ int main(int argc, char* argv[]){
             break;
           }
           SDL_GetMouseState(&x, &y);
+          window.convert_coordinates_to_absolut(&x, &y);
           if (state == WAITING_RADIO_CLICK){
             captured_event_factory.create_radiocontrolled_event(x, y, \
                                   drawable_factory.get_scenario_height());

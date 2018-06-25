@@ -14,6 +14,7 @@ public:
     void set_map_size(int map_width, int map_height);
     void adapt_coordinates(int* x, int* y) const;
     Area adapt_area(Area area);
+    void coordinates_to_absolut(int* x, int* y);
     Area get_center(int width, int height);
     void move(CameraMovement movement);
     void center(int x, int y);
