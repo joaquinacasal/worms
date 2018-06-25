@@ -173,10 +173,10 @@ void GameThread::tick_turn(){
 
   while (alive && (turn_chrono > 0 || actual_player->has_an_active_weapon())) {
     auto start = get_time::now();
+    if (!execute_event()) break;
     check_falling();
     check_life_discount(initial_life, actual_worm);
     check_immobilization(actual_worm);
-    if (!execute_event()) break;
     stage->step(actual_worm);
     check_weapons(actual_player, weapon_was_used);
     auto end = get_time::now();
