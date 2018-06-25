@@ -45,6 +45,16 @@ void Camera::move(CameraMovement movement){
             move_left();
             break;
     }
+    check_position();
+}
+
+void Camera::center(int x, int y){
+    position.setX(x - map_width / 2);
+    position.setY(y - map_height / 2);
+    check_position();
+}
+
+void Camera::check_position(){
     if (position.getX() < 0)
     {
         position.setX(0);

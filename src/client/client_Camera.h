@@ -16,12 +16,14 @@ public:
     Area adapt_area(Area area);
     Area get_center(int width, int height);
     void move(CameraMovement movement);
+    void center(int x, int y);
     ~Camera() = default;
 private:
     void move_up();
     void move_down();
     void move_right();
     void move_left();
+    void check_position();
 
     Area position;
     int map_width;

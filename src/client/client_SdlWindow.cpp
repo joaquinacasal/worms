@@ -26,7 +26,8 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue) :
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
     SDL_GetWindowSize(this->window, &width, &height);
-    camera.set_position(Area(0, 0, 1980, 1080)); //TODO: reemplazar por width y height, que no funciona
+    camera.set_position(Area(0, 0, 1980, 1055)); //TODO: reemplazar por width y height, que no funciona
+    std::cout << "Width: " << width << "Height: " << height << std::endl;
 
     // Cronometro del turno.
     turn_chrono = {font_factory.get_texture_big_font("60.0", \
@@ -163,10 +164,12 @@ void SdlWindow::draw(WormDrawable* drawable) {
                               get_texture_small_font(new_life_points_s.c_str(),\
                               colors_factory.get_color_by_id(team), renderer));
         worm->set_state(state, new_angle, new_facing_right);
-        if (is_the_selected_worm)
-          worm->select_worm();
-        else
-          worm->deselect_worm();
+        if (is_the_selected_worm){
+            worm->select_worm();
+            camera.center(new_x, new_y);
+        } else{
+            worm->deselect_worm();
+        }
     } else {
         Area position(new_x, new_y, WORM_SIZE, WORM_SIZE);
         SDL_Texture* life_texture = font_factory.get_texture_small_font(\
