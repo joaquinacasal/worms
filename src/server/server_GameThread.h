@@ -71,6 +71,9 @@ private:
     // que sufrieron alguna modificación durante el tick.
     void send_worms_information_to_clients();
 
+    // Le envía a los clientes la información del gusano recibido.
+    void send_worm_information_to_clients(Worm* worm);
+
     // Le envía la información relacionada a las armas activas a los clientes.
     void send_weapon_information_to_clients();
 

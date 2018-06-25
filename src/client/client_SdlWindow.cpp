@@ -133,10 +133,6 @@ void SdlWindow::draw(EndTurnDrawable* drawable) {
     change_turn_message.set_message_texture(new SdlTexture(texture_factory.\
                               get_texture_by_name("end_turn"), *this, area));
     change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
-
-    for (const auto& sm_pair : worms_textures){
-      sm_pair.second->deselect_worm();
-    }
 }
 
 void SdlWindow::draw(TurnTimeDrawable* drawable) {

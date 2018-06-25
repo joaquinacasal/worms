@@ -272,26 +272,32 @@ void GameThread::send_worms_information_to_clients(){
       // Solo envío la información de los movibles.
       if (!worm->is_movable() || !worm->is_alive() ||\
                       !worm->has_suffered_changes()) continue;
-      size_t id = worm->get_id();
-      size_t life_points = worm->get_life_points();
-      double x = worm->get_horizontal_position();
-      double y = worm->get_vertical_position();
-      int angle = (int)worm->get_angle();
-      bool is_facing_right = worm->is_facing_right();
-      int movement_state;
-      if (!worm->is_colliding()){
-        movement_state = 3; // Volando
-      } else {
-        if (worm->is_moving())
-          movement_state = 2; // Moviendose
-        else
-          movement_state = 1; // Quieto
-      }
-      bool is_the_selected_worm = (actual_worm->get_id() == id);
-      this->server_thread->send_worm_information_to_clients(id, life_points,\
-        x, y, angle, is_facing_right, i, movement_state, is_the_selected_worm);
+      send_worm_information_to_clients(worm);
     }
   }
+}
+
+void GameThread::send_worm_information_to_clients(Worm* worm){
+  size_t id = worm->get_id();
+  size_t life_points = worm->get_life_points();
+  double x = worm->get_horizontal_position();
+  double y = worm->get_vertical_position();
+  int angle = (int)worm->get_angle();
+  bool is_facing_right = worm->is_facing_right();
+  int movement_state;
+  if (!worm->is_colliding()){
+    movement_state = 3; // Volando
+  } else {
+    if (worm->is_moving())
+      movement_state = 2; // Moviendose
+    else
+      movement_state = 1; // Quieto
+  }
+  bool is_the_selected_worm = (id == turns_manager.get_selected_player()->\
+                                     get_selected_worm()->get_id());
+  this->server_thread->send_worm_information_to_clients(id, life_points,\
+    x, y, angle, is_facing_right, turns_manager.get_team_of_worm(worm),\
+    movement_state, is_the_selected_worm);
 }
 
 void GameThread::send_stage_information_to_clients(){
@@ -380,6 +386,7 @@ void GameThread::set_worms_as_immovable(){
 }
 
 void GameThread::changeTurn(){
+  Worm* prev_worm = turns_manager.get_selected_player()->get_selected_worm();
   set_worms_as_immovable();
   if (server_thread->is_alive()) server_thread->changeTurn();
   // Vacío la cola.
@@ -390,6 +397,13 @@ void GameThread::changeTurn(){
   turn_chrono = TURN_LENGTH;
   Worm* actual_worm = turns_manager.get_selected_player()->get_selected_worm();
   actual_worm->make_movable();
+  // Si el gusano actual muere envío la notificación luego de sacarle la flecha
+  // que indica que era el seleccionado.
+  send_worm_information_to_clients(prev_worm);
+  if (!prev_worm->is_alive())
+    this->server_thread->send_worm_death_notif_to_clients(prev_worm->get_id(),\
+                                    turns_manager.get_team_of_worm(prev_worm));
+  send_worm_information_to_clients(actual_worm);
 }
 
 bool GameThread::is_alive() const {
