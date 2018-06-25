@@ -35,9 +35,7 @@ add_executable(worms_client
 				client_Area.cpp
 				client_SdlTexture.cpp
 				client_WormRepresentation.cpp
-				client_TurnMessage.cpp
-				client_YouWinMessage.cpp
-				client_YouLoseMessage.cpp
+				client_Message.cpp
 				client_MunitionsInformation.cpp
 				client_FontFactory.cpp
 				client_ColorsFactory.cpp

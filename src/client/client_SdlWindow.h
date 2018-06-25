@@ -28,9 +28,7 @@
 #include "drawables/client_YouLoseDrawable.h"
 #include "drawables/client_MunitionsDrawable.h"
 #include "client_WormRepresentation.h"
-#include "client_TurnMessage.h"
-#include "client_YouWinMessage.h"
-#include "client_YouLoseMessage.h"
+#include "client_Message.h"
 #include "client_MunitionsInformation.h"
 #include "client_FontFactory.h"
 #include "client_ColorsFactory.h"
@@ -68,7 +66,7 @@ class YouWinDrawable;
 class YouLoseDrawable;
 class MunitionsDrawable;
 class WormRepresentation;
-class TurnMessage;
+class Message;
 class MunitionsInformation;
 class FontFactory;
 class ColorsFactory;
@@ -95,9 +93,9 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    TurnMessage change_turn_message;
-    YouWinMessage you_win_message;
-    YouLoseMessage you_lose_message;
+    Message change_turn_message;
+    Message you_win_message;
+    Message you_lose_message;
     chrono_representation turn_chrono;
     chrono_representation dynamite_chrono;
     MunitionsInformation* munitions_info;

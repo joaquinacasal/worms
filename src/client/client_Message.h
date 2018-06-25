@@ -1,19 +1,19 @@
-#ifndef __TURNMESSAGE__
-#define __TURNMESSAGE__
+#ifndef __MESSAGE__
+#define __MESSAGE__
 
 #include "client_SdlTexture.h"
 
-class TurnMessage {
+class Message {
 public:
-    TurnMessage(SdlTexture* message_texture, int time);
+    Message(SdlTexture* message_texture, int time);
     int render();
     void set_message_texture(SdlTexture* message_texture);
     void set_time_alive(int time);
-    ~TurnMessage();
+    ~Message();
 
 private:
     SdlTexture* message_texture;
     int time_alive;
 };
 
-#endif
+#endif //__MESSAGE__
