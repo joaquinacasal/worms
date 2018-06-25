@@ -1,4 +1,5 @@
 #include <iostream>
+#include <mutex>
 #include <SDL2/SDL.h>
 #include "client_SdlWindow.h"
 #include "../common/common_SocketProtocol.h"
@@ -8,6 +9,7 @@
 #include "drawables/client_DrawableFactory.h"
 #include "capturedEvents/client_CapturedEventFactory.h"
 #include "capturedEvents/client_CapturedEventSender.h"
+#include "../common/common_Lock.h"
 
 enum InputState { WAITING_COMMAND, WAITING_RADIO_CLICK, WAITING_TELE_CLICK };
 
@@ -19,7 +21,8 @@ int main(int argc, char* argv[]){
   //ConsoleDrawer console_drawer(safe_queue);
   //console_drawer.start();
   //SdlWindow window(safe_queue, 1920, 1080);
-  SdlWindow window(safe_queue);
+  std::mutex camera_mutex;
+  SdlWindow window(safe_queue, camera_mutex);
   window.start();
   DrawableFactory drawable_factory(sp, safe_queue);
   drawable_factory.start();
@@ -39,54 +42,71 @@ int main(int argc, char* argv[]){
         case SDL_KEYUP: {
           SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
           switch (keyEvent.keysym.sym) {
-            case SDLK_d:
+            case SDLK_d: {
               captured_event_factory.create_move_right_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_a:
+            }
+            case SDLK_a: {
               captured_event_factory.create_move_left_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_s:
+            }
+            case SDLK_s: {
               captured_event_factory.create_stop_moving_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_w:
+            }
+            case SDLK_w: {
               captured_event_factory.create_jump_forward_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_BACKSPACE:
+            }
+            case SDLK_BACKSPACE: {
               captured_event_factory.create_jump_backward_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_UP:
+            }
+            case SDLK_UP: {
+              Lock camera_lock(camera_mutex);
               window.move_camera(UP);
               break;
-            case SDLK_LEFT:
+            }
+            case SDLK_LEFT: {
+              Lock camera_lock(camera_mutex);
               window.move_camera(LEFT);
               break;
-            case SDLK_DOWN:
+            }
+            case SDLK_DOWN: {
+              Lock camera_lock(camera_mutex);
               window.move_camera(DOWN);
               break;
-            case SDLK_RIGHT:
+            }
+            case SDLK_RIGHT: {
+              Lock camera_lock(camera_mutex);
               window.move_camera(RIGHT);
               break;
-            case SDLK_b:
+            }
+            case SDLK_b: {
               captured_event_factory.create_dynamite_event();
               state = WAITING_COMMAND;
               break;
-            case SDLK_r:
+            }
+            case SDLK_r: {
               state = WAITING_RADIO_CLICK;
               break;
-            case SDLK_t:
+            }
+            case SDLK_t: {
               state = WAITING_TELE_CLICK;
               break;
-            case SDLK_q:
+            }
+            case SDLK_q: {
               captured_event_factory.create_closed_connection_event();
               break;
+            }
           }
         }
-        case SDL_MOUSEBUTTONDOWN:
+        case SDL_MOUSEBUTTONDOWN: {
           if (event.button.button != SDL_BUTTON_LEFT ||
           (state != WAITING_RADIO_CLICK && state != WAITING_TELE_CLICK)){
             break;
@@ -101,6 +121,7 @@ int main(int argc, char* argv[]){
           }
           state = WAITING_COMMAND;
           break;
+        }
       }
   }
   drawable_factory.join();

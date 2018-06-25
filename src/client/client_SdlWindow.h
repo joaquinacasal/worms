@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <mutex>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
@@ -104,6 +105,7 @@ private:
     TextureFactory texture_factory;
     SdlTexture* background_texture;
     Camera camera;
+    std::mutex& camera_mutex;
 
     map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
@@ -118,7 +120,7 @@ private:
     SdlWindow& operator=(const ConsoleDrawer&) = delete;
 
 public:
-    SdlWindow(SafeQueue<IDrawable*>& _safe_queue);
+    SdlWindow(SafeQueue<IDrawable*>& _safe_queue, std::mutex& camera_mutex);
     SdlWindow(SdlWindow&& other) = default;
     void draw(StartTurnDrawable* drawable);
     void draw(EndTurnDrawable* drawable);

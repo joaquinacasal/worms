@@ -8,13 +8,15 @@
 #include "client_SdlWindow.h"
 #include "client_SdlTexture.h"
 #include "config.h"
+#include "../common/common_Lock.h"
 
 using std::string;
 
-SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue) :
+SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue,\
+                    std::mutex& camera_mutex) :
         safe_queue(_safe_queue), connected(true),\
         change_turn_message(NULL, 0), you_win_message(NULL, 0),\
-        you_lose_message(NULL, 0) {
+        you_lose_message(NULL, 0), camera_mutex(camera_mutex) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
@@ -26,7 +28,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue) :
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
     SDL_GetWindowSize(this->window, &width, &height);
-    camera.set_position(Area(0, 0, 1980, 1055)); //TODO: reemplazar por width y height, que no funciona
+    camera.set_position(Area(0, 0, 1980, 1055)); //TODO: Protect? TODO: reemplazar por width y height, que no funciona
     std::cout << "Width: " << width << "Height: " << height << std::endl;
 
     // Cronometro del turno.
@@ -48,10 +50,12 @@ void SdlWindow::fill(int r, int g, int b, int alpha) {
 }
 
 void SdlWindow::fill() {
-    if (background_texture == NULL)
-      this->fill(0x33,0x33,0x33,0xFF);
-    else
-      this->background_texture->render(camera);
+    if (background_texture == NULL){
+        this->fill(0x33,0x33,0x33,0xFF);
+    }
+    else {
+        this->background_texture->render(camera); //TODO: protect?
+    }
 }
 
 void SdlWindow::render() {
@@ -199,7 +203,7 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
 void SdlWindow::draw(StageDrawable* drawable) {
   width = drawable->get_width();
   height = drawable->get_height();
-  camera.set_map_size(width, height);
+  camera.set_map_size(width, height); //TODO: protect?
   SDL_Texture* background = texture_factory.load_texture(\
                               string(BACKGROUNDS_FOLDER) + \
                               drawable->get_background(), renderer);
@@ -294,6 +298,7 @@ void SdlWindow::run(){
       draw(drawable);
       delete drawable;
     }
+    Lock camera_lock(camera_mutex);
     render();
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
