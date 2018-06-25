@@ -16,7 +16,6 @@ private:
   Movement movement;
 
   float last_solid_height;
-  bool changed;
 
   // No copiable.
   Worm(const Worm&) = delete;

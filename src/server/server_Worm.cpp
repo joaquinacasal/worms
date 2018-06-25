@@ -4,7 +4,6 @@ Worm::Worm(size_t id, size_t life, b2Body* body): movement(body){
   this->id = id;
   this->life = life;
   this->last_solid_height = movement.get_vertical_position();
-  changed = true;
 }
 
 size_t Worm::get_id(){
@@ -16,7 +15,6 @@ void Worm::subtract_life(size_t life_points){
     this->life -= life_points;
   else
     this->life = 0;
-  changed = true;
 }
 
 bool Worm::is_alive(){
@@ -50,27 +48,22 @@ float Worm::get_angle(){
 
 void Worm::move_right(){
   this->movement.move_right();
-  changed = true;
 }
 
 void Worm::move_left(){
   this->movement.move_left();
-  changed = true;
 }
 
 void Worm::jump_forward(){
   this->movement.jump_forward();
-  changed = true;
 }
 
 void Worm::jump_backward(){
   this->movement.jump_backward();
-  changed = true;
 }
 
 void Worm::stop_moving(){
   this->movement.stop_moving();
-  changed = true;
 }
 
 void Worm::apply_movement(){
@@ -81,7 +74,6 @@ void Worm::teletransport(double x, double y){
   this->last_solid_height = y;
   this->movement.reset_velocity();
   this->movement.teletransport(x, y);
-  changed = true;
 }
 
 bool Worm::is_facing_right(){
@@ -90,7 +82,6 @@ bool Worm::is_facing_right(){
 
 void Worm::make_movable(){
   this->movement.make_movable();
-  changed = true;
 }
 
 void Worm::make_immovable(){
@@ -103,12 +94,10 @@ bool Worm::is_movable(){
 
 void Worm::correct_angle(){
   this->movement.correct_angle();
-  changed = true;
 }
 
 void Worm::apply_force(float x, float y){
   this->movement.apply_force(x, y);
-  changed = true;
 }
 
 bool Worm::is_colliding(){
@@ -137,11 +126,10 @@ bool Worm::is_moving(){
 }
 
 bool Worm::has_suffered_changes(){
-  bool is_in_movement = get_vertical_velocity() > -0.01 || \
-                        get_vertical_velocity() < 0.01  || \
-                        get_horizontal_velocity() > -0.01 || \
-                        get_horizontal_velocity() < 0.01;
-  bool aux = is_moving() || !is_colliding() || changed || is_in_movement;
-  changed = false;
+  bool is_in_movement = get_vertical_velocity() < -0.01 || \
+                        get_vertical_velocity() > 0.01  || \
+                        get_horizontal_velocity() < -0.01 || \
+                        get_horizontal_velocity() > 0.01;
+  bool aux = is_moving() || is_in_movement;
   return aux;
 }
