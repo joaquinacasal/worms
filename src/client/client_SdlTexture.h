@@ -17,6 +17,7 @@ public:
     SdlTexture(SDL_Texture* texture, const SdlWindow& window, Area position);
     int render(Camera& camera, int angle = 0) const;
     int render(int angle = 0) const;
+    Area get_position();
     void set_position(int x, int y);
     ~SdlTexture() = default;
 private:

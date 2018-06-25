@@ -27,11 +27,12 @@ int WormRepresentation::render(Camera& camera) const {
     if (this->is_facing_right())
         flip = SDL_FLIP_HORIZONTAL;
     this->worm_animation->render(camera, angle, flip);
-    Area pos = camera.adapt_area(this->life_area);
-    SDL_Rect life_rect = pos.toRect();
+    Area life_pos = camera.adapt_area(this->life_area);
+    SDL_Rect life_rect = life_pos.toRect();
     SDL_RenderCopy(this->renderer, this->life_texture, NULL, &life_rect);
     if (_is_the_selected_worm) {
-      SDL_Rect arrow_rect = this->arrow_area.toRect();
+      Area arrow_pos = camera.adapt_area(this->arrow_area);
+      SDL_Rect arrow_rect = arrow_pos.toRect();
       SDL_RenderCopy(this->renderer, this->arrow_texture, NULL, &arrow_rect);
     }
 }

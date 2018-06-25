@@ -35,3 +35,7 @@ int SdlTexture::render(SDL_Rect position_rec, int angle) const {
 void SdlTexture::set_position(int x, int y){
     position.setPosition(x, y);
 }
+
+Area SdlTexture::get_position(){
+    return position;
+}

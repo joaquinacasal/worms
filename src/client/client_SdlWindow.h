@@ -45,7 +45,7 @@
 #define YOU_WIN_MESSAGE_SIZE 900
 #define YOU_LOSE_MESSAGE_DURATION 8000
 #define YOU_LOSE_MESSAGE_SIZE 1000
-#define WATER_HEIGTH 72
+#define WATER_HEIGTH 80
 
 class SdlWindow;
 class SdlTexture;

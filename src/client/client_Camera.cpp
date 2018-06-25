@@ -25,10 +25,9 @@ Area Camera::adapt_area(Area area){
 }
 
 Area Camera::get_center(int width, int height){
-    Area area(position.getWidth()/2 - width / 2,
-                position.getHeight()/2 - height / 2,
-                width,
-                height);
+    int x = position.getX() + position.getWidth() / 2 - width / 2;
+    int y = position.getY() + position.getHeight() / 2 - height / 2;
+    return Area(x, y, width, height);
 }
 
 void Camera::move(CameraMovement movement){

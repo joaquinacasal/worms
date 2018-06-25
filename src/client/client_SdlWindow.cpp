@@ -26,7 +26,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue) :
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
     SDL_GetWindowSize(this->window, &width, &height);
-    camera.set_position(Area(0, 0, width, height));
+    camera.set_position(Area(0, 0, 1980, 1080)); //TODO: reemplazar por width y height, que no funciona
 
     // Cronometro del turno.
     turn_chrono = {font_factory.get_texture_big_font("60.0", \
@@ -81,13 +81,13 @@ void SdlWindow::render() {
     munitions_info->render();
 
     // Render change_turn_message
-    change_turn_message.render();
+    change_turn_message.render(camera);
 
     // Render you_win_message
-    you_win_message.render();
+    you_win_message.render(camera);
 
     // Render you_lose_message
-    you_lose_message.render();
+    you_lose_message.render(camera);
 
     SDL_RenderPresent(this->renderer);
 }
@@ -97,14 +97,14 @@ SDL_Renderer* SdlWindow::getRenderer() const {
 }
 
 void SdlWindow::draw(YouWinDrawable* drawable) {
-    Area area = camera.get_center(YOU_WIN_MESSAGE_SIZE, YOU_WIN_MESSAGE_SIZE);
+    Area area(0, 0, YOU_WIN_MESSAGE_SIZE, YOU_WIN_MESSAGE_SIZE);
     you_win_message.set_message_texture(new SdlTexture(texture_factory.\
                                 get_texture_by_name("you_win"), *this, area));
     you_win_message.set_time_alive(YOU_WIN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(YouLoseDrawable* drawable) {
-    Area area = camera.get_center(YOU_LOSE_MESSAGE_SIZE, YOU_LOSE_MESSAGE_SIZE);
+    Area area(0, 0, YOU_LOSE_MESSAGE_SIZE, YOU_LOSE_MESSAGE_SIZE);
     you_lose_message.set_message_texture(new SdlTexture(texture_factory.\
                                 get_texture_by_name("you_lose"), *this, area));
     you_lose_message.set_time_alive(YOU_LOSE_MESSAGE_DURATION);
@@ -112,14 +112,14 @@ void SdlWindow::draw(YouLoseDrawable* drawable) {
 }
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {
-    Area area = camera.get_center(CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    Area area(0, 0, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.set_message_texture(new SdlTexture(texture_factory.\
                               get_texture_by_name("start_turn"), *this, area));
     change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
 }
 
 void SdlWindow::draw(EndTurnDrawable* drawable) {
-    Area area = camera.get_center(CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
+    Area area(0, 0, CHANGE_TURN_MESSAGE_SIZE, CHANGE_TURN_MESSAGE_SIZE);
     change_turn_message.set_message_texture(new SdlTexture(texture_factory.\
                               get_texture_by_name("end_turn"), *this, area));
     change_turn_message.set_time_alive(CHANGE_TURN_MESSAGE_DURATION);
