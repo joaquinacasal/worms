@@ -87,6 +87,10 @@ void ConsoleDrawer::draw(YouWinDrawable* drawable){
   std::cout << "Ganaste!\n";
 }
 
+void ConsoleDrawer::draw(YouLoseDrawable* drawable){
+  std::cout << "Perdiste!\n";
+}
+
 void ConsoleDrawer::draw(MunitionsDrawable* drawable){
   std::cout << "Dinamita: " << drawable->get_dynamite_munitions() << \
                ", teledirigido: " << drawable->get_radiocontrolled_munitions()\

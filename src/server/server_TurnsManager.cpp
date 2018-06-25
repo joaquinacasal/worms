@@ -49,6 +49,13 @@ int TurnsManager::get_team_of_worm(Worm* worm){
   return -1;
 }
 
+Player* TurnsManager::get_player_from_team(int team){
+  if (team < 0 || team >= players.size())
+    return NULL;
+  return players[team];
+}
+
+
 
 TurnsManager::~TurnsManager(){
   for (size_t i = 0; i < players.size(); i++){

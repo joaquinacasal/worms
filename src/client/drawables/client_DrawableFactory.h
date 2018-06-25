@@ -20,6 +20,7 @@
 #include "client_WormDrawable.h"
 #include "client_WormDeathDrawable.h"
 #include "client_YouWinDrawable.h"
+#include "client_YouLoseDrawable.h"
 #include "client_MunitionsDrawable.h"
 
 /* Clase que representa a una fábrica de objetos Drawable, recibe
@@ -28,6 +29,7 @@
 
  #define PROTOCOL_CLOSED_CON 0x09
  #define PROTOCOL_YOU_WIN_NOTIF 0x10
+ #define PROTOCOL_YOU_LOSE_NOTIF 0x11
  #define PROTOCOL_TURN_START 0x30
  #define PROTOCOL_TURN_END 0x31
  #define PROTOCOL_TURN_TIME 0x32
@@ -55,6 +57,7 @@
  class WormDrawable;
  class WormDeathDrawable;
  class YouWinDrawable;
+ class YouLoseDrawable;
  class MunitionsDrawable;
 
 class DrawableFactory : public Thread {
@@ -76,6 +79,7 @@ private:
     void create_radiocontrolled_drawable();
     void create_radiocontrolled_explosion_drawable();
     void create_you_win_drawable();
+    void create_you_lose_drawable();
     void create_munitions_drawable();
     void create_closed_connection_drawable();
 

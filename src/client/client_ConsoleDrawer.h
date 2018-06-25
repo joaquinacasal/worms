@@ -19,6 +19,7 @@
 #include "drawables/client_WormDrawable.h"
 #include "drawables/client_WormDeathDrawable.h"
 #include "drawables/client_YouWinDrawable.h"
+#include "drawables/client_YouLoseDrawable.h"
 #include "drawables/client_MunitionsDrawable.h"
 
 class IDrawable;
@@ -35,6 +36,7 @@ class TurnTimeDrawable;
 class WormDrawable;
 class WormDeathDrawable;
 class YouWinDrawable;
+class YouLoseDrawable;
 class MunitionsDrawable;
 
 /* Clase que representa al dibujador por consola. Saca los Drawables de una
@@ -66,6 +68,7 @@ public:
     void draw(RadiocontrolledExplosionDrawable* drawable);
     void draw(WormDeathDrawable* drawable);
     void draw(YouWinDrawable* drawable);
+    void draw(YouLoseDrawable* drawable);
     void draw(MunitionsDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
 

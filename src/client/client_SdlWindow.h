@@ -25,11 +25,12 @@
 #include "drawables/client_YouWinDrawable.h"
 #include "drawables/client_WormDrawable.h"
 #include "drawables/client_WormDeathDrawable.h"
-#include "drawables/client_YouWinDrawable.h"
+#include "drawables/client_YouLoseDrawable.h"
 #include "drawables/client_MunitionsDrawable.h"
 #include "client_WormRepresentation.h"
 #include "client_TurnMessage.h"
 #include "client_YouWinMessage.h"
+#include "client_YouLoseMessage.h"
 #include "client_MunitionsInformation.h"
 #include "client_FontFactory.h"
 #include "client_ColorsFactory.h"
@@ -44,6 +45,8 @@
 #define CHANGE_TURN_MESSAGE_SIZE 450
 #define YOU_WIN_MESSAGE_DURATION 6000
 #define YOU_WIN_MESSAGE_SIZE 900
+#define YOU_LOSE_MESSAGE_DURATION 8000
+#define YOU_LOSE_MESSAGE_SIZE 1000
 #define WATER_HEIGTH 72
 
 class SdlWindow;
@@ -62,6 +65,7 @@ class TurnTimeDrawable;
 class WormDrawable;
 class WormDeathDrawable;
 class YouWinDrawable;
+class YouLoseDrawable;
 class MunitionsDrawable;
 class WormRepresentation;
 class TurnMessage;
@@ -93,6 +97,7 @@ private:
 
     TurnMessage change_turn_message;
     YouWinMessage you_win_message;
+    YouLoseMessage you_lose_message;
     chrono_representation turn_chrono;
     chrono_representation dynamite_chrono;
     MunitionsInformation* munitions_info;
@@ -129,6 +134,7 @@ public:
     void draw(RadiocontrolledDrawable* drawable);
     void draw(RadiocontrolledExplosionDrawable* drawable);
     void draw(YouWinDrawable* drawable);
+    void draw(YouLoseDrawable* drawable);
     void draw(MunitionsDrawable* drawable);
     void draw(ClosedConnectionDrawable* drawable);
     void run() override;

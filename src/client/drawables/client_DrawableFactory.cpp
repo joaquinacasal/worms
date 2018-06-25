@@ -105,6 +105,10 @@ void DrawableFactory::create_you_win_drawable(){
   safe_queue.push(new YouWinDrawable());
 }
 
+void DrawableFactory::create_you_lose_drawable(){
+  safe_queue.push(new YouLoseDrawable());
+}
+
 void DrawableFactory::create_munitions_drawable(){
   int dynamite_m = socket_protocol.receive_numeric_value();
   int radiocontrolled_m = socket_protocol.receive_numeric_value();
@@ -156,6 +160,9 @@ void DrawableFactory::create_drawable(){
       break;
     case PROTOCOL_YOU_WIN_NOTIF:
       create_you_win_drawable();
+      break;
+    case PROTOCOL_YOU_LOSE_NOTIF:
+      create_you_lose_drawable();
       break;
     case PROTOCOL_MUNITIONS_INFO:
       create_munitions_drawable();

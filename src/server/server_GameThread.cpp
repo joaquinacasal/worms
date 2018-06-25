@@ -427,6 +427,10 @@ void GameThread::check_deaths(std::vector<Worm*> initial_worms_alive){
       int team = turns_manager.get_team_of_worm(i_worm);
       if (team != -1)
         this->server_thread->send_worm_death_notif_to_clients(id, team);
+      Player* player = turns_manager.get_player_from_team(team);
+      if (!player->has_worms_alive()){
+        this->server_thread->send_you_lose_notif(player);
+      }
     }
   }
 }

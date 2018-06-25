@@ -13,7 +13,8 @@ using std::string;
 
 SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue) :
         safe_queue(_safe_queue), connected(true),\
-        change_turn_message(NULL, 0), you_win_message(NULL, 0) {
+        change_turn_message(NULL, 0), you_win_message(NULL, 0),\
+        you_lose_message(NULL, 0) {
     int errCode = SDL_Init(SDL_INIT_VIDEO);
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
@@ -85,6 +86,9 @@ void SdlWindow::render() {
     // Render you_win_message
     you_win_message.render();
 
+    // Render you_lose_message
+    you_lose_message.render();
+
     SDL_RenderPresent(this->renderer);
 }
 
@@ -97,6 +101,14 @@ void SdlWindow::draw(YouWinDrawable* drawable) {
     you_win_message.set_message_texture(new SdlTexture(texture_factory.\
                                 get_texture_by_name("you_win"), *this, area));
     you_win_message.set_time_alive(YOU_WIN_MESSAGE_DURATION);
+}
+
+void SdlWindow::draw(YouLoseDrawable* drawable) {
+    Area area = camera.get_center(YOU_LOSE_MESSAGE_SIZE, YOU_LOSE_MESSAGE_SIZE);
+    you_lose_message.set_message_texture(new SdlTexture(texture_factory.\
+                                get_texture_by_name("you_lose"), *this, area));
+    you_lose_message.set_time_alive(YOU_LOSE_MESSAGE_DURATION);
+    printf("Perdiste!\n");
 }
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {

@@ -18,7 +18,8 @@ using std::map;
 #define START_TURN_ASSET "startTurn.png"
 #define FINISH_TURN_ASSET "finishTurn.png"
 #define GRAVE_ASSET "grave.png"
-#define YOU_WIN_ASSET "fort.png"
+#define YOU_WIN_ASSET "fort_win.png"
+#define YOU_LOSE_ASSET "fort_lose.png"
 #define WATER_ASSET "water.png"
 #define ARROW_ASSET "arrow.png"
 

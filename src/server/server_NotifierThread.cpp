@@ -105,6 +105,10 @@ void NotifierThread::send_you_win_notif(ClientHandler* client){
     blocking_queue.push(new YouWinNotification(client));
 }
 
+void NotifierThread::send_you_lose_notif(ClientHandler* client){
+  if (continue_sending)
+    blocking_queue.push(new YouLoseNotification(client));
+}
 
 void NotifierThread::send_closed_connection_notif(ClientHandler* client){
   if (continue_sending)

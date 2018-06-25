@@ -199,6 +199,10 @@ void SocketProtocol::send_you_win_notif(){
   send_command_or_code(PROTOCOL_YOU_WIN_NOTIF);
 }
 
+void SocketProtocol::send_you_lose_notif(){
+  send_command_or_code(PROTOCOL_YOU_LOSE_NOTIF);
+}
+
 void SocketProtocol::send_turn_time_info(int turn_chrono){
   send_command_or_code(PROTOCOL_TURN_TIME);
   send_numeric_value(turn_chrono);

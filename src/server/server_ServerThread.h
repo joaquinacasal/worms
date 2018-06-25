@@ -7,6 +7,7 @@
 #include "server_ClientHandler.h"
 #include "server_TurnsManager.h"
 #include "server_GameThread.h"
+#include "server_Player.h"
 #include "../common/common_SafeQueue.h"
 #include "events/server_IEvent.h"
 #include "server_NotifierThread.h"
@@ -105,6 +106,9 @@ public:
 
     // Envía una notificiación indicando que el jugador actual gano el juego.
     void send_you_win_notif();
+
+    // Envía una notificiación indicando que el jugador recibido perdió.
+    void send_you_lose_notif(Player* player);
 
     // Envía una notificiación para cerrar la conexión a todos los clientes.
     void send_closed_connection_notif();

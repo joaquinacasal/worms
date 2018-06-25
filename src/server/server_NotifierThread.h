@@ -19,6 +19,7 @@
 #include "notifications/server_WormNotification.h"
 #include "notifications/server_WormDeathNotification.h"
 #include "notifications/server_YouWinNotification.h"
+#include "notifications/server_YouLoseNotification.h"
 
 #include <string>
 
@@ -66,6 +67,7 @@ class NotifierThread : public Thread {
     void send_start_turn_notif(ClientHandler* client);
     void send_end_turn_notif(ClientHandler* client);
     void send_you_win_notif(ClientHandler* client);
+    void send_you_lose_notif(ClientHandler* client);
     void send_closed_connection_notif(ClientHandler* client);
 };
 

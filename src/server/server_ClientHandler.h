@@ -93,6 +93,9 @@ public:
     // Envía una notificación indicando que ganó el juego.
     void send_you_win_notif();
 
+    // Envía una notificación indicando que perdió el juego.
+    void send_you_lose_notif();
+
     // Envía una notificación indicando que se cerró la conexión desde el
     // servidor.
     void send_closed_connection_notif();

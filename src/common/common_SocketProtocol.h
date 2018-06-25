@@ -18,6 +18,7 @@
 #define PROTOCOL_RADIOCONTROLLED 0X08
 #define PROTOCOL_CLOSED_CON 0x09
 #define PROTOCOL_YOU_WIN_NOTIF 0x10
+#define PROTOCOL_YOU_LOSE_NOTIF 0x11
 
 
 // Send by server
@@ -117,6 +118,7 @@ public:
     void send_start_turn_notif();
     void send_end_turn_notif();
     void send_you_win_notif();
+    void send_you_lose_notif();
     void send_turn_time_info(int turn_chrono);
 
     // Envían ambos

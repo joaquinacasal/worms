@@ -44,6 +44,8 @@ public:
   // Devuelve el equipo al que pertenece el gusano recibido.
   int get_team_of_worm(Worm* worm);
 
+  Player* get_player_from_team(int team);
+
   // Destructor.
   ~TurnsManager();
 };

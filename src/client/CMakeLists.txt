@@ -27,6 +27,7 @@ add_executable(worms_client
 				drawables/client_StartTurnDrawable.cpp
 				drawables/client_TurnTimeDrawable.cpp
 				drawables/client_YouWinDrawable.cpp
+				drawables/client_YouLoseDrawable.cpp
 				drawables/client_WormDrawable.cpp
 				drawables/client_WormDeathDrawable.cpp
 				client_SdlWindow.cpp
@@ -36,6 +37,7 @@ add_executable(worms_client
 				client_WormRepresentation.cpp
 				client_TurnMessage.cpp
 				client_YouWinMessage.cpp
+				client_YouLoseMessage.cpp
 				client_MunitionsInformation.cpp
 				client_FontFactory.cpp
 				client_ColorsFactory.cpp

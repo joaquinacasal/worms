@@ -171,6 +171,16 @@ void ServerThread::send_you_win_notif(){
   notifier.send_you_win_notif(clients[actual_turn]);
 }
 
+void ServerThread::send_you_lose_notif(Player* player){
+  ClientHandler* loser;
+  for (ClientHandler* client_handler : clients) {
+    if (client_handler->get_player() == player)
+      loser = client_handler;
+  }
+  notifier.send_you_lose_notif(loser);
+}
+
+
 
 void ServerThread::changeTurn(){
   if (!keep_running) return;
