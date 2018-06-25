@@ -3,7 +3,7 @@
 
 #include "client_Area.h"
 
-#define CAMERA_SPEED 10
+#define CAMERA_SPEED 30
 
 enum CameraMovement { UP, DOWN, RIGHT, LEFT };
 

@@ -36,9 +36,9 @@
 #include "client_TextureFactory.h"
 #include "client_Camera.h"
 
-#define WORM_SIZE 36
-#define DYNAMITE_SIZE 36
-#define RADIOCONTROLLED_SIZE 36
+#define WORM_SIZE 60
+#define DYNAMITE_SIZE 60
+#define RADIOCONTROLLED_SIZE 60
 #define DYNAMITE_ID -1
 #define CHANGE_TURN_MESSAGE_DURATION 600
 #define CHANGE_TURN_MESSAGE_SIZE 450

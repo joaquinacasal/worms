@@ -1,42 +1,42 @@
 scenario:
   background: background.png
-  height: 400
-  width: 700
+  height: 216
+  width: 500
 worms:
   - id: 1
     image: worm.png
     x: 268,333344
-    y: 249,000000
+    y: 50,000000
   - id: 2
     image: worm.png
-    x: 188,666672
-    y: 217,000000
+    x: 100,666672
+    y: 100,000000
   - id: 3
     image: worm.png
-    x: 122,333336
-    y: 343,333344
+    x: 30,333336
+    y: 150,333344
 beams:
   - angle: 0
     height: 8
     id: 1
     image: long_beam.png
     length: 60
-    x: 266,666656
-    y: 234,000000
+    x: 268,666656
+    y: 30,000000
   - angle: 0
     height: 8
     id: 2
     image: long_beam.png
     length: 60
-    x: 154,333328
-    y: 203,333328
-  - angle: 135
+    x: 100,333328
+    y: 80,333328
+  - angle: 0
     height: 8
     id: 3
     image: long_beam.png
     length: 60
-    x: 327,000000
-    y: 226,666672
+    x: 30,000000
+    y: 130,666672
   - angle: 0
     height: 8
     id: 4
@@ -50,4 +50,4 @@ beams:
     image: short_beam.png
     length: 30
     x: 106,000000
-    y: 325,000000
+    y: 25,000000
