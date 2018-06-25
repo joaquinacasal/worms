@@ -20,6 +20,8 @@ MunitionsInformation::MunitionsInformation(double x, double y,\
   last_radiocontrolled_munitions = 0;
   last_teletransportation_munitions = 0;
   this->renderer = renderer;
+
+  renderable = false;
 }
 
 int MunitionsInformation::render() {
@@ -86,6 +88,11 @@ void MunitionsInformation::set_munitions(int dynamite_q,\
     set_radiocontrolled_munitions(radiocontrolled_q);
   if (last_teletransportation_munitions != teletransportation_q)
     set_teletransportation_munitions(teletransportation_q);
+  renderable = true;
+}
+
+bool MunitionsInformation::is_renderable(){
+  return renderable;
 }
 
 MunitionsInformation::~MunitionsInformation(){

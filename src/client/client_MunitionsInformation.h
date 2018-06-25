@@ -18,6 +18,7 @@ public:
     int render();
     void set_munitions(int dynamite_q, int radiocontrolled_q, \
                        int teletransportation_q);
+    bool is_renderable();
     ~MunitionsInformation();
 
 private:
@@ -37,6 +38,8 @@ private:
   int last_dynamite_munitions;
   int last_radiocontrolled_munitions;
   int last_teletransportation_munitions;
+
+  bool renderable;
 
   void set_dynamite_munitions(int dynamite_q);
   void set_radiocontrolled_munitions(int radiocontrolled_q);
