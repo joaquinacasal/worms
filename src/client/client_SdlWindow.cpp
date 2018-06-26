@@ -168,6 +168,7 @@ void SdlWindow::draw(WormDrawable* drawable) {
         worm->set_state(state, new_angle, new_facing_right);
         if (is_the_selected_worm){
             worm->select_worm();
+            Lock camera_lock(camera_mutex);
             camera.center(new_x, new_y);
         } else{
             worm->deselect_worm();
