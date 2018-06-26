@@ -40,17 +40,17 @@ std::vector<Player*> TurnsManager::get_players(){
 
 int TurnsManager::get_team_of_worm(Worm* worm){
   size_t id = worm->get_id();
-  for (int i = 0; i < players.size(); i++) {
+  for (size_t i = 0; i < players.size(); i++) {
     std::vector<Worm*> worms = players[i]->get_worms();
     for (Worm* actual_worm : worms) {
-      if (id == actual_worm->get_id()) return i;
+      if (id == actual_worm->get_id()) return (int)i;
     }
   }
   return -1;
 }
 
 Player* TurnsManager::get_player_from_team(int team){
-  if (team < 0 || team >= players.size())
+  if (team < 0 || team >= (int)players.size())
     return NULL;
   return players[team];
 }

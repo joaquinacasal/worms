@@ -9,6 +9,7 @@ class INotification {
 public:
     /* Ejecuta la acción */
     virtual void run() = 0;
+    virtual ~INotification(){};
 };
 
 

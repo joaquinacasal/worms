@@ -3,7 +3,7 @@
 Message::Message(SdlTexture* message_texture, int time) :\
                          message_texture(message_texture), time_alive(time) {}
 
-int Message::render(Camera& camera) {
+void Message::render(Camera& camera) {
     if (this->time_alive > 0 && this->message_texture) {
         Area old_area = this->message_texture->get_position();
         Area new_area = camera.get_center(old_area.getWidth(), old_area.getHeight());

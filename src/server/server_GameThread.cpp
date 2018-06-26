@@ -30,7 +30,7 @@ void GameThread::create_stage(string map_file, int number_players){
 
   vector<WormDTO> worms_DTO = scenario_DTO.get_worms();
   // Verifico que la cantidad de gusanos sea <= a la cantidad de jugadores
-  if (worms_DTO.size() < number_players) {
+  if (worms_DTO.size() < (size_t) number_players) {
     throw std::runtime_error(\
                   "Número de jugadores es mayor a la cantidad de gusanos.\n");
   } else if (number_players == 0) {
@@ -265,8 +265,7 @@ void GameThread::send_turn_time_information(){
 
 void GameThread::send_worms_information_to_clients(){
   std::vector<Player*> players = turns_manager.get_players();
-  Worm* actual_worm = turns_manager.get_selected_player()->get_selected_worm();
-  for (int i = 0; i < players.size(); i++){
+  for (size_t i = 0; i < players.size(); i++){
     std::vector<Worm*> worms = players[i]->get_worms();
     for (Worm* worm : worms) {
       // Solo envío la información de los movibles.
@@ -349,7 +348,6 @@ void GameThread::send_munitions_information(){
 }
 
 void GameThread::send_munitions_information_to_all_clients(){
-  Player* actual_player = turns_manager.get_selected_player();
   this->server_thread->send_munitions_info_to_all_clients();
 }
 
@@ -404,6 +402,10 @@ void GameThread::changeTurn(){
     this->server_thread->send_worm_death_notif_to_clients(prev_worm->get_id(),\
                                     turns_manager.get_team_of_worm(prev_worm));
   send_worm_information_to_clients(actual_worm);
+  // Caso borde de cuando muere el último gusano del juego.
+  if (!actual_worm->is_alive())
+    this->server_thread->send_worm_death_notif_to_clients(prev_worm->get_id(),\
+                                    turns_manager.get_team_of_worm(prev_worm));
 }
 
 bool GameThread::is_alive() const {

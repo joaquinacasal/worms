@@ -24,7 +24,7 @@ MunitionsInformation::MunitionsInformation(double x, double y,\
   renderable = false;
 }
 
-int MunitionsInformation::render() {
+void MunitionsInformation::render() {
   SDL_Rect munitions_info_rect_titulo = rect_titulo.toRect();
   SDL_Rect munitions_info_rect_dinamita = rect_dinamita.toRect();
   SDL_Rect munitions_info_rect_teledirigido = rect_teledirigido.toRect();

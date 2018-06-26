@@ -22,7 +22,7 @@ public:
     WormRepresentation(WormState state, Area position, const SdlWindow& window,\
         SDL_Texture* life_texture, bool is_facing_right, size_t life_points,\
         int angle, TextureFactory& texture_factory, bool is_the_selected_worm);
-    int render(Camera& camera) const;
+    void render(Camera& camera) const;
     void set_position(int x, int y);
     void set_life_points(size_t points, SDL_Texture* life_texture);
     void set_state(WormState state, int angle, bool is_facing_right);
@@ -43,9 +43,9 @@ private:
     bool _is_facing_right;
     size_t life_points;
     int angle;
-    bool _is_the_selected_worm;
     WormState state;
     TextureFactory& texture_factory;
+    bool _is_the_selected_worm;
 
     void get_texture_by_state(WormState state, SDL_Texture** texture, \
                               int* frames);
