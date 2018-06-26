@@ -103,14 +103,13 @@ private:
     ColorsFactory colors_factory;
     TextureFactory texture_factory;
     SdlTexture* background_texture;
+    SdlTexture* water_representation;
     Camera camera;
     std::mutex& camera_mutex;
 
     map<int, WormRepresentation*> worms_textures;
     map<int, SdlTexture*> weapons_textures;
     std::vector<beam_representation*> beams_textures;
-    SdlTexture* water_representation;
-
 
     void draw(IDrawable* drawable);
     SDL_Texture* loadTexture(const std::string &filename);

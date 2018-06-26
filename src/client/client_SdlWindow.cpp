@@ -20,9 +20,9 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue,\
     if (errCode) {
         throw SdlException("Error en la inicialización", SDL_GetError());
     }
-    errCode = SDL_CreateWindowAndRenderer(
-        0, 0, SDL_RENDERER_ACCELERATED | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED,
-        &this->window, &this->renderer);
+    errCode = SDL_CreateWindowAndRenderer(0, 0,\
+    SDL_RENDERER_ACCELERATED | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED,\
+    &this->window, &this->renderer);
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
@@ -52,8 +52,7 @@ void SdlWindow::fill(int r, int g, int b, int alpha) {
 void SdlWindow::fill() {
     if (background_texture == NULL){
         this->fill(0x33,0x33,0x33,0xFF);
-    }
-    else {
+    } else {
         Lock camera_lock(camera_mutex);
         this->background_texture->render(camera);
     }
@@ -349,7 +348,9 @@ SdlWindow::~SdlWindow() {
         delete it->second;
     }
 
-    SDL_DestroyTexture(turn_chrono.texture);
+    if (turn_chrono.texture) SDL_DestroyTexture(turn_chrono.texture);
+    if (water_representation) delete water_representation;
+    if (background_texture) delete background_texture;
 
     delete munitions_info;
 }

@@ -6,7 +6,8 @@ Message::Message(SdlTexture* message_texture, int time) :\
 void Message::render(Camera& camera) {
     if (this->time_alive > 0 && this->message_texture) {
         Area old_area = this->message_texture->get_position();
-        Area new_area = camera.get_center(old_area.getWidth(), old_area.getHeight());
+        Area new_area = camera.get_center(old_area.getWidth(),\
+                                            old_area.getHeight());
         this->message_texture->set_position(new_area.getX(), new_area.getY());
         this->message_texture->render();
         this->time_alive = this->time_alive - 1;

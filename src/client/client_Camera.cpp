@@ -37,7 +37,7 @@ Area Camera::get_center(int width, int height){
 }
 
 void Camera::move(CameraMovement movement){
-    switch(movement){
+    switch (movement){
         case UP:
             move_up();
             break;

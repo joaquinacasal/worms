@@ -8,7 +8,7 @@ protected:
   bool _continue_sending = true;
 public:
   virtual void send() = 0;
-  virtual ~ICapturedEvent(){};
+  virtual ~ICapturedEvent(){}
 
   bool continue_sending(){
     return _continue_sending;

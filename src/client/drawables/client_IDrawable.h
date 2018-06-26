@@ -10,7 +10,7 @@ class IDrawable {
 public:
   virtual void be_drawn_by_console(ConsoleDrawer* console_drawer) = 0;
   virtual void be_drawn(SdlWindow* window) = 0;
-  virtual ~IDrawable(){};
+  virtual ~IDrawable(){}
 };
 
 
