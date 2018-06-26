@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include <string>
 #include <vector>
+#include "config.h"
 
 static inline QString wormsLabelMimeType() {
   return QStringLiteral("application/x-wormlabel");

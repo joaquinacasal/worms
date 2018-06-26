@@ -132,15 +132,15 @@ void MainWindow::on_actionOpen_scenario_triggered()
     current_file = filename;
     delete_labels(false);
 
-    int height;
-    int width;
+    int scenario_height;
+    int scenario_width;
     string background;
     vector<map<string, string>> worms;
     vector<map<string, string>> beams;
-    scenario.load_scenario(filename.toStdString(), height, width, background,\
-                           worms, beams);
+    scenario.load_scenario(filename.toStdString(), scenario_height,\
+                            scenario_width, background, worms, beams);
 
-    set_widget_size(width, height);
+    set_widget_size(scenario_width, scenario_height);
     load_background(QString::fromStdString(background));
     for (map<string, string> worm : worms){
         float x = std::stof(worm.at("x"));

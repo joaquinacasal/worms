@@ -18,6 +18,7 @@ private:
 
     bool check_intersections(QList<DragLabel*>& worms_labels,\
                              QList<DragLabel*>& beams_labels);
+    double get_side(double diagonal);
 
 public:
     ScenarioSaver() = default;

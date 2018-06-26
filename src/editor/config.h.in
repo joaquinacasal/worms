@@ -4,6 +4,10 @@
 #define LABEL_IMAGES_DIR "@INSTALL_PATH@/worms/editor/images/labels/"
 #define BACKGROUND_IMAGES_DIR "@INSTALL_PATH@/worms/editor/images/backgrounds/"
 #define SCENARIO_FILES_DIR "@INSTALL_PATH@/worms/editor/scenarios/"
-#define PIXEL_METER_CONVERSION 3
+#define PIXEL_METER_CONVERSION 5
+#define LONG_BEAM_LENGTH 60
+#define SHORT_BEAM_LENGTH 30
+#define BEAM_HEIGHT 8
+#define WORM_SIZE 12
 
 #endif // CONFIG_H
