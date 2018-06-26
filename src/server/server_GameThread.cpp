@@ -404,6 +404,10 @@ void GameThread::changeTurn(){
     this->server_thread->send_worm_death_notif_to_clients(prev_worm->get_id(),\
                                     turns_manager.get_team_of_worm(prev_worm));
   send_worm_information_to_clients(actual_worm);
+  // Caso borde de cuando muere el último gusano del juego.
+  if (!actual_worm->is_alive())
+    this->server_thread->send_worm_death_notif_to_clients(prev_worm->get_id(),\
+                                    turns_manager.get_team_of_worm(prev_worm));
 }
 
 bool GameThread::is_alive() const {
