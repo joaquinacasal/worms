@@ -17,8 +17,8 @@ WormRepresentation::WormRepresentation(WormState state, Area position, \
     int frames;
     get_texture_by_state(state, &texture, &frames);
     worm_animation = new Animation(texture, window, position, frames);
-    life_area = Area(position.getX() + 10, position.getY() - 20, 20, 20);
-    arrow_area = Area(position.getX() + 10, position.getY() - 40, 20, 20);
+    life_area = Area(position.getX() + 40, position.getY() - 20, 30, 30);
+    arrow_area = Area(position.getX() + 40, position.getY() - 50, 30, 30);
     arrow_texture = texture_factory.get_texture_by_name("arrow");
 }
 
@@ -39,8 +39,8 @@ int WormRepresentation::render(Camera& camera) const {
 
 void WormRepresentation::set_position(int x, int y){
     worm_animation->set_position(x, y);
-    life_area.setPosition(x + 10, y - 20);
-    arrow_area.setPosition(x + 10, y - 40);
+    life_area.setPosition(x + 40, y - 20);
+    arrow_area.setPosition(x + 40, y - 50);
 }
 
 void WormRepresentation::set_life_points(size_t points, \
