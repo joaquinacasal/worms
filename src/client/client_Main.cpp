@@ -124,6 +124,9 @@ int main(int argc, char* argv[]) try {
   captured_event_sender.stop();
   captured_event_sender.join();
   return 0;
+} catch (std::exception& ex){
+    std::cout << ex.what() << std::endl;
+    return -1;
 } catch (...){
   std::cout << "Ocurrió un problema" << std::endl;
   return -1;
