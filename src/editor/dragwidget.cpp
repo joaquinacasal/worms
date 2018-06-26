@@ -1,6 +1,4 @@
 #include "draglabel.h"
-#include "wormlabel.h"
-#include "beamlabel.h"
 #include "dragwidget.h"
 #include <QtWidgets>
 #include <string>
