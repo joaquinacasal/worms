@@ -26,6 +26,7 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue,\
     if (errCode) {
         throw SdlException("Error al crear ventana", SDL_GetError());
     }
+    SDL_SetWindowTitle(this->window, WINDOW_TITLE);
 
     // Cronometro del turno.
     turn_chrono = {NULL, Area(10, 10, 100, 80)};
@@ -35,9 +36,11 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue,\
     munitions_info = new MunitionsInformation(10, 100, font_factory, \
                                               colors_factory, renderer);
     water_representation = NULL;
-    SDL_GetWindowSize(this->window, &width, &height);
+    
+    SDL_DisplayMode dm;
+    SDL_GetDesktopDisplayMode(0, &dm);
     Lock camera_lock(camera_mutex);
-    camera.set_position(Area(0, 0, 1980, 1055)); //TODO: reemplazar por width y height, que no funciona
+    camera.set_position(Area(0, 0, dm.w, dm.h - 20));
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -200,8 +203,8 @@ void SdlWindow::draw(WormDeathDrawable* drawable) {
 }
 
 void SdlWindow::draw(StageDrawable* drawable) {
-  width = drawable->get_width();
-  height = drawable->get_height();
+  int width = drawable->get_width();
+  int height = drawable->get_height();
   Lock camera_lock(camera_mutex);
   camera.set_map_size(width, height);
   SDL_Texture* background = texture_factory.load_texture(\

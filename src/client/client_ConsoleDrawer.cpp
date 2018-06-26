@@ -114,7 +114,6 @@ void ConsoleDrawer::run(){
       draw(drawable);
       delete drawable;
     }
-    // TODO: acá también se hacen las animaciones.
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
 }

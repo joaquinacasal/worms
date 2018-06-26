@@ -47,6 +47,7 @@
 #define YOU_LOSE_MESSAGE_DURATION 8000
 #define YOU_LOSE_MESSAGE_SIZE 1000
 #define WATER_HEIGTH 80
+#define WINDOW_TITLE "Worms"
 
 class SdlWindow;
 class SdlTexture;
@@ -88,8 +89,6 @@ using std::map;
 class SdlWindow : public Thread {
 private:
     SafeQueue<IDrawable*>& safe_queue;
-    int width;
-    int height;
     bool connected;
     SDL_Window* window;
     SDL_Renderer* renderer;

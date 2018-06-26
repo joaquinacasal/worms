@@ -17,9 +17,6 @@ int main(int argc, char* argv[]){
   SafeQueue<IDrawable*> safe_queue;
   BlockingQueue<ICapturedEvent*> blocking_queue;
 
-  //ConsoleDrawer console_drawer(safe_queue);
-  //console_drawer.start();
-  //SdlWindow window(safe_queue, 1920, 1080);
   std::mutex camera_mutex;
   SdlWindow window(safe_queue, camera_mutex);
   window.start();
@@ -121,8 +118,6 @@ int main(int argc, char* argv[]){
       }
   }
   drawable_factory.join();
-  //console_drawer.stop();
-  //console_drawer.join();
   window.stop();
   window.join();
   captured_event_sender.stop();
