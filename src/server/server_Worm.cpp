@@ -4,6 +4,7 @@ Worm::Worm(size_t id, size_t life, b2Body* body): movement(body){
   this->id = id;
   this->life = life;
   this->last_solid_height = movement.get_vertical_position();
+  used_teletransportation = false;
 }
 
 size_t Worm::get_id(){
@@ -74,6 +75,7 @@ void Worm::teletransport(double x, double y){
   this->last_solid_height = y;
   this->movement.reset_velocity();
   this->movement.teletransport(x, y);
+  used_teletransportation = true;
 }
 
 bool Worm::is_facing_right(){
@@ -130,6 +132,7 @@ bool Worm::has_suffered_changes(){
                         get_vertical_velocity() > 0.01  || \
                         get_horizontal_velocity() < -0.01 || \
                         get_horizontal_velocity() > 0.01;
-  bool aux = is_moving() || is_in_movement;
+  bool aux = is_moving() || is_in_movement || used_teletransportation;
+  used_teletransportation = false;
   return aux;
 }

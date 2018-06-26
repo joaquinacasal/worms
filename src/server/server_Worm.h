@@ -14,6 +14,7 @@ private:
   size_t id;
   size_t life;
   Movement movement;
+  bool used_teletransportation;
 
   float last_solid_height;
 

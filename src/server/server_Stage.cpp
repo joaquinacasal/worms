@@ -88,13 +88,13 @@ void Stage::add_beam(size_t id, size_t length, float position_h,\
 
 b2Body* Stage::add_dynamite(float x, float y){
   b2BodyDef myBodyDef;
-  myBodyDef.type = b2_staticBody;
+  myBodyDef.type = b2_dynamicBody;
   myBodyDef.position.Set(x, y);
   b2Body* dynamite_body = m_world->CreateBody(&myBodyDef);
 
   //shape definition
   b2PolygonShape polygonShape;
-  polygonShape.SetAsBox(0.001, 0.001); // Tamanio muy chico
+  polygonShape.SetAsBox(1, 5); // Tamanio muy chico
 
   //fixture definition
   b2FixtureDef myFixtureDef;
