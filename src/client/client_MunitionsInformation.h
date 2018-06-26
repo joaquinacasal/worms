@@ -15,7 +15,7 @@ class MunitionsInformation {
 public:
     MunitionsInformation(double x, double y, FontFactory& _font_factory,\
         ColorsFactory& _colors_factory, SDL_Renderer* renderer);
-    int render();
+    void render();
     void set_munitions(int dynamite_q, int radiocontrolled_q, \
                        int teletransportation_q);
     bool is_renderable();

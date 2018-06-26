@@ -24,10 +24,10 @@ private:
     SDL_Renderer* renderer;
     SDL_Texture* texture;
     Area position;
-    Area current_frame;
+    int frames;
     int frame_counter;
     int frame_counter_counter;
-    int frames;
+    Area current_frame;
     float frame_height;
 };
 

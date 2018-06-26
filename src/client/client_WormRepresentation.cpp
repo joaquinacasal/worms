@@ -22,7 +22,7 @@ WormRepresentation::WormRepresentation(WormState state, Area position, \
     arrow_texture = texture_factory.get_texture_by_name("arrow");
 }
 
-int WormRepresentation::render(Camera& camera) const {
+void WormRepresentation::render(Camera& camera) const {
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     if (this->is_facing_right())
         flip = SDL_FLIP_HORIZONTAL;

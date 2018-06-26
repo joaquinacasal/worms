@@ -17,10 +17,10 @@
  */
 class Armory {
   private:
+    Stage& stage;
     Teletransportation teletransportation;
     Dynamite dynamite;
     Radiocontrolled radiocontrolled;
-    Stage& stage;
 
     // No copiable
     Armory(const Armory&) = delete;

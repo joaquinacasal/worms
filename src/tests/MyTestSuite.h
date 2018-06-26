@@ -596,7 +596,6 @@ public:
 
 
       // wait till explodes
-      auto start_dynamite = std::chrono::steady_clock::now();
       player->discount_dynamite_time(6999);
       TS_ASSERT( !player->use_dynamite() );
       TS_ASSERT( player->is_dynamite_active() );
