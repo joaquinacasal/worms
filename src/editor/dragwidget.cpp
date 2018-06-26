@@ -22,7 +22,7 @@ DragWidget::DragWidget(QWidget *parent)
     worm->move(x, y);
     worm->show();
     worm->setAttribute(Qt::WA_DeleteOnClose);
-    y += worm->height() + 2;
+    x += worm->width() + 2;
 
     for (int n = 0 ; n < 2 ; n++){
         for (int i = 0 ; i < 4 ; i++){
@@ -41,7 +41,7 @@ DragWidget::DragWidget(QWidget *parent)
             beam->move(x, y);
             beam->show();
             beam->setAttribute(Qt::WA_DeleteOnClose);
-            y += beam->height() + 2;
+            x += beam->width() + 2;
         }
     }
 
