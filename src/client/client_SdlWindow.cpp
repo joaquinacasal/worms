@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
@@ -39,8 +38,6 @@ SdlWindow::SdlWindow(SafeQueue<IDrawable*>& _safe_queue,\
     SDL_GetWindowSize(this->window, &width, &height);
     Lock camera_lock(camera_mutex);
     camera.set_position(Area(0, 0, 1980, 1055)); //TODO: reemplazar por width y height, que no funciona
-    std::cout << "Width: " << width << "Height: " << height << std::endl;
-    std::cout << "Fin del constructor SdlWindow" << std::endl;
 }
 
 void SdlWindow::fill(int r, int g, int b, int alpha) {
@@ -118,7 +115,6 @@ void SdlWindow::draw(YouLoseDrawable* drawable) {
     you_lose_message.set_message_texture(new SdlTexture(texture_factory.\
                                 get_texture_by_name("you_lose"), *this, area));
     you_lose_message.set_time_alive(YOU_LOSE_MESSAGE_DURATION);
-    printf("Perdiste!\n");
 }
 
 void SdlWindow::draw(StartTurnDrawable* drawable) {

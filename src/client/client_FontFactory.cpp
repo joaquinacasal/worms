@@ -4,7 +4,6 @@
 #include <SDL2/SDL_render.h>
 #include <string>
 #include "config.h"
-#include <iostream>
 
 using std::string;
 

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <syslog.h>
 #include "server_ServerThread.h"
 #include <string>

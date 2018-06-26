@@ -1,5 +1,4 @@
 #include "client_Camera.h"
-#include <iostream>
 
 void Camera::set_position(Area position){
     this->position = position;

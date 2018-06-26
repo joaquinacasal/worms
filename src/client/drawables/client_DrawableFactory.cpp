@@ -1,4 +1,3 @@
-#include <iostream>
 #include <iomanip>
 #include <string>
 #include "client_DrawableFactory.h"
