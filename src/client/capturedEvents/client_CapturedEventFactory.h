@@ -14,6 +14,13 @@
 #include "client_ClosedConnectionCapturedEvent.h"
 
  #define PIXELS_TO_METERS_CONVERSION 5
+ /*
+  * Clase que representa a una fábrica de objetos Event. Tiene métodos
+  * (llamados por el capturador de eventos) que crean estos objetos y los
+  * encola en una cola bloqueante, que luego serán enviados al servidor por
+  * el CapturedEventSender a través del socket para producir los cambios
+  * necesarios.
+  */
 
 class CapturedEventFactory {
 private:

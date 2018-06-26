@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del fin de turno.
 class EndTurnDrawable : public IDrawable {
 private:
     EndTurnDrawable(const EndTurnDrawable&) = delete;

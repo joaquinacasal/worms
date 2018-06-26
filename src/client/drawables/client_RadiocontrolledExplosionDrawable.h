@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación de la explosión del teledirigido.
 class RadiocontrolledExplosionDrawable : public IDrawable {
 private:
     size_t id;

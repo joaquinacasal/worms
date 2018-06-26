@@ -86,6 +86,12 @@ struct chrono_representation {
 
 using std::map;
 
+/*
+ * Dibuja todo lo recibido en una ventana de SDL. Hereda de thread ya que el
+ * cliente en un hilo recibe de forma bloqueante eventos, y en este hilo
+ * recibe dibujables.  
+ */
+
 class SdlWindow : public Thread {
 private:
     SafeQueue<IDrawable*>& safe_queue;

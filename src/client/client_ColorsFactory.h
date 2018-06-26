@@ -8,6 +8,10 @@
 using std::string;
 using std::map;
 
+/*
+ * Clase encargada de generar colores de SDL para aplicar en los textos, a
+ * partir del nombre de un color.
+ */
 class ColorsFactory {
 public:
     ColorsFactory();

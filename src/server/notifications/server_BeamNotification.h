@@ -3,6 +3,10 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre una viga.
+ */
+
 class BeamNotification : public INotification {
 private:
     ClientHandler* client;

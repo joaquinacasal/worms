@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del mensaje que indica que el jugador perdió.
 class YouLoseDrawable : public IDrawable {
 private:
     YouLoseDrawable(const YouLoseDrawable&) = delete;

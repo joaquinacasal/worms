@@ -16,7 +16,12 @@ class SdlWindow;
 class Area;
 
 enum WormState { RESTING, WALKING, JUMPING, DEAD };
-
+/*
+ * Clase que abstrae la representación de un gusano. Contiene la animación
+ * del mismo con todos sus posibles estados (quieto, moviéndose, volando y
+ * muerto), la vida que contiene, y en caso que sea el gusano seleccionado
+ * muestra una flecha indicando que es el gusano que puede moverse.
+ */
 class WormRepresentation {
 public:
     WormRepresentation(WormState state, Area position, const SdlWindow& window,\

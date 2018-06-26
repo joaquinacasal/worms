@@ -4,6 +4,8 @@
 #include "client_ICapturedEvent.h"
 #include "../../common/common_SocketProtocol.h"
 
+// Representación de la acción de disparar los teledirigidos. Va acompañado
+// de una coordenada.
 class RadiocontrolledCapturedEvent : public ICapturedEvent {
 private:
     SocketProtocol& socket_protocol;

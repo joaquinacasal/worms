@@ -4,6 +4,10 @@
 #include "client_SdlTexture.h"
 #include "client_Camera.h"
 
+/*
+ * Abstracción de un mensaje de texto en la ventana, con una textura y un
+ * tiempo por el cual permanecerá visible.
+ */
 class Message {
 public:
     Message(SdlTexture* message_texture, int time);

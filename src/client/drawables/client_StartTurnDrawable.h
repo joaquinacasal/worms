@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del inicio del turno.
 class StartTurnDrawable : public IDrawable {
 private:
     StartTurnDrawable(const StartTurnDrawable&) = delete;

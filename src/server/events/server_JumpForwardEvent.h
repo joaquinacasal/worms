@@ -4,6 +4,7 @@
 #include "server_IEvent.h"
 #include "../server_Worm.h"
 
+// Hereda de IEvent. Hace un salto hacia adelante.
 class JumpForwardEvent : public IEvent {
 private:
     Worm* worm;

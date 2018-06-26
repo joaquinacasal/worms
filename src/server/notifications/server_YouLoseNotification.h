@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía la notificación al jugador que perdió.
+ */
 class YouLoseNotification : public INotification {
 private:
     ClientHandler* client;

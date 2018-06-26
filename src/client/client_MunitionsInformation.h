@@ -10,7 +10,11 @@
 
 class Area;
 
-
+/*
+ * Mensaje que muestra la cantidad de municiones disponibles del jugador.
+ * Internamente guarda la cantidad de municiones previa para no tener que
+ * crear texturas nuevas innecesariamente, y poder optimizar los recursos.
+ */
 class MunitionsInformation {
 public:
     MunitionsInformation(double x, double y, FontFactory& _font_factory,\

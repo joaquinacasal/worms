@@ -23,6 +23,10 @@ using std::map;
 #define WATER_ASSET "water.png"
 #define ARROW_ASSET "arrow.png"
 
+/*
+ * Clase encargada de generar texturas provenientes de imágenes guardadas en
+ * disco a partir del nombre del archivo.
+ */
 class TextureFactory {
 public:
     TextureFactory() = default;

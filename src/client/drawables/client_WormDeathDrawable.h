@@ -8,6 +8,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación de la muerte de un gusano.
 class WormDeathDrawable : public IDrawable {
 private:
     size_t id;

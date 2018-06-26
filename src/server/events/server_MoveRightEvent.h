@@ -4,6 +4,7 @@
 #include "server_IEvent.h"
 #include "../server_Worm.h"
 
+// Hereda de IEvent. Mueve al gusano hacia la derecha.
 class MoveRightEvent : public IEvent {
 private:
     Worm* worm;

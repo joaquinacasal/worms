@@ -4,6 +4,9 @@
 #include "server_INotification.h"
 #include <string>
 
+/*
+ * Hereda de INotification. Envía información sobre el escenario.
+ */
 class StageNotification : public INotification {
 private:
     ClientHandler* client;

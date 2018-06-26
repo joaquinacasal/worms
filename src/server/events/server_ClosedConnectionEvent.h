@@ -4,6 +4,7 @@
 #include "server_IEvent.h"
 #include <stdexcept>
 
+// Hereda de IEvent. Cierra la conexión.
 class ClosedConnectionEvent : public IEvent {
 private:
     ClosedConnectionEvent(const ClosedConnectionEvent&) = delete;

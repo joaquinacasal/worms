@@ -5,7 +5,10 @@
 #include <SDL2/SDL_ttf.h>
 
 #define FONT_ASSET "BebasNeueRegular.ttf"
-
+/*
+ * Clase encargada de crear texturas a partir de un texto, en un color
+ * recibido, en dos tipos posibles de tamaños y con una tipografía predefinida.
+ */
 class FontFactory {
 public:
     FontFactory();

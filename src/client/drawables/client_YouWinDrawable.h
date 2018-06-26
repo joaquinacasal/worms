@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del mensaje que indica que el jugador ganó.
 class YouWinDrawable : public IDrawable {
 private:
     YouWinDrawable(const YouWinDrawable&) = delete;

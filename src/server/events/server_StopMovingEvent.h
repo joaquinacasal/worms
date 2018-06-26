@@ -4,6 +4,7 @@
 #include "server_IEvent.h"
 #include "../server_Worm.h"
 
+// Hereda de IEvent. Deja de mover al gusano.
 class StopMovingEvent : public IEvent {
 private:
     Worm* worm;

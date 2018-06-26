@@ -4,6 +4,7 @@
 #include "client_ICapturedEvent.h"
 #include "../../common/common_SocketProtocol.h"
 
+// Representación de la acción de saltar hacia atrás.
 class JumpBackwardCapturedEvent : public ICapturedEvent {
 private:
     SocketProtocol& socket_protocol;

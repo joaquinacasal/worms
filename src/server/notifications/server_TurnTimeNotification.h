@@ -3,6 +3,10 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre el tiempo restante hasta
+ * finalizar el turno.
+ */
 class TurnTimeNotification : public INotification {
 private:
     ClientHandler* client;

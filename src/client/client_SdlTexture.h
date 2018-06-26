@@ -12,6 +12,10 @@ class SDL_Texture;
 class SDL_Renderer;
 class SdlWindow;
 
+/*
+ * Abstracción de la clase SDL_Texture. Tiene una textura, una posición y
+ * un ángulo. Además permite renderizar la textura.
+ */
 class SdlTexture {
 public:
     SdlTexture(SDL_Texture* texture, const SdlWindow& window, Area position);

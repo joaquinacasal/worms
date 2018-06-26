@@ -4,6 +4,7 @@
 #include "server_IEvent.h"
 #include "../server_Player.h"
 
+// Hereda de IEvent. Teletransporta al gusano a una coordenada indicada.
 class TeletransportationEvent : public IEvent {
 private:
     Player* player;

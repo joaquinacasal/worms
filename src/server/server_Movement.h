@@ -15,7 +15,8 @@ enum _moveState {
 };
 
 /* Clase encargada de la movilidad y la representación en el escenario de un
- * gusano. Es no copiable.
+ * gusano. Tiene una referencia a un body de Box2D, en la cual delega su
+ * representación sobre el Stage.Es no copiable.
  */
 class Movement {
 private:

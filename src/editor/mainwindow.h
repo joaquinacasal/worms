@@ -25,6 +25,8 @@ class MainWindow;
 
 class Dialog;
 
+// Clase de interfaz gráfica, hereda de QMainWindow. Maneja la lógica de la
+// ventana del juego. Contiene al widget que representa al escenario.
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

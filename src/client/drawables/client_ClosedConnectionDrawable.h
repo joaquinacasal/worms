@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del cierre de la conexión.
 class ClosedConnectionDrawable : public IDrawable {
 private:
     ClosedConnectionDrawable(const ClosedConnectionDrawable&) = delete;

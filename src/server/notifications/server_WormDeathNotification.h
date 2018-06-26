@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía la notificación sobre la muerte de un gusano.
+ */
 class WormDeathNotification : public INotification {
 private:
     ClientHandler* client;

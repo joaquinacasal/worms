@@ -8,6 +8,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del escenario.
 class StageDrawable : public IDrawable {
 private:
     size_t width;

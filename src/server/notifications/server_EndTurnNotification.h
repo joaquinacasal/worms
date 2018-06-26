@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre el fin de un turno.
+ */
 class EndTurnNotification : public INotification {
 private:
     ClientHandler* client;

@@ -3,6 +3,10 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía una notificación indicando que explotó la
+ * dinamita.
+ */
 class DynamiteExplosionNotification : public INotification {
 private:
     ClientHandler* client;

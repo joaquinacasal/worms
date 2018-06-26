@@ -4,6 +4,7 @@
 #include "server_IEvent.h"
 #include "../server_Player.h"
 
+// Hereda de IEvent. Activa el teledirigido en una coordenada indicada.
 class RadiocontrolledEvent : public IEvent {
 private:
     Player* player;

@@ -12,6 +12,13 @@ class SDL_Texture;
 class SDL_Renderer;
 class SdlWindow;
 
+/*
+ * Clase que abstrae la complejidad de mostrar una animación. Recibe una
+ * textura y la cantidad de frames que tiene la imagen, y se encarga de en
+ * cada render mostrar una imagen diferente de tamaño ancho x alto / frames.
+ * Para que las animaciones sean más reales, se muentra un número constante
+ * de veces un mismo sprite, para luego recién cambiar al siguiente.
+ */
 class Animation {
 public:
     Animation(SDL_Texture* texture, const SdlWindow& window,\

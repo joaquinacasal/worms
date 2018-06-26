@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre un teledirigido.
+ */
 class RadiocontrolledNotification : public INotification {
 private:
     ClientHandler* client;

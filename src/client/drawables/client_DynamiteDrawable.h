@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación de una dinamita.
 class DynamiteDrawable : public IDrawable {
 private:
     double x;

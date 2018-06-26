@@ -4,6 +4,7 @@
 #include "client_ICapturedEvent.h"
 #include "../../common/common_SocketProtocol.h"
 
+// Representación del cierre de conexión por parte del cliente.
 class ClosedConnectionCapturedEvent : public ICapturedEvent {
 private:
     SocketProtocol& socket_protocol;

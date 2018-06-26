@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del teledirigido.
 class RadiocontrolledDrawable : public IDrawable {
 private:
     size_t id;

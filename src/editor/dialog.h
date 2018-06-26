@@ -10,6 +10,8 @@ class Dialog;
 
 class MainWindow;
 
+// Clase de interaz gráfica. Representa un diálogo que se utiliza para que
+// el usuario introduzca el tamaño de escenario deseado.
 class Dialog : public QDialog
 {
     Q_OBJECT

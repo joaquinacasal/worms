@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre el inicio de un turno.
+ */
 class StartTurnNotification : public INotification {
 private:
     ClientHandler* client;

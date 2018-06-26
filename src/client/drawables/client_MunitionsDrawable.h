@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación de la cantidad de municiones del jugador.
 class MunitionsDrawable : public IDrawable {
 private:
     int dynamite_m;

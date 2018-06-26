@@ -3,6 +3,11 @@
 
 #include <SDL2/SDL_image.h>
 
+/*
+ * Clase que representa un área rectangular de la ventana en una posición y
+ * con un tamaño determinado. Además permite obtener, a partir de dicha
+ * clase, un SDL_Rect.
+ */
 class Area {
 public:
 	Area() = default;

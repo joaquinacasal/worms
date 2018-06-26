@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación del cronómetro del turno.
 class TurnTimeDrawable : public IDrawable {
 private:
     double time_left;

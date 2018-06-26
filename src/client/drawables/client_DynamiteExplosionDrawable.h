@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación de la explosión de una dinamita.
 class DynamiteExplosionDrawable : public IDrawable {
 private:
     DynamiteExplosionDrawable(const DynamiteExplosionDrawable&) = delete;

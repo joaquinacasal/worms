@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre una conexión cerrada.
+ */
 class ClosedConnectionNotification : public INotification {
 private:
     ClientHandler* client;

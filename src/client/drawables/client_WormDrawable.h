@@ -8,6 +8,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación de un gusano.
 class WormDrawable : public IDrawable {
 private:
     size_t id;

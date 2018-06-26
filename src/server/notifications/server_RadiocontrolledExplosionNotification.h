@@ -3,6 +3,10 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía una notificación indicando que explotó uno
+ * de los teledirigidos.
+ */
 class RadiocontrolledExplosionNotification : public INotification {
 private:
     ClientHandler* client;

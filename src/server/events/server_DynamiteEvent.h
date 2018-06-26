@@ -4,6 +4,7 @@
 #include "server_IEvent.h"
 #include "../server_Player.h"
 
+// Hereda de IEvent. Activa la dinamita.
 class DynamiteEvent : public IEvent {
 private:
     Player* player;

@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre una dinamita.
+ */
 class DynamiteNotification : public INotification {
 private:
     ClientHandler* client;

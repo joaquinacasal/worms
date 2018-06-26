@@ -6,6 +6,9 @@
 #include <QPixmap>
 #include <QWidget>
 
+// Label que representa a un gusano o una viga, hereda de QLabel. Son los
+// objetos que el usuario arrastra por la pantalla para diseñar el nivel.
+// Contienen una imagen para identificarlos.
 class DragLabel : public QLabel
 {
 private:

@@ -4,6 +4,7 @@
 #include "client_ICapturedEvent.h"
 #include "../../common/common_SocketProtocol.h"
 
+// Representación de la acción de moverse hacia la izquierda.
 class MoveLeftCapturedEvent : public ICapturedEvent {
 private:
     SocketProtocol& socket_protocol;

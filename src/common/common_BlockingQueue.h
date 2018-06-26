@@ -5,6 +5,8 @@
 #include <condition_variable>
 #include <deque>
 
+// Template de una cola bloqueante, la cual bloquea la actividad del thread en
+// el pop en el caso que la cola esté vacía, utilizando conditional variables.
 template <typename T>
 class BlockingQueue
 {

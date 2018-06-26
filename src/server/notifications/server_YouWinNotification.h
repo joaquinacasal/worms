@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía la notificación al jugador que ganó.
+ */
 class YouWinNotification : public INotification {
 private:
     ClientHandler* client;

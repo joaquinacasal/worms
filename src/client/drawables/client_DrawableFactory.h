@@ -23,8 +23,10 @@
 #include "client_YouLoseDrawable.h"
 #include "client_MunitionsDrawable.h"
 
-/* Clase que representa a una fábrica de objetos Drawable, recibe
- * por socket la información necesaria y los encola en la cola protegida.
+/* Clase que representa a una fábrica de objetos Drawable, recibe por socket
+ * la información necesaria (código + datos si son necesarios) y los encola en
+ * la cola protegida, que luego serán extraídos en el drawer que se esté
+ * utilizando.
  */
 
  #define PROTOCOL_CLOSED_CON 0x09

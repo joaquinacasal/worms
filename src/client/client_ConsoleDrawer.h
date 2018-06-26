@@ -39,8 +39,11 @@ class YouWinDrawable;
 class YouLoseDrawable;
 class MunitionsDrawable;
 
-/* Clase que representa al dibujador por consola. Saca los Drawables de una
- * protegida y los imprime por consola.
+/* Dibuja todo lo recibido por la consola. Sirvió en un primer momento para
+ * agilizar la integración entre cliente y servidor cuando no teníamos una
+ * interfaz de usuario funcionando. Hereda de thread ya que el cliente en
+ * un hilo recibe de forma bloqueante eventos, y en este hilo recibe
+ * dibujables.
  */
 class ConsoleDrawer : public Thread {
 private:

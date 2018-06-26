@@ -7,6 +7,7 @@
 class SdlWindow;
 class ConsoleDrawer;
 
+// Representación de una viga.
 class BeamDrawable : public IDrawable {
 private:
     double x;

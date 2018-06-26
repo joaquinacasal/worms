@@ -3,6 +3,9 @@
 
 #include "server_INotification.h"
 
+/*
+ * Hereda de INotification. Envía información sobre las municiones del jugador.
+ */
 class MunitionsNotification : public INotification {
 private:
     ClientHandler* client;

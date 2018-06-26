@@ -12,6 +12,10 @@
 #define LONG_BEAM_IMAGE_FILENAME "long_beam.png"
 #define ANGLE_DELTA 45
 
+// Widget que representa al escenario, hereda de QWidget. Contiene a los
+// widgets que representan a los gusanos y la vigas, manejando la lógica
+// necesaria para realizar el drag and drop.
+
 class DragWidget : public QWidget
 {
 public:

@@ -11,6 +11,9 @@ using std::string;
 using std::vector;
 using std::map;
 
+// Clase que maneja la lógica para serializar y deserializar los escenarios.
+// Además, se encarga de almacenar la información del escenario que el
+// usuario diseña.
 class ScenarioSaver
 {
 private:

@@ -6,7 +6,12 @@
 #define CAMERA_SPEED 30
 
 enum CameraMovement { UP, DOWN, RIGHT, LEFT };
-
+/*
+ * Clase encargada de la cámara del cliente. Ésta define qué espacio del
+ * escenario mostrar, y para ello hace todas las conversiones necesarias.
+ * Además, permite centrar la cámara en una coordenada dada, y navegar a
+ * través del escenario.
+ */
 class Camera {
 public:
     Camera() = default;

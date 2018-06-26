@@ -8,8 +8,8 @@
 
 class ICapturedEvent;
 
-/* Clase que representa al dibujador por consola. Saca los Drawables de una
- * protegida y los imprime por consola.
+/* Conectado con el thread que captura los eventos y los crea a través de
+ * una cola bloqueante, los desencola y los envía a través del socket.
  */
 class CapturedEventSender : public Thread {
 private:
