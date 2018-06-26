@@ -8,7 +8,7 @@ NotifierThread::NotifierThread(){
 void NotifierThread::run(){
   INotification* notification = NULL;
   while (continue_sending || blocking_queue.size() > 0) {
-    blocking_queue.pop(notification);
+    if (blocking_queue.pop(notification) || !notification) continue;
     if (notification) {
       notification->run();
       delete notification;
