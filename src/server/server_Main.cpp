@@ -1,9 +1,9 @@
-#include "server_GameThread.h"
-#include "config.h"
 #include <iostream>
 #include <string>
+#include "server_GameThread.h"
+#include "config.h"
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) try {
   GameThread gt(argv[1], string(SCENARIOS_FOLDER) + \
                 string(argv[3]), atoi(argv[2]));
   gt.start_connection();
@@ -17,4 +17,7 @@ int main(int argc, char* argv[]){
   }
   if (gt.was_connected()) gt.join();
   return 0;
+} catch (...){
+  std::cout << "Ocurrió un problema" << std::endl;
+  return -1;
 }

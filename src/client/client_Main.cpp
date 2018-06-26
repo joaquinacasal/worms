@@ -1,3 +1,4 @@
+#include <iostream>
 #include <mutex>
 #include <SDL2/SDL.h>
 #include "client_SdlWindow.h"
@@ -12,7 +13,7 @@
 
 enum InputState { WAITING_COMMAND, WAITING_RADIO_CLICK, WAITING_TELE_CLICK };
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) try {
   SocketProtocol sp("127.0.0.1", argv[1]);
   SafeQueue<IDrawable*> safe_queue;
   BlockingQueue<ICapturedEvent*> blocking_queue;
@@ -123,4 +124,7 @@ int main(int argc, char* argv[]){
   captured_event_sender.stop();
   captured_event_sender.join();
   return 0;
+} catch (...){
+  std::cout << "Ocurrió un problema" << std::endl;
+  return -1;
 }
