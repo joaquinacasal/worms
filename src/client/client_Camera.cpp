@@ -32,8 +32,8 @@ void Camera::coordinates_to_absolut(int* x, int* y){
 }
 
 Area Camera::get_center(int width, int height){
-    int x = position.getX() + position.getWidth() / 2 - width / 2;
-    int y = position.getY() + position.getHeight() / 2 - height / 2;
+    int x = position.getWidth() / 2 - width / 2;
+    int y = position.getHeight() / 2 - height / 2;
     return Area(x, y, width, height);
 }
 
@@ -56,8 +56,8 @@ void Camera::move(CameraMovement movement){
 }
 
 void Camera::center(int x, int y){
-    position.setX(x - map_width / 2);
-    position.setY(y - map_height / 2);
+    position.setPosition(x - position.getWidth() / 2,\
+                        y - position.getHeight() / 2);
     check_position();
 }
 
