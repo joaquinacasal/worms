@@ -10,7 +10,8 @@ CapturedEventSender::CapturedEventSender(BlockingQueue<ICapturedEvent*>&\
 void CapturedEventSender::run(){
   ICapturedEvent* event;
   while (connected || blocking_queue.size() > 0) {
-    if (blocking_queue.pop(event) || !event) continue;
+    blocking_queue.pop(event);
+    if (!event) continue;
     event->send();
     if (!event->continue_sending())
       connected = false;
@@ -31,7 +32,7 @@ void CapturedEventSender::stop(){
 CapturedEventSender::~CapturedEventSender(){
   ICapturedEvent* event;
   while (blocking_queue.size() > 0) {
-      if (blocking_queue.pop(event) || !event) continue;
+      blocking_queue.pop(event);
       delete event;
   }
 }

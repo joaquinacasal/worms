@@ -20,15 +20,13 @@ public:
         }
         this->d_condition.notify_one();
     }
-    bool pop(T& elem) {
+    void pop(T& elem) {
         std::unique_lock<std::mutex> lock(this->d_mutex);
         // la función wait solo funciona recibiendo un unique_lock, por eso
-        // no utilizo la función RAII Lock. Si falla se llama al segundo
-        // bloque de código que recibe.
-        this->d_condition.wait(lock, [=]{ return !d_queue.empty(); });
+        // no utilizo la función RAII Lock.
+        this->d_condition.wait(lock, [=]{ return !this->d_queue.empty(); });
         elem = this->d_queue.back();
         this->d_queue.pop_back();
-        return true;
     }
 
     size_t size(){
