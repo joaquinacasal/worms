@@ -22,15 +22,21 @@ El presente trabajo práctico busca replicar el famoso juego multijugador Worms,
 
 
 #### Teclas para jugar
-* key_left-> mover a la izquierda.
-* key_right-> mover a la derecha.
-* key_down-> dejar de moverse.
-* key_up-> saltar hacia adelante.
-* Backspac-> saltar hacia atrás.
-* d-> activa dinamita
-* r-> activa teledirigido (además hay que ingresar una coordenada x, luego la y)
-* t-> activa teletransportación (además hay que ingresar una coordenada x, luego la y)
+* key_left-> mover la cámara a la izquierda.
+* key_right-> mover la cámara a la derecha.
+* key_down-> mover la cámara hacia abajo.
+* key_up-> mover la cámara hacia arriba.
+* w-> saltar hacia adelante.
+* a-> moverse hacia la izquierda.
+* s-> dejar de moverse.
+* d-> moverse hacia la derecha.
+* Backspace-> saltar hacia atrás.
+* b-> activa dinamita
+* r + click-> activa teledirigido centrado en el x del click.
+* t + click-> teletransporta al gusano actual a la coordenada recibida por el click.
 * q-> cerrar el juego (tanto cliente como servidor)
 
 ## Links útiles
-* Informe: https://docs.google.com/document/d/1z8gO7SBtF2PPZrYFyjVvekyE1n3bp_KuHaufdjVa_4s/edit?usp=sharing
+* Documentación técnica: https://docs.google.com/document/d/1z8gO7SBtF2PPZrYFyjVvekyE1n3bp_KuHaufdjVa_4s/edit?usp=sharing
+* Manual de usuario: https://docs.google.com/document/d/1BO86OQEcqxtVytbcVMgaSVQCnXZGOx8a4pVjiVpp77E/edit?usp=sharing
+* Manual de proyecto: https://docs.google.com/document/d/1SfVfruFBGIP3bEKCizBT2aNMIQu2VXQ7ayQYPIul2rs/edit?usp=sharing
