@@ -7,8 +7,8 @@
 class MainWindow;
 
 Dialog::Dialog(MainWindow* window, int width, int height) :
-    main_window(window), QDialog(window), scenario_width(width), \
-    scenario_height(height), ui(new Ui::Dialog) {
+    QDialog(window), ui(new Ui::Dialog), main_window(window),\
+    scenario_width(width), scenario_height(height) {
     ui->setupUi(this);
     ui->errorLabel->hide();
     ui->widthInput->appendPlainText(QString::number(scenario_width));
